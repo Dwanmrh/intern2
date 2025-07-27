@@ -7,7 +7,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard.index') }}">
-                        <img src="{{ asset('assets/images/LOGO_SECAPA.png') }}" class="block h-9 w-auto" alt="Logo" />
+                        <img src="{{ asset('assets/images/logo.png') }}" class="block h-9 w-auto" alt="Logo" />
                     </a>
                 </div>
 

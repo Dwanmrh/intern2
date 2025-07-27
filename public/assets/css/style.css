@@ -247,3 +247,13 @@ body.without-sidebar .main-content {
   object-fit: cover;
   width: 100%;
 }
+
+/* ====== FOOTER ====== */
+footer a {
+  font-size: 13px;
+}
+
+footer p {
+  font-size: 13px;
+  line-height: 1.4;
+}
