@@ -10,9 +10,9 @@
             <ul class="space-y-2 text-sm">
                 <li><a href="{{ url('/') }}" class="hover:text-blue-300">Home</a></li>
                 <li><a href="profil" class="hover:text-blue-300">Profil</a></li>
-                <li><a href="{{ route('informasi') }}" class="hover:text-blue-300">Informasi</a></li>
+                <li><a href="{{ route('informasi.index') }}" class="hover:text-blue-300">Informasi</a></li>
                 <li><a href="{{ route('berita') }}" class="hover:text-blue-300">Berita</a></li>
-                <li><a href="{{ route('galeri') }}" class="hover:text-blue-300">Galeri</a></li>
+                <li><a href="{{ route('galeri.index') }}" class="hover:text-blue-300">Galeri</a></li>
             </ul>
         </div>
 

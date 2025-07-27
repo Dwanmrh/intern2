@@ -68,6 +68,12 @@
             <li>
               <a class="dropdown-item" href="#" target="_blank">Web SIPLS</a>
             </li>
+            <li>
+              <a class="dropdown-item" href="#" target="_blank">E-Library Lemdiklat Polri</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#" target="_blank">Smart Class</a>
+            </li>
           </ul>
         </li>
 

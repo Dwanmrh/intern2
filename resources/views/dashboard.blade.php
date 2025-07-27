@@ -1,63 +1,133 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Home') }}
-        </h2>
-    </x-slot>
+    <div class="py-5">
+        <div class="container">
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            {{-- Hero / Header Image --}}
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
-                <div class="text-center mb-4">
-                    <img src="{{ asset('assets/images/setukpa2.jpg') }}" class="rounded shadow mx-auto" alt="Profil Setukpa" style="max-height: 400px; object-fit: cover;">
+{{-- Tombol Tambah --}}
+@auth
+    @if(Auth::user()->role === 'admin')
+        <div class="mb-3 text-end position-relative z-10">
+            <a href="{{ route('dashboard.create') }}" class="btn btn-primary">
+                + Tambah Preview
+            </a>
+        </div>
+    @endif
+@endauth
+
+            {{-- Notifikasi --}}
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
                 </div>
-            </div>
+            @endif
+
+            {{-- Carousel --}}
+            @php
+                $validDashboards = $dashboards->filter(fn($item) => !empty($item->file))->values();
+            @endphp
+
+            <div id="dashboardCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        @foreach($validDashboards as $index => $item)
+    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+        @if(\Illuminate\Support\Str::endsWith($item->file, ['.mp4', '.mov', '.webm']))
+            <video class="d-block w-100 rounded" autoplay loop muted style="object-fit: cover; max-height: 480px;>
+                <source src="{{ asset('storage/' . $item->file) }}" type="video/mp4">
+            </video>
+        @else
+            <img src="{{ asset('storage/' . $item->file) }}" class="d-block w-100 rounded" style="object-fit: cover; max-height: 480px;" alt="Preview">
+        @endif
+
+        {{-- Tombol Edit & Hapus untuk setiap item --}}
+        @auth
+    @if(Auth::user()->role === 'admin')
+        {{-- Tombol Edit & Hapus untuk setiap item --}}
+        <div class="position-absolute top-0 end-0 p-3 z-10">
+            <a href="{{ route('dashboard.edit', $item->id) }}"
+               class="btn btn-warning btn-sm shadow-sm">Edit</a>
+
+            <form action="{{ route('dashboard.destroy', $item->id) }}"
+                  method="POST"
+                  onsubmit="return confirm('Yakin ingin menghapus preview ini?');"
+                  style="display:inline;">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger btn-sm shadow-sm">Hapus</button>
+            </form>
+        </div>
+    @endif
+@endauth
+    </div>
+@endforeach
+    </div>
+
+    @if ($validDashboards->count() > 1)
+        <button class="carousel-control-prev" type="button" data-bs-target="#dashboardCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#dashboardCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    @endif
+</div>
 
             {{-- Section Berita --}}
-            <div class="bg-white mt-10 shadow-sm sm:rounded-lg p-6">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-lg font-bold text-gray-800">Berita</h3>
-                    <a href="{{ route('berita') }}" class="text-sm font-semibold text-gray-700 hover:text-blue-600">
-                        Lihat Lebih Lanjut <i class="bi bi-journal-text"></i>
-                    </a>
+            <div class="card mb-5">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Berita</h5>
+                    <a href="{{ route('berita') }}" class="btn btn-link btn-sm">Lihat Lebih Lanjut</a>
                 </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    @for($i = 0; $i < 4; $i++)
-                    <div class="bg-gray-100 rounded shadow hover:shadow-md overflow-hidden">
-                        <img src="{{ asset('assets/images/berita4.jpg') }}" alt="Berita" class="w-full h-40 object-cover">
-                        <div class="p-4 text-sm">
-                            <p class="text-gray-500 text-xs mb-1"><i class="bi bi-calendar"></i> Sabtu, 08 Mei 2025</p>
-                            <p class="text-gray-700 mb-2">Teks</p>
-                            <a href="#" class="text-sm font-semibold text-blue-600 hover:underline">
-                                Baca Lebih Lanjut <i class="bi bi-journal-text"></i>
-                            </a>
-                        </div>
+                <div class="card-body">
+                    <div class="row">
+                        @forelse($beritas as $berita)
+                            <div class="col-md-3 mb-4">
+                                <div class="card h-100">
+                                    <img src="{{ asset('storage/' . $berita->foto) }}" class="card-img-top" alt="Berita">
+                                    <div class="card-body">
+                                        <p class="text-muted small">
+                                            <i class="bi bi-calendar"></i>
+                                            {{ \Carbon\Carbon::parse($berita->tanggal)->translatedFormat('l, d M Y') }}
+                                        </p>
+                                        <p class="card-text">{{ \Illuminate\Support\Str::limit(strip_tags($berita->judul), 50) }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        @empty
+                            <p class="text-center text-muted">Belum ada berita.</p>
+                        @endforelse
                     </div>
-                    @endfor
                 </div>
             </div>
 
             {{-- Section Galeri --}}
-            <div class="bg-white mt-10 shadow-sm sm:rounded-lg p-6">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-lg font-bold text-gray-800">Galeri</h3>
-                    <a href="{{ route('galeri') }}" class="text-sm font-semibold text-gray-700 hover:text-blue-600">
-                        Lihat Lebih Lanjut <i class="bi bi-journal-text"></i>
-                    </a>
+            <div class="card mb-5">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Galeri</h5>
+                    <a href="{{ route('galeri.index') }}" class="btn btn-link btn-sm">Lihat Lebih Lanjut</a>
                 </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    @for($i = 0; $i < 4; $i++)
-                    <div class="bg-gray-100 rounded shadow hover:shadow-md overflow-hidden">
-                        <img src="{{ asset('assets/images/sipls3.jpg') }}" alt="Galeri" class="w-full h-40 object-cover">
-                        <div class="p-4 text-sm">
-                            <p class="text-gray-500 text-xs mb-1"><i class="bi bi-calendar"></i> Jumat, 24 April 2025</p>
-                            <p class="text-gray-700 mb-2">Teks</p>
-                        </div>
+                <div class="card-body">
+                    <div class="row">
+                        @forelse($galeris as $galeri)
+                            <div class="col-md-3 mb-4">
+                                <div class="card h-100">
+                                    <img src="{{ asset('storage/' . $galeri->foto) }}" class="card-img-top" alt="Galeri">
+                                    <div class="card-body">
+                                        <p class="text-muted small">
+                                            <i class="bi bi-calendar"></i>
+                                            {{ \Carbon\Carbon::parse($galeri->tanggal)->translatedFormat('l, d M Y') }}
+                                        </p>
+                                        <p class="card-text">{{ $galeri->judul }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        @empty
+                            <p class="text-center text-muted">Belum ada galeri.</p>
+                        @endforelse
                     </div>
-                    @endfor
                 </div>
             </div>
+
         </div>
     </div>
 </x-app-layout>

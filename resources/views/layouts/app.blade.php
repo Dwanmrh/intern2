@@ -13,11 +13,17 @@
 
         <!-- Bootstrap Icons -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+@vite(['resources/css/app.css', 'resources/js/app.js'])
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+
     </head>
-    <body class="font-sans antialiased">
+    <body class="pt-20 bg-gray-100 font-sans antialiased">
         <div class="min-h-screen bg-gray-100 flex flex-col justify-between">
             {{-- Navbar --}}
             @include('layouts.navigation')
@@ -40,4 +46,5 @@
             @include('components.footer')
         </div>
     </body>
+</script>
 </html>
