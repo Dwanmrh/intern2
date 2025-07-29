@@ -23,8 +23,8 @@
 <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
     </head>
-    <body class="pt-20 bg-gray-100 font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 flex flex-col justify-between">
+    <body class="pt-20 font-sans antialiased" style="background-color: #E5E5E5;">
+        <div class="min-h-screen flex flex-col justify-between" style="background-color: #E5E5E5;">
             {{-- Navbar --}}
             @include('layouts.navigation')
 
