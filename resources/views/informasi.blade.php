@@ -1,11 +1,22 @@
 <x-app-layout>
 
-    <div class="mb-4 text-end">
-    <a href="{{ route('informasi.create') }}"
-       class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
-        + Tambah Informasi
-    </a>
-</div>
+    {{-- Button Tambah --}}
+    @auth
+        @if(Auth::user()->role === 'admin')
+            <div class="mb-3 text-end position-relative z-10">
+                <a href="{{ route('informasi.create') }}" class="btn btn-primary">
+                    + Tambah Informasi
+                </a>
+            </div>
+        @endif
+    @endauth
+
+    {{-- Notifikasi --}}
+    @if (session('success'))
+        <div class="mb-4 p-4 bg-green-100 text-green-800 rounded">
+            {{ session('success') }}
+        </div>
+    @endif
 
     <div class="py-8 bg-gray-100">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -43,9 +54,9 @@
 
             </div>
 
-            {{-- Kontak dan Media Sosial --}}
+            {{-- Media Sosial dan Kontak --}}
             <div class="mt-16 bg-gray-200 rounded-lg p-6 text-center">
-                <h3 class="text-lg font-semibold mb-4">Kontak Dan Media Sosial</h3>
+                <h3 class="text-lg font-semibold mb-4"> Media Sosial dan Kontak </h3>
                 <div class="flex flex-wrap justify-center gap-4">
                     <a href="#" class="bg-white shadow p-3 rounded-lg w-24 text-xs flex flex-col items-center hover:shadow-md">
                         <i class="bi bi-instagram text-xl mb-1"></i> Instagram

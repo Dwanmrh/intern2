@@ -15,7 +15,7 @@ class BeritaController extends Controller
 
     public function create()
     {
-        return view('berita.add-berita');
+        return view('berita.create');
     }
 
     public function store(Request $request)
@@ -24,7 +24,7 @@ class BeritaController extends Controller
             'judul' => 'required|string|max:255',
             'isi_berita' => 'required|string',
             'tanggal' => 'required|date',
-            'foto' => 'nullable|image|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:10000',
         ]);
 
         if ($request->hasFile('foto')) {
@@ -32,13 +32,13 @@ class BeritaController extends Controller
         }
 
         Berita::create($validated);
-        return redirect()->route('berita')->with('success', 'Berita berhasil ditambahkan'); 
+        return redirect()->route('berita.index')->with('success', 'Berita berhasil ditambahkan.');
     }
 
     public function edit($id)
     {
         $beritas = Berita::findOrFail($id);
-        return view('berita.edit-berita', compact('beritas'));
+        return view('berita.edit', compact('beritas'));
     }
 
     public function update(Request $request, $id)
@@ -49,7 +49,7 @@ class BeritaController extends Controller
             'judul' => 'required|string|max:255',
             'isi_berita' => 'required|string',
             'tanggal' => 'required|date',
-            'foto' => 'nullable|image|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:10000',
         ]);
 
         if ($request->hasFile('foto')) {
@@ -57,13 +57,13 @@ class BeritaController extends Controller
         }
 
         $beritas->update($validated);
-        return redirect()->route('berita')->with('success', 'Berita berhasil diupdate');
+        return redirect()->route('berita.index')->with('success', 'Berita berhasil diperbarui.');
     }
 
     public function destroy($id)
     {
         $beritas = Berita::findOrFail($id);
         $beritas->delete();
-        return redirect()->route('berita')->with('success', 'Berita berhasil dihapus');
+        return redirect()->route('berita.index')->with('success', 'Berita berhasil dihapus.');
     }
 }

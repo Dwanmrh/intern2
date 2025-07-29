@@ -1,35 +1,37 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Edit Data Pimpinan
-        </h2>
-    </x-slot>
 
     <div class="py-8">
         <div class="max-w-xl mx-auto bg-white p-6 shadow rounded-md">
-            <form action="{{ route('pimpinan.update', $pimpinan->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('galeri.update', $galeri->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
-                {{-- Nama --}}
+                {{-- Judul --}}
                 <div class="mb-4">
-                    <label class="block text-gray-700 font-medium mb-1">Nama</label>
-                    <input type="text" name="nama" value="{{ $pimpinan->nama }}"
+                    <label class="block text-gray-700 font-medium mb-1">Judul</label>
+                    <input type="text" name="judul" value="{{ $galeri->judul }}"
                            class="w-full border-gray-300 rounded-md shadow-sm" required>
                 </div>
 
-                {{-- Jabatan --}}
+                {{-- Deskripsi --}}
                 <div class="mb-4">
-                    <label class="block text-gray-700 font-medium mb-1">Jabatan</label>
-                    <input type="text" name="jabatan" value="{{ $pimpinan->jabatan }}"
+                    <label class="block text-gray-700 font-medium mb-1">Deskripsi</label>
+                    <input type="text" name="deskripsi" value="{{ $galeri->deskripsi }}"
+                           class="w-full border-gray-300 rounded-md shadow-sm" required>
+                </div>
+
+                {{-- Tanggal --}}
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-medium mb-1">Tanggal</label>
+                    <input type="date" name="tanggal" value="{{ $galeri->tanggal }}"
                            class="w-full border-gray-300 rounded-md shadow-sm" required>
                 </div>
 
                 {{-- Foto Lama --}}
-                @if ($pimpinan->foto)
+                @if ($galeri->foto)
                     <div class="mb-4">
                         <label class="block text-gray-700 font-medium mb-1">Foto Saat Ini</label>
-                        <img src="{{ asset('storage/' . $pimpinan->foto) }}" class="h-40 rounded shadow">
+                        <img src="{{ asset('storage/' . $galeri->foto) }}" class="h-40 rounded shadow">
                     </div>
                 @endif
 
@@ -41,7 +43,7 @@
 
                 {{-- Tombol --}}
                 <div class="flex justify-end">
-                    <a href="{{ route('profil') }}"
+                    <a href="{{ route('galeri.index') }}"
                        class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded mr-2">
                         Batal
                     </a>

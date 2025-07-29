@@ -1,13 +1,8 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Tambah Data Pimpinan
-        </h2>
-    </x-slot>
 
     <div class="py-8">
         <div class="max-w-xl mx-auto bg-white p-6 shadow rounded-md">
-            <form action="{{ route('pimpinan.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('profil.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 {{-- Nama --}}
@@ -28,9 +23,9 @@
                     <input type="file" name="foto" class="w-full">
                 </div>
 
-                {{-- Tombol --}}
+                {{-- Button --}}
                 <div class="flex justify-end">
-                    <a href="{{ route('profil') }}"
+                    <a href="{{ route('profil.index') }}"
                        class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded mr-2">
                         Batal
                     </a>

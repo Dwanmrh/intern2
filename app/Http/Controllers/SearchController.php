@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Dashboard;
-use App\Models\Pimpinan;
+use App\Models\Profil;
 use App\Models\Berita;
 use App\Models\Informasi;
 use App\Models\Galeri;
@@ -24,12 +24,12 @@ class SearchController extends Controller
                 'category' => 'Home'
             ]);
 
-        $profil = Pimpinan::where('nama', 'like', "%{$query}%")
+        $profil = Profil::where('nama', 'like', "%{$query}%")
             ->select('id', 'nama as title')
             ->get()
             ->map(fn($item) => [
                 'title' => $item->title,
-                'url' => route('profil') . "#pimpinan{$item->id}",
+                'url' => route('profil.index') . "#profil{$item->id}",
                 'category' => 'Profil'
             ]);
 
@@ -38,7 +38,7 @@ class SearchController extends Controller
             ->get()
             ->map(fn($item) => [
                 'title' => $item->title,
-                'url' => route('berita') . "#berita{$item->id}",
+                'url' => route('berita.index') . "#berita{$item->id}",
                 'category' => 'Berita'
             ]);
 

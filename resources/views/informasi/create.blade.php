@@ -1,9 +1,4 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Tambah Informasi
-        </h2>
-    </x-slot>
 
     <div class="py-8">
         <div class="max-w-xl mx-auto bg-white p-6 shadow rounded-md">
@@ -34,7 +29,7 @@
                     <input type="file" name="foto" class="w-full">
                 </div>
 
-                {{-- Tombol --}}
+                {{-- Button --}}
                 <div class="flex justify-end">
                     <a href="{{ route('informasi.index') }}"
                        class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded mr-2">

@@ -2,7 +2,7 @@
     <div class="py-5">
         <div class="container">
 
-{{-- Tombol Tambah --}}
+{{-- Button Tambah --}}
 @auth
     @if(Auth::user()->role === 'admin')
         <div class="mb-3 text-end position-relative z-10">
@@ -76,7 +76,7 @@
             <div class="card mb-5">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Berita</h5>
-                    <a href="{{ route('berita') }}" class="btn btn-link btn-sm">Lihat Lebih Lanjut</a>
+                    <a href="{{ route('berita.index') }}" class="btn btn-link btn-sm">Lihat Lebih Lanjut</a>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -94,7 +94,7 @@
                                 </div>
                             </div>
                         @empty
-                            <p class="text-center text-muted">Belum ada berita.</p>
+                            <p class="text-center text-muted">Belum ada berita yang ditambahkan.</p>
                         @endforelse
                     </div>
                 </div>
@@ -122,7 +122,7 @@
                                 </div>
                             </div>
                         @empty
-                            <p class="text-center text-muted">Belum ada galeri.</p>
+                            <p class="text-center text-muted">Belum ada konten yang ditambahkan.</p>
                         @endforelse
                     </div>
                 </div>

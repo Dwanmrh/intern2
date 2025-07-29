@@ -10,7 +10,7 @@
             <a href="{{ url('/') }}" class="hover:text-blue-300">Home</a>
             <a href="{{ url('profil') }}" class="hover:text-blue-300">Profil</a>
             <a href="{{ route('informasi.index') }}" class="hover:text-blue-300">Informasi</a>
-            <a href="{{ route('berita') }}" class="hover:text-blue-300">Berita</a>
+            <a href="{{ route('berita.index') }}" class="hover:text-blue-300">Berita</a>
             <a href="{{ route('galeri.index') }}" class="hover:text-blue-300">Galeri</a>
         </div>
 

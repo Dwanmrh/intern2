@@ -16,14 +16,17 @@
                     <x-nav-link :href="route('dashboard.index')" :active="request()->routeIs('dashboard')" class="text-white hover:text-blue-300 hover:border-blue-300">
                         {{ __('Home') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('profil')" :active="request()->routeIs('profil')" class="text-white hover:text-blue-300 hover:border-blue-300">
+                    <x-nav-link :href="route('profil.index')" :active="request()->routeIs('profil')" class="text-white hover:text-blue-300 hover:border-blue-300">
                         {{ __('Profil') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('berita')" :active="request()->routeIs('berita')" class="text-white hover:text-blue-300 hover:border-blue-300">
+                    <x-nav-link :href="route('berita.index')" :active="request()->routeIs('berita')" class="text-white hover:text-blue-300 hover:border-blue-300">
                         {{ __('Berita') }}
                     </x-nav-link>
                     <x-nav-link :href="route('informasi.index')" :active="request()->routeIs('informasi')" class="text-white hover:text-blue-300 hover:border-blue-300">
                         {{ __('Informasi') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('fasilitas.index')" :active="request()->routeIs('fasilitas')" class="text-white hover:text-blue-300 hover:border-blue-300">
+                        {{ __('Fasilitas') }}
                     </x-nav-link>
                     <x-nav-link :href="route('galeri.index')" :active="request()->routeIs('galeri')" class="text-white hover:text-blue-300 hover:border-blue-300">
                         {{ __('Galeri') }}
@@ -46,6 +49,7 @@
                             <x-dropdown-link :href="'#'" target="_blank">Web SIPLS</x-dropdown-link>
                             <x-dropdown-link :href="'#'" target="_blank">E-Library Lemdiklat Polri</x-dropdown-link>
                             <x-dropdown-link :href="'#'" target="_blank">Smart Class</x-dropdown-link>
+                            <x-dropdown-link :href="'#'" target="_blank">E-Setukpa</x-dropdown-link>
                         </x-slot>
                     </x-dropdown>
                 </div>
@@ -100,16 +104,19 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden bg-gray-800 text-white">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard.index')" :active="request()->routeIs('dashboard')" class="text-white hover:text-blue-300">
-                {{ __('Dashboard') }}
+                {{ __('Home') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('profil')" :active="request()->routeIs('profil')" class="text-white hover:text-blue-300">
+            <x-responsive-nav-link :href="route('profil.index')" :active="request()->routeIs('profil')" class="text-white hover:text-blue-300">
                 {{ __('Profil') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('berita.index')" :active="request()->routeIs('berita')" class="text-white hover:text-blue-300">
+                {{ __('Berita') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('informasi.index')" :active="request()->routeIs('informasi')" class="text-white hover:text-blue-300">
                 {{ __('Informasi') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('berita')" :active="request()->routeIs('berita')" class="text-white hover:text-blue-300">
-                {{ __('Berita') }}
+            <x-responsive-nav-link :href="route('fasilitas.index')" :active="request()->routeIs('fasilitas')" class="text-white hover:text-blue-300">
+                {{ __('Fasilitas') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('galeri.index')" :active="request()->routeIs('galeri')" class="text-white hover:text-blue-300">
                 {{ __('Galeri') }}

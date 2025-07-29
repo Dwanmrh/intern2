@@ -16,7 +16,7 @@ class InformasiController extends Controller
 
     public function create()
     {
-        return view('informasi.create-informasi');
+        return view('informasi.create');
     }
 
     public function store(Request $request)
@@ -25,7 +25,7 @@ class InformasiController extends Controller
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
             'tanggal' => 'required|date',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:10000',
         ]);
 
         if ($request->hasFile('foto')) {
@@ -40,7 +40,7 @@ class InformasiController extends Controller
     public function edit($id)
     {
         $informasi = Informasi::findOrFail($id);
-        return view('informasi.edit-informasi', compact('informasi'));
+        return view('informasi.edit', compact('informasi'));
     }
 
     public function update(Request $request, $id)
@@ -51,7 +51,7 @@ class InformasiController extends Controller
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
             'tanggal' => 'required|date',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:10000',
         ]);
 
         if ($request->hasFile('foto')) {

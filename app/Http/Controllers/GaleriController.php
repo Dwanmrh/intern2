@@ -15,7 +15,7 @@ class GaleriController extends Controller
 
     public function create()
     {
-        return view('galeri.create-galeri');
+        return view('galeri.create');
     }
 
     public function store(Request $request)
@@ -24,7 +24,7 @@ class GaleriController extends Controller
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
             'tanggal' => 'required|date',
-            'foto' => 'required|image|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:10000',
         ]);
 
         if ($request->hasFile('foto')) {
@@ -32,13 +32,13 @@ class GaleriController extends Controller
         }
 
         Galeri::create($validated);
-        return redirect()->route('galeri.index')->with('success', 'Foto galeri berhasil ditambahkan');
+        return redirect()->route('galeri.index')->with('success', 'Konten berhasil ditambahkan');
     }
 
     public function edit($id)
     {
         $galeri = Galeri::findOrFail($id);
-        return view('galeri.edit-galeri', compact('galeri'));
+        return view('galeri.edit', compact('galeri'));
     }
 
     public function update(Request $request, $id)
@@ -49,7 +49,7 @@ class GaleriController extends Controller
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
             'tanggal' => 'required|date',
-            'foto' => 'nullable|image|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:10000',
         ]);
 
         if ($request->hasFile('foto')) {
@@ -57,13 +57,13 @@ class GaleriController extends Controller
         }
 
         $galeri->update($validated);
-        return redirect()->route('galeri.index')->with('success', 'Foto galeri berhasil diperbarui');
+        return redirect()->route('galeri.index')->with('success', 'Konten berhasil diperbarui');
     }
 
     public function destroy($id)
     {
         $galeri = Galeri::findOrFail($id);
         $galeri->delete();
-        return redirect()->route('galeri.index')->with('success', 'Foto galeri berhasil dihapus');
+        return redirect()->route('galeri.index')->with('success', 'Konten berhasil dihapus');
     }
 }

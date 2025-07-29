@@ -31,7 +31,7 @@ class DashboardController extends Controller
         $request->validate([
             'judul' => 'required|string|max:255',
             'tanggal' => 'required|date',
-            'file' => 'nullable|mimes:jpg,jpeg,png,mp4,mov,webm|max:10240', // max 10MB
+            'file' => 'nullable|mimes:jpg,jpeg,png,mp4,mov,webm|max:10000', 
         ]);
 
         $data = $request->only('judul', 'tanggal');
@@ -42,7 +42,7 @@ class DashboardController extends Controller
 
         Dashboard::create($data);
 
-        return redirect()->route('dashboard.index')->with('success', 'Data berhasil ditambahkan.');
+        return redirect()->route('dashboard.index')->with('success', 'Preview berhasil ditambahkan.');
     }
 
     // Menampilkan form edit
@@ -60,7 +60,7 @@ class DashboardController extends Controller
         $request->validate([
             'judul' => 'required|string|max:255',
             'tanggal' => 'required|date',
-            'file' => 'nullable|mimes:jpg,jpeg,png,mp4,mov,webm|max:10240',
+            'file' => 'nullable|mimes:jpg,jpeg,png,mp4,mov,webm|max:10000',
         ]);
 
         $data = $request->only('judul', 'tanggal');
@@ -76,7 +76,7 @@ class DashboardController extends Controller
 
         $dashboard->update($data);
 
-        return redirect()->route('dashboard.index')->with('success', 'Data berhasil diperbarui.');
+        return redirect()->route('dashboard.index')->with('success', 'Preview berhasil diperbarui.');
     }
 
     // Menghapus data
@@ -90,6 +90,6 @@ class DashboardController extends Controller
 
         $dashboard->delete();
 
-        return redirect()->route('dashboard.index')->with('success', 'Data berhasil dihapus.');
+        return redirect()->route('dashboard.index')->with('success', 'Preview berhasil dihapus.');
     }
 }

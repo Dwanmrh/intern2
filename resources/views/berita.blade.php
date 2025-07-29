@@ -3,13 +3,16 @@
     <div class="py-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-            {{-- Tombol Tambah --}}
-            <div class="mb-4 text-end">
-                <a href="{{ route('berita.add-berita') }}"
-                   class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
-                    + Tambah Berita
-                </a>
-            </div>
+            {{-- Button Tambah --}}
+@auth
+    @if(Auth::user()->role === 'admin')
+        <div class="mb-3 text-end position-relative z-10">
+            <a href="{{ route('berita.create') }}" class="btn btn-primary">
+                + Tambah Berita
+            </a>
+        </div>
+    @endif
+@endauth
 
             {{-- Notifikasi --}}
             @if (session('success'))
@@ -39,7 +42,7 @@
                             </p>
                             {{-- Edit --}}
                             <div class="flex justify-between">
-                                <a href="{{ route('berita.edit-berita', $berita->id) }}"
+                                <a href="{{ route('berita.edit', $berita->id) }}"
                                    class="text-blue-600 hover:underline">Edit</a>
                                 {{-- Hapus --}}
                                 <form action="{{ route('berita.destroy', $berita->id) }}" method="POST"
