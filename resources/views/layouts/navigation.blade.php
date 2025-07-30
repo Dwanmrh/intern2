@@ -205,17 +205,19 @@
                 @auth
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
-                            <button class="inline-flex items-center px-4 py-2 rounded-lg transition duration-200 font-semibold
-                                {{ request()->routeIs('profile.edit')
-                                    ? 'bg-blue-100 text-blue-600'
-                                    : 'bg-gray-700 text-white hover:bg-gray-500 hover:text-blue-700' }}">
-                                <div>{{ Auth::user()->name }}</div>
-                                <svg class="ms-2 fill-current h-4 w-4" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd"
-                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </button>
+                        <button class="inline-flex items-center px-4 py-2 rounded-lg transition duration-200 font-semibold
+                            {{ request()->routeIs('profile.edit')
+                                ? 'bg-gray-100 text-[#1E293B]'
+                                : 'bg-gray-700 text-white hover:bg-gray-500 hover:text-blue-700' }}">
+                            
+                            <div class="text-inherit">{{ Auth::user()->name }}</div>
+                            
+                            <svg class="ms-2 w-4 h-4 text-inherit" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </button>
                         </x-slot>
                         <x-slot name="content">
 
