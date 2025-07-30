@@ -12,7 +12,6 @@
                         <img src="{{ asset('assets/images/logo.png') }}" class="block h-14 w-auto" alt="Logo" />
                     </a>
                 </div>
-
                 <!-- Navigation Links -->
                 <div class="hidden sm:flex items-center space-x-6 text-base font-medium">
                     @php
@@ -24,33 +23,30 @@
                             ['name' => 'Fasilitas', 'route' => 'fasilitas.index'],
                             ['name' => 'Galeri', 'route' => 'galeri.index'],
                         ];
-
                         $linkRoutes = [
                             'https://lemdiklat.polri.go.id/',
                             'https://lemdiklat.polri.go.id/web/',
                             '#',
                         ];
                     @endphp
-
                     @foreach ($navItems as $item)
                         <x-nav-link
                             :href="route($item['route'])"
                             :active="request()->routeIs($item['route'])"
                             class="{{ request()->routeIs($item['route']) 
-                                ? 'bg-gray-700 text-white px-3 py-1 rounded-lg font-semibold' 
-                                : 'text-white hover:bg-gray-700 hover:text-blue-300 px-3 py-1 rounded-lg transition font-medium' }}">
+                                ? 'bg-gray-100 text-blue-500 px-3 py-1 rounded-lg font-semibold' 
+                                : 'text-white hover:bg-gray-500 hover:text-white px-3 py-1 rounded-lg transition font-medium' }}">
                             {{ __($item['name']) }}
                         </x-nav-link>
                     @endforeach
-
                     <!-- Dropdown LINK -->
                     <x-dropdown align="left">
                         <x-slot name="trigger">
                             <button
                                 class="inline-flex items-center px-3 py-2 rounded-lg transition font-medium
                                     {{ Str::contains(url()->current(), $linkRoutes) 
-                                        ? 'bg-gray-700 text-white' 
-                                        : 'hover:bg-gray-700 hover:text-blue-300 text-white' }}">
+                                        ? 'bg-gray-100 text-blue-500' 
+                                        : 'text-white hover:bg-gray-500 hover:text-white' }}">
                                 {{ __('Link') }}
                                 <svg class="ms-1 h-4 w-4 fill-current" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd"
@@ -59,18 +55,26 @@
                                 </svg>
                             </button>
                         </x-slot>
-
                         <x-slot name="content">
-                            <x-dropdown-link :href="'https://lemdiklat.polri.go.id/'" target="_blank">Big Data Lemdiklat Polri</x-dropdown-link>
-                            <x-dropdown-link :href="'https://lemdiklat.polri.go.id/web/'" target="_blank">Web Lemdiklat Polri</x-dropdown-link>
-                            <x-dropdown-link :href="'#'" target="_blank">Web SIPLS</x-dropdown-link>
-                            <x-dropdown-link :href="'#'" target="_blank">E-Library Lemdiklat Polri</x-dropdown-link>
-                            <x-dropdown-link :href="'#'" target="_blank">Smart Class</x-dropdown-link>
+                            <x-dropdown-link :href="'https://lemdiklat.polri.go.id/'" target="_blank">
+                                Big Data Lemdiklat Polri
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="'https://lemdiklat.polri.go.id/web/'" target="_blank">
+                                Web Lemdiklat Polri
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="'#'" target="_blank">
+                                Web SIPLS
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="'#'" target="_blank">
+                                E-Library Lemdiklat Polri
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="'#'" target="_blank">
+                                Smart Class
+                            </x-dropdown-link>
                         </x-slot>
                     </x-dropdown>
                 </div>
             </div>
-
             <!-- TENGAH: Search bar digeser ke kanan -->
             <div class="flex flex-1 justify-end pr-8">
                 <div class="relative w-72">
@@ -89,13 +93,15 @@
                     </div>
                 </div>
             </div>
-
             <!-- KANAN: Profile atau Login -->
             <div class="flex items-center ms-4">
                 @auth
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
-                            <button class="inline-flex items-center px-4 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 text-white transition">
+                            <button class="inline-flex items-center px-4 py-2 rounded-lg transition duration-200 font-semibold
+                                {{ request()->routeIs('profile.edit') 
+                                    ? 'bg-blue-100 text-blue-600' 
+                                    : 'bg-gray-700 text-white hover:bg-gray-500 hover:text-blue-700' }}">
                                 <div>{{ Auth::user()->name }}</div>
                                 <svg class="ms-2 fill-current h-4 w-4" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd"
@@ -104,13 +110,18 @@
                                 </svg>
                             </button>
                         </x-slot>
-
                         <x-slot name="content">
-                            <x-dropdown-link :href="route('profile.edit')">Profile</x-dropdown-link>
+                            <x-dropdown-link 
+                                :href="route('profile.edit')" 
+                                class="hover:bg-gray-800 hover:text-white transition">
+                                Profile
+                            </x-dropdown-link>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault(); this.closest('form').submit();">
+                                <x-dropdown-link 
+                                    :href="route('logout')" 
+                                    onclick="event.preventDefault(); this.closest('form').submit();"
+                                    class="hover:bg-gray-800 hover:text-white transition">
                                     Log Out
                                 </x-dropdown-link>
                             </form>
@@ -123,60 +134,63 @@
                     </a>
                 @endauth
             </div>
+
         </div>
     </div>
 </nav>
 
-    <!-- Responsive Navigation Menu -->
-    <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden bg-[#1E293B] text-white">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard.index')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('profil.index')" :active="request()->routeIs('profil')">
-                {{ __('Profil') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('informasi.index')" :active="request()->routeIs('informasi')">
-                {{ __('Informasi') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('fasilitas.index')" :active="request()->routeIs('fasilitas')">
-                {{ __('Fasilitas') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('berita.index')" :active="request()->routeIs('berita')">
-                {{ __('Berita') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('galeri.index')" :active="request()->routeIs('galeri')">
-                {{ __('Galeri') }}
-            </x-responsive-nav-link>
-        </div>
-
-        @auth
-            <div class="pt-4 pb-1 border-t border-gray-700">
-                <div class="px-4">
-                    <div class="font-medium text-base text-white">{{ Auth::user()->name }}</div>
-                    <div class="font-medium text-sm text-gray-300">{{ Auth::user()->email }}</div>
-                </div>
-
-                <div class="mt-3 space-y-1">
-                    <x-responsive-nav-link :href="route('profile.edit')">
-                        {{ __('Profile') }}
-                    </x-responsive-nav-link>
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault(); this.closest('form').submit();">
-                            {{ __('Log Out') }}
-                        </x-responsive-nav-link>
-                    </form>
-                </div>
-            </div>
-        @else
-            <div class="pt-4 pb-1 border-t border-gray-700 px-4 space-y-2">
-                <a href="{{ route('login') }}"
-                    class="block text-sm text-white underline hover:text-blue-300">Log in</a>
-            </div>
-        @endauth
+<!-- Responsive Navigation Menu -->
+<div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden bg-[#1E293B] text-white">
+    <div class="pt-2 pb-3 space-y-1">
+        <x-responsive-nav-link :href="route('dashboard.index')" :active="request()->routeIs('dashboard')">
+            {{ __('Dashboard') }}
+        </x-responsive-nav-link>
+        <x-responsive-nav-link :href="route('profil.index')" :active="request()->routeIs('profil')">
+            {{ __('Profil') }}
+        </x-responsive-nav-link>
+        <x-responsive-nav-link :href="route('informasi.index')" :active="request()->routeIs('informasi')">
+            {{ __('Informasi') }}
+        </x-responsive-nav-link>
+        <x-responsive-nav-link :href="route('fasilitas.index')" :active="request()->routeIs('fasilitas')">
+            {{ __('Fasilitas') }}
+        </x-responsive-nav-link>
+        <x-responsive-nav-link :href="route('berita.index')" :active="request()->routeIs('berita')">
+            {{ __('Berita') }}
+        </x-responsive-nav-link>
+        <x-responsive-nav-link :href="route('galeri.index')" :active="request()->routeIs('galeri')">
+            {{ __('Galeri') }}
+        </x-responsive-nav-link>
     </div>
+
+    @auth
+        <div class="pt-4 pb-1 border-t border-gray-700">
+            <div class="px-4">
+                <div class="font-medium text-base text-white">{{ Auth::user()->name }}</div>
+                <div class="font-medium text-sm text-gray-300">{{ Auth::user()->email }}</div>
+            </div>
+
+            <div class="mt-3 space-y-1">
+                <x-responsive-nav-link :href="route('profile.edit')">
+                    {{ __('Profile') }}
+                </x-responsive-nav-link>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <x-responsive-nav-link :href="route('logout')"
+                        onclick="event.preventDefault(); this.closest('form').submit();">
+                        {{ __('Log Out') }}
+                    </x-responsive-nav-link>
+                </form>
+            </div>
+        </div>
+    @else
+        <div class="pt-4 pb-1 border-t border-gray-700 px-4 space-y-2">
+            <a href="{{ route('login') }}"
+                class="block text-sm text-white underline hover:text-blue-300">
+                Log in
+            </a>
+        </div>
+    @endauth
+</div>
 </nav>
 
 <script>
