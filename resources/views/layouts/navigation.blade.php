@@ -2,7 +2,7 @@
     class="fixed top-0 w-full z-50 bg-[#1E293B] text-white border-b border-gray-700"
     style="box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-16 w-full">
+        <div class="flex flex-wrap items-center justify-between w-full gap-2">
 
             <!-- KIRI: Logo dan Navigasi -->
             <div class="flex items-center space-x-10">
@@ -12,6 +12,22 @@
                         <img src="{{ asset('assets/images/logo.png') }}" class="block h-14 w-auto" alt="Logo" />
                     </a>
                 </div>
+
+                <!-- Hamburger button (Hanya muncul di layar kecil) -->
+                <div class="flex sm:hidden">
+                    <button @click="open = !open"
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-600 focus:outline-none focus:bg-gray-600 transition">
+                        <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <path :class="{ 'hidden': open, 'inline-flex': !open }" class="inline-flex"
+                                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                            <path :class="{ 'hidden': !open, 'inline-flex': open }" class="hidden"
+                                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
                 <!-- Navigation Links -->
                 <div class="hidden sm:flex items-center space-x-6 text-base font-medium">
                     @php
@@ -26,26 +42,58 @@
                         $linkRoutes = [
                             'https://lemdiklat.polri.go.id/',
                             'https://lemdiklat.polri.go.id/web/',
-                            '#',
+                            'https://sipl.lemdiklat.polri.go.id/',
+                            'https://elibrary.lemdiklat.polri.go.id/',
+                            'http://103.180.58.114:11582/',
+
+                            // PUSDIKMIN
+                            'https://www.instagram.com/pusdikmin?igsh=NG9qNHpvODFsZ2E5',
+                            'https://youtube.com/@pidpusdikmin?si=yMAPF2lfXHRtbC5C',
+                            'https://www.tiktok.com/@pusdikadministrasi?_t=ZS-8yOjezU9ZP0&_r=1',
+
+                            // PUSDIK LANTAS
+                            'https://www.instagram.com/pusdik_lantas?igsh=MTFrM28zdXlucnB0MQ==',
+                            'https://youtube.com/@pusdiklantas?si=0b7kFlagbQOc9fz8',
+
+                            // PUSDIK SABHARA
+                            'https://www.instagram.com/pusdiksabhara.official?igsh=MWcybXY5M290c2U2aQ==',
+                            'https://www.tiktok.com/@pusdiksabhara.ofc?_t=ZS-8yP5EBnYOjX&_r=1',
+                            'https://youtube.com/@pusdiksabhara?si=a5YL3DDUBEsqOm3e',
+
+                            // DIKLAT RESERSE
+                            'https://www.tiktok.com/@diklat_reserse?_t=ZS-8yP5QgUb0ZL&_r=1',
+                            'https://www.instagram.com/humas_diklatreserse?igsh=ajJub3g4am54a2d4',
+
+                            // PUSDIK BINMAS
+                            'https://www.instagram.com/pusdikbinmas?igsh=NHc2Nzk1OW1icDB1',
+                            'https://www.tiktok.com/@pusdikbinmas?_t=ZS-8yP5cd6K9vr&_r=1',
+                            'https://youtube.com/@pusdikbinmaslemdiklatpolri?si=j22fbhfx5zoqZj6e',
+
+                            // PUSDIK BRIMOD
+                            'https://www.tiktok.com/@pusdikbrimobwatukosek_?_t=ZS-8yP5kinlQyA&_r=1',
+                            'https://youtube.com/@pusdikbrimob2782?si=h3JVf7_O8nuQbBN0',
+                            'https://www.instagram.com/humaspusdikbrimob?igsh=azhkM2hhbnp4em1x',
+
                         ];
                     @endphp
                     @foreach ($navItems as $item)
                         <x-nav-link
                             :href="route($item['route'])"
                             :active="request()->routeIs($item['route'])"
-                            class="{{ request()->routeIs($item['route']) 
-                                ? 'bg-gray-100 text-blue-500 px-3 py-1 rounded-lg font-semibold' 
+                            class="{{ request()->routeIs($item['route'])
+                                ? 'bg-gray-100 text-blue-500 px-3 py-1 rounded-lg font-semibold'
                                 : 'text-white hover:bg-gray-500 hover:text-white px-3 py-1 rounded-lg transition font-medium' }}">
                             {{ __($item['name']) }}
                         </x-nav-link>
                     @endforeach
+
                     <!-- Dropdown LINK -->
                     <x-dropdown align="left">
                         <x-slot name="trigger">
                             <button
                                 class="inline-flex items-center px-3 py-2 rounded-lg transition font-medium
-                                    {{ Str::contains(url()->current(), $linkRoutes) 
-                                        ? 'bg-gray-100 text-blue-500' 
+                                    {{ Str::contains(url()->current(), $linkRoutes)
+                                        ? 'bg-gray-100 text-blue-500'
                                         : 'text-white hover:bg-gray-500 hover:text-white' }}">
                                 {{ __('Link') }}
                                 <svg class="ms-1 h-4 w-4 fill-current" viewBox="0 0 20 20">
@@ -56,28 +104,87 @@
                             </button>
                         </x-slot>
                         <x-slot name="content">
-                            <x-dropdown-link :href="'https://lemdiklat.polri.go.id/'" target="_blank">
-                                Big Data Lemdiklat Polri
-                            </x-dropdown-link>
-                            <x-dropdown-link :href="'https://lemdiklat.polri.go.id/web/'" target="_blank">
-                                Web Lemdiklat Polri
-                            </x-dropdown-link>
-                            <x-dropdown-link :href="'#'" target="_blank">
-                                Web SIPLS
-                            </x-dropdown-link>
-                            <x-dropdown-link :href="'#'" target="_blank">
-                                E-Library Lemdiklat Polri
-                            </x-dropdown-link>
-                            <x-dropdown-link :href="'#'" target="_blank">
-                                Smart Class
-                            </x-dropdown-link>
+                            <div class="dropdown-scroll">
+                                <x-dropdown-link :href="'https://lemdiklat.polri.go.id/'" target="_blank">
+                                    Big Data Lemdiklat Polri
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="'https://lemdiklat.polri.go.id/web/'" target="_blank">
+                                    Web Lemdiklat Polri
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="'https://sipl.lemdiklat.polri.go.id/'" target="_blank">
+                                    Web SIPL
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="'https://elibrary.lemdiklat.polri.go.id/'" target="_blank">
+                                    E-Library Lemdiklat Polri
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="'http://103.180.58.114:11582/'" target="_blank">
+                                    Smart Class
+                                </x-dropdown-link>
+
+                                {{-- PUSDIKMIN --}}
+                                <x-dropdown-link :href="'https://www.instagram.com/pusdikmin?igsh=NG9qNHpvODFsZ2E5'" target="_blank">
+                                    IG PUSDIKMIN
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="'https://youtube.com/@pidpusdikmin?si=yMAPF2lfXHRtbC5C'" target="_blank">
+                                    YT PUSDIKMIN
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="'https://www.tiktok.com/@pusdikadministrasi?_t=ZS-8yOjezU9ZP0&_r=1'" target="_blank">
+                                    TIKTOK PUSDIKMIN
+                                </x-dropdown-link>
+
+                                {{-- PUSDIK LANTAS  --}}
+                                <x-dropdown-link :href="'https://www.instagram.com/pusdik_lantas?igsh=MTFrM28zdXlucnB0MQ=='" target="_blank">
+                                    IG PUSDIK LANTAS
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="'https://www.tiktok.com/@pusdikadministrasi?_t=ZS-8yOjezU9ZP0&_r=1'" target="_blank">
+                                    YT PUSDIK LANTAS
+                                </x-dropdown-link>
+
+                                {{-- PUSDIK SABHARA --}}
+                                <x-dropdown-link :href="'https://www.instagram.com/pusdiksabhara.official?igsh=MWcybXY5M290c2U2aQ=='" target="_blank">
+                                    IG PUSDIK SABHARA
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="'https://www.tiktok.com/@pusdiksabhara.ofc?_t=ZS-8yP5EBnYOjX&_r=1'" target="_blank">
+                                    TIKTOK PUSDIK SABHARA
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="'https://youtube.com/@pusdiksabhara?si=a5YL3DDUBEsqOm3e'" target="_blank">
+                                    YT PUSDIK SABHARA
+                                </x-dropdown-link>
+
+                                {{-- DIKLAT RESERSE --}}
+                                <x-dropdown-link :href="'https://www.tiktok.com/@diklat_reserse?_t=ZS-8yP5QgUb0ZL&_r=1'" target="_blank">
+                                    TIKTOK DIKLAT RESERSE
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="'https://www.instagram.com/humas_diklatreserse?igsh=ajJub3g4am54a2d4'" target="_blank">
+                                    IG DIKLAT RESERSE
+                                </x-dropdown-link>
+
+                                {{-- PUSDIK BINMAS --}}
+                                <x-dropdown-link :href="'https://www.instagram.com/pusdikbinmas?igsh=NHc2Nzk1OW1icDB1'" target="_blank">
+                                    IG PUSDIK BINMAS
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="'https://www.tiktok.com/@pusdikbinmas?_t=ZS-8yP5cd6K9vr&_r=1'" target="_blank">
+                                    TIKTOK PUSDIK BINMAS
+                                </x-dropdown-link>
+
+                                {{-- PUSDIK BRIMOB --}}
+                                <x-dropdown-link :href="'https://www.tiktok.com/@pusdikbrimobwatukosek_?_t=ZS-8yP5kinlQyA&_r=1'" target="_blank">
+                                    TIKTOK PUSDIK BINMAS
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="'https://youtube.com/@pusdikbrimob2782?si=h3JVf7_O8nuQbBN0'" target="_blank">
+                                    YT PUSDIK BINMAS
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="'https://www.instagram.com/humaspusdikbrimob?igsh=azhkM2hhbnp4em1x'" target="_blank">
+                                    IG PUSDIK BINMAS
+                                </x-dropdown-link>
+                            </div>
                         </x-slot>
                     </x-dropdown>
                 </div>
             </div>
             <!-- TENGAH: Search bar digeser ke kanan -->
-            <div class="flex flex-1 justify-end pr-8">
-                <div class="relative w-72">
+            <div class="flex flex-1 justify-end pr-4 min-w-0">
+                <div class="relative w-full max-w-xs">
                     <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5"
                         fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd"
@@ -85,7 +192,7 @@
                             clip-rule="evenodd"></path>
                     </svg>
                     <input type="text" id="searchInput"
-                        placeholder="Cari konten di situs..."
+                        placeholder="Cari..."
                         class="w-full pl-10 pr-3 py-2 bg-gray-700 text-white placeholder-gray-400 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500"
                         oninput="searchContent()">
                     <div id="searchResults"
@@ -94,13 +201,13 @@
                 </div>
             </div>
             <!-- KANAN: Profile atau Login -->
-            <div class="flex items-center ms-4">
+            <div class="shrink-0 flex items-center ms-4">
                 @auth
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button class="inline-flex items-center px-4 py-2 rounded-lg transition duration-200 font-semibold
-                                {{ request()->routeIs('profile.edit') 
-                                    ? 'bg-blue-100 text-blue-600' 
+                                {{ request()->routeIs('profile.edit')
+                                    ? 'bg-blue-100 text-blue-600'
                                     : 'bg-gray-700 text-white hover:bg-gray-500 hover:text-blue-700' }}">
                                 <div>{{ Auth::user()->name }}</div>
                                 <svg class="ms-2 fill-current h-4 w-4" viewBox="0 0 20 20">
@@ -111,15 +218,16 @@
                             </button>
                         </x-slot>
                         <x-slot name="content">
-                            <x-dropdown-link 
-                                :href="route('profile.edit')" 
+
+                            <x-dropdown-link
+                                :href="route('profile.edit')"
                                 class="hover:bg-gray-800 hover:text-white transition">
                                 Profile
                             </x-dropdown-link>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <x-dropdown-link 
-                                    :href="route('logout')" 
+                                <x-dropdown-link
+                                    :href="route('logout')"
                                     onclick="event.preventDefault(); this.closest('form').submit();"
                                     class="hover:bg-gray-800 hover:text-white transition">
                                     Log Out
@@ -137,60 +245,59 @@
 
         </div>
     </div>
-</nav>
 
-<!-- Responsive Navigation Menu -->
-<div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden bg-[#1E293B] text-white">
-    <div class="pt-2 pb-3 space-y-1">
-        <x-responsive-nav-link :href="route('dashboard.index')" :active="request()->routeIs('dashboard')">
-            {{ __('Dashboard') }}
-        </x-responsive-nav-link>
-        <x-responsive-nav-link :href="route('profil.index')" :active="request()->routeIs('profil')">
-            {{ __('Profil') }}
-        </x-responsive-nav-link>
-        <x-responsive-nav-link :href="route('informasi.index')" :active="request()->routeIs('informasi')">
-            {{ __('Informasi') }}
-        </x-responsive-nav-link>
-        <x-responsive-nav-link :href="route('fasilitas.index')" :active="request()->routeIs('fasilitas')">
-            {{ __('Fasilitas') }}
-        </x-responsive-nav-link>
-        <x-responsive-nav-link :href="route('berita.index')" :active="request()->routeIs('berita')">
-            {{ __('Berita') }}
-        </x-responsive-nav-link>
-        <x-responsive-nav-link :href="route('galeri.index')" :active="request()->routeIs('galeri')">
-            {{ __('Galeri') }}
-        </x-responsive-nav-link>
-    </div>
+    <!-- Responsive Navigation Menu -->
+    <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden bg-[#1E293B] text-white z-70 relative">
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('dashboard.index')" :active="request()->routeIs('dashboard')">
+                {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('profil.index')" :active="request()->routeIs('profil')">
+                {{ __('Profil') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('informasi.index')" :active="request()->routeIs('informasi')">
+                {{ __('Informasi') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('fasilitas.index')" :active="request()->routeIs('fasilitas')">
+                {{ __('Fasilitas') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('berita.index')" :active="request()->routeIs('berita')">
+                {{ __('Berita') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('galeri.index')" :active="request()->routeIs('galeri')">
+                {{ __('Galeri') }}
+            </x-responsive-nav-link>
+        </div>
 
-    @auth
-        <div class="pt-4 pb-1 border-t border-gray-700">
-            <div class="px-4">
-                <div class="font-medium text-base text-white">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-300">{{ Auth::user()->email }}</div>
-            </div>
+        @auth
+            <div class="pt-4 pb-1 border-t border-gray-700">
+                <div class="px-4">
+                    <div class="font-medium text-base text-white">{{ Auth::user()->name }}</div>
+                    <div class="font-medium text-sm text-gray-300">{{ Auth::user()->email }}</div>
+                </div>
 
-            <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <x-responsive-nav-link :href="route('logout')"
-                        onclick="event.preventDefault(); this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                <div class="mt-3 space-y-1">
+                    <x-responsive-nav-link :href="route('profile.edit')">
+                        {{ __('Profile') }}
                     </x-responsive-nav-link>
-                </form>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <x-responsive-nav-link :href="route('logout')"
+                            onclick="event.preventDefault(); this.closest('form').submit();">
+                            {{ __('Log Out') }}
+                        </x-responsive-nav-link>
+                    </form>
+                </div>
             </div>
-        </div>
-    @else
-        <div class="pt-4 pb-1 border-t border-gray-700 px-4 space-y-2">
-            <a href="{{ route('login') }}"
-                class="block text-sm text-white underline hover:text-blue-300">
-                Log in
-            </a>
-        </div>
-    @endauth
-</div>
+        @else
+            <div class="pt-4 pb-1 border-t border-gray-700 px-4 space-y-2">
+                <a href="{{ route('login') }}"
+                    class="block text-sm text-white underline hover:text-blue-300">
+                    Log in
+                </a>
+            </div>
+        @endauth
+    </div>
 </nav>
 
 <script>

@@ -30,9 +30,9 @@
     <div class="border-t border-gray-700 py-3 px-6 flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto gap-2 text-xs">
         <p>&copy; 2025 Setukpa Lemdiklat Polri Sukabumi</p>
         <div class="flex gap-4 text-base">
-            <a href="#" class="hover:text-blue-300"><i class="bi bi-youtube"></i></a>
-            <a href="#" class="hover:text-blue-300"><i class="bi bi-instagram"></i></a>
-            <a href="#" class="hover:text-blue-300"><i class="bi bi-tiktok"></i></a>
+            <a href="https://youtube.com/@humassetukpa566?si=b4Ret7QbAoK5vW39" class="hover:text-blue-300"><i class="bi bi-youtube"></i></a>
+            <a href="https://www.instagram.com/humas_setukpa?igsh=MTE3dWU4emFjYjFtdg==" class="hover:text-blue-300"><i class="bi bi-instagram"></i></a>
+            <a href="https://www.tiktok.com/@humas_setukpa?_t=ZS-8yOduXJ7cs4&_r=1" class="hover:text-blue-300"><i class="bi bi-tiktok"></i></a>
         </div>
     </div>
 </footer>

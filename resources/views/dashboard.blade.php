@@ -44,7 +44,7 @@
                             {{-- Tombol Edit & Hapus --}}
                             @auth
                                 @if(Auth::user()->role === 'admin')
-                                    <div class="absolute top-3 right-3 flex gap-2 z-50">
+                                    <div class="absolute top-3 right-3 flex gap-2 z-30">
                                         <a href="{{ route('dashboard.edit', $item->id) }}"
                                            class="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded text-sm shadow"
                                            title="Edit">
