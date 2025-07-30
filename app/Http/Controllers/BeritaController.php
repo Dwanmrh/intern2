@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Berita;
+use Illuminate\Support\Facades\Storage;
+use Smalot\PdfParser\Parser as PdfParser;
 
 class BeritaController extends Controller
 {
     public function index()
     {
-        $beritas = Berita::latest()->get();
+        $beritas = Berita::orderBy('tanggal', 'desc')->get();
         return view('berita', compact('beritas'));
     }
 
@@ -22,13 +24,22 @@ class BeritaController extends Controller
     {
         $validated = $request->validate([
             'judul' => 'required|string|max:255',
-            'isi_berita' => 'required|string',
+            'isi_berita' => 'nullable|string',
             'tanggal' => 'required|date',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:10000',
+            'file_berita' => 'nullable|mimes:pdf|max:10240',
         ]);
 
         if ($request->hasFile('foto')) {
             $validated['foto'] = $request->file('foto')->store('foto_berita', 'public');
+        }
+
+        if (!$request->filled('isi_berita') && $request->hasFile('file_berita')) {
+            $file = $request->file('file_berita');
+            $parser = new PdfParser();
+            $pdf = $parser->parseFile($file->getPathname());
+            $validated['isi_berita'] = $pdf->getText();
+            $validated['file_berita'] = $file->store('file_berita', 'public');
         }
 
         Berita::create($validated);
@@ -37,33 +48,65 @@ class BeritaController extends Controller
 
     public function edit($id)
     {
-        $beritas = Berita::findOrFail($id);
-        return view('berita.edit', compact('beritas'));
+        $berita = Berita::findOrFail($id);
+        return view('berita.edit', compact('berita'));
     }
 
     public function update(Request $request, $id)
     {
-        $beritas = Berita::findOrFail($id);
+        $berita = Berita::findOrFail($id);
 
         $validated = $request->validate([
             'judul' => 'required|string|max:255',
-            'isi_berita' => 'required|string',
+            'isi_berita' => 'nullable|string',
             'tanggal' => 'required|date',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:10000',
+            'file_berita' => 'nullable|mimes:pdf|max:10240',
         ]);
 
         if ($request->hasFile('foto')) {
+            if ($berita->foto && Storage::disk('public')->exists($berita->foto)) {
+                Storage::disk('public')->delete($berita->foto);
+            }
             $validated['foto'] = $request->file('foto')->store('foto_berita', 'public');
         }
 
-        $beritas->update($validated);
+        if ($request->hasFile('file_berita')) {
+            $file = $request->file('file_berita');
+
+            if (!$request->filled('isi_berita')) {
+                $parser = new PdfParser();
+                $pdf = $parser->parseFile($file->getPathname());
+                $validated['isi_berita'] = $pdf->getText();
+            }
+
+            if ($berita->file_berita && Storage::disk('public')->exists($berita->file_berita)) {
+                Storage::disk('public')->delete($berita->file_berita);
+            }
+
+            $validated['file_berita'] = $file->store('file_berita', 'public');
+        }
+
+        if (empty($validated['isi_berita'])) {
+            $validated['isi_berita'] = '-';
+        }
+
+        $berita->update($validated);
         return redirect()->route('berita.index')->with('success', 'Berita berhasil diperbarui.');
     }
 
     public function destroy($id)
     {
-        $beritas = Berita::findOrFail($id);
-        $beritas->delete();
+        $berita = Berita::findOrFail($id);
+
+        if ($berita->foto && Storage::disk('public')->exists($berita->foto)) {
+            Storage::disk('public')->delete($berita->foto);
+        }
+        if ($berita->file_berita && Storage::disk('public')->exists($berita->file_berita)) {
+            Storage::disk('public')->delete($berita->file_berita);
+        }
+
+        $berita->delete();
         return redirect()->route('berita.index')->with('success', 'Berita berhasil dihapus.');
     }
 }

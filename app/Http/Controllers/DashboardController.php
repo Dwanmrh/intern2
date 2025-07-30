@@ -14,8 +14,9 @@ class DashboardController extends Controller
     public function index()
     {
          $dashboards = Dashboard::latest()->get();
-         $beritas = Berita::latest()->take(4)->get();
-         $galeris = Galeri::latest()->take(4)->get();
+         $beritas = Berita::orderBy('tanggal', 'desc')->take(4)->get();
+         $galeris = Galeri::orderBy('tanggal', 'desc')->take(4)->get();
+         
         return view('dashboard', compact('dashboards', 'beritas', 'galeris'));
     }
 
@@ -31,7 +32,7 @@ class DashboardController extends Controller
         $request->validate([
             'judul' => 'required|string|max:255',
             'tanggal' => 'required|date',
-            'file' => 'nullable|mimes:jpg,jpeg,png,mp4,mov,webm|max:10000', 
+            'file' => 'nullable|mimes:jpg,jpeg,png,mp4,mov,webm|max:10000',
         ]);
 
         $data = $request->only('judul', 'tanggal');

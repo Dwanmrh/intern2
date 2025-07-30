@@ -42,8 +42,6 @@
                             @endif
 
                             <div class="p-4 flex flex-col flex-grow">
-                                <h3 class="text-lg font-bold text-gray-800 mb-[2px]">{{ $berita->judul }}</h3>
-
                                 <p class="text-sm text-gray-500 flex items-center gap-1 mb-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-500" fill="none"
                                          viewBox="0 0 24 24" stroke="currentColor">
@@ -54,6 +52,8 @@
                                         {{ \Carbon\Carbon::parse($berita->tanggal)->translatedFormat('d F Y') }}
                                     </span>
                                 </p>
+                                <h3 class="text-lg font-bold text-gray-800 mb-[2px]">{{ $berita->judul }}</h3>
+
 
                                 <p class="text-sm text-gray-600 mb-4">
                                     {{ \Illuminate\Support\Str::limit(strip_tags($berita->isi_berita), 100) }}

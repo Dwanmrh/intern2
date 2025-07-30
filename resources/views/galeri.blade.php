@@ -44,8 +44,6 @@
 
                             <div class="p-4 flex-grow flex flex-col justify-between">
                                 <div>
-                                    <h3 class="font-semibold text-sm mb-1 truncate text-gray-800">{{ $galeri->judul }}</h3>
-
                                     {{-- Tanggal dengan Icon --}}
                                     <p class="text-xs text-gray-500 flex items-center gap-1 mt-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400" fill="none"
@@ -55,6 +53,8 @@
                                         </svg>
                                         {{ \Carbon\Carbon::parse($galeri->tanggal)->translatedFormat('d F Y') }}
                                     </p>
+                                    <h3 class="font-semibold text-sm mb-1 truncate text-gray-800">{{ $galeri->judul }}</h3>
+
                                 </div>
 
                                 {{-- Aksi --}}

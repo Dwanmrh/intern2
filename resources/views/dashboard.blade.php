@@ -2,16 +2,19 @@
     <div class="py-5">
         <div class="container">
 
-            {{-- Tombol Tambah --}}
-            @auth
-                @if(Auth::user()->role === 'admin')
-                    <div class="mb-3 text-end position-relative z-10">
-                        <a href="{{ route('dashboard.create') }}" class="btn btn-primary">
-                            + Tambah Preview
-                        </a>
-                    </div>
-                @endif
-            @endauth
+            {{-- Header & Tombol Tambah --}}
+            <div class="flex items-center justify-between mb-4 relative">
+                @auth
+                    @if(Auth::user()->role === 'admin')
+                        <div class="absolute right-0">
+                            <a href="{{ route('dashboard.create') }}"
+                               class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm shadow">
+                                + Tambah Preview
+                            </a>
+                        </div>
+                    @endif
+                @endauth
+            </div>
 
             {{-- Notifikasi --}}
             @if (session('success'))
@@ -25,7 +28,7 @@
                 $validDashboards = $dashboards->filter(fn($item) => !empty($item->file))->values();
             @endphp
 
-            <div id="dashboardCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+            <div id="dashboardCarousel" class="carousel slide mb-5 position-relative" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     @foreach($validDashboards as $index => $item)
                         <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
@@ -34,23 +37,29 @@
                                     <source src="{{ asset('storage/' . $item->file) }}" type="video/mp4">
                                 </video>
                             @else
-                                <img src="{{ asset('storage/' . $item->file) }}" class="d-block w-100 rounded" style="object-fit: cover; max-height: 480px;" alt="Preview">
+                                <img src="{{ asset('storage/' . $item->file) }}"
+                                     class="d-block w-100 rounded" style="object-fit: cover; max-height: 480px;" alt="Preview">
                             @endif
 
-                            {{-- Tombol Edit & Hapus untuk setiap item --}}
+                            {{-- Tombol Edit & Hapus --}}
                             @auth
                                 @if(Auth::user()->role === 'admin')
-                                    <div class="position-absolute top-0 end-0 p-3 z-10">
+                                    <div class="absolute top-3 right-3 flex gap-2 z-50">
                                         <a href="{{ route('dashboard.edit', $item->id) }}"
-                                           class="btn btn-warning btn-sm shadow-sm">Edit</a>
-
+                                           class="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded text-sm shadow"
+                                           title="Edit">
+                                            Edit
+                                        </a>
                                         <form action="{{ route('dashboard.destroy', $item->id) }}"
                                               method="POST"
-                                              onsubmit="return confirm('Yakin ingin menghapus preview ini?');"
-                                              style="display:inline;">
+                                              onsubmit="return confirm('Yakin ingin menghapus preview ini?');">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm shadow-sm">Hapus</button>
+                                            <button type="submit"
+                                                    class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm shadow"
+                                                    title="Hapus">
+                                                Hapus
+                                            </button>
                                         </form>
                                     </div>
                                 @endif
@@ -67,25 +76,22 @@
                         <i class="bi bi-chevron-right fs-4 text-white"></i>
                     </button>
                 @endif
-
             </div>
 
             {{-- Section Berita --}}
             <div class="card mb-5">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                <h2 class="mb-0 fw-bold" style="color: #2c3e50; font-size: 1.55rem;">Berita</h2>
-                <a href="{{ route('berita.index') }}" class="text-decoration-none fw-bold d-flex align-items-center gap-1" style="color: #2c3e50; font-size: 0.95rem;">
-                    Lihat Lebih Lanjut <i class="bi bi-box-arrow-up-right" style="font-size: 1.05rem;"></i>
-                </a>
-
-
+                    <h2 class="mb-0 fw-bold" style="color: #2c3e50; font-size: 1.55rem;">Berita</h2>
+                    <a href="{{ route('berita.index') }}" class="text-decoration-none fw-bold d-flex align-items-center gap-1" style="color: #2c3e50; font-size: 0.95rem;">
+                        Lihat Lebih Lanjut <i class="bi bi-box-arrow-up-right" style="font-size: 1.05rem;"></i>
+                    </a>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         @forelse($beritas as $berita)
                             <div class="col-md-3 mb-4">
                                 <div class="card h-100">
-                                <img src="{{ asset('storage/' . $berita->foto) }}"class="card-img-top"style="height: 180px; object-fit: cover;"alt="Berita">
+                                    <img src="{{ asset('storage/' . $berita->foto) }}" class="card-img-top" style="height: 180px; object-fit: cover;" alt="Berita">
                                     <div class="card-body">
                                         <p class="text-muted small">
                                             <i class="bi bi-calendar"></i>
@@ -105,20 +111,17 @@
             {{-- Section Galeri --}}
             <div class="card mb-5">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                <h2 class="mb-0 fw-bold" style="color: #2c3e50; font-size: 1.55rem;">Galeri</h2>
-                <a href="{{ route('galeri.index') }}" class="text-decoration-none fw-bold d-flex align-items-center gap-1" style="color: #2c3e50; font-size: 0.95rem;">
-                    Lihat Lebih Lanjut <i class="bi bi-box-arrow-up-right" style="font-size: 1.05rem;"></i>
-                </a>
-
-
+                    <h2 class="mb-0 fw-bold" style="color: #2c3e50; font-size: 1.55rem;">Galeri</h2>
+                    <a href="{{ route('galeri.index') }}" class="text-decoration-none fw-bold d-flex align-items-center gap-1" style="color: #2c3e50; font-size: 0.95rem;">
+                        Lihat Lebih Lanjut <i class="bi bi-box-arrow-up-right" style="font-size: 1.05rem;"></i>
+                    </a>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         @forelse($galeris as $galeri)
                             <div class="col-md-3 mb-4">
                                 <div class="card h-100">
-                                <img src="{{ asset('storage/' . $galeri->foto) }}"class="card-img-top"style="height: 180px; object-fit: cover;"alt="Galeri">
-
+                                    <img src="{{ asset('storage/' . $galeri->foto) }}" class="card-img-top" style="height: 180px; object-fit: cover;" alt="Galeri">
                                     <div class="card-body">
                                         <p class="text-muted small">
                                             <i class="bi bi-calendar"></i>

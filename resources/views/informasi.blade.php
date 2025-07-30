@@ -12,7 +12,7 @@
                         <div class="absolute right-0">
                             <a href="{{ route('informasi.create') }}"
                                 class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm shadow">
-                                + Tambah Informasi
+                                + Tambah Kegiatan
                             </a>
                         </div>
                     @endif
@@ -39,8 +39,6 @@
 
                         <div class="p-4 flex-grow flex flex-col justify-between">
                             <div>
-                                <h5 class="font-semibold text-sm mb-1 truncate">{{ $item->judul }}</h5>
-                                <p class="text-xs text-gray-600 line-clamp-2">{{ Str::limit($item->deskripsi, 80) }}</p>
                                 <p class="text-xs text-gray-500 flex items-center gap-1 mt-2">
                                     {{-- Icon Kalender --}}
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400" fill="none"
@@ -50,6 +48,9 @@
                                     </svg>
                                     {{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('d F Y') }}
                                 </p>
+                                <h5 class="font-semibold text-sm mb-1 truncate">{{ $item->judul }}</h5>
+                                <p class="text-xs text-gray-600 line-clamp-2">{{ Str::limit($item->deskripsi, 80) }}</p>
+
                             </div>
 
                             {{-- Aksi --}}

@@ -10,8 +10,8 @@ class FasilitasController extends Controller
 {
     public function index()
     {
-        $fasilitas = Fasilitas::latest()->get();
-        return view('fasilitas', compact('fasilitas'));
+        $fasilitas = Fasilitas::orderBy('tanggal', 'desc')->get();
+        return view('fasilitas', data: compact('fasilitas'));
     }
 
     public function create()
@@ -22,8 +22,9 @@ class FasilitasController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nama' => 'required|string|max:255',
+            'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
+            'tanggal' => 'required|date',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:10000',
         ]);
 
@@ -46,8 +47,9 @@ class FasilitasController extends Controller
         $fasilitas = Fasilitas::findOrFail($id);
 
         $validated = $request->validate([
-            'nama' => 'required|string|max:255',
+            'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
+            'tanggal' => 'required|date',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:10000',
         ]);
 

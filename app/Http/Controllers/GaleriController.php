@@ -9,7 +9,7 @@ class GaleriController extends Controller
 {
     public function index()
     {
-        $galeris = Galeri::latest()->get();
+        $galeris = Galeri::orderBy('tanggal', 'desc')->get();
         return view('galeri', compact('galeris'));
     }
 

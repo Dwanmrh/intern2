@@ -10,7 +10,7 @@ class InformasiController extends Controller
 {
     public function index()
     {
-        $informasi = Informasi::latest()->get();
+        $informasi = Informasi::orderBy('tanggal', 'desc')->get();
         return view('informasi', compact('informasi'));
     }
 

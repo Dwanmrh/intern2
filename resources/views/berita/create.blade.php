@@ -1,5 +1,4 @@
 <x-app-layout>
-
     <div class="py-8">
         <div class="max-w-xl mx-auto bg-white p-6 shadow rounded-md">
             <form action="{{ route('berita.store') }}" method="POST" enctype="multipart/form-data">
@@ -13,8 +12,15 @@
 
                 {{-- Isi Berita --}}
                 <div class="mb-4">
-                    <label class="block text-gray-700 font-medium mb-1">Isi Berita</label>
-                    <input type="text" name="isi_berita" class="w-full border-gray-300 rounded-md shadow-sm" required>
+                    <label class="block text-gray-700 font-medium mb-1">Isi Berita (opsional jika upload file)</label>
+                    <textarea name="isi_berita" class="w-full border-gray-300 rounded-md shadow-sm" rows="5"></textarea>
+                </div>
+
+                {{-- Upload File Word/PDF --}}
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-medium mb-1">Upload File (PDF/DOCX)</label>
+                    <input type="file" name="file_berita" class="w-full" accept=".pdf,.docx">
+                    <small class="text-gray-500">Kosongkan isi berita jika menggunakan file</small>
                 </div>
 
                 {{-- Tanggal --}}
@@ -31,7 +37,7 @@
 
                 {{-- Button --}}
                 <div class="flex justify-end">
-                    <a href="{{ route('berita.create') }}"
+                    <a href="{{ route('berita.index') }}"
                        class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded mr-2">
                         Batal
                     </a>
