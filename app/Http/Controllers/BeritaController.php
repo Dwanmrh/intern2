@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Berita;
 use Illuminate\Support\Facades\Storage;
 use Smalot\PdfParser\Parser as PdfParser;
+use Carbon\Carbon;
+
 
 class BeritaController extends Controller
 {
@@ -25,10 +27,16 @@ class BeritaController extends Controller
         $validated = $request->validate([
             'judul' => 'required|string|max:255',
             'isi_berita' => 'nullable|string',
-            'tanggal' => 'required|date',
+            'tanggal' => 'required|string',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:10000',
             'file_berita' => 'nullable|mimes:pdf|max:10240',
         ]);
+
+        try {
+            $validated['tanggal'] = Carbon::createFromFormat('d/m/Y', $request->tanggal)->format('Y-m-d');
+        } catch (\Exception $e) {
+            return back()->withErrors(['tanggal' => 'Format tanggal tidak valid'])->withInput();
+        }
 
         if ($request->hasFile('foto')) {
             $validated['foto'] = $request->file('foto')->store('foto_berita', 'public');
@@ -46,9 +54,17 @@ class BeritaController extends Controller
         return redirect()->route('berita.index')->with('success', 'Berita berhasil ditambahkan.');
     }
 
+    public function show($id)
+    {
+        $berita = Berita::findOrFail($id);
+        return view('berita.show', compact('berita'));
+    }
+
     public function edit($id)
     {
         $berita = Berita::findOrFail($id);
+        $berita->tanggal = Carbon::parse($berita->tanggal)->format('d/m/Y');
+
         return view('berita.edit', compact('berita'));
     }
 
@@ -59,10 +75,16 @@ class BeritaController extends Controller
         $validated = $request->validate([
             'judul' => 'required|string|max:255',
             'isi_berita' => 'nullable|string',
-            'tanggal' => 'required|date',
+            'tanggal' => 'required|string',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:10000',
             'file_berita' => 'nullable|mimes:pdf|max:10240',
         ]);
+
+        try {
+            $validated['tanggal'] = Carbon::createFromFormat('d/m/Y', $request->tanggal)->format('Y-m-d');
+        } catch (\Exception $e) {
+            return back()->withErrors(['tanggal' => 'Format tanggal tidak valid'])->withInput();
+        }
 
         if ($request->hasFile('foto')) {
             if ($berita->foto && Storage::disk('public')->exists($berita->foto)) {

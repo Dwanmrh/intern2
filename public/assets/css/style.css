@@ -235,3 +235,20 @@ footer a, footer p {
 .custom-carousel-btn:hover {
     background-color: rgba(44,62,80,0.9);
 }
+
+/* ===== FIX MODAL TERTIMPA CAROUSEL (Final) ===== */
+.modal.show {
+    z-index: 1060 !important;
+    position: fixed !important;
+}
+
+.modal-backdrop.show {
+    z-index: 1055 !important;
+}
+
+.carousel,
+.carousel-inner,
+.carousel-item {
+    z-index: 1 !important;
+    position: relative;
+}

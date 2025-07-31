@@ -1,4 +1,7 @@
 <x-app-layout>
+
+    @section('title', 'Dashboard | SETUKPA LEMDIKLAT POLRI')
+
     <div class="py-5">
         <div class="container">
 
@@ -50,17 +53,14 @@
                                            title="Edit">
                                             Edit
                                         </a>
-                                        <form action="{{ route('dashboard.destroy', $item->id) }}"
-                                              method="POST"
-                                              onsubmit="return confirm('Yakin ingin menghapus preview ini?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit"
-                                                    class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm shadow"
-                                                    title="Hapus">
-                                                Hapus
-                                            </button>
-                                        </form>
+
+                                        <!-- Trigger Modal -->
+                                        <button type="button"
+                                                class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm shadow"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#hapusModal{{ $item->id }}">
+                                            Hapus
+                                        </button>
                                     </div>
                                 @endif
                             @endauth
@@ -77,6 +77,31 @@
                     </button>
                 @endif
             </div>
+
+            {{-- Modal Konfirmasi Hapus per Item --}}
+                    @foreach($validDashboards as $item)
+                        <div class="modal fade" id="hapusModal{{ $item->id }}" tabindex="-1" aria-labelledby="hapusModalLabel{{ $item->id }}" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-danger text-white">
+                                        <h5 class="modal-title" id="hapusModalLabel{{ $item->id }}">Konfirmasi Hapus</h5>
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Apakah anda yakin ingin menghapus data <strong>{{ $item->judul }}</strong>?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form action="{{ route('dashboard.destroy', $item->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger">Hapus</button>
+                                        </form>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
 
             {{-- Section Berita --}}
             <div class="card mb-5">

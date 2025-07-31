@@ -1,5 +1,7 @@
 <x-app-layout>
 
+    @section('title', 'Edit Konten | SETUKPA LEMDIKLAT POLRI')
+
     <div class="py-8">
         <div class="max-w-xl mx-auto bg-white p-6 shadow rounded-md">
             <form action="{{ route('galeri.update', $galeri->id) }}" method="POST" enctype="multipart/form-data">

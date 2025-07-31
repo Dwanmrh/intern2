@@ -37,6 +37,12 @@ class InformasiController extends Controller
         return redirect()->route('informasi.index')->with('success', 'Informasi berhasil ditambahkan.');
     }
 
+    public function show($id)
+    {
+        $informasi = Informasi::findOrFail($id);
+        return view('informasi.show', compact('informasi'));
+    }
+
     public function edit($id)
     {
         $informasi = Informasi::findOrFail($id);

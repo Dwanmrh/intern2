@@ -1,0 +1,45 @@
+<x-app-layout>
+
+    @section('title', $galeri->judul . ' | SETUKPA LEMDIKLAT POLRI')
+
+    <div class="py-8">
+        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+
+                {{-- Gambar Galeri --}}
+                @if ($galeri->foto)
+                    <img src="{{ asset('storage/' . $galeri->foto) }}"
+                         alt="{{ $galeri->judul }}"
+                         class="w-full h-80 object-cover rounded mb-6">
+                @endif
+
+                {{-- Tanggal --}}
+                <p class="text-sm text-gray-500 flex items-center gap-1 mb-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-500" fill="none"
+                         viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                    </svg>
+                    {{ \Carbon\Carbon::parse($galeri->tanggal)->translatedFormat('d F Y') }}
+                </p>
+
+                {{-- Judul --}}
+                <h1 class="text-2xl font-bold text-gray-800 mb-4">{{ $galeri->judul }}</h1>
+
+                {{-- Isi Galeri --}}
+                <div class="text-gray-700 leading-relaxed prose max-w-none">
+                    {!! $galeri->deskripsi !!}
+                </div>
+
+                {{-- Tombol Kembali --}}
+                <div class="mt-6">
+                    <a href="{{ route('galeri.index') }}"
+                       class="inline-block bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-md text-sm">
+                        ← Kembali ke Daftar Galeri
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</x-app-layout>

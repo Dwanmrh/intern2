@@ -35,6 +35,12 @@ class GaleriController extends Controller
         return redirect()->route('galeri.index')->with('success', 'Konten berhasil ditambahkan');
     }
 
+    public function show($id)
+    {
+        $galeri = Galeri::findOrFail($id);
+        return view('galeri.show', compact('galeri'));
+    }
+
     public function edit($id)
     {
         $galeri = Galeri::findOrFail($id);

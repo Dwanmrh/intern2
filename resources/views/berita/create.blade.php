@@ -1,6 +1,7 @@
-cb.blade.php :
-
 <x-app-layout>
+
+    @section('title', 'Tambah Berita | SETUKPA LEMDIKLAT POLRI')
+
     <div class="py-10 px-4">
         <div class="max-w-2xl mx-auto bg-gradient-to-br from-[#2c3e50] to-[#3b4a5a] p-8 rounded-xl shadow-2xl border border-white/10 transition-all duration-300">
 
@@ -14,7 +15,7 @@ cb.blade.php :
                 <div class="mb-6">
                     <label class="block text-white font-semibold mb-1">Judul</label>
                     <input type="text" name="judul"
-                        class="w-full bg-white text-black placeholder-black border border-gray-500 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
+                        class="w-full bg-white text-black border border-gray-500 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
                         required placeholder="Masukkan judul berita">
                 </div>
 
@@ -22,7 +23,7 @@ cb.blade.php :
                 <div class="mb-6">
                     <label class="block text-white font-semibold mb-1">Isi Berita (Opsional)</label>
                     <textarea name="isi_berita" rows="5"
-                        class="w-full bg-white text-black placeholder-black border border-gray-500 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
+                        class="w-full bg-white text-black border border-gray-500 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
                         placeholder="Tulis isi berita di sini..."></textarea>
                 </div>
 
@@ -37,9 +38,9 @@ cb.blade.php :
                 {{-- Tanggal --}}
                 <div class="mb-6">
                     <label class="block text-white font-semibold mb-1">Tanggal</label>
-                    <input type="date" name="tanggal"
+                    <input type="text" name="tanggal" id="tanggal"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
-                        required>
+                        required placeholder="Format: DD/MM/YYYY">
                 </div>
 
                 {{-- Foto --}}
@@ -61,6 +62,17 @@ cb.blade.php :
                     </button>
                 </div>
             </form>
+
+            {{-- Flatpickr --}}
+            <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+            <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/id.js"></script>
+            <script>
+                flatpickr("#tanggal", {
+                    dateFormat: "d/m/Y",
+                    locale: "id",
+                });
+            </script>
+
         </div>
     </div>
 </x-app-layout>
