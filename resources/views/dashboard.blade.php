@@ -2,7 +2,7 @@
 
     @section('title', 'Dashboard | SETUKPA LEMDIKLAT POLRI')
 
-    <div class="py-5">
+    <div class="@auth py-5 @else py-2 @endauth">
         <div class="container">
 
             {{-- Header & Tombol Tambah --}}

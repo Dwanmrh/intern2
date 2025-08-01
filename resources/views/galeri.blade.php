@@ -36,8 +36,8 @@
                     @forelse ($galeris as $data)
                         <div x-data="{ showDetailBtn: false }"
                             @click="showDetailBtn = !showDetailBtn"
-                            class="bg-white shadow-md rounded-lg overflow-hidden flex flex-col cursor-pointer hover:scale-105 transition duration-300 ease-in-out relative">
-
+                            class="bg-white shadow-md rounded-lg overflow-hidden flex flex-col cursor-pointer hover:scale-105 transition duration-300 ease-in-out relative"
+                            id="galeri{{$data->id }}">
                             @if ($data->foto)
                                 <img src="{{ asset('storage/' . $data->foto) }}" alt="{{ $data->judul }}"
                                      class="w-full h-64 object-cover">

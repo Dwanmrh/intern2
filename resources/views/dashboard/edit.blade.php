@@ -3,10 +3,10 @@
     @section('title', 'Edit Preview | SETUKPA LEMDIKLAT POLRI')
 
     <div class="py-10 px-4">
-        <div class="max-w-xl mx-auto bg-gradient-to-br from-[#2c3e50] to-[#3b4a5a] p-8 rounded-xl shadow-2xl border border-white/10 transition-all duration-300">
+        <div class="max-w-md mx-auto bg-gradient-to-br from-[#2c3e50] to-[#3b4a5a] p-5 rounded-xl shadow-xl border border-white/10 transition-all duration-300">
 
             {{-- Header --}}
-            <h2 class="text-2xl text-white font-bold text-center mb-8">Edit Preview</h2>
+            <h2 class="text-xl text-white font-semibold text-center mb-4">Edit Preview</h2>
 
             @if($errors->any())
                 <div class="bg-red-500 text-white px-4 py-2 rounded shadow mb-4 text-sm">
@@ -19,44 +19,44 @@
                 @method('PUT')
 
                 {{-- Judul --}}
-                <div class="mb-6">
-                    <label class="block text-white font-semibold mb-1">Judul</label>
+                <div class="mb-3">
+                    <label class="block text-white text-sm font-medium mb-1">Judul</label>
                     <input type="text" name="judul" value="{{ $dashboard->judul }}"
-                        class="w-full bg-white text-black placeholder-black border border-gray-500 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
+                        class="w-full bg-white text-black placeholder-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
                         required placeholder="Masukkan judul">
                 </div>
 
                 {{-- Tanggal --}}
-                <<div class="mb-6">
-                    <label class="block text-white font-semibold mb-1">Tanggal</label>
-                    <input type="text" name="tanggal" id="tanggal"
-                        class="w-full bg-white text-black border border-gray-500 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 shadow-inner transition"
+                <div class="mb-3">
+                    <label class="block text-white text-sm font-medium mb-1">Tanggal</label>
+                    <input type="text" name="tanggal" id="tanggal" value="{{ $dashboard->tanggal }}"
+                        class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
                         required placeholder="Format: DD/MM/YYYY">
                 </div>
 
                 {{-- File Lama --}}
                 @if ($dashboard->file)
-                    <div class="mb-6">
-                        <label class="block text-white font-semibold mb-2">File Saat Ini</label>
-                        <img src="{{ asset('storage/' . $dashboard->file) }}" class="h-40 rounded-lg shadow-md border border-white/20">
+                    <div class="mb-4">
+                        <label class="block text-white text-sm font-medium mb-1">File Saat Ini</label>
+                        <img src="{{ asset('storage/' . $dashboard->file) }}" class="h-40 rounded-md shadow-md border border-white/20">
                     </div>
                 @endif
 
                 {{-- Ganti File --}}
-                <div class="mb-8">
-                    <label class="block text-white font-semibold mb-1">Ganti File Preview (Opsional)</label>
+                <div class="mb-4">
+                    <label class="block text-white text-sm font-medium mb-1">Ganti File Preview (Opsional)</label>
                     <input type="file" name="file"
-                        class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition" />
+                        class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition" />
                 </div>
 
                 {{-- Tombol --}}
-                <div class="flex justify-end space-x-3">
+                <div class="flex justify-end gap-2 pt-4">
                     <a href="{{ route('dashboard.index') }}"
-                        class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md shadow-md hover:shadow-lg transition">
+                        class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-md shadow hover:shadow-md transition text-sm">
                         Batal
                     </a>
                     <button type="submit"
-                        class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md shadow-md hover:shadow-lg transition">
+                        class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-md shadow hover:shadow-md transition text-sm">
                         Perbarui
                     </button>
                 </div>

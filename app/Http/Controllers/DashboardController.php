@@ -38,7 +38,7 @@ class DashboardController extends Controller
 
         $data = $request->only('judul', 'tanggal');
 
-        // Ubah format tanggal dari d/m/Y ke Y-m-d buat di db
+        // Format tanggal dari d/m/Y ke Y-m-d
         try {
             $tanggal = Carbon::createFromFormat('d/m/Y', $request->tanggal);
             if ($tanggal->format('d/m/Y') !== $request->tanggal) {
@@ -70,13 +70,13 @@ class DashboardController extends Controller
 
         $request->validate([
             'judul' => 'required|string|max:255',
-            'tanggal' => 'required|date',
+            'tanggal' => 'required|string',
             'file' => 'nullable|mimes:jpg,jpeg,png,mp4,mov,webm|max:10000',
         ]);
 
         $data = $request->only('judul', 'tanggal');
 
-        // Ubah format tanggal dari d/m/Y ke Y-m-d buat di db
+        // Format tanggal dari d/m/Y ke Y-m-d
         try {
             $tanggal = Carbon::createFromFormat('d/m/Y', $request->tanggal);
             if ($tanggal->format('d/m/Y') !== $request->tanggal) {

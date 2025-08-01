@@ -1,4 +1,4 @@
-    <nav x-data="{ open: false }"
+<nav x-data="{ open: false }"
         class="fixed top-0 w-full z-50 bg-[#1E293B] text-white border-b border-gray-700 py-2"
         style="box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -9,12 +9,14 @@
 
                     <!-- Logo (Ukuran diperbesar) -->
                     <div class="shrink-0 flex items-center">
-                        <a href="{{ route('dashboard.index') }}" class="flex items-center space-x-3">
-                            <img src="{{ asset('assets/images/logo.png') }}" class="h-12 w-auto" alt="Logo" />
-                            <span class="hidden sm:inline text-white text-sm font-semibold whitespace-nowrap">
-                                Setukpa Lemdiklat Polri
-                            </span>
-                        </a>
+                    <a href="{{ route('dashboard.index') }}" class="flex items-center space-x-3">
+                        <img src="{{ asset('assets/images/logo.png') }}" class="h-14 w-auto" alt="Logo" />
+                        <div class="flex flex-col leading-4 text-white font-semibold text-sm">
+                            <span class="text-white">SETUKPA</span>
+                            <span class="text-white">LEMDIKLAT</span>
+                            <span class="text-yellow-400">POLRI</span>
+                        </div>
+                    </a>
                     </div>
 
                     <!-- Hamburger button (Hanya muncul di layar kecil) -->
@@ -36,12 +38,12 @@
                     <div class="hidden sm:flex items-center space-x-3 text-base font-medium">
                         @php
                             $navItems = [
-                                ['name' => 'Home', 'route' => 'dashboard.index'],
-                                ['name' => 'Profil', 'route' => 'profil.index'],
-                                ['name' => 'Berita', 'route' => 'berita.index'],
-                                ['name' => 'Informasi', 'route' => 'informasi.index'],
-                                ['name' => 'Fasilitas', 'route' => 'fasilitas.index'],
-                                ['name' => 'Galeri', 'route' => 'galeri.index'],
+                                ['name' => 'HOME', 'route' => 'dashboard.index'],
+                                ['name' => 'PROFIL', 'route' => 'profil.index'],
+                                ['name' => 'BERITA', 'route' => 'berita.index'],
+                                ['name' => 'INFORMASI', 'route' => 'informasi.index'],
+                                ['name' => 'FASILITAS', 'route' => 'fasilitas.index'],
+                                ['name' => 'GALERI', 'route' => 'galeri.index'],
                             ];
                             $linkRoutes = [
                                 'https://lemdiklat.polri.go.id/',
@@ -99,7 +101,7 @@
                                         {{ Str::contains(url()->current(), $linkRoutes)
                                             ? 'bg-gray-100 text-blue-500'
                                             : 'text-white hover:bg-gray-500 hover:text-white' }}">
-                                    {{ __('Link') }}
+                                    {{ __('LINK') }}
                                     <svg class="ms-1 h-4 w-4 fill-current" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd"
                                             d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z"

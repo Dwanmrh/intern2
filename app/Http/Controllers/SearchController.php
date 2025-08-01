@@ -8,7 +8,7 @@ use App\Models\Profil;
 use App\Models\Berita;
 use App\Models\Informasi;
 use App\Models\Galeri;
-
+use App\Models\Fasilitas;
 class SearchController extends Controller
 {
     public function search(Request $request)
@@ -50,6 +50,16 @@ class SearchController extends Controller
                 'url' => route('informasi.index') . "#info{$item->id}",
                 'category' => 'Informasi'
             ]);
+        
+            $fasilitas = Fasilitas::where('judul', 'like', "%{$query}%")
+            ->orWhere('deskripsi', 'like', "%{$query}%")
+            ->select('id', 'judul as title')
+            ->get()
+            ->map(fn($item) => [
+                'title' => $item->title,
+                'url' => route('fasilitas.index') . "#fasilitas{$item->id}",
+                'category' => 'Fasilitas'
+            ]);
 
         $galeri = Galeri::where('judul', 'like', "%{$query}%")
             ->select('id', 'judul as title')
@@ -65,6 +75,7 @@ class SearchController extends Controller
             ->merge($profil)
             ->merge($berita)
             ->merge($informasi)
+            ->merge($fasilitas)
             ->merge($galeri)
             ->unique('url')
             ->values(); // reset indexing
