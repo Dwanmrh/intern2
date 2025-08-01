@@ -40,7 +40,25 @@ class InformasiController extends Controller
             return back()->withErrors(['tanggal' => 'Format tanggal tidak valid'])->withInput();
         }
 
-        Informasi::create($validated);
+        $data = $validated;
+
+        // Format tanggal dari d/m/Y ke Y-m-d
+        try {
+            $tanggal = Carbon::createFromFormat('d/m/Y', $request->tanggal);
+            if ($tanggal->format('d/m/Y') !== $request->tanggal) {
+                throw new \Exception('Invalid date');
+            }
+            $data['tanggal'] = $tanggal->format('Y-m-d');
+        } catch (\Exception $e) {
+            return back()->withErrors(['tanggal' => 'Format tanggal tidak valid'])->withInput();
+        }
+
+        // Simpan file jika ada
+        if ($request->hasFile('foto')) {
+            $data['foto'] = $request->file('foto')->store('informasi', 'public');
+        }
+
+        Informasi::create($data);
 
         return redirect()->route('informasi.index')->with('success', 'Informasi berhasil ditambahkan.');
     }
@@ -81,7 +99,28 @@ class InformasiController extends Controller
             return back()->withErrors(['tanggal' => 'Format tanggal tidak valid'])->withInput();
         }
 
-        $informasi->update($validated);
+        $data = $validated;
+
+        // Format tanggal dari d/m/Y ke Y-m-d
+        try {
+            $tanggal = Carbon::createFromFormat('d/m/Y', $request->tanggal);
+            if ($tanggal->format('d/m/Y') !== $request->tanggal) {
+                throw new \Exception('Invalid date');
+            }
+            $data['tanggal'] = $tanggal->format('Y-m-d');
+        } catch (\Exception $e) {
+            return back()->withErrors(['tanggal' => 'Format tanggal tidak valid'])->withInput();
+        }
+
+        // Ganti foto jika ada upload
+        if ($request->hasFile('foto')) {
+            if ($informasi->foto && Storage::disk('public')->exists($informasi->foto)) {
+                Storage::disk('public')->delete($informasi->foto);
+            }
+            $data['foto'] = $request->file('foto')->store('informasi', 'public');
+        }
+
+        $informasi->update($data);
 
         return redirect()->route('informasi.index')->with('success', 'Informasi berhasil diperbarui.');
     }

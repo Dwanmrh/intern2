@@ -49,6 +49,12 @@ class DashboardController extends Controller
             return back()->withErrors(['tanggal' => 'Format tanggal tidak valid'])->withInput();
         }
 
+        // Handle file upload
+        if ($request->hasFile('file')) {
+            $filePath = $request->file('file')->store('dashboard', 'public');
+            $data['file'] = $filePath;
+        }
+
         Dashboard::create($data);
 
         return redirect()->route('dashboard.index')->with('success', 'Preview berhasil ditambahkan.');
@@ -85,6 +91,18 @@ class DashboardController extends Controller
             $data['tanggal'] = $tanggal->format('Y-m-d');
         } catch (\Exception $e) {
             return back()->withErrors(['tanggal' => 'Format tanggal tidak valid'])->withInput();
+        }
+
+        // Handle file upload
+        if ($request->hasFile('file')) {
+
+            // Hapus file lama jika ada
+            if ($dashboard->file && Storage::disk('public')->exists($dashboard->file)) {
+                Storage::disk('public')->delete($dashboard->file);
+            }
+
+            $filePath = $request->file('file')->store('dashboard', 'public');
+            $data['file'] = $filePath;
         }
 
         $dashboard->update($data);
