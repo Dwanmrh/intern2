@@ -6,7 +6,7 @@
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white p-6 rounded-lg shadow-md">
 
-                {{-- Gambar Informasi --}}
+                {{-- Gambar Berita --}}
                 @if ($berita->foto)
                     <img src="{{ asset('storage/' . $berita->foto) }}"
                          alt="{{ $berita->judul }}"
@@ -26,16 +26,16 @@
                 {{-- Judul --}}
                 <h1 class="text-2xl font-bold text-gray-800 mb-4">{{ $berita->judul }}</h1>
 
-                {{-- Isi Informasi --}}
+                {{-- Isi Berita --}}
                 <div class="text-gray-700 leading-relaxed prose max-w-none">
-                    {!! $berita->deskripsi !!}
+                    {!! $berita->isi_berita !!}
                 </div>
 
                 {{-- Tombol Kembali --}}
                 <div class="mt-6">
-                    <a href="{{ route('informasi.index') }}"
+                    <a href="{{ route('berita.index') }}"
                        class="inline-block bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-md text-sm">
-                        ← Kembali ke Daftar Informasi
+                        ← Kembali ke Daftar Berita
                     </a>
                 </div>
             </div>

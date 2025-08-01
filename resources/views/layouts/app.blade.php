@@ -26,7 +26,7 @@
         <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
         <!-- Alpine.js -->
-        <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     </head>
 
     <body class="pt-20 font-sans antialiased" style="background-color: #E5E5E5;">

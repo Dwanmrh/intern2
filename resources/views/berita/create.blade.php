@@ -8,6 +8,12 @@
             {{-- Header --}}
             <h2 class="text-2xl text-white font-bold text-center mb-8">Tambah Berita</h2>
 
+            @if($errors->any())
+                <div class="bg-red-500 text-white px-4 py-2 rounded shadow mb-4 text-sm">
+                    <strong>Terjadi kesalahan:</strong> {{ $errors->first() }}
+                </div>
+            @endif
+
             <form action="{{ route('berita.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
@@ -21,18 +27,20 @@
 
                 {{-- Isi Berita --}}
                 <div class="mb-6">
-                    <label class="block text-white font-semibold mb-1">Isi Berita (Opsional)</label>
+                    <label class="block text-white font-semibold mb-1">Isi Berita</label>
                     <textarea name="isi_berita" rows="5"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
-                        placeholder="Tulis isi berita di sini..."></textarea>
+                        placeholder="Masukkan isi berita"></textarea>
+                    <small class="font-bold text-yellow-400 italic">Kosongkan isi berita jika menggunakan file</small>
+
                 </div>
 
                 {{-- Upload File Word/PDF --}}
                 <div class="mb-6">
-                    <label class="block text-white font-semibold mb-1">Upload File (PDF)</label>
+                    <label class="block text-white font-semibold mb-1">Upload File Berita (PDF)</label>
                     <input type="file" name="file_berita" accept=".pdf,.docx"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition">
-                    <small class="text-gray-300 italic">Kosongkan isi berita jika menggunakan file</small>
+                    <small class="font-bold text-yellow-400 italic">Kosongkan upload file jika memasukkan isi berita</small>
                 </div>
 
                 {{-- Tanggal --}}
@@ -45,7 +53,7 @@
 
                 {{-- Foto --}}
                 <div class="mb-8">
-                    <label class="block text-white font-semibold mb-1">Foto</label>
+                    <label class="block text-white font-semibold mb-1">Foto (Opsional)</label>
                     <input type="file" name="foto"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition">
                 </div>

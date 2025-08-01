@@ -73,60 +73,62 @@
                 {{-- Grid Pimpinan --}}
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
                     @forelse ($data as $profil)
-                        <div class="bg-white shadow-md rounded-lg overflow-hidden flex flex-col">
-                            {{-- Foto --}}
-                            <div class="w-full aspect-[3/4] overflow-hidden bg-gray-100">
-                                @if ($profil->foto)
-                                    <img src="{{ asset('storage/' . $profil->foto) }}"
-                                         alt="Foto Pimpinan"
-                                         class="w-full h-full object-cover object-top">
-                                @else
-                                    <div class="w-full h-full flex items-center justify-center text-gray-600 bg-gray-200">
-                                        Tidak ada foto
-                                    </div>
-                                @endif
-                            </div>
+                <div
+                class="bg-white shadow-md rounded-lg overflow-hidden flex flex-col relative transition transform duration-300 ease-in-out hover:scale-105 group">
 
-                            {{-- Konten --}}
-                            <div class="p-4 flex flex-col justify-between flex-1">
-                                <div>
-                                    <h3 class="text-lg font-bold text-gray-800 text-center">{{ $profil->nama }}</h3>
-                                    <p class="text-sm text-gray-500 text-center mt-1">{{ $profil->jabatan }}</p>
-                                </div>
-
-                                {{-- Tombol Aksi --}}
-                                @auth
-                                    @if(Auth::user()->role === 'admin')
-                                        <div class="flex justify-end gap-4 mt-4">
-                                            <a href="{{ route('profil.edit', $profil->id) }}"
-                                               class="text-blue-600 hover:text-blue-800 transition" title="Edit">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                                     viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                          d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-5M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                                                </svg>
-                                            </a>
-
-                                            {{-- Tombol Hapus: Trigger Modal --}}
-                                            <button type="button"
-                                                    class="text-red-600 hover:text-red-800 transition"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#hapusProfilModal{{ $profil->id }}"
-                                                    title="Hapus">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                                     viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7h6m-3-4v4"/>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    @endif
-                                @endauth
-                            </div>
+                <div class="w-full aspect-[3/4] overflow-hidden bg-gray-100">
+                    @if ($profil->foto)
+                        <img src="{{ asset('storage/' . $profil->foto) }}"
+                            alt="Foto Pimpinan"
+                            class="w-full h-full object-cover object-top">
+                    @else
+                        <div class="w-full h-full flex items-center justify-center text-gray-600 bg-gray-200">
+                            Tidak ada foto
                         </div>
-                    @empty
-                        <p class="text-gray-600 col-span-4 text-center">Belum ada data pimpinan.</p>
-                    @endforelse
+                    @endif
+                </div>
+
+                <div class="p-4 flex flex-col justify-between flex-1">
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-800 text-center">{{ $profil->nama }}</h3>
+                        <p class="text-sm text-gray-500 text-center mt-1">{{ $profil->jabatan }}</p>
+                    </div>
+                </div>
+
+                {{-- Tombol Edit & Hapus SELALU TAMPIL --}}
+                @auth
+                    @if(Auth::user()->role === 'admin')
+                        <div class="absolute bottom-3 right-3 flex justify-end gap-4 z-10">
+                            {{-- Edit --}}
+                            <a href="{{ route('profil.edit', $profil->id) }}"
+                                class="text-blue-600 hover:text-blue-800 transition" title="Edit">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-5M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                </svg>
+                            </a>
+
+                            {{-- Delete --}}
+                            <button type="button"
+                                    class="text-red-600 hover:text-red-800 transition"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#hapusProfilModal{{ $profil->id }}"
+                                    title="Hapus">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7h6m-3-4v4"/>
+                                </svg>
+                            </button>
+                        </div>
+                    @endif
+                @endauth
+            </div>
+
+            @empty
+                <p class="text-gray-600 col-span-4 text-center">Belum ada data pimpinan.</p>
+            @endforelse
                 </div>
             </div>
         </div>

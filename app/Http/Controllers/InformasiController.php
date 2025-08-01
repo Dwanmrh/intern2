@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Informasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class InformasiController extends Controller
 {
@@ -24,12 +25,19 @@ class InformasiController extends Controller
         $validated = $request->validate([
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'tanggal' => 'required|date',
+            'tanggal' => 'required|string',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:10000',
         ]);
 
-        if ($request->hasFile('foto')) {
-            $validated['foto'] = $request->file('foto')->store('foto_informasi', 'public');
+        // Format tanggal dari d/m/Y ke Y-m-d
+        try {
+            $tanggal = Carbon::createFromFormat('d/m/Y', $request->tanggal);
+            if ($tanggal->format('d/m/Y') !== $request->tanggal) {
+                throw new \Exception('Invalid date');
+            }
+            $data['tanggal'] = $tanggal->format('Y-m-d');
+        } catch (\Exception $e) {
+            return back()->withErrors(['tanggal' => 'Format tanggal tidak valid'])->withInput();
         }
 
         Informasi::create($validated);
@@ -46,6 +54,8 @@ class InformasiController extends Controller
     public function edit($id)
     {
         $informasi = Informasi::findOrFail($id);
+        $informasi->tanggal = Carbon::parse($informasi->tanggal)->format('d/m/Y');
+
         return view('informasi.edit', compact('informasi'));
     }
 
@@ -60,13 +70,15 @@ class InformasiController extends Controller
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:10000',
         ]);
 
-        if ($request->hasFile('foto')) {
-            // Hapus foto lama jika ada
-            if ($informasi->foto && Storage::disk('public')->exists($informasi->foto)) {
-                Storage::disk('public')->delete($informasi->foto);
+        // Format tanggal dari d/m/Y ke Y-m-d
+        try {
+            $tanggal = Carbon::createFromFormat('d/m/Y', $request->tanggal);
+            if ($tanggal->format('d/m/Y') !== $request->tanggal) {
+                throw new \Exception('Invalid date');
             }
-
-            $validated['foto'] = $request->file('foto')->store('foto_informasi', 'public');
+            $data['tanggal'] = $tanggal->format('Y-m-d');
+        } catch (\Exception $e) {
+            return back()->withErrors(['tanggal' => 'Format tanggal tidak valid'])->withInput();
         }
 
         $informasi->update($validated);

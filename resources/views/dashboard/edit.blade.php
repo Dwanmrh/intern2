@@ -8,6 +8,12 @@
             {{-- Header --}}
             <h2 class="text-2xl text-white font-bold text-center mb-8">Edit Preview</h2>
 
+            @if($errors->any())
+                <div class="bg-red-500 text-white px-4 py-2 rounded shadow mb-4 text-sm">
+                    <strong>Terjadi kesalahan:</strong> {{ $errors->first() }}
+                </div>
+            @endif
+
             <form action="{{ route('dashboard.update', $dashboard->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -21,12 +27,11 @@
                 </div>
 
                 {{-- Tanggal --}}
-                <div class="mb-6">
+                <<div class="mb-6">
                     <label class="block text-white font-semibold mb-1">Tanggal</label>
-                    <input type="text" name="tanggal" value="{{ old('tanggal', $dashboard->tanggal) }}"
-                        class="w-full bg-white text-black border border-gray-500 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
-                        placeholder="Format: DD/MM/YYYY"
-                        required>
+                    <input type="text" name="tanggal" id="tanggal"
+                        class="w-full bg-white text-black border border-gray-500 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 shadow-inner transition"
+                        required placeholder="Format: DD/MM/YYYY">
                 </div>
 
                 {{-- File Lama --}}
@@ -39,7 +44,7 @@
 
                 {{-- Ganti File --}}
                 <div class="mb-8">
-                    <label class="block text-white font-semibold mb-1">Ganti File (Opsional)</label>
+                    <label class="block text-white font-semibold mb-1">Ganti File Preview (Opsional)</label>
                     <input type="file" name="file"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition" />
                 </div>
@@ -56,6 +61,16 @@
                     </button>
                 </div>
             </form>
+
+            {{-- Flatpickr --}}
+            <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+            <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/id.js"></script>
+            <script>
+                flatpickr("#tanggal", {
+                    dateFormat: "d/m/Y",
+                    locale: "id",
+                });
+            </script>
         </div>
     </div>
 </x-app-layout>

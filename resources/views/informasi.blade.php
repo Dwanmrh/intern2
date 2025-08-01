@@ -46,7 +46,7 @@
                             </div>
                         @endif
 
-                        <div class="p-4 flex flex-col flex-grow">
+                        <div class="p-4 flex flex-col flex-grow pointer-events-auto">
                             <p class="text-sm text-gray-500 flex items-center gap-1 mb-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-500" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
@@ -79,7 +79,8 @@
                             @auth
                                 @if(Auth::user()->role === 'admin')
                                     <div class="flex justify-end gap-4 mt-4">
-                                        <a href="{{ route('informasi.edit', $data->id) }}" class="text-blue-600 hover:text-blue-800 transition" title="Edit">
+                                        <a href="{{ route('informasi.edit', $data->id) }}" @click.stop
+                                            class="text-blue-600 hover:text-blue-800 transition" title="Edit">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -88,7 +89,7 @@
                                         </a>
 
                                         <!-- Tombol Trigger Modal -->
-                                        <button type="button"
+                                        <button type="button" @click.stop
                                                 class="text-red-600 hover:text-red-800 transition"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#hapusInformasiModal{{ $data->id }}"
@@ -177,13 +178,14 @@
                     </div>
                 </div>
 
-                {{-- Peta --}}
-                <div class="mt-10 mb-10 w-full">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15843.305004477184!2d106.90528948715817!3d-6.911367899999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6848356fffffff%3A0xf319c6be506068e7!2sEducational%20Establishment%20Officer!5e0!3m2!1sen!2sid!4v1753245232528!5m2!1sen!2sid"
-                            width="100%" height="320" style="border:0;" allowfullscreen="" loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade" class="rounded-lg shadow-md">
-                    </iframe>
-                </div>
+            </div>
+
+            {{-- Peta --}}
+            <div class="mt-10 mb-10 w-full">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15843.305004477184!2d106.90528948715817!3d-6.911367899999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6848356fffffff%3A0xf319c6be506068e7!2sEducational%20Establishment%20Officer!5e0!3m2!1sen!2sid!4v1753245232528!5m2!1sen!2sid"
+                        width="100%" height="320" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade" class="rounded-lg shadow-md">
+                </iframe>
             </div>
         </div>
     </div>

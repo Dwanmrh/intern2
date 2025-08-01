@@ -38,15 +38,15 @@ class DashboardController extends Controller
 
         $data = $request->only('judul', 'tanggal');
 
-         // Ubah format tanggal dari d/m/Y ke Y-m-d buat di db
+        // Ubah format tanggal dari d/m/Y ke Y-m-d buat di db
         try {
-            $data['tanggal'] = Carbon::createFromFormat('d/m/Y', $request->tanggal)->format('Y-m-d');
+            $tanggal = Carbon::createFromFormat('d/m/Y', $request->tanggal);
+            if ($tanggal->format('d/m/Y') !== $request->tanggal) {
+                throw new \Exception('Invalid date');
+            }
+            $data['tanggal'] = $tanggal->format('Y-m-d');
         } catch (\Exception $e) {
             return back()->withErrors(['tanggal' => 'Format tanggal tidak valid'])->withInput();
-        }
-
-        if ($request->hasFile('file')) {
-            $data['file'] = $request->file('file')->store('dashboard', 'public');
         }
 
         Dashboard::create($data);
@@ -78,13 +78,13 @@ class DashboardController extends Controller
 
         // Ubah format tanggal dari d/m/Y ke Y-m-d buat di db
         try {
-            $data['tanggal'] = Carbon::createFromFormat('d/m/Y', $request->tanggal)->format('Y-m-d');
+            $tanggal = Carbon::createFromFormat('d/m/Y', $request->tanggal);
+            if ($tanggal->format('d/m/Y') !== $request->tanggal) {
+                throw new \Exception('Invalid date');
+            }
+            $data['tanggal'] = $tanggal->format('Y-m-d');
         } catch (\Exception $e) {
             return back()->withErrors(['tanggal' => 'Format tanggal tidak valid'])->withInput();
-        }
-
-        if ($request->hasFile('file')) {
-            $data['file'] = $request->file('file')->store('dashboard', 'public');
         }
 
         $dashboard->update($data);

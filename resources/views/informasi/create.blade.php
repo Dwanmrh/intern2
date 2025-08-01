@@ -24,20 +24,20 @@
                     <label class="block text-white font-semibold mb-1">Deskripsi</label>
                     <input type="text" name="deskripsi"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-4 py-2 shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        placeholder="Deskripsi singkat" required>
+                        placeholder="Masukkan deskripsi" required>
                 </div>
 
                 {{-- Tanggal --}}
                 <div class="mb-6">
                     <label class="block text-white font-semibold mb-1">Tanggal</label>
-                    <input type="date" name="tanggal"
-                        class="w-full bg-white text-black border border-gray-500 rounded-md px-4 py-2 shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        required>
+                    <input type="text" name="tanggal" id="tanggal"
+                        class="w-full bg-white text-black border border-gray-500 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
+                        required placeholder="Format: DD/MM/YYYY">
                 </div>
 
                 {{-- Foto --}}
                 <div class="mb-8">
-                    <label class="block text-white font-semibold mb-1">Foto</label>
+                    <label class="block text-white font-semibold mb-1">Foto (Opsional)</label>
                     <input type="file" name="foto"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-2 shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-400">
                 </div>
@@ -54,6 +54,16 @@
                     </button>
                 </div>
             </form>
+
+            {{-- Flatpickr --}}
+            <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+            <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/id.js"></script>
+            <script>
+                flatpickr("#tanggal", {
+                    dateFormat: "d/m/Y",
+                    locale: "id",
+                });
+            </script>
         </div>
     </div>
 </x-app-layout>

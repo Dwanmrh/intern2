@@ -15,7 +15,7 @@
                 <div class="mb-6">
                     <label class="block text-white font-semibold mb-1">Nama</label>
                     <input type="text" name="nama"
-                        class="w-full bg-white text-black placeholder-black border border-gray-500 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
+                        class="w-full bg-white text-black border border-gray-500 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 shadow-inner transition"
                         required placeholder="Masukkan nama pimpinan">
                 </div>
 
@@ -23,13 +23,13 @@
                 <div class="mb-6">
                     <label class="block text-white font-semibold mb-1">Jabatan</label>
                     <input type="text" name="jabatan"
-                        class="w-full bg-white text-black placeholder-black border border-gray-500 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
+                        class="w-full bg-white text-black border border-gray-500 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 shadow-inner transition"
                         required placeholder="Masukkan jabatan">
                 </div>
 
                 {{-- Foto --}}
                 <div class="mb-8">
-                    <label class="block text-white font-semibold mb-1">Foto</label>
+                    <label class="block text-white font-semibold mb-1">Foto (Opsional)</label>
                     <input type="file" name="foto"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition" />
                 </div>

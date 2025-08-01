@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Fasilitas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class FasilitasController extends Controller
 {
@@ -24,12 +25,19 @@ class FasilitasController extends Controller
         $validated = $request->validate([
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'tanggal' => 'required|date',
+            'tanggal' => 'required|string',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:10000',
         ]);
 
-        if ($request->hasFile('foto')) {
-            $validated['foto'] = $request->file('foto')->store('foto_fasilitas', 'public');
+        // Format tanggal dari d/m/Y ke Y-m-d
+        try {
+            $tanggal = Carbon::createFromFormat('d/m/Y', $request->tanggal);
+            if ($tanggal->format('d/m/Y') !== $request->tanggal) {
+                throw new \Exception('Invalid date');
+            }
+            $data['tanggal'] = $tanggal->format('Y-m-d');
+        } catch (\Exception $e) {
+            return back()->withErrors(['tanggal' => 'Format tanggal tidak valid'])->withInput();
         }
 
         Fasilitas::create($validated);
@@ -45,6 +53,8 @@ class FasilitasController extends Controller
     public function edit($id)
     {
         $fasilitas = Fasilitas::findOrFail($id);
+        $fasilitas->tanggal = Carbon::parse($fasilitas->tanggal)->format('d/m/Y');
+
         return view('fasilitas.edit', compact('fasilitas'));
     }
 
@@ -55,17 +65,19 @@ class FasilitasController extends Controller
         $validated = $request->validate([
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'tanggal' => 'required|date',
+            'tanggal' => 'required|string',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:10000',
         ]);
 
-        if ($request->hasFile('foto')) {
-            // Hapus foto lama jika ada
-            if ($fasilitas->foto && Storage::disk('public')->exists($fasilitas->foto)) {
-                Storage::disk('public')->delete($fasilitas->foto);
+        // Format tanggal dari d/m/Y ke Y-m-d
+        try {
+            $tanggal = Carbon::createFromFormat('d/m/Y', $request->tanggal);
+            if ($tanggal->format('d/m/Y') !== $request->tanggal) {
+                throw new \Exception('Invalid date');
             }
-
-            $validated['foto'] = $request->file('foto')->store('foto_fasilitas', 'public');
+            $data['tanggal'] = $tanggal->format('Y-m-d');
+        } catch (\Exception $e) {
+            return back()->withErrors(['tanggal' => 'Format tanggal tidak valid'])->withInput();
         }
 
         $fasilitas->update($validated);

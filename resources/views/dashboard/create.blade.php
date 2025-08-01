@@ -8,6 +8,12 @@
             {{-- Header Tengah --}}
             <h2 class="text-2xl text-white font-bold text-center mb-8">Tambah Preview</h2>
 
+            @if($errors->any())
+                <div class="bg-red-500 text-white px-4 py-2 rounded shadow mb-4 text-sm">
+                    <strong>Terjadi kesalahan:</strong> {{ $errors->first() }}
+                </div>
+            @endif
+
             <form action="{{ route('dashboard.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
@@ -29,7 +35,7 @@
 
                 {{-- Foto atau Video --}}
                 <div class="mb-8">
-                    <label class="block text-white font-semibold mb-1">Foto atau Video</label>
+                    <label class="block text-white font-semibold mb-1">Upload File Preview (Opsional)</label>
                     <input type="file" name="file"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 shadow-inner transition" />
                 </div>
@@ -47,20 +53,13 @@
                 </div>
             </form>
 
+            {{-- Flatpickr --}}
+            <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+            <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/id.js"></script>
             <script>
                 flatpickr("#tanggal", {
                     dateFormat: "d/m/Y",
-                    locale: {
-                        firstDayOfWeek: 1,
-                        weekdays: {
-                            shorthand: ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'],
-                            longhand: ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'],
-                        },
-                        months: {
-                            shorthand: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
-                            longhand: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
-                        },
-                    }
+                    locale: "id",
                 });
             </script>
         </div>

@@ -47,7 +47,7 @@
                             </div>
                         @endif
 
-                        <div class="p-4 flex flex-col flex-grow">
+                        <div class="p-4 flex flex-col flex-grow pointer-events-auto">
                             <p class="text-sm text-gray-500 flex items-center gap-1 mb-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-500" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
@@ -80,7 +80,8 @@
                             @auth
                                 @if(Auth::user()->role === 'admin')
                                     <div class="flex justify-end gap-4 mt-4">
-                                        <a href="{{ route('berita.edit', $berita->id) }}" class="text-blue-600 hover:text-blue-800 transition" title="Edit">
+                                        <a href="{{ route('berita.edit', $berita->id) }}" @click.stop
+                                            class="text-blue-600 hover:text-blue-800 transition" title="Edit">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -89,7 +90,7 @@
                                         </a>
 
                                         <!-- Tombol Trigger Modal -->
-                                        <button type="button"
+                                        <button type="button" @click.stop
                                                 class="text-red-600 hover:text-red-800 transition"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#hapusBeritaModal{{ $berita->id }}"
