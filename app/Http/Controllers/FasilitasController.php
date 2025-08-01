@@ -40,7 +40,26 @@ class FasilitasController extends Controller
             return back()->withErrors(['tanggal' => 'Format tanggal tidak valid'])->withInput();
         }
 
-        Fasilitas::create($validated);
+        $data = $validated;
+
+        // Format tanggal dari d/m/Y ke Y-m-d
+        try {
+            $tanggal = Carbon::createFromFormat('d/m/Y', $request->tanggal);
+            if ($tanggal->format('d/m/Y') !== $request->tanggal) {
+                throw new \Exception('Invalid date');
+            }
+            $data['tanggal'] = $tanggal->format('Y-m-d');
+        } catch (\Exception $e) {
+            return back()->withErrors(['tanggal' => 'Format tanggal tidak valid'])->withInput();
+        }
+
+        // Simpan foto jika ada
+        if ($request->hasFile('foto')) {
+            $data['foto'] = $request->file('foto')->store('fasilitas', 'public');
+        }
+
+        Fasilitas::create($data);
+
         return redirect()->route('fasilitas.index')->with('success', 'Fasilitas berhasil ditambahkan');
     }
 
@@ -80,7 +99,30 @@ class FasilitasController extends Controller
             return back()->withErrors(['tanggal' => 'Format tanggal tidak valid'])->withInput();
         }
 
-        $fasilitas->update($validated);
+        $data = $validated;
+
+        // Format tanggal dari d/m/Y ke Y-m-d
+        try {
+            $tanggal = Carbon::createFromFormat('d/m/Y', $request->tanggal);
+            if ($tanggal->format('d/m/Y') !== $request->tanggal) {
+                throw new \Exception('Invalid date');
+            }
+            $data['tanggal'] = $tanggal->format('Y-m-d');
+        } catch (\Exception $e) {
+            return back()->withErrors(['tanggal' => 'Format tanggal tidak valid'])->withInput();
+        }
+
+        // Ganti foto jika ada upload
+        if ($request->hasFile('foto')) {
+            if ($fasilitas->foto && Storage::disk('public')->exists($fasilitas->foto)) {
+                Storage::disk('public')->delete($fasilitas->foto);
+            }
+
+            $data['foto'] = $request->file('foto')->store('fasilitas', 'public');
+        }
+
+        $fasilitas->update($data);
+
         return redirect()->route('fasilitas.index')->with('success', 'Fasilitas berhasil diperbarui');
     }
 
