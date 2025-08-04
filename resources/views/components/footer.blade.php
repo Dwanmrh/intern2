@@ -2,7 +2,7 @@
     <div class="max-w-7xl mx-auto py-6 px-6 grid grid-cols-1 md:grid-cols-3 gap-6">
         {{-- Logo --}}
         <div class="flex flex-col items-center md:items-start">
-            <img src="{{ asset('assets/images/logo.png') }}" alt="Logo" class="w-28 h-auto mb-3">
+            <img src="{{ asset('assets/images/logo_setukpa.png') }}" alt="Logo" class="w-28 h-auto mb-3">
         </div>
 
         {{-- Navigasi dua baris --}}

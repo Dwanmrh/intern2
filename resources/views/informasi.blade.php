@@ -40,10 +40,6 @@
                         @if ($data->foto)
                             <img src="{{ asset('storage/' . $data->foto) }}" alt="{{ $data->judul }}"
                                 class="w-full h-64 object-cover">
-                        @else
-                            <div class="w-full h-64 bg-gray-300 flex items-center justify-center text-gray-600">
-                                Tidak ada gambar
-                            </div>
                         @endif
 
                         <div class="p-4 flex flex-col flex-grow pointer-events-auto">

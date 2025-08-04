@@ -9,8 +9,21 @@ class ProfilController extends Controller
 {
     public function index()
     {
-        $data = Profil::all();
-        return view('profil', compact('data'));
+         $data = Profil::all();
+
+        $kasetukpa = $data->first(function ($item) {
+            return strtolower($item->jabatan) === 'kasetukpa';
+        });
+
+        $wakasetukpa = $data->first(function ($item) {
+            return strtolower($item->jabatan) === 'wakasetukpa';
+        });
+
+        $pimpinanLain = $data->filter(function ($item) {
+            return !in_array(strtolower($item->jabatan), ['kasetukpa', 'wakasetukpa']);
+        });
+
+        return view('profil', compact('kasetukpa', 'wakasetukpa', 'pimpinanLain'));
     }
 
     public function create()

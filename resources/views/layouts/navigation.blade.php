@@ -10,7 +10,7 @@
                     <!-- Logo (Ukuran diperbesar) -->
                     <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard.index') }}" class="flex items-center space-x-3">
-                        <img src="{{ asset('assets/images/logo.png') }}" class="h-14 w-auto" alt="Logo" />
+                        <img src="{{ asset('assets/images/logo_setukpa.png') }}" class="h-14 w-auto" alt="Logo" />
                         <div class="flex flex-col leading-4 text-white font-semibold text-sm">
                             <span class="text-white">SETUKPA</span>
                             <span class="text-white">LEMDIKLAT</span>
@@ -117,71 +117,11 @@
                                     <x-dropdown-link :href="'https://lemdiklat.polri.go.id/web/'" target="_blank">
                                         Web Lemdiklat Polri
                                     </x-dropdown-link>
-                                    <x-dropdown-link :href="'https://sipl.lemdiklat.polri.go.id/'" target="_blank">
-                                        Web SIPL
+                                    <x-dropdown-link :href="'#'" target="_blank">
+                                        Web Sadiklat Polri
                                     </x-dropdown-link>
-                                    <x-dropdown-link :href="'https://elibrary.lemdiklat.polri.go.id/'" target="_blank">
-                                        E-Library Lemdiklat Polri
-                                    </x-dropdown-link>
-                                    <x-dropdown-link :href="'http://103.180.58.114:11582/'" target="_blank">
-                                        Smart Class
-                                    </x-dropdown-link>
-
-                                    {{-- PUSDIKMIN --}}
-                                    <x-dropdown-link :href="'https://www.instagram.com/pusdikmin?igsh=NG9qNHpvODFsZ2E5'" target="_blank">
-                                        IG PUSDIKMIN
-                                    </x-dropdown-link>
-                                    <x-dropdown-link :href="'https://youtube.com/@pidpusdikmin?si=yMAPF2lfXHRtbC5C'" target="_blank">
-                                        YT PUSDIKMIN
-                                    </x-dropdown-link>
-                                    <x-dropdown-link :href="'https://www.tiktok.com/@pusdikadministrasi?_t=ZS-8yOjezU9ZP0&_r=1'" target="_blank">
-                                        TIKTOK PUSDIKMIN
-                                    </x-dropdown-link>
-
-                                    {{-- PUSDIK LANTAS  --}}
-                                    <x-dropdown-link :href="'https://www.instagram.com/pusdik_lantas?igsh=MTFrM28zdXlucnB0MQ=='" target="_blank">
-                                        IG PUSDIK LANTAS
-                                    </x-dropdown-link>
-                                    <x-dropdown-link :href="'https://www.tiktok.com/@pusdikadministrasi?_t=ZS-8yOjezU9ZP0&_r=1'" target="_blank">
-                                        YT PUSDIK LANTAS
-                                    </x-dropdown-link>
-
-                                    {{-- PUSDIK SABHARA --}}
-                                    <x-dropdown-link :href="'https://www.instagram.com/pusdiksabhara.official?igsh=MWcybXY5M290c2U2aQ=='" target="_blank">
-                                        IG PUSDIK SABHARA
-                                    </x-dropdown-link>
-                                    <x-dropdown-link :href="'https://www.tiktok.com/@pusdiksabhara.ofc?_t=ZS-8yP5EBnYOjX&_r=1'" target="_blank">
-                                        TIKTOK PUSDIK SABHARA
-                                    </x-dropdown-link>
-                                    <x-dropdown-link :href="'https://youtube.com/@pusdiksabhara?si=a5YL3DDUBEsqOm3e'" target="_blank">
-                                        YT PUSDIK SABHARA
-                                    </x-dropdown-link>
-
-                                    {{-- DIKLAT RESERSE --}}
-                                    <x-dropdown-link :href="'https://www.tiktok.com/@diklat_reserse?_t=ZS-8yP5QgUb0ZL&_r=1'" target="_blank">
-                                        TIKTOK DIKLAT RESERSE
-                                    </x-dropdown-link>
-                                    <x-dropdown-link :href="'https://www.instagram.com/humas_diklatreserse?igsh=ajJub3g4am54a2d4'" target="_blank">
-                                        IG DIKLAT RESERSE
-                                    </x-dropdown-link>
-
-                                    {{-- PUSDIK BINMAS --}}
-                                    <x-dropdown-link :href="'https://www.instagram.com/pusdikbinmas?igsh=NHc2Nzk1OW1icDB1'" target="_blank">
-                                        IG PUSDIK BINMAS
-                                    </x-dropdown-link>
-                                    <x-dropdown-link :href="'https://www.tiktok.com/@pusdikbinmas?_t=ZS-8yP5cd6K9vr&_r=1'" target="_blank">
-                                        TIKTOK PUSDIK BINMAS
-                                    </x-dropdown-link>
-
-                                    {{-- PUSDIK BRIMOB --}}
-                                    <x-dropdown-link :href="'https://www.tiktok.com/@pusdikbrimobwatukosek_?_t=ZS-8yP5kinlQyA&_r=1'" target="_blank">
-                                        TIKTOK PUSDIK BINMAS
-                                    </x-dropdown-link>
-                                    <x-dropdown-link :href="'https://youtube.com/@pusdikbrimob2782?si=h3JVf7_O8nuQbBN0'" target="_blank">
-                                        YT PUSDIK BINMAS
-                                    </x-dropdown-link>
-                                    <x-dropdown-link :href="'https://www.instagram.com/humaspusdikbrimob?igsh=azhkM2hhbnp4em1x'" target="_blank">
-                                        IG PUSDIK BINMAS
+                                    <x-dropdown-link :href="'https://setukpa.lemdiklat.polri.go.id/'" target="_blank">
+                                        Web E-Setukpa
                                     </x-dropdown-link>
                                 </div>
                             </x-slot>
