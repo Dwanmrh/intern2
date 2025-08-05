@@ -52,6 +52,8 @@
                         <option value="">-- Pilih Subkategori --</option>
                         <option value="Tempat Ibadah" {{ $fasilitas->subKategori === 'Tempat Ibadah' ? 'selected' : '' }}>Tempat Ibadah</option>
                         <option value="Tempat Olahraga" {{ $fasilitas->subKategori === 'Tempat Olahraga' ? 'selected' : '' }}>Tempat Olahraga</option>
+                        <option value="Ruang Kelas" {{ $fasilitas->subKategori === 'Ruang Kelas' ? 'selected' : '' }}>Ruang Kelas</option>
+                        <option value="Kantor" {{ $fasilitas->subKategori === 'Kantor' ? 'selected' : '' }}>Kantor</option>
                         <option value="Area Publik" {{ $fasilitas->subKategori === 'Area Publik' ? 'selected' : '' }}>Area Publik</option>
                         <option value="Fasilitas Umum Lainnya" {{ $fasilitas->subKategori === 'Fasilitas Umum Lainnya' ? 'selected' : '' }}>Fasilitas Umum Lainnya</option>
                     </select>

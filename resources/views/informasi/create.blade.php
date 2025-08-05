@@ -22,9 +22,18 @@
                 {{-- Deskripsi --}}
                 <div class="mb-3">
                     <label class="block text-white font-semibold mb-1">Deskripsi</label>
-                    <input type="text" name="deskripsi"
-                        class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        placeholder="Masukkan deskripsi" required>
+                    <textarea name="isi_informasi" rows="5"
+                        class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
+                        placeholder="Masukkan deskripsi"></textarea>
+                    <small class="font-bold text-yellow-400 italic">Kosongkan deskripsi jika menggunakan file</small>
+                </div>
+
+                {{-- Upload File Word/PDF --}}
+                <div class="mb-3">
+                    <label class="block text-white font-semibold mb-1">Upload File Informasi (PDF)</label>
+                    <input type="file" name="file_informasi" accept=".pdf,.docx"
+                        class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition">
+                    <small class="font-bold text-yellow-400 italic">Kosongkan file jika memasukkan deskripsi</small>
                 </div>
 
                 {{-- Tanggal --}}

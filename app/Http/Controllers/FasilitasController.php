@@ -23,13 +23,13 @@ class FasilitasController extends Controller
 
     public function belajar()
     {
-        $fasilitas = Fasilitas::where('kategori', 'belajar')->get();
+        $fasilitas = Fasilitas::where('kategori', 'belajar')->get()->groupBy('subKategori');
         return view('fasilitas.belajar', compact('fasilitas'))->with('kategori', 'Fasilitas Belajar');
     }
 
     public function khusus()
     {
-        $fasilitas = Fasilitas::where('kategori', 'khusus')->get();
+        $fasilitas = Fasilitas::where('kategori', 'khusus')->get()->groupBy('subKategori');
         return view('fasilitas.khusus', compact('fasilitas'))->with('kategori', 'Fasilitas Khusus');
     }
 

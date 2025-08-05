@@ -9,5 +9,5 @@ class Informasi extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['judul', 'deskripsi', 'tanggal', 'foto'];
+    protected $fillable = ['judul', 'deskripsi', 'file_informasi', 'tanggal', 'foto'];
 }

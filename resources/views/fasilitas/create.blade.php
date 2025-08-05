@@ -49,6 +49,8 @@
                         <option value="">-- Pilih Subkategori --</option>
                         <option value="Tempat Ibadah">Tempat Ibadah</option>
                         <option value="Tempat Olahraga">Tempat Olahraga</option>
+                        <option value="Ruang Kelas">Ruang Kelas</option>
+                        <option value="Kantor">Kantor</option>
                         <option value="Area Publik">Area Publik</option>
                         <option value="Fasilitas Umum Lainnya">Fasilitas Umum Lainnya</option>
                     </select>

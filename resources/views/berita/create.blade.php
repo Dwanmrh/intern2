@@ -32,7 +32,6 @@
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
                         placeholder="Masukkan isi berita"></textarea>
                     <small class="font-bold text-yellow-400 italic">Kosongkan isi berita jika menggunakan file</small>
-
                 </div>
 
                 {{-- Upload File Word/PDF --}}
