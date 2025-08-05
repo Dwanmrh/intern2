@@ -1,6 +1,6 @@
 <x-app-layout>
 
-@section('title', 'Tambah Kegiatan | SETUKPA LEMDIKLAT POLRI')
+@section('title', 'Tambah Kegiatan | SETUKPA LEMDIKLAT POLRI')
 
     <div class="py-10 px-4">
         <div class="max-w-md mx-auto bg-gradient-to-br from-[#2c3e50] to-[#3b4a5a] p-5 rounded-xl shadow-2xl border border-white/10 transition-all duration-300">

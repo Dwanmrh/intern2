@@ -70,6 +70,11 @@ Route::get('/informasi/{id}', [InformasiController::class, 'show'])->name('infor
 // READ Fasilitas (akses publik)
 Route::get('/fasilitas', [FasilitasController::class, 'index'])->name('fasilitas.index');
 
+// KATEGORI Fasilitas (akses publik)
+Route::get('/fasilitas/umum', [FasilitasController::class, 'umum'])->name('fasilitas.umum');
+Route::get('/fasilitas/belajar', [FasilitasController::class, 'belajar'])->name('fasilitas.belajar');
+Route::get('/fasilitas/khusus', [FasilitasController::class, 'khusus'])->name('fasilitas.khusus');
+
 // CUD Fasilitas (hanya untuk Admin)
 Route::middleware(['auth', 'verified'])->prefix('fasilitas')->group(function () {
     Route::get('/create', [FasilitasController::class, 'create'])->name('fasilitas.create');

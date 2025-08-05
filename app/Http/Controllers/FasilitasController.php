@@ -15,6 +15,24 @@ class FasilitasController extends Controller
         return view('fasilitas', data: compact('fasilitas'));
     }
 
+    public function umum()
+    {
+        $fasilitas = Fasilitas::where('kategori', 'umum')->get()->groupBy('subKategori');
+        return view('fasilitas.umum', compact('fasilitas'))->with('kategori', 'Fasilitas Umum');
+    }
+
+    public function belajar()
+    {
+        $fasilitas = Fasilitas::where('kategori', 'belajar')->get();
+        return view('fasilitas.belajar', compact('fasilitas'))->with('kategori', 'Fasilitas Belajar');
+    }
+
+    public function khusus()
+    {
+        $fasilitas = Fasilitas::where('kategori', 'khusus')->get();
+        return view('fasilitas.khusus', compact('fasilitas'))->with('kategori', 'Fasilitas Khusus');
+    }
+
     public function create()
     {
         return view('fasilitas.create');
@@ -26,6 +44,8 @@ class FasilitasController extends Controller
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
             'tanggal' => 'required|string',
+            'kategori' => 'required|string|in:umum,belajar,khusus',
+            'subKategori' => 'required|string|max:100',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:10000',
         ]);
 
@@ -60,7 +80,7 @@ class FasilitasController extends Controller
 
         Fasilitas::create($data);
 
-        return redirect()->route('fasilitas.index')->with('success', 'Fasilitas berhasil ditambahkan');
+        return redirect()->route('fasilitas.' . $data['kategori'])->with('success', 'Fasilitas ' . ucfirst($data['kategori']) . ' berhasil ditambahkan');
     }
 
     public function show($id)
@@ -85,6 +105,8 @@ class FasilitasController extends Controller
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
             'tanggal' => 'required|string',
+            'kategori' => 'required|string|in:umum,belajar,khusus',
+            'subKategori' => 'required|string|max:100',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:10000',
         ]);
 
@@ -123,12 +145,13 @@ class FasilitasController extends Controller
 
         $fasilitas->update($data);
 
-        return redirect()->route('fasilitas.index')->with('success', 'Fasilitas berhasil diperbarui');
+        return redirect()->route('fasilitas.' . $data['kategori'])->with('success', 'Fasilitas ' . ucfirst($data['kategori']) . ' berhasil diperbarui');
     }
 
     public function destroy($id)
     {
         $fasilitas = Fasilitas::findOrFail($id);
+        $kategori = $fasilitas->kategori;
 
         // Hapus foto dari storage jika ada
         if ($fasilitas->foto && Storage::disk('public')->exists($fasilitas->foto)) {
@@ -136,6 +159,6 @@ class FasilitasController extends Controller
         }
 
         $fasilitas->delete();
-        return redirect()->route('fasilitas.index')->with('success', 'Fasilitas berhasil dihapus');
+        return redirect()->route('fasilitas.' . $kategori)->with('success', 'Fasilitas ' . ucfirst($kategori) . ' berhasil dihapus');
     }
 }

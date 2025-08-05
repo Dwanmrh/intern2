@@ -25,7 +25,7 @@ class ProfilController extends Controller
 
         return view('profil', compact('kasetukpa', 'wakasetukpa', 'pimpinanLain'));
     }
-
+    
     public function create()
     {
         return view('profil.create');

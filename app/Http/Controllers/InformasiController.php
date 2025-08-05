@@ -29,17 +29,6 @@ class InformasiController extends Controller
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:10000',
         ]);
 
-        // Format tanggal dari d/m/Y ke Y-m-d
-        try {
-            $tanggal = Carbon::createFromFormat('d/m/Y', $request->tanggal);
-            if ($tanggal->format('d/m/Y') !== $request->tanggal) {
-                throw new \Exception('Invalid date');
-            }
-            $data['tanggal'] = $tanggal->format('Y-m-d');
-        } catch (\Exception $e) {
-            return back()->withErrors(['tanggal' => 'Format tanggal tidak valid'])->withInput();
-        }
-
         $data = $validated;
 
         // Format tanggal dari d/m/Y ke Y-m-d
@@ -84,20 +73,9 @@ class InformasiController extends Controller
         $validated = $request->validate([
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'tanggal' => 'required|date',
+            'tanggal' => 'required|string',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:10000',
         ]);
-
-        // Format tanggal dari d/m/Y ke Y-m-d
-        try {
-            $tanggal = Carbon::createFromFormat('d/m/Y', $request->tanggal);
-            if ($tanggal->format('d/m/Y') !== $request->tanggal) {
-                throw new \Exception('Invalid date');
-            }
-            $data['tanggal'] = $tanggal->format('Y-m-d');
-        } catch (\Exception $e) {
-            return back()->withErrors(['tanggal' => 'Format tanggal tidak valid'])->withInput();
-        }
 
         $data = $validated;
 

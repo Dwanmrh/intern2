@@ -27,6 +27,33 @@
                         placeholder="Masukkan deskripsi" required>
                 </div>
 
+                {{-- Kategori --}}
+                <div class="mb-3">
+                    <label class="block text-white font-semibold mb-1">Kategori</label>
+                    <select name="kategori"
+                        class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner"
+                        required>
+                        <option value="">-- Pilih Kategori --</option>
+                        <option value="umum">Fasilitas Umum</option>
+                        <option value="belajar">Fasilitas Belajar</option>
+                        <option value="khusus">Fasilitas Khusus</option>
+                    </select>
+                </div>
+
+                {{-- Subkategori --}}
+                <div class="mb-3">
+                    <label class="block text-white font-semibold mb-1">Subkategori</label>
+                    <select name="subKategori"
+                        class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner"
+                        required>
+                        <option value="">-- Pilih Subkategori --</option>
+                        <option value="Tempat Ibadah">Tempat Ibadah</option>
+                        <option value="Tempat Olahraga">Tempat Olahraga</option>
+                        <option value="Area Publik">Area Publik</option>
+                        <option value="Fasilitas Umum Lainnya">Fasilitas Umum Lainnya</option>
+                    </select>
+                </div>
+
                 {{-- Tanggal --}}
                 <div class="mb-3">
                     <label class="block text-white font-semibold mb-1">Tanggal</label>
