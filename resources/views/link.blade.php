@@ -18,7 +18,7 @@
                     @auth
                         @if(Auth::user()->role === 'admin')
                             <div class="absolute right-0 top-1">
-                                <a href="{{ route('galeri.create') }}"
+                                <a href="{{ route('link.create') }}"
                                 class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm shadow transition duration-300">
                                 <i class="bi bi-plus-circle text-base "></i>
                                     Tambah Link
