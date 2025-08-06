@@ -6,9 +6,9 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
             {{-- CARD UTAMA HEADER INFORMASI --}}
-            <div class="shadow rounded-lg p-6 mb-10 relative" style="background-color: rgba(255, 255, 255, 0.40); min-height: 64px;">
+            <div class="shadow rounded-lg p-6 mb-10 relative" style="background-color: rgba(255, 255, 255, 0.60); min-height: 64px;">
                 {{-- Judul dan Tombol Tambah --}}
-                <div class="relative flex items-center justify-center mb-8">
+                <div class="relative flex items-center justify-center border-b pb-2 mb-8">
                     <h2 class="text-2xl font-bold text-[#2c3e50] flex items-center gap-2">
                         <i class="bi bi-calendar-event text-[#2c3e50]"></i>
                         INFORMASI
@@ -38,15 +38,18 @@
                     @forelse ($informasi as $data)
                         <div
                             x-data="{ showDetailBtn: false }"
-                            class="bg-white shadow-md rounded-lg overflow-hidden flex flex-col cursor-pointer hover:scale-105 transition duration-300 ease-in-out transition-all duration-300 ease-in-out relative"
-                            :class="showDetailBtn ? 'h-auto' : 'h-[300px] overflow-hidden'"
+                            class="bg-white shadow-md rounded-lg flex flex-col min-h-[500px] justify-between cursor-pointer hover:scale-105 transition duration-300 ease-in-out relative"
                         >
+                            {{-- Gambar (jika ada) --}}
                             @if ($data->foto)
-                                <img src="{{ asset('storage/' . $data->foto) }}" alt="{{ $data->judul }}" class="w-full h-64 object-cover">
+                                <img src="{{ asset('storage/' . $data->foto) }}" alt="{{ $data->judul }}" class="w-full max-h-48 object-cover rounded-t-lg">
                             @endif
 
-                            <div class="p-4 flex flex-col flex-grow">
+                            {{-- Konten teks --}}
+                            <div class="p-4 flex flex-col flex-grow overflow-hidden {{ !$data->foto ? 'rounded-t-lg' : '' }}"
+                                :class="showDetailBtn ? 'h-auto' : 'h-[300px]'">
                                 <p class="text-sm text-gray-500 flex items-center gap-1 mb-2">
+                                    {{-- Tanggal --}}
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-500" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -62,22 +65,22 @@
                                 </h3>
 
                                 {{-- Deskripsi --}}
-                                <p class="text-gray-700 mb-5 text-base leading-relaxed text-justify break-words line-clamp-3"
-   :class="{ 'line-clamp-none': showDetailBtn }">
-    {!! strip_tags($data->deskripsi) !!}
-</p>
+                                <p class="text-gray-700 text-base leading-relaxed text-justify break-words transition-all duration-300"
+                                    :class="showDetailBtn ? '' : 'line-clamp-3'">
+                                    {!! strip_tags($data->deskripsi) !!}
+                                </p>
+                            </div>
 
-<div class="absolute bottom-8 left-4">
-    <button @click.stop="showDetailBtn = !showDetailBtn"
-        class="bg-[#2c3e50] hover:bg-[#1a252f] text-white px-4 py-2 rounded-md text-sm font-medium shadow-md transition duration-300">
-        <span x-text="showDetailBtn ? 'Tutup' : 'Baca Lebih Lanjut'"></span>
-    </button>
-</div>
+                            {{-- Tombol aksi --}}
+                            <div class="px-4 pb-4 pt-1 flex items-center justify-between">
+                                <button @click.stop="showDetailBtn = !showDetailBtn"
+                                    class="bg-[#2c3e50] hover:bg-[#1a252f] text-white px-4 py-2 rounded-md text-sm font-medium shadow-md transition duration-300">
+                                    <span x-text="showDetailBtn ? 'Tutup' : 'Baca Lebih Lanjut'"></span>
+                                </button>
 
-                                {{-- Aksi Admin --}}
                                 @auth
                                     @if(Auth::user()->role === 'admin')
-                                        <div class="absolute bottom-8 right-4 flex gap-4">
+                                        <div class="flex gap-4">
                                             <a href="{{ route('informasi.edit', $data->id) }}" @click.stop
                                                 class="text-blue-600 hover:text-blue-800 transition" title="Edit">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
@@ -101,7 +104,6 @@
                                         </div>
                                     @endif
                                 @endauth
-
                             </div>
                         </div>
                     @empty
@@ -136,25 +138,24 @@
             @endforeach
 
             {{-- Media Sosial dan Kontak --}}
-            <div class="mt-16 mb-16 bg-gray-100 rounded-lg px-6 py-10 text-center">
-                <h3 class="text-lg font-semibold mb-6">Media Sosial dan Kontak</h3>
-
-                <div class="flex flex-wrap justify-center gap-6 mb-10 mt-5">
-                    <a href="https://www.instagram.com/humas_setukpa?igsh=MTE3dWU4emFjYjFtdg==" class="bg-white shadow p-4 h-32 rounded-lg w-28 text-sm flex flex-col items-center justify-center hover:shadow-md transition">
+            <div class="mt-16 mb-16 bg-gradient-to-b from-[#dfe0e8] to-white rounded-lg px-6 py-10 text-center">
+                <h2 class="text-2xl font-bold text-[#2c3e50] mb-6">Media Sosial dan Kontak</h2>
+                <div class="flex flex-wrap justify-center gap-6 mb-10 mt-5 ">
+                    <a href="https://www.instagram.com/humas_setukpa?igsh=MTE3dWU4emFjYjFtdg==" class="bg-white shadow p-4 h-32 rounded-lg w-28 text-sm flex flex-col items-center justify-center hover:shadow-md transition hover:shadow-2xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 cursor-pointer">
                         <i class="bi bi-instagram text-2xl mb-2"></i>
                         <span>Instagram</span>
                     </a>
-                    <a href="https://youtube.com/@humassetukpa566?si=b4Ret7QbAoK5vW39" class="bg-white shadow p-4 h-32 rounded-lg w-28 text-sm flex flex-col items-center justify-center hover:shadow-md transition">
+                    <a href="https://youtube.com/@humassetukpa566?si=b4Ret7QbAoK5vW39" class="bg-white shadow p-4 h-32 rounded-lg w-28 text-sm flex flex-col items-center justify-center hover:shadow-md transition hover:shadow-2xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 cursor-pointer">
                         <i class="bi bi-youtube text-2xl mb-2"></i>
                         <span>YouTube</span>
                     </a>
-                    <a href="https://www.tiktok.com/@humas_setukpa?_t=ZS-8yOduXJ7cs4&_r=1" class="bg-white shadow p-4 h-32 rounded-lg w-28 text-sm flex flex-col items-center justify-center hover:shadow-md transition">
+                    <a href="https://www.tiktok.com/@humas_setukpa?_t=ZS-8yOduXJ7cs4&_r=1" class="bg-white shadow p-4 h-32 rounded-lg w-28 text-sm flex flex-col items-center justify-center hover:shadow-md transition hover:shadow-2xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 cursor-pointer">
                         <i class="bi bi-tiktok text-2xl mb-2"></i>
                         <span>TikTok</span>
                     </a>
                     <div x-data="{ modalOpen: false }">
                         <button @click="modalOpen = true"
-                            class="bg-white shadow p-4 h-32 rounded-lg w-28 text-sm flex flex-col items-center justify-center hover:shadow-md transition">
+                            class="bg-white shadow p-4 h-32 rounded-lg w-28 text-sm flex flex-col items-center justify-center hover:shadow-md transition hover:shadow-2xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 cursor-pointer">
                             <i class="bi bi-telephone text-2xl mb-2"></i>
                             <span>Telpon</span>
                         </button>
