@@ -22,7 +22,7 @@
                 {{-- Deskripsi --}}
                 <div class="mb-3">
                     <label class="block text-white font-semibold mb-1">Deskripsi</label>
-                    <textarea name="isi_informasi" rows="5"
+                    <textarea name="deskripsi" rows="5"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
                         placeholder="Masukkan deskripsi"></textarea>
                     <small class="font-bold text-yellow-400 italic">Kosongkan deskripsi jika menggunakan file</small>

@@ -9,14 +9,14 @@
             <div class="shadow rounded-lg p-6 mb-10 relative" style="background-color: rgba(255, 255, 255, 0.40); min-height: 64px;">
                 {{-- Judul dan Tombol Tambah --}}
                 <div class="relative flex items-center justify-center">
-                    <h2 class="text-2xl font-bold text-[#2c3e50]">Kegiatan</h2>
+                    <h2 class="text-2xl font-bold text-[#2c3e50]">Informasi</h2>
 
                     @auth
                         @if(Auth::user()->role === 'admin')
                             <div class="absolute right-0 top-1">
                                 <a href="{{ route('informasi.create') }}"
                                    class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm shadow">
-                                    + Tambah Kegiatan
+                                    + Tambah Informasi
                                 </a>
                             </div>
                         @endif

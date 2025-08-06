@@ -44,42 +44,13 @@
                                 ['name' => 'INFORMASI', 'route' => 'informasi.index'],
                                 ['name' => 'FASILITAS', 'route' => 'fasilitas.index'],
                                 ['name' => 'GALERI', 'route' => 'galeri.index'],
+                                ['name' => 'LINK', 'route' => 'link.index'],
                             ];
                             $linkRoutes = [
                                 'https://lemdiklat.polri.go.id/',
                                 'https://lemdiklat.polri.go.id/web/',
-                                'https://sipl.lemdiklat.polri.go.id/',
-                                'https://elibrary.lemdiklat.polri.go.id/',
-                                'http://103.180.58.114:11582/',
-
-                                // PUSDIKMIN
-                                'https://www.instagram.com/pusdikmin?igsh=NG9qNHpvODFsZ2E5',
-                                'https://youtube.com/@pidpusdikmin?si=yMAPF2lfXHRtbC5C',
-                                'https://www.tiktok.com/@pusdikadministrasi?_t=ZS-8yOjezU9ZP0&_r=1',
-
-                                // PUSDIK LANTAS
-                                'https://www.instagram.com/pusdik_lantas?igsh=MTFrM28zdXlucnB0MQ==',
-                                'https://youtube.com/@pusdiklantas?si=0b7kFlagbQOc9fz8',
-
-                                // PUSDIK SABHARA
-                                'https://www.instagram.com/pusdiksabhara.official?igsh=MWcybXY5M290c2U2aQ==',
-                                'https://www.tiktok.com/@pusdiksabhara.ofc?_t=ZS-8yP5EBnYOjX&_r=1',
-                                'https://youtube.com/@pusdiksabhara?si=a5YL3DDUBEsqOm3e',
-
-                                // DIKLAT RESERSE
-                                'https://www.tiktok.com/@diklat_reserse?_t=ZS-8yP5QgUb0ZL&_r=1',
-                                'https://www.instagram.com/humas_diklatreserse?igsh=ajJub3g4am54a2d4',
-
-                                // PUSDIK BINMAS
-                                'https://www.instagram.com/pusdikbinmas?igsh=NHc2Nzk1OW1icDB1',
-                                'https://www.tiktok.com/@pusdikbinmas?_t=ZS-8yP5cd6K9vr&_r=1',
-                                'https://youtube.com/@pusdikbinmaslemdiklatpolri?si=j22fbhfx5zoqZj6e',
-
-                                // PUSDIK BRIMOD
-                                'https://www.tiktok.com/@pusdikbrimobwatukosek_?_t=ZS-8yP5kinlQyA&_r=1',
-                                'https://youtube.com/@pusdikbrimob2782?si=h3JVf7_O8nuQbBN0',
-                                'https://www.instagram.com/humaspusdikbrimob?igsh=azhkM2hhbnp4em1x',
-
+                                'http://sadiklat.go.id/',
+                                'https://setukpa.lemdiklat.polri.go.id/',
                             ];
                         @endphp
                         @foreach ($navItems as $item)
@@ -94,7 +65,7 @@
                         @endforeach
 
                         <!-- Dropdown LINK -->
-                        <x-dropdown align="left">
+                        {{-- <x-dropdown align="left">
                             <x-slot name="trigger">
                                 <button
                                     class="inline-flex items-center px-3 py-2 rounded-lg transition font-medium
@@ -125,7 +96,7 @@
                                     </x-dropdown-link>
                                 </div>
                             </x-slot>
-                        </x-dropdown>
+                        </x-dropdown> --}}
                     </div>
                 </div>
 
@@ -215,6 +186,9 @@
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('galeri.index')" :active="request()->routeIs('galeri')">
                     {{ __('Galeri') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('link.index')" :active="request()->routeIs('link')">
+                    {{ __('Link') }}
                 </x-responsive-nav-link>
             </div>
 

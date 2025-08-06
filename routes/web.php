@@ -8,6 +8,7 @@ use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\GaleriController;
+use App\Http\Controllers\LinkController;
 
 Route::get('/', function () {
     return redirect()->route('dashboard.index');
@@ -104,6 +105,19 @@ Route::get('/galeri/{id}', [GaleriController::class, 'show'])->name('galeri.show
 
 // Route Search
 Route::get('/search', [App\Http\Controllers\SearchController::class, 'search'])->name('search');
+
+// READ Link (akses publik)
+Route::get('/link', [LinkController::class, 'index'])->name('link.index');
+
+// CUD Link (hanya untuk Admin)
+Route::middleware(['auth', 'verified'])->prefix('link')->group(function () {
+    Route::get('/create', [LinkController::class, 'create'])->name('link.create');
+    Route::post('/', [LinkController::class, 'store'])->name('link.store');
+    Route::get('/{id}/edit', [LinkController::class, 'edit'])->name('link.edit');
+    Route::put('/{id}', [LinkController::class, 'update'])->name('link.update');
+    Route::delete('/{id}', [LinkController::class, 'destroy'])->name('link.destroy');
+});
+
 
 // Route bawaan Breeze untuk profile user
 Route::middleware('auth')->group(function () {
