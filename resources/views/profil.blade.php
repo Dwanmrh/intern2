@@ -101,7 +101,7 @@
                 {{-- Judul + Ikon --}}
                 <div class="inline-flex items-center space-x-3">
                     <i class="bi bi-people-fill text-2xl text-[#2c3e50]"></i>
-                    <h2 class="text-2xl font-bold text-[#2c3e50]">Struktur Organisasi</h2>
+                    <h2 class="text-2xl font-bold text-[#2c3e50]">STRUKTUR ORGANISASI</h2>
                 </div>
 
                 {{-- Tombol Tambah Data --}}
