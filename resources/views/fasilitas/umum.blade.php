@@ -13,6 +13,14 @@
                     <h2 class="text-2xl font-bold text-[#2c3e50]">Fasilitas Umum</h2>
                 </div>
 
+                {{-- Tombol Kembali --}}
+                <div class="absolute left-4 top-4">
+                    <a href="{{ route('fasilitas.index') }}"
+                    class="inline-flex items-center px-3 py-1.5 bg-gray-700 hover:bg-gray-800 text-white text-sm font-medium rounded transition duration-200">
+                        ← Kembali
+                    </a>
+                </div>
+
                 {{-- Notifikasi --}}
                 @if (session('success'))
                     <div class="mt-4 p-4 bg-green-100 text-green-800 rounded">

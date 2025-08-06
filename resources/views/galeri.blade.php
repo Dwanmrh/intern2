@@ -12,7 +12,7 @@
 <div class="relative flex items-center justify-center mb-6">
     <h2 class="text-2xl font-bold text-[#2c3e50] flex items-center gap-2">
         <i class="bi bi-images text-[#2c3e50] text-2xl"></i>
-        Galeri
+        GALERI
     </h2>
 
     @auth

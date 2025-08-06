@@ -10,7 +10,7 @@
 
                 {{-- Judul dan Tombol Tambah --}}
                 <div class="relative flex items-center justify-center">
-                    <h2 class="text-2xl font-bold text-[#2c3e50]">Link Terkait</h2>
+                    <h2 class="text-2xl font-bold text-[#2c3e50]">LINK TERKAIT</h2>
 
                     @auth
                         @if(Auth::user()->role === 'admin')

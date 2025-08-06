@@ -29,7 +29,16 @@
 
             {{-- Carousel --}}
             @php
-                $validDashboards = $dashboards->filter(fn($item) => !empty($item->file))->values();
+                $validDashboards = $dashboards->filter(fn($item) => !empty($item->file));
+
+                // Pindahkan Preview 3 ke posisi pertama jika ada
+                $preview3 = $validDashboards->firstWhere('judul', 'Preview 3');
+                if ($preview3) {
+                    $validDashboards = collect([$preview3])
+                        ->merge($validDashboards->filter(fn($item) => $item->judul !== 'Preview 3'));
+                }
+
+                $validDashboards = $validDashboards->values(); // Reset index agar $index === 0 tetap akurat
             @endphp
 
             <div id="dashboardCarousel" class="carousel slide mb-5 position-relative" data-bs-ride="carousel">

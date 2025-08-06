@@ -10,7 +10,7 @@
         <div>
             <div class="flex items-center space-x-3 mb-2">
                 <i class="bi bi-gear-fill text-3xl text-blue-700"></i>
-                <h2 class="text-3xl font-extrabold text-[#2c3e50] tracking-wide">Fasilitas</h2>
+                <h2 class="text-3xl font-extrabold text-[#2c3e50] tracking-wide">FASILITAS</h2>
             </div>
             <p class="text-gray-700 text-sm max-w-xl">
                 Informasi mengenai berbagai fasilitas yang tersedia di lingkungan SETUKPA LEMDIKLAT POLRI untuk menunjang kegiatan pembelajaran dan pelatihan.

@@ -11,7 +11,7 @@
                 <div class="relative flex items-center justify-center mb-8">
                     <h2 class="text-2xl font-bold text-[#2c3e50] flex items-center gap-2">
                         <i class="bi bi-calendar-event text-[#2c3e50]"></i>
-                        Informasi Kegiatan
+                        INFORMASI
                     </h2>
 
                     @auth
@@ -25,7 +25,7 @@
                             </div>
                         @endif
                     @endauth
-                </div>   
+                </div>
                 {{-- Notifikasi --}}
                 @if (session('success'))
                     <div class="mt-4 p-4 bg-green-100 text-green-800 rounded">

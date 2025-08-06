@@ -5,59 +5,63 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             {{-- SECTION 1: Sejarah Setukpa --}}
             <div class="mb-10 bg-white shadow-md rounded-xl p-6 flex flex-col md:flex-row items-center md:items-start gap-8">
-                
+
                 {{-- Gambar (Tanpa animasi) --}}
                 <div class="w-full md:w-1/2 overflow-hidden rounded-lg">
-                    <img src="{{ asset('assets/images/setukpa1.jpg') }}"
+                    <img src="{{ asset('assets/images/kantor-2.jpg') }}"
                         alt="Profil Setukpa"
                         class="rounded-lg w-full object-cover h-[320px]">
                 </div>
 
-                {{-- Konten Teks --}}
-                <div class="w-full md:w-1/2">
+                {{-- SECTION 1: Sejarah Setukpa --}}
+                <div x-data="{ expanded: false }" class="w-full md:w-1/2">
                     <div class="flex items-center space-x-3 mb-3">
                         <i class="bi bi-mortarboard-fill text-[#2c3e50] text-2xl"></i>
-                        <h2 class="text-2xl font-bold text-[#2c3e50]">Profil Setukpa Lemdiklat Polri</h2>
+                        <h2 class="text-2xl font-bold text-[#2c3e50]">Sejarah Setukpa Lemdiklat Polri</h2>
                     </div>
-                    <p class="text-gray-700 mb-5 text-base leading-relaxed">
+
+                    <p class="text-gray-700 mb-5 text-base leading-relaxed text-justify line-clamp-4" :class="{ 'line-clamp-none': expanded }">
                         Setukpa Lemdiklat Polri atau Sekolah Pembentukan Perwira Polri adalah sekolah kedinasan Kepolisian Negara Republik Indonesia yang bertugas untuk menyelenggarakan fungsi pembentukan perwira Polri yang bersumber dari anggota Polri. Setukpa Polri sebelumnya bernama Secapa Polri (Sekolah Calon Perwira Polri).
-                    </p>
-                    <a href="#"
-                    class="inline-block bg-[#2c3e50] hover:bg-[#1a252f] text-white px-5 py-2 rounded-md text-sm font-medium shadow-md transition duration-300">
-                        Baca Lebih Lanjut
-                    </a>
-                </div>
-            </div>
-
-            {{-- SECTION 2: Profil Setukpa --}}
-            <div class="mb-10 bg-white shadow rounded-lg p-6 flex flex-col md:flex-row items-center md:items-start gap-6">
-                {{-- Gambar --}}
-                <div class="w-full md:w-1/2">
-                    <img src="{{ asset('assets/images/setukpa1.jpg') }}" alt="Profil Setukpa" class="rounded-lg w-full object-cover h-[320px]">
-                </div>
-
-                {{-- Konten Teks --}}
-                <div class="w-full md:w-1/2">
-                    <h2 class="text-2xl font-extrabold text-[#2c3e50] mb-3 border-b-4 border-[#2c3e50] inline-block pb-1">
-                        Profil Setukpa Lemdiklat Polri
-                    </h2>
-                    <p class="text-gray-700 mb-4 text-[15px] leading-relaxed tracking-wide">
-                        <span class="font-semibold text-[#2c3e50]">Setukpa Lemdiklat Polri</span> atau <em>Sekolah Pembentukan Perwira Polri</em> adalah sekolah kedinasan Kepolisian Negara Republik Indonesia yang bertugas untuk menyelenggarakan fungsi pembentukan perwira Polri yang bersumber dari anggota Polri.
                         <br><br>
-                        Sebelumnya, Setukpa dikenal dengan nama <span class="font-medium italic text-[#2c3e50]">Secapa Polri</span> (Sekolah Calon Perwira Polri).
+                        Sekolah ini berperan penting dalam mencetak calon perwira yang profesional dan berintegritas tinggi. Proses pendidikan di Setukpa mengedepankan disiplin, penguasaan teknologi, dan kesiapan fisik untuk menjawab tantangan tugas Polri ke depan. Dalam sejarahnya, Setukpa telah meluluskan ribuan perwira yang kini tersebar di berbagai satuan kerja di seluruh Indonesia.
                     </p>
+
+                    <button @click="expanded = !expanded"
+                        class="inline-block bg-[#2c3e50] hover:bg-[#1a252f] text-white px-5 py-2 rounded-md text-sm font-medium shadow-md transition duration-300">
+                        <span x-text="expanded ? 'Tutup' : 'Baca Lebih Lanjut'"></span>
+                    </button>
                 </div>
             </div>
 
-            {{-- SECTION 3: Visi dan Misi --}}
-            <div class="mb-12 bg-white shadow rounded-lg px-6 py-10">
-                {{-- Visi --}}
-                <div class="text-center mb-12">
-                    <h3 class="text-2xl md:text-3xl font-bold text-[#2c3e50] mb-4">Visi Setukpa Lemdiklat Polri</h3>
-                    <p class="text-gray-700 text-base md:text-lg leading-relaxed max-w-3xl mx-auto">
-                        Lembaga pendidikan yang mampu mewujudkan insan Polri yang memahami jati dirinya sebagai Inspektur Polri, memiliki integritas moral tinggi, menguasai ilmu pengetahuan dan teknologi kepolisian secara profesional, serta mengaplikasikannya dengan didukung oleh kesiapan jasmani.
-                    </p>
+                {{-- SECTION 2: Profil Setukpa --}}
+                <div class="mb-10 bg-white shadow rounded-lg p-6 flex flex-col md:flex-row items-center md:items-start gap-6">
+                    {{-- Gambar --}}
+                    <div class="w-full md:w-1/2">
+                        <img src="{{ asset('assets/images/lapmer2-1.jpg') }}" alt="Profil Setukpa" class="rounded-lg w-full object-cover h-[320px]">
+                    </div>
+
+                    {{-- Konten Teks --}}
+                    <div class="w-full md:w-1/2">
+                        <h2 class="text-2xl font-extrabold text-[#2c3e50] mb-3 border-b-4 border-[#2c3e50] inline-block pb-1">
+                            Profil Setukpa Lemdiklat Polri
+                        </h2>
+                        <p class="text-gray-700 mb-4 text-[15px] leading-relaxed tracking-wide text-justify">
+                            <span class="font-semibold text-[#2c3e50]">Setukpa Lemdiklat Polri</span> atau <em>Sekolah Pembentukan Perwira Polri</em> adalah sekolah kedinasan Kepolisian Negara Republik Indonesia yang bertugas untuk menyelenggarakan fungsi pembentukan perwira Polri yang bersumber dari anggota Polri.
+                            <br><br>
+                            Sebelumnya, Setukpa dikenal dengan nama <span class="font-medium italic text-[#2c3e50]">Secapa Polri</span> (Sekolah Calon Perwira Polri).
+                        </p>
+                    </div>
                 </div>
+
+                {{-- SECTION 3: Visi dan Misi --}}
+                <div class="mb-12 bg-white shadow rounded-lg px-6 py-10">
+                    {{-- Visi --}}
+                    <div class="text-center mb-12">
+                        <h3 class="text-2xl md:text-3xl font-bold text-[#2c3e50] mb-4">Visi Setukpa Lemdiklat Polri</h3>
+                        <p class="text-gray-700 text-base md:text-lg leading-relaxed max-w-3xl mx-auto">
+                            Lembaga pendidikan yang mampu mewujudkan insan Polri yang memahami jati dirinya sebagai Inspektur Polri, memiliki integritas moral tinggi, menguasai ilmu pengetahuan dan teknologi kepolisian secara profesional, serta mengaplikasikannya dengan didukung oleh kesiapan jasmani.
+                        </p>
+                    </div>
 
                 {{-- Misi --}}
                 <div class="text-center mb-8">
@@ -79,7 +83,6 @@
                 </div>
             </div>
 
-
             {{-- PEMBATAS --}}
             <div class="pt-10 mt-10 border-t border-gray-200"></div>
 
@@ -90,7 +93,7 @@
                 {{-- Judul + Ikon --}}
                 <div class="inline-flex items-center space-x-3">
                     <i class="bi bi-people-fill text-2xl text-[#2c3e50]"></i>
-                    <h2 class="text-2xl font-bold text-[#2c3e50]">Struktur Organisasi</h2>
+                    <h2 class="text-2xl font-bold text-[#2c3e50]">STRUKTUR ORGANISASI</h2>
                 </div>
 
                 {{-- Tombol Tambah Data --}}
@@ -106,7 +109,6 @@
                     @endif
                 @endauth
             </div>
-
 
                 {{-- Notifikasi --}}
                 @if (session('success'))
@@ -239,7 +241,6 @@
         @endif
     @endauth
 @endif
-
 
                 {{-- Grid Pimpinan Lain --}}
                 @if ($pimpinanLain->count())

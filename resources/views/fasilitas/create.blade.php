@@ -51,8 +51,10 @@
                         <option value="Tempat Olahraga">Tempat Olahraga</option>
                         <option value="Ruang Kelas">Ruang Kelas</option>
                         <option value="Kantor">Kantor</option>
-                        <option value="Area Publik">Area Publik</option>
-                        <option value="Fasilitas Umum Lainnya">Fasilitas Umum Lainnya</option>
+                        <option value="Barak">Barak</option>
+                        <option value="Gedung">Gedung</option>
+                        <option value="Lapangan Apel">Lapangan Apel</option>
+                        <option value="Lainnya">Lainnya</option>
                     </select>
                 </div>
 

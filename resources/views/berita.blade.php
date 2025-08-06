@@ -10,24 +10,22 @@
 
                 {{-- Judul dan Tombol Tambah --}}
                 <div class="relative flex items-center justify-center mb-6">
-    <h2 class="text-2xl font-bold text-[#2c3e50] flex items-center gap-2">
-    <i class="bi bi-journal-text text-[#2c3e50] flex items-center gap-2"></i>
-        Berita
-    </h2>
-
-    @auth
-        @if(Auth::user()->role === 'admin')
-            <div class="absolute right-0 top-1">
-                <a href="{{ route('berita.create') }}"
-                   class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm shadow flex items-center gap-2">
-                   <i class="bi bi-plus-circle text-base"></i>
-                   Tambah Berita
-                </a>
-            </div>
-        @endif
-    @endauth
-</div>
-
+                    <h2 class="text-2xl font-bold text-[#2c3e50] flex items-center gap-2">
+                    <i class="bi bi-journal-text text-[#2c3e50] flex items-center gap-2"></i>
+                        BERITA
+                    </h2>
+                    @auth
+                        @if(Auth::user()->role === 'admin')
+                            <div class="absolute right-0 top-1">
+                                <a href="{{ route('berita.create') }}"
+                                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm shadow">
+                                <i class="bi bi-plus-circle text-base "></i>
+                                    Tambah Berita
+                                </a>
+                            </div>
+                        @endif
+                    @endauth
+                </div>
 
                 {{-- Notifikasi --}}
                 @if (session('success'))

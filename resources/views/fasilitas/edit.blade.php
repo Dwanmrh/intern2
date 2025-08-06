@@ -54,8 +54,10 @@
                         <option value="Tempat Olahraga" {{ $fasilitas->subKategori === 'Tempat Olahraga' ? 'selected' : '' }}>Tempat Olahraga</option>
                         <option value="Ruang Kelas" {{ $fasilitas->subKategori === 'Ruang Kelas' ? 'selected' : '' }}>Ruang Kelas</option>
                         <option value="Kantor" {{ $fasilitas->subKategori === 'Kantor' ? 'selected' : '' }}>Kantor</option>
-                        <option value="Area Publik" {{ $fasilitas->subKategori === 'Area Publik' ? 'selected' : '' }}>Area Publik</option>
-                        <option value="Fasilitas Umum Lainnya" {{ $fasilitas->subKategori === 'Fasilitas Umum Lainnya' ? 'selected' : '' }}>Fasilitas Umum Lainnya</option>
+                        <option value="Barak" {{ $fasilitas->subKategori === 'Barak' ? 'selected' : '' }}>Barak</option>
+                        <option value="Gedung" {{ $fasilitas->subKategori === 'Gedung' ? 'selected' : '' }}>Gedung</option>
+                        <option value="Lapangan Apel" {{ $fasilitas->subKategori === 'Lapangan Apel' ? 'selected' : '' }}>Lapangan Apel</option>
+                        <option value="Lainnya" {{ $fasilitas->subKategori === 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
                     </select>
                 </div>
 

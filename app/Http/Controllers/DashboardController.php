@@ -33,7 +33,7 @@ class DashboardController extends Controller
         $request->validate([
             'judul' => 'required|string|max:255',
             'tanggal' => 'required|string',
-            'file' => 'nullable|mimes:jpg,jpeg,png,mp4,mov,webm|max:10000',
+            'file' => 'nullable|mimes:jpg,jpeg,png,mp4,mov,webm|max:15000',
         ]);
 
         $data = $request->only('judul', 'tanggal');
@@ -77,7 +77,7 @@ class DashboardController extends Controller
         $request->validate([
             'judul' => 'required|string|max:255',
             'tanggal' => 'required|string',
-            'file' => 'nullable|mimes:jpg,jpeg,png,mp4,mov,webm|max:10000',
+            'file' => 'nullable|mimes:jpg,jpeg,png,mp4,mov,webm|max:15000',
         ]);
 
         $data = $request->only('judul', 'tanggal');
