@@ -1,49 +1,67 @@
 <x-app-layout>
     @section('title', 'Fasilitas | SETUKPA LEMDIKLAT POLRI')
 
-    <div class="py-8">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             {{-- HEADER --}}
-            <div class="shadow rounded-lg p-6 mb-10 bg-white/40 min-h-[64px]">
-                <div class="relative flex items-center justify-center">
-                    <h2 class="text-2xl font-bold text-[#2c3e50]">Fasilitas</h2>
-                    @auth
-                        @if(Auth::user()->role === 'admin')
-                            <div class="absolute right-0 top-1">
-                                <a href="{{ route('fasilitas.create') }}"
-                                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm shadow">
-                                    + Tambah Fasilitas
-                                </a>
-                            </div>
-                        @endif
-                    @endauth
+            <div class="relative bg-[#edf0f8] rounded-xl shadow-lg p-8 mb-10 overflow-hidden">
+    <div class="flex items-center justify-between">
+        <div>
+            <div class="flex items-center space-x-3 mb-2">
+                <i class="bi bi-gear-fill text-3xl text-blue-700"></i>
+                <h2 class="text-3xl font-extrabold text-[#2c3e50] tracking-wide">Fasilitas</h2>
+            </div>
+            <p class="text-gray-700 text-sm max-w-xl">
+                Informasi mengenai berbagai fasilitas yang tersedia di lingkungan SETUKPA LEMDIKLAT POLRI untuk menunjang kegiatan pembelajaran dan pelatihan.
+            </p>
+        </div>
+
+        @auth
+            @if(Auth::user()->role === 'admin')
+                <a href="{{ route('fasilitas.create') }}"
+                   class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm shadow font-medium transition duration-300">
+                   <i class="bi bi-plus-circle text-base "></i>
+                    Tambah Fasilitas
+                </a>
+            @endif
+        @endauth
                 </div>
             </div>
 
-            {{-- GRID CARD 3 PILIHAN --}}
+            {{-- GRID CARD --}}
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
                 {{-- Fasilitas Umum --}}
                 <a href="{{ route('fasilitas.umum') }}"
-                   class="bg-white shadow-md rounded-lg p-6 hover:shadow-lg hover:scale-105 transition transform duration-300 cursor-pointer flex flex-col justify-between">
-                    <h3 class="text-xl font-semibold text-[#2c3e50] mb-2">Fasilitas Umum</h3>
-                    <p class="text-gray-600 text-sm">Berisi informasi berbagai fasilitas umum yang tersedia di SETUKPA seperti lapangan, tempat ibadah, kantin, dan lainnya.</p>
+                   class="group bg-white border border-gray-200 rounded-xl p-6 shadow-md hover:shadow-2xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 cursor-pointer">
+                    <div class="flex items-center mb-4 space-x-3">
+                        <i class="bi bi-building text-2xl text-blue-700 group-hover:scale-110 transition-transform duration-300"></i>
+                        <h3 class="text-xl font-bold text-[#2c3e50]">Fasilitas Umum</h3>
+                    </div>
+                    <p class="text-gray-700 text-sm leading-relaxed">Informasi fasilitas umum seperti lapangan, tempat ibadah, kantin, dan lainnya.</p>
                 </a>
 
                 {{-- Fasilitas Belajar --}}
                 <a href="{{ route('fasilitas.belajar') }}"
-                   class="bg-white shadow-md rounded-lg p-6 hover:shadow-lg hover:scale-105 transition transform duration-300 cursor-pointer flex flex-col justify-between">
-                    <h3 class="text-xl font-semibold text-[#2c3e50] mb-2">Fasilitas Belajar</h3>
-                    <p class="text-gray-600 text-sm">Menyediakan informasi tentang sarana dan prasarana penunjang kegiatan belajar seperti ruang kelas, perpustakaan, dan laboratorium.</p>
+                   class="group bg-white border border-gray-200 rounded-xl p-6 shadow-md hover:shadow-2xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 cursor-pointer">
+                    <div class="flex items-center mb-4 space-x-3">
+                        <i class="bi bi-journal-bookmark text-2xl text-green-600 group-hover:scale-110 transition-transform duration-300"></i>
+                        <h3 class="text-xl font-bold text-[#2c3e50]">Fasilitas Belajar</h3>
+                    </div>
+                    <p class="text-gray-700 text-sm leading-relaxed">Ruang kelas, perpustakaan, dan laboratorium penunjang kegiatan belajar.</p>
                 </a>
 
                 {{-- Fasilitas Khusus --}}
                 <a href="{{ route('fasilitas.khusus') }}"
-                   class="bg-white shadow-md rounded-lg p-6 hover:shadow-lg hover:scale-105 transition transform duration-300 cursor-pointer flex flex-col justify-between">
-                    <h3 class="text-xl font-semibold text-[#2c3e50] mb-2">Fasilitas Khusus</h3>
-                    <p class="text-gray-600 text-sm">Menampilkan fasilitas yang bersifat khusus atau akses terbatas seperti ruang komando, pusat data, dan lain sebagainya.</p>
+                   class="group bg-white border border-gray-200 rounded-xl p-6 shadow-md hover:shadow-2xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 cursor-pointer">
+                    <div class="flex items-center mb-4 space-x-3">
+                        <i class="bi bi-shield-lock text-2xl text-red-600 group-hover:scale-110 transition-transform duration-300"></i>
+                        <h3 class="text-xl font-bold text-[#2c3e50]">Fasilitas Khusus</h3>
+                    </div>
+                    <p class="text-gray-700 text-sm leading-relaxed">Fasilitas terbatas seperti ruang komando, pusat data, dan sejenisnya.</p>
                 </a>
+
             </div>
         </div>
     </div>

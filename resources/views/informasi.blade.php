@@ -8,21 +8,24 @@
             {{-- CARD UTAMA HEADER INFORMASI --}}
             <div class="shadow rounded-lg p-6 mb-10 relative" style="background-color: rgba(255, 255, 255, 0.40); min-height: 64px;">
                 {{-- Judul dan Tombol Tambah --}}
-                <div class="relative flex items-center justify-center">
-                    <h2 class="text-2xl font-bold text-[#2c3e50]">Informasi</h2>
+                <div class="relative flex items-center justify-center mb-8">
+                    <h2 class="text-2xl font-bold text-[#2c3e50] flex items-center gap-2">
+                        <i class="bi bi-calendar-event text-[#2c3e50]"></i>
+                        Informasi Kegiatan
+                    </h2>
 
                     @auth
                         @if(Auth::user()->role === 'admin')
                             <div class="absolute right-0 top-1">
                                 <a href="{{ route('informasi.create') }}"
-                                   class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm shadow">
-                                    + Tambah Informasi
+                                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm shadow">
+                                <i class="bi bi-plus-circle text-base "></i>
+                                    Tambah Informasi
                                 </a>
                             </div>
                         @endif
                     @endauth
-                </div>
-
+                </div>   
                 {{-- Notifikasi --}}
                 @if (session('success'))
                     <div class="mt-4 p-4 bg-green-100 text-green-800 rounded">
@@ -35,8 +38,8 @@
                     @forelse ($informasi as $data)
                     <div x-data="{ showDetailBtn: false }"
                         @click="showDetailBtn = !showDetailBtn"
-                        class="bg-white shadow-md rounded-lg overflow-hidden flex flex-col cursor-pointer hover:scale-105 transition duration-300 ease-in-out relative">
-
+                        class="bg-white shadow-md rounded-lg overflow-hidden flex flex-col cursor-pointer hover:scale-105 transition duration-300 ease-in-out relative
+                        {{ $data->foto ? '' : 'bg-gradient-to-br from-[#f0f4f8] to-[#d6e0e8] border border-gray h-fit min-h-[300px] max-h-[300px]' }}">
                         @if ($data->foto)
                             <img src="{{ asset('storage/' . $data->foto) }}" alt="{{ $data->judul }}"
                                 class="w-full h-64 object-cover">
@@ -71,34 +74,35 @@
                                 </a>
                             </div>
 
-                            {{-- Aksi Edit & Hapus --}}
-                            @auth
-                                @if(Auth::user()->role === 'admin')
-                                    <div class="flex justify-end gap-4 mt-4">
-                                        <a href="{{ route('informasi.edit', $data->id) }}" @click.stop
-                                            class="text-blue-600 hover:text-blue-800 transition" title="Edit">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                                viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-5M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                                            </svg>
-                                        </a>
+                           {{-- Aksi Edit & Hapus --}}
+@auth
+    @if(Auth::user()->role === 'admin')
+        <div class="absolute bottom-8 right-4 flex gap-4">
+            <a href="{{ route('informasi.edit', $data->id) }}" @click.stop
+                class="text-blue-600 hover:text-blue-800 transition" title="Edit">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-5M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                </svg>
+            </a>
 
-                                        <!-- Tombol Trigger Modal -->
-                                        <button type="button" @click.stop
-                                                class="text-red-600 hover:text-red-800 transition"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#hapusInformasiModal{{ $data->id }}"
-                                                title="Hapus">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                                viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7h6m-3-4v4"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                @endif
-                            @endauth
+            <!-- Tombol Trigger Modal -->
+            <button type="button" @click.stop
+                class="text-red-600 hover:text-red-800 transition"
+                data-bs-toggle="modal"
+                data-bs-target="#hapusInformasiModal{{ $data->id }}"
+                title="Hapus">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7h6m-3-4v4"/>
+                </svg>
+            </button>
+        </div>
+    @endif
+@endauth
+
                         </div>
                     </div>
                     @empty

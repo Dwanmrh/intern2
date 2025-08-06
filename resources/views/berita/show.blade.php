@@ -8,9 +8,11 @@
 
                 {{-- Gambar Berita --}}
                 @if ($berita->foto)
+                <div class="w-full bg-gray-100 rounded mb-6 overflow-hidden flex justify-center items-center border border-gray-200 shadow-sm">
                     <img src="{{ asset('storage/' . $berita->foto) }}"
-                         alt="{{ $berita->judul }}"
-                         class="w-full h-80 object-cover rounded mb-6">
+                        alt="{{ $berita->judul }}"
+                        class="max-h-[450px] w-auto object-contain">
+                </div>
                 @endif
 
                 {{-- Tanggal --}}

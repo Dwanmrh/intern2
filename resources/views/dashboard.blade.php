@@ -12,7 +12,8 @@
                         <div class="absolute right-0">
                             <a href="{{ route('dashboard.create') }}"
                                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm shadow">
-                                + Tambah Preview
+                               <i class="bi bi-plus-circle text-base "></i>
+                                Tambah Preview
                             </a>
                         </div>
                     @endif
