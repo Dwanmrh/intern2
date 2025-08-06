@@ -14,6 +14,7 @@
                         <i class="bi bi-link-45deg text-2xl" style="color: #2c3e50;"></i>
                         <h2 class="text-2xl font-bold text-[#2c3e50]">LINK TERKAIT</h2>
                     </div>
+                    
                     {{-- Tombol Tambah Data --}}
                     @auth
                         @if(Auth::user()->role === 'admin')
