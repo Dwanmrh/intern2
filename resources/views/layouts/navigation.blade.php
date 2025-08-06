@@ -126,7 +126,7 @@
                             <button class="inline-flex items-center px-4 py-2 rounded-lg transition duration-200 font-semibold
                                 {{ request()->routeIs('profile.edit')
                                     ? 'bg-gray-100 text-[#1E293B]'
-                                    : 'bg-gray-400 text-white hover:bg-gray-500 hover:text-blue-700' }}">
+                                    : 'bg-gray-300 text-black hover:bg-gray-500 hover:text-blue-700' }}">
 
                                 <div class="text-inherit">{{ Auth::user()->name }}</div>
 

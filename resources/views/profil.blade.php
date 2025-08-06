@@ -21,9 +21,17 @@
                     </div>
 
                     <p class="text-gray-700 mb-5 text-base leading-relaxed text-justify line-clamp-4" :class="{ 'line-clamp-none': expanded }">
-                        Setukpa Lemdiklat Polri atau Sekolah Pembentukan Perwira Polri adalah sekolah kedinasan Kepolisian Negara Republik Indonesia yang bertugas untuk menyelenggarakan fungsi pembentukan perwira Polri yang bersumber dari anggota Polri. Setukpa Polri sebelumnya bernama Secapa Polri (Sekolah Calon Perwira Polri).
+                        Diawali Tahun 1927 s/d 1942 didirikan di zaman penjajahan Belanda dengan nama Politie School, dengan tujuan pendidikan siswa agen polisi, siswa komandan polisi, siswa inspektur polisi, dan siswa mantri polisi.
                         <br><br>
-                        Sekolah ini berperan penting dalam mencetak calon perwira yang profesional dan berintegritas tinggi. Proses pendidikan di Setukpa mengedepankan disiplin, penguasaan teknologi, dan kesiapan fisik untuk menjawab tantangan tugas Polri ke depan. Dalam sejarahnya, Setukpa telah meluluskan ribuan perwira yang kini tersebar di berbagai satuan kerja di seluruh Indonesia.
+                        Tahun 1942 s/d 1944 di zaman penjajahan Jepang berganti nama menjadi Jawakaisatsu dengan sasaran didik siswa kotoka sodhako (pendidikan polisi tinggi), siswa gaikie kaisat (pendidikan polisi rendah). Tercatat lima angkatan alumninya terdapat diantaranya mantan Kapolri yang ke tiga yaitu Komisaris Besar Polisi R. Sutjipto Danoekoesoemo.
+                        <br><br>
+                        Tahun 1945 s/d 1948 Negara dalam keadaan perang (Agresi Belanda) namanya SPB semua siswannya dikerahkan untuk membela Negara yang ditunjuk menjadi Direkturnya adalah Komisaris Polisi Bustami Aman Gelar Datuk Rangkayo Besar.
+                        <br><br>
+                        Tahun 1949 s/d 1951 zaman Republik Indonesia Serikat (RIS) terdapat pendidikan gabungan, pendidikan Kepolisian Belanda dan RI diberi nama SPI/Politie School yang menjabat direkturnya pada waktu itu Komisaris Besar Polisi R. Soebarkah.
+                        <br><br>
+                        Tahun 1952 s/d 1960 diberi nama SPN Siswa yang dididik: Siswa Agen Polisi, Siswa Brigadir Polisi, Siswa Inspektur Polisi dan Siswa Komisaris Polisi, termasuk Siswa Inspektur ABCDE, alumninya terdapat mantan Kapolri yang ke sembilan Jenderal Polisi Anton Sudjarwo yang menjabat Direkturnya Komisaris Besar Polisi R. Saleh Sastra Negara.
+                        <br><br>
+                        Tahun 1960 s/d 1965 Awal Polisi Masuk ABRI yang diberi nama SAKRI yang dididik: Basis PTIK angkatan Rajawali, Siswa Untea dari Irian Barat, Siswa Agen Polisi, Brigadir Polisi, Inspektur Polisi, Siswa Komisaris Polisi, Siswa Brigwan dan Siswa Sie Bang, yang menjabat Direkturnya Komisaris Besar Polisi R. Suroso Tjokrosoebroto dan Ajun Komisaris Besar Polisi. Drs. Moh. Soebekti.
                     </p>
 
                     <button @click="expanded = !expanded"
@@ -48,7 +56,7 @@
                         <p class="text-gray-700 mb-4 text-[15px] leading-relaxed tracking-wide text-justify">
                             <span class="font-semibold text-[#2c3e50]">Setukpa Lemdiklat Polri</span> atau <em>Sekolah Pembentukan Perwira Polri</em> adalah sekolah kedinasan Kepolisian Negara Republik Indonesia yang bertugas untuk menyelenggarakan fungsi pembentukan perwira Polri yang bersumber dari anggota Polri.
                             <br><br>
-                            Sebelumnya, Setukpa dikenal dengan nama <span class="font-medium italic text-[#2c3e50]">Secapa Polri</span> (Sekolah Calon Perwira Polri).
+                            Setukpa Polri sebelumnya bernama <span class="font-medium italic text-[#2c3e50]">Secapa Polri</span> (Sekolah Calon Perwira Polri).
                         </p>
                     </div>
                 </div>
@@ -87,13 +95,13 @@
             <div class="pt-10 mt-10 border-t border-gray-200"></div>
 
             {{-- SECTION 4: Struktur Organisasi --}}
-            <div class="mb-12 shadow rounded-lg p-6 text-center" style="background-color: rgba(255, 255, 255, 0.40);">
+            <div class="mb-12 shadow rounded-lg p-6 text-center" style="background-color: rgba(255, 255, 255, 0.60);">
                 {{-- Judul dan Tombol Tambah --}}
-                <div class="relative pb-6 text-center">
+                <div class="relative pb-6 text-center border-b pb-2">
                 {{-- Judul + Ikon --}}
                 <div class="inline-flex items-center space-x-3">
                     <i class="bi bi-people-fill text-2xl text-[#2c3e50]"></i>
-                    <h2 class="text-2xl font-bold text-[#2c3e50]">STRUKTUR ORGANISASI</h2>
+                    <h2 class="text-2xl font-bold text-[#2c3e50]">Struktur Organisasi</h2>
                 </div>
 
                 {{-- Tombol Tambah Data --}}
@@ -112,15 +120,15 @@
 
                 {{-- Notifikasi --}}
                 @if (session('success'))
-                    <div class="mt-4 p-4 bg-green-100 text-green-800 rounded">
+                    <div class="mt-4 mb-6 p-4 bg-green-100 text-green-800 rounded">
                         {{ session('success') }}
                     </div>
                 @endif
 
                 {{-- Grid Kasetukpa --}}
                 @if ($kasetukpa)
-    <div class="flex justify-center mb-8 relative">
-    <div class="bg-white shadow-md rounded-lg overflow-hidden w-56 flex flex-col relative transition transform duration-300 ease-in-out hover:scale-105 group pb-4">
+    <div class="flex justify-center mt-6 mb-8 relative">
+        <div class="bg-white shadow-md rounded-lg overflow-hidden w-56 flex flex-col relative transition transform duration-300 ease-in-out hover:scale-105 group pb-4">
             <div class="aspect-[3/4] overflow-hidden bg-gray-100 max-h-60">
                 <img src="{{ asset('storage/' . $kasetukpa->foto) }}" alt="Foto Kasetukpa" class="w-full h-full object-cover object-top">
             </div>
