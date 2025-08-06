@@ -36,75 +36,74 @@
                 {{-- Grid Informasi --}}
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
                     @forelse ($informasi as $data)
-                    <div x-data="{ showDetailBtn: false }"
-                        @click="showDetailBtn = !showDetailBtn"
-                        class="bg-white shadow-md rounded-lg overflow-hidden flex flex-col cursor-pointer hover:scale-105 transition duration-300 ease-in-out relative
-                        {{ $data->foto ? '' : 'bg-gradient-to-br from-[#f0f4f8] to-[#d6e0e8] border border-gray h-fit min-h-[300px] max-h-[300px]' }}">
-                        @if ($data->foto)
-                            <img src="{{ asset('storage/' . $data->foto) }}" alt="{{ $data->judul }}"
-                                class="w-full h-64 object-cover">
-                        @endif
+                        <div
+                            x-data="{ showDetailBtn: false }"
+                            class="bg-white shadow-md rounded-lg overflow-hidden flex flex-col cursor-pointer hover:scale-105 transition duration-300 ease-in-out transition-all duration-300 ease-in-out relative"
+                            :class="showDetailBtn ? 'h-auto' : 'h-[300px] overflow-hidden'"
+                        >
+                            @if ($data->foto)
+                                <img src="{{ asset('storage/' . $data->foto) }}" alt="{{ $data->judul }}" class="w-full h-64 object-cover">
+                            @endif
 
-                        <div class="p-4 flex flex-col flex-grow pointer-events-auto">
-                            <p class="text-sm text-gray-500 flex items-center gap-1 mb-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-500" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                                </svg>
-                                <span class="mt-[1px]">
-                                    {{ \Carbon\Carbon::parse($data->tanggal)->translatedFormat('d F Y') }}
-                                </span>
-                            </p>
+                            <div class="p-4 flex flex-col flex-grow">
+                                <p class="text-sm text-gray-500 flex items-center gap-1 mb-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-500" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                    </svg>
+                                    <span class="mt-[1px]">
+                                        {{ \Carbon\Carbon::parse($data->tanggal)->translatedFormat('d F Y') }}
+                                    </span>
+                                </p>
 
-                            <h3 class="text-lg font-bold text-gray-800 mb-[2px]">
-                                {{ $data->judul }}
-                            </h3>
+                                <h3 class="text-lg font-bold text-gray-800 mb-[2px]">
+                                    {{ $data->judul }}
+                                </h3>
 
-                            <p class="text-sm text-gray-600 mb-4">
-                                {{ \Illuminate\Support\Str::limit(strip_tags($data->deskripsi), 100) }}
-                            </p>
+                                {{-- Deskripsi --}}
+                                <p class="text-gray-700 mb-5 text-base leading-relaxed text-justify break-words line-clamp-3"
+   :class="{ 'line-clamp-none': showDetailBtn }">
+    {!! strip_tags($data->deskripsi) !!}
+</p>
 
-                            {{-- Tombol Lihat Detail --}}
-                            <div x-show="showDetailBtn" x-transition
-                                class="mt-auto flex justify-end items-center gap-2">
-                                <a href="{{ route('informasi.show', $data->id) }}"
-                                   class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm transition">
-                                    Lihat Detail
-                                </a>
+<div class="absolute bottom-8 left-4">
+    <button @click.stop="showDetailBtn = !showDetailBtn"
+        class="bg-[#2c3e50] hover:bg-[#1a252f] text-white px-4 py-2 rounded-md text-sm font-medium shadow-md transition duration-300">
+        <span x-text="showDetailBtn ? 'Tutup' : 'Baca Lebih Lanjut'"></span>
+    </button>
+</div>
+
+                                {{-- Aksi Admin --}}
+                                @auth
+                                    @if(Auth::user()->role === 'admin')
+                                        <div class="absolute bottom-8 right-4 flex gap-4">
+                                            <a href="{{ route('informasi.edit', $data->id) }}" @click.stop
+                                                class="text-blue-600 hover:text-blue-800 transition" title="Edit">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-5M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                                </svg>
+                                            </a>
+
+                                            <button type="button" @click.stop
+                                                class="text-red-600 hover:text-red-800 transition"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#hapusInformasiModal{{ $data->id }}"
+                                                title="Hapus">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7h6m-3-4v4"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    @endif
+                                @endauth
+
                             </div>
-
-                           {{-- Aksi Edit & Hapus --}}
-@auth
-    @if(Auth::user()->role === 'admin')
-        <div class="absolute bottom-8 right-4 flex gap-4">
-            <a href="{{ route('informasi.edit', $data->id) }}" @click.stop
-                class="text-blue-600 hover:text-blue-800 transition" title="Edit">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                    viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-5M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                </svg>
-            </a>
-
-            <!-- Tombol Trigger Modal -->
-            <button type="button" @click.stop
-                class="text-red-600 hover:text-red-800 transition"
-                data-bs-toggle="modal"
-                data-bs-target="#hapusInformasiModal{{ $data->id }}"
-                title="Hapus">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                    viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7h6m-3-4v4"/>
-                </svg>
-            </button>
-        </div>
-    @endif
-@endauth
-
                         </div>
-                    </div>
                     @empty
                         <p class="text-gray-600 col-span-3 text-center">Belum ada informasi yang ditambahkan.</p>
                     @endforelse
