@@ -55,7 +55,7 @@
                             @auth
                                 @if(Auth::user()->role === 'admin')
                                     <div class="flex justify-end gap-4 px-4 pb-4 mt-auto">
-                                        <a href="{{ route('link.edit', $item->id) }}"
+                                        <a href="{{ route('link.edit', ['id' => $item->id, 'from' => 'sadiklat']) }}"
                                         class="text-blue-600 hover:text-blue-800 transition" title="Edit" @click.stop>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">

@@ -13,13 +13,15 @@ class LinkController extends Controller
      */
     public function index()
     {
-        $links = Link::whereNull('subkategori')->get();
+        // Tampilkan hanya link kategori "umum"
+        $links = Link::where('kategori', 'umum')->get();
         return view('link', compact('links'));
     }
 
     public function sadiklat()
     {
-        $links = Link::whereNotNull('subkategori')->get();
+        // Tampilkan hanya link kategori "sadiklat"
+        $links = Link::where('kategori', 'sadiklat')->get();
         return view('link.sadiklat', ['sadiklat' => $links]);
     }
 
@@ -52,7 +54,15 @@ class LinkController extends Controller
             'subkategori' => $request->subkategori,
         ]);
 
-        return redirect()->route('link.index')->with('success', 'Link berhasil ditambahkan.');
+        return redirect()->route(
+    $request->kategori === 'sadiklat' ? 'sadiklat.index' : 'link.index'
+        )->with(
+            'success',
+            $request->kategori === 'sadiklat'
+                ? 'Link sadiklat berhasil ditambahkan.'
+                : 'Link umum berhasil ditambahkan.'
+        );
+
     }
 
     /**
@@ -81,6 +91,8 @@ class LinkController extends Controller
         $data = [
             'nama' => $request->nama,
             'url' => $request->url,
+            'kategori' => $request->kategori,
+            'subkategori' => $request->kategori === 'sadiklat' ? $request->subkategori : null,
         ];
 
         if ($request->hasFile('logo')) {
@@ -94,7 +106,12 @@ class LinkController extends Controller
 
         $link->update($data);
 
-        return redirect()->route('link.index')->with('success', 'Link berhasil diperbarui.');
+         // Redirect berdasarkan kategori
+        if ($request->kategori === 'sadiklat') {
+            return redirect()->route('sadiklat.index')->with('success', 'Link sadiklat berhasil diperbarui.');
+        }
+
+        return redirect()->route('link.index')->with('success', 'Link umum berhasil diperbarui.');
     }
 
     /**
@@ -108,8 +125,14 @@ class LinkController extends Controller
             Storage::disk('public')->delete($link->logo);
         }
 
+        $kategori = $link->kategori; // simpan sebelum dihapus
         $link->delete();
 
-        return redirect()->route('link.index')->with('success', 'Link berhasil dihapus.');
+        // Tentukan redirect dan pesan berdasarkan kategori
+        if ($kategori === 'sadiklat') {
+            return redirect()->route('sadiklat.index')->with('success', 'Link sadiklat berhasil dihapus.');
+        }
+
+        return redirect()->route('link.index')->with('success', 'Link umum berhasil dihapus.');
     }
 }

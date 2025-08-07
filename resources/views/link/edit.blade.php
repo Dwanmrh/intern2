@@ -84,7 +84,11 @@
 
                 {{-- Tombol --}}
                 <div class="flex justify-end space-x-3">
-                    <a href="{{ route('link.index') }}"
+                    @php
+                        $backRoute = request('from') === 'sadiklat' ? route('sadiklat.index') : route('link.index');
+                    @endphp
+
+                    <a href="{{ $backRoute }}"
                         class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-md shadow-md hover:shadow-lg transition">
                         Batal
                     </a>

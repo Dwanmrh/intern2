@@ -50,20 +50,19 @@
                     <select name="subkategori" id="subkategori"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition">
                         <option value="">-- Pilih Subkategori --</option>
-                        <option value="Pusdik Serse">Pusdik Serse</option>
-                        <option value="Pusdik Intel">Pusdik Intel</option>
+                        <option value="Sespim">Sespim</option>
+                        <option value="Sespimti">Sespimti</option>
+                        <option value="Sespimmen">Sespimmen</option>
+                        <option value="Sespimma">Sespimma</option>
+                        <option value="Akpol">Akpol</option>
+                        <option value="STIK-PTIK">STIK-PTIK</option>
+                        <option value="Diklat Reserse">Diklat Reserse</option>
                         <option value="Pusdik Lantas">Pusdik Lantas</option>
-                        <option value="Pusdik Binmas">Pusdik Binmas</option>
-                        <option value="Pusdik Runmin">Pusdik Runmin</option>
-                        <option value="Pusdik Sabara">Pusdik Sabara</option>
+                        <option value="Pusdik Sabhara">Pusdik Sabhara</option>
                         <option value="Pusdik Sebasa">Pusdik Sebasa</option>
-                        <option value="Pusdik Akpol">Pusdik Akpol</option>
-                        <option value="Pusdik Sespima">Pusdik Sespima</option>
-                        <option value="Pusdik Sespimen">Pusdik Sespimen</option>
-                        <option value="Pusdik Sespim">Pusdik Sespim</option>
-                        <option value="Pusdik Sespinti">Pusdik Sespimti</option>
-                        <option value="Pusdik PTIK">Pusdik PTIK</option>
-                        <option value="Pusdik LSP">Pusdik LSP</option>
+                        <option value="Pusdik Binmas">Pusdik Binmas</option>
+                        <option value="Pusdik Intel">Pusdik Intel</option>
+                        <option value="Pusdik Min">Pusdik Min</option>
                     </select>
                 </div>
 
