@@ -29,11 +29,11 @@
                 @endif
 
                 {{-- SUBKATEGORI & GRID --}}
-                @forelse ($fasilitas as $subkategori => $items)
+                @forelse ($fasilitas as $subKategori => $items)
                     {{-- HEADER SUBKATEGORI --}}
                     <div class="mt-6 flex flex-wrap justify-center gap-4">
                         <div class="bg-white/70 px-4 py-2 rounded-full text-base font-semibold text-[#2c3e50] shadow">
-                            {{ $subkategori }}
+                            {{ $subKategori }}
                         </div>
                     </div>
 
