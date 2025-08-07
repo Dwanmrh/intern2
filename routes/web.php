@@ -118,6 +118,9 @@ Route::middleware(['auth', 'verified'])->prefix('link')->group(function () {
     Route::delete('/{id}', [LinkController::class, 'destroy'])->name('link.destroy');
 });
 
+// HALAMAN KHUSUS SADIKLAT (akses publik)
+Route::get('/sadiklat', [LinkController::class, 'sadiklat'])->name('sadiklat.index');
+
 
 // Route bawaan Breeze untuk profile user
 Route::middleware('auth')->group(function () {

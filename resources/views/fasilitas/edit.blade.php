@@ -46,18 +46,18 @@
                 {{-- Subkategori --}}
                 <div class="mb-3">
                     <label class="block text-white font-semibold mb-1">Subkategori</label>
-                    <select name="subKategori"
+                    <select name="subkategori"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner"
                         required>
                         <option value="">-- Pilih Subkategori --</option>
-                        <option value="Tempat Ibadah" {{ $fasilitas->subKategori === 'Tempat Ibadah' ? 'selected' : '' }}>Tempat Ibadah</option>
-                        <option value="Tempat Olahraga" {{ $fasilitas->subKategori === 'Tempat Olahraga' ? 'selected' : '' }}>Tempat Olahraga</option>
-                        <option value="Ruang Kelas" {{ $fasilitas->subKategori === 'Ruang Kelas' ? 'selected' : '' }}>Ruang Kelas</option>
-                        <option value="Kantor" {{ $fasilitas->subKategori === 'Kantor' ? 'selected' : '' }}>Kantor</option>
-                        <option value="Barak" {{ $fasilitas->subKategori === 'Barak' ? 'selected' : '' }}>Barak</option>
-                        <option value="Gedung" {{ $fasilitas->subKategori === 'Gedung' ? 'selected' : '' }}>Gedung</option>
-                        <option value="Lapangan Apel" {{ $fasilitas->subKategori === 'Lapangan Apel' ? 'selected' : '' }}>Lapangan Apel</option>
-                        <option value="Lainnya" {{ $fasilitas->subKategori === 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
+                        <option value="Tempat Ibadah" {{ $fasilitas->subkategori === 'Tempat Ibadah' ? 'selected' : '' }}>Tempat Ibadah</option>
+                        <option value="Tempat Olahraga" {{ $fasilitas->subkategori === 'Tempat Olahraga' ? 'selected' : '' }}>Tempat Olahraga</option>
+                        <option value="Ruang Kelas" {{ $fasilitas->subkategori === 'Ruang Kelas' ? 'selected' : '' }}>Ruang Kelas</option>
+                        <option value="Kantor" {{ $fasilitas->subkategori === 'Kantor' ? 'selected' : '' }}>Kantor</option>
+                        <option value="Barak" {{ $fasilitas->subkategori === 'Barak' ? 'selected' : '' }}>Barak</option>
+                        <option value="Gedung" {{ $fasilitas->subkategori === 'Gedung' ? 'selected' : '' }}>Gedung</option>
+                        <option value="Lapangan Apel" {{ $fasilitas->subkategori === 'Lapangan Apel' ? 'selected' : '' }}>Lapangan Apel</option>
+                        <option value="Lainnya" {{ $fasilitas->subkategori === 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
                     </select>
                 </div>
 

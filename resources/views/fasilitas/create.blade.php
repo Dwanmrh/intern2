@@ -43,7 +43,7 @@
                 {{-- Subkategori --}}
                 <div class="mb-3">
                     <label class="block text-white font-semibold mb-1">Subkategori</label>
-                    <select name="subKategori"
+                    <select name="subkategori"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner"
                         required>
                         <option value="">-- Pilih Subkategori --</option>

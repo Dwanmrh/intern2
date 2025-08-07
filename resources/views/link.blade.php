@@ -14,7 +14,7 @@
                         <i class="bi bi-link-45deg text-2xl" style="color: #2c3e50;"></i>
                         <h2 class="text-2xl font-bold text-[#2c3e50]">LINK TERKAIT</h2>
                     </div>
-                    
+
                     {{-- Tombol Tambah Data --}}
                     @auth
                         @if(Auth::user()->role === 'admin')
@@ -42,7 +42,10 @@
                 <div class="bg-white shadow-md rounded-lg overflow-hidden flex flex-col hover:scale-105 transition duration-300 ease-in-out relative">
 
                     {{-- Bagian yang bisa diklik --}}
-                    <a href="{{ $link->url }}" target="_blank" class="flex flex-col text-inherit no-underline cursor-pointer">
+                    <a href="{{ $link->kategori === 'sadiklat' ? route('sadiklat.index') : $link->url }}"
+                        target="_blank"
+                        class="flex flex-col text-inherit no-underline cursor-pointer">
+
                         @if ($link->logo)
                             <img src="{{ asset('storage/' . $link->logo) }}" alt="{{ $link->nama }}"
                                 class="w-full h-48 object-contain p-4 bg-gray-50">

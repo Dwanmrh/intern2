@@ -13,13 +13,17 @@ class LinkController extends Controller
      */
     public function index()
     {
-        $links = Link::all();
+        $links = Link::whereNull('subkategori')->get();
         return view('link', compact('links'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    public function sadiklat()
+    {
+        $links = Link::whereNotNull('subkategori')->get();
+        return view('link.sadiklat', ['sadiklat' => $links]);
+    }
+
+
     public function create()
     {
         return view('link.create');
@@ -34,6 +38,8 @@ class LinkController extends Controller
             'nama' => 'required|string|max:255',
             'url' => 'required|url',
             'logo' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:15000',
+            'kategori' => 'required|in:umum,sadiklat',
+            'subkategori' => $request->kategori === 'sadiklat' ? 'required|string|max:255' : 'nullable|string|max:255',
         ]);
 
         $logoPath = $request->file('logo')->store('logo_link', 'public');
@@ -42,6 +48,8 @@ class LinkController extends Controller
             'nama' => $request->nama,
             'url' => $request->url,
             'logo' => $logoPath,
+            'kategori' => $request->kategori,
+            'subkategori' => $request->subkategori,
         ]);
 
         return redirect()->route('link.index')->with('success', 'Link berhasil ditambahkan.');
@@ -67,7 +75,8 @@ class LinkController extends Controller
             'nama' => 'required|string|max:255',
             'url' => 'required|url',
             'logo' => 'nullable|image|mimes:jpg,jpeg,png,svg,gif|max:15000',
-        ]);
+            'kategori' => 'required|in:umum,sadiklat',
+            'subkategori' => $request->kategori === 'sadiklat' ? 'required|string|max:255' : 'nullable|string|max:255',        ]);
 
         $data = [
             'nama' => $request->nama,

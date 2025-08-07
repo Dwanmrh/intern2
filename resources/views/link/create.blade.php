@@ -5,7 +5,6 @@
     <div class="py-10 px-4">
         <div class="max-w-md mx-auto bg-gradient-to-br from-[#2c3e50] to-[#3b4a5a] p-5 rounded-xl shadow-2xl border border-white/10 transition-all duration-300">
 
-            {{-- Header --}}
             <h2 class="text-xl text-white font-bold text-center mb-4">Tambah Link</h2>
 
             @if($errors->any())
@@ -17,12 +16,12 @@
             <form action="{{ route('link.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
-                {{-- Nama Link --}}
+                {{-- Judul --}}
                 <div class="mb-3">
-                    <label class="block text-white font-semibold mb-1">Nama</label>
+                    <label class="block text-white font-semibold mb-1">Judul</label>
                     <input type="text" name="nama"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
-                        required placeholder="Masukkan nama link">
+                        required placeholder="Masukkan judul">
                 </div>
 
                 {{-- URL --}}
@@ -31,6 +30,41 @@
                     <input type="url" name="url"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
                         required placeholder="https://example.com">
+                </div>
+
+                {{-- Kategori --}}
+                <div class="mb-3">
+                    <label class="block text-white font-semibold mb-1">Kategori</label>
+                    <select name="kategori" id="kategori"
+                        class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
+                        required>
+                        <option value="">-- Pilih Kategori --</option>
+                        <option value="umum">Umum</option>
+                        <option value="sadiklat">SADIKLAT</option>
+                    </select>
+                </div>
+
+                {{-- Subkategori (jika SADIKLAT) --}}
+                <div class="mb-3" id="subkategori-wrapper" style="display: none;">
+                    <label class="block text-white font-semibold mb-1">Subkategori (Pusdik)</label>
+                    <select name="subkategori" id="subkategori"
+                        class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition">
+                        <option value="">-- Pilih Subkategori --</option>
+                        <option value="Pusdik Serse">Pusdik Serse</option>
+                        <option value="Pusdik Intel">Pusdik Intel</option>
+                        <option value="Pusdik Lantas">Pusdik Lantas</option>
+                        <option value="Pusdik Binmas">Pusdik Binmas</option>
+                        <option value="Pusdik Runmin">Pusdik Runmin</option>
+                        <option value="Pusdik Sabara">Pusdik Sabara</option>
+                        <option value="Pusdik Sebasa">Pusdik Sebasa</option>
+                        <option value="Pusdik Akpol">Pusdik Akpol</option>
+                        <option value="Pusdik Sespima">Pusdik Sespima</option>
+                        <option value="Pusdik Sespimen">Pusdik Sespimen</option>
+                        <option value="Pusdik Sespim">Pusdik Sespim</option>
+                        <option value="Pusdik Sespinti">Pusdik Sespimti</option>
+                        <option value="Pusdik PTIK">Pusdik PTIK</option>
+                        <option value="Pusdik LSP">Pusdik LSP</option>
+                    </select>
                 </div>
 
                 {{-- Logo --}}
@@ -55,5 +89,22 @@
             </form>
         </div>
     </div>
+
+    {{-- Script tampilkan subkategori saat pilih sadiklat --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const kategoriSelect = document.getElementById('kategori');
+            const subkategoriWrapper = document.getElementById('subkategori-wrapper');
+
+            kategoriSelect.addEventListener('change', function () {
+                if (this.value === 'sadiklat') {
+                    subkategoriWrapper.style.display = 'block';
+                } else {
+                    subkategoriWrapper.style.display = 'none';
+                    document.getElementById('subkategori').value = '';
+                }
+            });
+        });
+    </script>
 
 </x-app-layout>

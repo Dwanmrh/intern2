@@ -34,6 +34,39 @@
                         required>
                 </div>
 
+                {{-- Kategori --}}
+                <div class="mb-3">
+                    <label class="block text-white font-semibold mb-1">Kategori</label>
+                    <select name="kategori" id="kategori"
+                        class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
+                        required>
+                        <option value="">-- Pilih Kategori --</option>
+                        <option value="umum" {{ $link->kategori == 'umum' ? 'selected' : '' }}>Umum</option>
+                        <option value="sadiklat" {{ $link->kategori == 'sadiklat' ? 'selected' : '' }}>SADIKLAT</option>
+                    </select>
+                </div>
+
+                {{-- Subkategori --}}
+                <div class="mb-3" id="subkategori-wrapper" style="{{ $link->kategori == 'sadiklat' ? '' : 'display: none;' }}">
+                    <label class="block text-white font-semibold mb-1">Subkategori (Pusdik)</label>
+                    <select name="subkategori" id="subkategori"
+                        class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition">
+                        <option value="">-- Pilih Subkategori --</option>
+                        @php
+                            $subkategories = [
+                                'Pusdik Serse', 'Pusdik Intel', 'Pusdik Lantas', 'Pusdik Binmas', 'Pusdik Runmin',
+                                'Pusdik Sabara', 'Pusdik Sebasa', 'Pusdik Akpol', 'Pusdik Sespima', 'Pusdik Sespimen',
+                                'Pusdik Sespim', 'Pusdik Sespimti', 'Pusdik PTIK', 'Pusdik LSP'
+                            ];
+                        @endphp
+                        @foreach ($subkategories as $pusdik)
+                            <option value="{{ $pusdik }}" {{ $link->subkategori == $pusdik ? 'selected' : '' }}>
+                                {{ $pusdik }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
                 {{-- Logo Lama --}}
                 @if ($link->logo)
                     <div class="mb-3">
@@ -65,3 +98,24 @@
     </div>
 
 </x-app-layout>
+
+{{-- Script tampilkan subkategori saat pilih sadiklat --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const kategoriSelect = document.getElementById('kategori');
+        const subkategoriWrapper = document.getElementById('subkategori-wrapper');
+        const subkategoriSelect = document.getElementById('subkategori');
+
+        function toggleSubkategori() {
+            if (kategoriSelect.value === 'sadiklat') {
+                subkategoriWrapper.style.display = 'block';
+            } else {
+                subkategoriWrapper.style.display = 'none';
+                subkategoriSelect.value = '';
+            }
+        }
+
+        kategoriSelect.addEventListener('change', toggleSubkategori);
+        toggleSubkategori(); // initialize
+    });
+</script>

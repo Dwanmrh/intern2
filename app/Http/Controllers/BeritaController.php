@@ -30,7 +30,7 @@ class BeritaController extends Controller
             'judul' => 'required|string|max:255',
             'isi_berita' => 'nullable|string',
             'tanggal' => 'required|string',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:10000',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:23000',
             'file_berita' => 'nullable|mimes:pdf|max:10240',
         ]);
 
@@ -96,7 +96,7 @@ class BeritaController extends Controller
             'judul' => 'required|string|max:255',
             'isi_berita' => 'nullable|string',
             'tanggal' => 'required|string',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:10000',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:23000',
             'file_berita' => 'nullable|mimes:pdf|max:10240',
         ]);
 

@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('fasilitas', function (Blueprint $table) {
+        Schema::table('links', function (Blueprint $table) {
             $table->string('subkategori')->nullable()->after('kategori');
+
         });
     }
 
@@ -21,7 +22,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('fasilitas', function (Blueprint $table) {
+        Schema::table('links', function (Blueprint $table) {
             $table->dropColumn('subkategori');
         });
     }

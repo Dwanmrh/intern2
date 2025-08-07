@@ -17,19 +17,19 @@ class FasilitasController extends Controller
 
     public function umum()
     {
-        $fasilitas = Fasilitas::where('kategori', 'umum')->get()->groupBy('subKategori');
+        $fasilitas = Fasilitas::where('kategori', 'umum')->get()->groupBy('subkategori');
         return view('fasilitas.umum', compact('fasilitas'))->with('kategori', 'Fasilitas Umum');
     }
 
     public function belajar()
     {
-        $fasilitas = Fasilitas::where('kategori', 'belajar')->get()->groupBy('subKategori');
+        $fasilitas = Fasilitas::where('kategori', 'belajar')->get()->groupBy('subkategori');
         return view('fasilitas.belajar', compact('fasilitas'))->with('kategori', 'Fasilitas Belajar');
     }
 
     public function khusus()
     {
-        $fasilitas = Fasilitas::where('kategori', 'khusus')->get()->groupBy('subKategori');
+        $fasilitas = Fasilitas::where('kategori', 'khusus')->get()->groupBy('subkategori');
         return view('fasilitas.khusus', compact('fasilitas'))->with('kategori', 'Fasilitas Khusus');
     }
 
@@ -45,7 +45,7 @@ class FasilitasController extends Controller
             'deskripsi' => 'required|string',
             'tanggal' => 'required|string',
             'kategori' => 'required|string|in:umum,belajar,khusus',
-            'subKategori' => 'required|string|max:100',
+            'subkategori' => 'required|string|max:100',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:10000',
         ]);
 
@@ -106,7 +106,7 @@ class FasilitasController extends Controller
             'deskripsi' => 'required|string',
             'tanggal' => 'required|string',
             'kategori' => 'required|string|in:umum,belajar,khusus',
-            'subKategori' => 'required|string|max:100',
+            'subkategori' => 'required|string|max:100',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:10000',
         ]);
 
