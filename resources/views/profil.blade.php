@@ -1,5 +1,5 @@
 <x-app-layout>
-    @section('title', 'Profil | SETUKPA LEMDIKLAT POLRI')
+    @section('title', 'PROFIL | SETUKPA LEMDIKLAT POLRI')
 
     <div class="py-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -56,7 +56,7 @@
                         <p class="text-gray-700 mb-4 text-[15px] leading-relaxed tracking-wide text-justify">
                             <span class="font-semibold text-[#2c3e50]">Setukpa Lemdiklat Polri</span> atau <em>Sekolah Pembentukan Perwira Polri</em> adalah sekolah kedinasan Kepolisian Negara Republik Indonesia yang bertugas untuk menyelenggarakan fungsi pembentukan perwira Polri yang bersumber dari anggota Polri.
                             <br><br>
-                            Setukpa Polri sebelumnya bernama <span class="font-medium italic text-[#2c3e50]">Secapa Polri</span> (Sekolah Calon Perwira Polri).
+                            Setukpa Polri sebelumnya bernama <span class="font-medium italic text-[#2c3e50]">Secapa Polri</span> (Sekolah Calon Perwira Polri).Setukpa Polri terletak di Kota Sukabumi, Jawa Barat serta dikepalai oleh Kasetukpa Polri yang bertanggungjawab kepada Kalemdiklat Polri. Kasetukpa Polri petahana saat ini adalah Brigadir Jenderal Polisi. Mardiaz Kusin Dwihananto, S.IK., M.Hum.
                         </p>
                     </div>
                 </div>
@@ -206,14 +206,14 @@
                         <a href="{{ route('profil.edit', $wakasetukpa->id) }}" class="text-blue-600 hover:text-blue-800 transition" title="Edit">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-5M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                    d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-5M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z"/>
                             </svg>
                         </a>
 
                         <button type="button" class="text-red-600 hover:text-red-800 transition" data-bs-toggle="modal" data-bs-target="#hapusProfilModal{{ $wakasetukpa->id }}" title="Hapus">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7h6m-3-4v4"/>
+                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7h6m-3-4v4"/>
                             </svg>
                         </button>
                     </div>

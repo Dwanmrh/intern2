@@ -1,12 +1,12 @@
 <x-app-layout>
 
-    @section('title', 'Informasi | SETUKPA LEMDIKLAT POLRI')
+    @section('title', 'INFORMASI | SETUKPA LEMDIKLAT POLRI')
 
     <div class="py-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
             {{-- CARD UTAMA HEADER INFORMASI --}}
-            <div class="shadow rounded-lg p-6 mb-10 relative" style="background-color: rgba(255, 255, 255, 0.60); min-height: 64px;">
+            <div class="shadow rounded-lg p-6 mb-10 relative" style="background-color: rgba(255, 255, 255, 0.50); min-height: 64px;">
                 {{-- Judul dan Tombol Tambah --}}
                 <div class="relative flex items-center justify-center border-b pb-2 mb-8">
                     <h2 class="text-2xl font-bold text-[#2c3e50] flex items-center gap-2">
@@ -34,11 +34,11 @@
                 @endif
 
                 {{-- Grid Informasi --}}
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 items-start">
                     @forelse ($informasi as $data)
                         <div
                             x-data="{ showDetailBtn: false }"
-                            class="bg-white shadow-md rounded-lg flex flex-col min-h-[500px] justify-between cursor-pointer hover:scale-105 transition duration-300 ease-in-out relative"
+                            class="bg-gradient-to-br from-[#dfe0e8] to-[#f0f4f8] border border-gray shadow-md rounded-lg flex flex-col justify-between cursor-pointer hover:scale-105 transition duration-300 ease-in-out relative"
                         >
                             {{-- Gambar (jika ada) --}}
                             @if ($data->foto)
@@ -47,7 +47,7 @@
 
                             {{-- Konten teks --}}
                             <div class="p-4 flex flex-col flex-grow overflow-hidden {{ !$data->foto ? 'rounded-t-lg' : '' }}"
-                                :class="showDetailBtn ? 'h-auto' : 'h-[300px]'">
+                                :class="showDetailBtn ? 'h-auto' : 'h-[200px]'">
                                 <p class="text-sm text-gray-500 flex items-center gap-1 mb-2">
                                     {{-- Tanggal --}}
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-500" fill="none"

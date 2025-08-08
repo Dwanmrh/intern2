@@ -1,12 +1,12 @@
 <x-app-layout>
 
-    @section('title', 'Link Terkait | SETUKPA LEMDIKLAT POLRI')
+    @section('title', 'LINK TERKAIT | SETUKPA LEMDIKLAT POLRI')
 
     <div class="py-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
             {{-- CARD UTAMA HEADER LINK --}}
-            <div class="shadow rounded-lg p-6 mb-10 relative" style="background-color: rgba(255, 255, 255, 0.60); min-height: 64px;">
+            <div class="shadow rounded-lg p-6 mb-10 relative" style="background-color: rgba(255, 255, 255, 0.50); min-height: 64px;">
 
                 {{-- Header dengan Icon di Tengah --}}
                 <div class="relative flex items-center justify-center border-b pb-2 mb-4">
@@ -37,7 +37,7 @@
                 @endif
 
                 {{-- Grid Link --}}
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mt-6">
                     @forelse ($links as $link)
                 <div class="bg-white shadow-md rounded-lg overflow-hidden flex flex-col hover:scale-105 transition duration-300 ease-in-out relative">
 

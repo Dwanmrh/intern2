@@ -1,12 +1,12 @@
 <x-app-layout>
 
-    @section('title', 'Galeri | SETUKPA LEMDIKLAT POLRI')
+    @section('title', 'GALERI | SETUKPA LEMDIKLAT POLRI')
 
     <div class="py-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
             {{-- CARD UTAMA HEADER GALERI --}}
-            <div class="shadow rounded-lg p-6 mb-10 relative" style="background-color: rgba(255, 255, 255, 0.60); min-height: 64px;">
+            <div class="shadow rounded-lg p-6 mb-10 relative" style="background-color: rgba(255, 255, 255, 0.50); min-height: 64px;">
 
                 {{-- Judul dan Tombol Tambah --}}
                 <div class="relative flex items-center justify-center border-b pb-2 mb-6">

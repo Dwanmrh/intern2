@@ -1,12 +1,12 @@
 <x-app-layout>
 
-    @section('title', 'Berita | SETUKPA LEMDIKLAT POLRI')
+    @section('title', 'BERITA | SETUKPA LEMDIKLAT POLRI')
 
     <div class="py-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
             {{-- CARD UTAMA HEADER BERITA --}}
-            <div class="shadow rounded-lg p-6 mb-10 relative" style="background-color: rgba(255, 255, 255, 0.60); min-height: 64px;">
+            <div class="shadow rounded-lg p-6 mb-10 relative" style="background-color: rgba(255, 255, 255, 0.50); min-height: 64px;">
 
                 {{-- Judul dan Tombol Tambah --}}
                 <div class="relative flex items-center justify-center border-b pb-2 mb-6">
@@ -19,7 +19,7 @@
                     @auth
                         @if(Auth::user()->role === 'admin')
                             <div class="absolute right-0 top-1">
-                                <a href="{{ route('profil.create') }}"
+                                <a href="{{ route('berita.create') }}"
                                 class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm shadow transition duration-300">
                                 <i class="bi bi-plus-circle text-base "></i>
                                     Tambah Berita

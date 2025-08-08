@@ -44,7 +44,7 @@ class ProfilController extends Controller
         }
 
         Profil::create($validated);
-        return redirect()->route('profil.index')->with('success', 'Pimpinan berhasil ditambahkan');
+        return redirect()->route('profil.index')->with('success', 'Personel berhasil ditambahkan');
     }
 
     public function edit($id)

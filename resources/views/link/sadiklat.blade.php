@@ -1,20 +1,20 @@
 <x-app-layout>
-    @section('title', 'SADIKLAT | SETUKPA LEMDIKLAT POLRI')
+    @section('title', 'SATDIKLAT | SETUKPA LEMDIKLAT POLRI')
 
     <div class="py-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
             {{-- HEADER --}}
-            <div class="shadow rounded-lg p-6 mb-10 relative" style="background-color: rgba(255, 255, 255, 0.60); min-height: 64px;">
+            <div class="shadow rounded-lg p-6 mb-10 relative" style="background-color: rgba(255, 255, 255, 0.50); min-height: 64px;">
                 <div class="relative flex items-center justify-center border-b pb-2 mb-4">
                     <div class="flex items-center space-x-2">
-                        <i class="bi bi-mortarboard text-2xl text-blue-800"></i>
-                        <h2 class="text-2xl font-bold text-[#2c3e50]">SADIKLAT</h2>
+                        <i class="bi bi-mortarboard text-2xl text-[#2c3e50]"></i>
+                        <h2 class="text-2xl font-bold text-[#2c3e50]">SATDIKLAT</h2>
                     </div>
                 </div>
 
                 {{-- Tombol Kembali --}}
-                <div class="absolute left-4 top-4">
+                <div class="absolute left-4 top-4 p-2">
                     <a href="{{ route('link.index') }}"
                     class="inline-flex items-center px-3 py-1.5 bg-gray-700 hover:bg-gray-800 text-white text-sm font-medium rounded transition duration-200">
                         ← Kembali
@@ -29,7 +29,7 @@
                 @endif
 
                 {{-- Grid SADIKLAT --}}
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mt-6">
                     @forelse ($sadiklat as $item)
                         <div class="bg-white shadow-md rounded-lg overflow-hidden flex flex-col hover:scale-105 transition duration-300 ease-in-out relative">
 
@@ -81,7 +81,7 @@
                             @endauth
                         </div>
                     @empty
-                        <p class="text-gray-600 col-span-3 text-center">Belum ada data SADIKLAT.</p>
+                        <p class="text-gray-600 col-span-3 text-center">Belum ada data SATDIKLAT.</p>
                     @endforelse
                 </div>
             </div>

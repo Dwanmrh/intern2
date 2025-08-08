@@ -41,22 +41,22 @@
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
                         required>
                         <option value="">-- Pilih Kategori --</option>
-                        <option value="umum" {{ $link->kategori == 'umum' ? 'selected' : '' }}>Umum</option>
-                        <option value="sadiklat" {{ $link->kategori == 'sadiklat' ? 'selected' : '' }}>SADIKLAT</option>
+                        <option value="umum" {{ $link->kategori == 'umum' ? 'selected' : '' }}>UMUM</option>
+                        <option value="sadiklat" {{ $link->kategori == 'sadiklat' ? 'selected' : '' }}>SATDIKLAT</option>
                     </select>
                 </div>
 
                 {{-- Subkategori --}}
-                <div class="mb-3" id="subkategori-wrapper" style="{{ $link->kategori == 'sadiklat' ? '' : 'display: none;' }}">
+                <div class="mb-3" id="subkategori-wrapper" style"{{ $link->kategori == 'sadiklat' ? '' : 'display: none;' }}">
                     <label class="block text-white font-semibold mb-1">Subkategori (Pusdik)</label>
                     <select name="subkategori" id="subkategori"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition">
                         <option value="">-- Pilih Subkategori --</option>
                         @php
                             $subkategories = [
-                                'Pusdik Serse', 'Pusdik Intel', 'Pusdik Lantas', 'Pusdik Binmas', 'Pusdik Runmin',
-                                'Pusdik Sabara', 'Pusdik Sebasa', 'Pusdik Akpol', 'Pusdik Sespima', 'Pusdik Sespimen',
-                                'Pusdik Sespim', 'Pusdik Sespimti', 'Pusdik PTIK', 'Pusdik LSP'
+                                'Sespim', 'Sespimti', 'Sespimen', 'Sespima', 'Akpol', 'STIK-PTIK',
+                                'Diklat Reserse', 'Pusdik Intel', 'Pusdik Lantas', 'Pusdik Binmas', 'Pusdik Min',
+                                'Pusdik Sabhara', 'Pusdik Sebasa','Pusdik Brimob'
                             ];
                         @endphp
                         @foreach ($subkategories as $pusdik)

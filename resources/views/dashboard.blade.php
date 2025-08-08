@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    @section('title', 'Dashboard | SETUKPA LEMDIKLAT POLRI')
+    @section('title', 'HOME | SETUKPA LEMDIKLAT POLRI')
 
     <div class="@auth py-5 @else py-2 @endauth">
         <div class="container">

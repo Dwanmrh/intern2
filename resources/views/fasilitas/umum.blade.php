@@ -14,7 +14,7 @@
                 </div>
 
                 {{-- Tombol Kembali --}}
-                <div class="absolute left-4 top-4">
+                <div class="absolute left-4 top-6">
                     <a href="{{ route('fasilitas.index') }}"
                     class="inline-flex items-center px-3 py-1.5 bg-gray-700 hover:bg-gray-800 text-white text-sm font-medium rounded transition duration-200">
                         ← Kembali
@@ -32,7 +32,7 @@
                 @forelse ($fasilitas as $subKategori => $items)
                     {{-- HEADER SUBKATEGORI --}}
                     <div class="mt-6 flex flex-wrap justify-center gap-4">
-                        <div class="bg-white/70 px-4 py-2 rounded-full text-base font-semibold text-[#2c3e50] shadow">
+                        <div class="bg-gradient-to-r from-gray-100 to-gray-200 px-4 py-2 rounded-full text-base font-semibold text-[#2c3e50] shadow transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:from-gray-200 hover:to-gray-300">
                             {{ $subKategori }}
                         </div>
                     </div>

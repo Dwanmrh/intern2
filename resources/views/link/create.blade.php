@@ -39,8 +39,8 @@
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
                         required>
                         <option value="">-- Pilih Kategori --</option>
-                        <option value="umum">Umum</option>
-                        <option value="sadiklat">SADIKLAT</option>
+                        <option value="umum">UMUM</option>
+                        <option value="sadiklat">SATDIKLAT</option>
                     </select>
                 </div>
 
@@ -63,6 +63,7 @@
                         <option value="Pusdik Binmas">Pusdik Binmas</option>
                         <option value="Pusdik Intel">Pusdik Intel</option>
                         <option value="Pusdik Min">Pusdik Min</option>
+                        <option value="Pusdik Min">Pusdik Brimob</option>
                     </select>
                 </div>
 
