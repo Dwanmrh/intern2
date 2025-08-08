@@ -6,7 +6,7 @@
         <div class="max-w-md mx-auto bg-gradient-to-br from-[#2c3e50] to-[#3b4a5a] p-5 rounded-xl shadow-2xl border border-white/10 transition-all duration-300">
 
             {{-- Header --}}
-            <h2 class="text-xl text-white font-bold text-center mb-4">Tambah Pimpinan</h2>
+            <h2 class="text-xl text-white font-bold text-center mb-4">Tambah Personel</h2>
 
             <form action="{{ route('profil.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -16,7 +16,7 @@
                     <label class="block text-white font-semibold mb-1">Nama</label>
                     <input type="text" name="nama"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 shadow-inner transition"
-                        required placeholder="Masukkan nama pimpinan">
+                        required placeholder="Masukkan nama Personel">
                 </div>
 
                 {{-- Jabatan --}}
