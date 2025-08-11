@@ -10,20 +10,17 @@ use Carbon\Carbon;
 
 class BeritaController extends Controller
 {
-    // Tampilkan semua berita
     public function index()
     {
         $beritas = Berita::orderBy('tanggal', 'desc')->get();
         return view('berita', compact('beritas'));
     }
 
-    // Tampilkan form tambah berita
     public function create()
     {
         return view('berita.create');
     }
 
-    // Simpan berita baru
     public function store(Request $request)
     {
         $request->validate([
@@ -34,35 +31,48 @@ class BeritaController extends Controller
             'file_berita' => 'nullable|mimes:pdf|max:10240',
         ]);
 
+        // Cek rule: jika isi_berita diisi manual, file_berita tidak boleh di-upload
+        if ($request->filled('isi_berita') && $request->hasFile('file_berita')) {
+            return back()->withErrors([
+                'file_berita' => 'Jika isi berita diisi manual, jangan upload file PDF.'
+            ])->withInput();
+        }
+
+        // Cek rule: jika isi_berita kosong dan tidak ada file PDF
+        if (!$request->filled('isi_berita') && !$request->hasFile('file_berita')) {
+            return back()->withErrors([
+                'isi_berita' => 'Isi berita atau file PDF harus diisi salah satu.'
+            ])->withInput();
+        }
+
         $data = $request->only('judul', 'isi_berita');
 
-        // Format tanggal dari d/m/Y ke Y-m-d
+        // Format tanggal
         try {
             $tanggal = Carbon::createFromFormat('d/m/Y', $request->tanggal);
             if ($tanggal->format('d/m/Y') !== $request->tanggal) {
-                throw new \Exception('Invalid date');
+                throw new \Exception();
             }
             $data['tanggal'] = $tanggal->format('Y-m-d');
         } catch (\Exception $e) {
             return back()->withErrors(['tanggal' => 'Format tanggal tidak valid'])->withInput();
         }
 
-        // FOTO
+        // Foto
         if ($request->hasFile('foto')) {
             $data['foto'] = $request->file('foto')->store('foto_berita', 'public');
         }
 
-        // PDF
+        // PDF (hanya kalau isi_berita kosong)
         if (!$request->filled('isi_berita') && $request->hasFile('file_berita')) {
             $file = $request->file('file_berita');
             $parser = new PdfParser();
             $pdf = $parser->parseFile($file->getPathname());
             $data['isi_berita'] = $pdf->getText();
             $data['file_berita'] = $file->store('file_berita', 'public');
-        } elseif ($request->hasFile('file_berita')) {
-            $data['file_berita'] = $request->file('file_berita')->store('file_berita', 'public');
         }
 
+        // Default isi_berita kalau kosong
         if (empty($data['isi_berita'])) {
             $data['isi_berita'] = '-';
         }
@@ -71,14 +81,12 @@ class BeritaController extends Controller
         return redirect()->route('berita.index')->with('success', 'Berita berhasil ditambahkan.');
     }
 
-    // Tampilkan detail
     public function show($id)
     {
         $berita = Berita::findOrFail($id);
         return view('berita.show', compact('berita'));
     }
 
-    // Form edit berita
     public function edit($id)
     {
         $berita = Berita::findOrFail($id);
@@ -87,7 +95,6 @@ class BeritaController extends Controller
         return view('berita.edit', compact('berita'));
     }
 
-    // Update berita
     public function update(Request $request, $id)
     {
         $berita = Berita::findOrFail($id);
@@ -100,20 +107,39 @@ class BeritaController extends Controller
             'file_berita' => 'nullable|mimes:pdf|max:10240',
         ]);
 
+        // Rule: kalau isi berita diisi manual → tidak boleh upload PDF
+        if ($request->filled('isi_berita') && $request->hasFile('file_berita')) {
+            return back()->withErrors([
+                'file_berita' => 'Jika isi berita diisi manual, jangan upload file PDF.'
+            ])->withInput();
+        }
+
+        // Rule: kalau isi berita kosong dan tidak ada file PDF (serta file lama dihapus)
+        if (
+            !$request->filled('isi_berita') &&
+            !$request->hasFile('file_berita') &&
+            ($request->filled('hapus_file') && $request->hapus_file == 1) &&
+            !$berita->file_berita
+        ) {
+            return back()->withErrors([
+                'isi_berita' => 'Isi berita atau file PDF harus diisi salah satu.'
+            ])->withInput();
+        }
+
         $data = $request->only('judul', 'isi_berita');
 
-        // Format tanggal dari d/m/Y ke Y-m-d
+        // Format tanggal
         try {
             $tanggal = Carbon::createFromFormat('d/m/Y', $request->tanggal);
             if ($tanggal->format('d/m/Y') !== $request->tanggal) {
-                throw new \Exception('Invalid date');
+                throw new \Exception();
             }
             $data['tanggal'] = $tanggal->format('Y-m-d');
         } catch (\Exception $e) {
             return back()->withErrors(['tanggal' => 'Format tanggal tidak valid'])->withInput();
         }
 
-        // FOTO
+        // Foto
         if ($request->hasFile('foto')) {
             if ($berita->foto && Storage::disk('public')->exists($berita->foto)) {
                 Storage::disk('public')->delete($berita->foto);
@@ -121,32 +147,30 @@ class BeritaController extends Controller
             $data['foto'] = $request->file('foto')->store('foto_berita', 'public');
         }
 
-        // PDF
-        if ($request->hasFile('file_berita')) {
+        // Hapus file PDF lama
+        if ($request->filled('hapus_file') && $request->hapus_file == 1) {
             if ($berita->file_berita && Storage::disk('public')->exists($berita->file_berita)) {
                 Storage::disk('public')->delete($berita->file_berita);
             }
-
-            $file = $request->file('file_berita');
-
-            if (!$request->filled('isi_berita')) {
-                $parser = new PdfParser();
-                $pdf = $parser->parseFile($file->getPathname());
-                $data['isi_berita'] = $pdf->getText();
-            }
-
-            $data['file_berita'] = $file->store('file_berita', 'public');
+            $data['file_berita'] = null;
         }
 
-        if (empty($data['isi_berita'])) {
-            $data['isi_berita'] = '-';
+        // Upload file baru (hanya kalau isi berita kosong)
+        if (!$request->filled('isi_berita') && $request->hasFile('file_berita')) {
+            if ($berita->file_berita && Storage::disk('public')->exists($berita->file_berita)) {
+                Storage::disk('public')->delete($berita->file_berita);
+            }
+            $file = $request->file('file_berita');
+            $parser = new PdfParser();
+            $pdf = $parser->parseFile($file->getPathname());
+            $data['isi_berita'] = $pdf->getText();
+            $data['file_berita'] = $file->store('file_berita', 'public');
         }
 
         $berita->update($data);
         return redirect()->route('berita.index')->with('success', 'Berita berhasil diperbarui.');
     }
 
-    // Hapus berita
     public function destroy($id)
     {
         $berita = Berita::findOrFail($id);

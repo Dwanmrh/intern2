@@ -39,15 +39,24 @@
                 @if ($berita->file_berita)
                     <div class="mb-4">
                         <label class="block text-white font-semibold mb-1">File Berita Saat Ini</label>
-                        <a href="{{ asset('storage/' . $berita->file_berita) }}" target="_blank"
+
+                        {{-- Link lihat file --}}
+                          <a href="{{ asset('storage/' . $berita->file_berita) }}" target="_blank"
                             class="text-blue-300 underline hover:text-blue-400 transition">Lihat File</a>
+
+                        {{-- Checkbox hapus file --}}
+                        <div class="mt-2">
+                            <input type="checkbox" name="hapus_file" id="hapus_file" value="1"
+                                class="mr-1 rounded border-gray-500">
+                            <label for="hapus_file" class="text-red-300 font-medium">Hapus file ini</label>
+                        </div>
                     </div>
                 @endif
 
                 {{-- Upload File Baru --}}
                 <div class="mb-3">
                     <label class="block text-white font-semibold mb-1">Upload File Berita (PDF)</label>
-                    <input type="file" name="file_berita" accept=".pdf,.docx"
+                    <input type="file" name="file_berita" accept=".pdf"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition">
                     <small class="font-bold text-yellow-400 italic">Kosongkan upload file jika memasukkan isi berita</small>
                 </div>
