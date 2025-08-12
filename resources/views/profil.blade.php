@@ -56,7 +56,7 @@
                         <p class="text-gray-700 mb-4 text-[15px] leading-relaxed tracking-wide text-justify">
                             <span class="font-semibold text-[#2c3e50]">Setukpa Lemdiklat Polri</span> atau <em>Sekolah Pembentukan Perwira Polri</em> adalah sekolah kedinasan Kepolisian Negara Republik Indonesia yang bertugas untuk menyelenggarakan fungsi pembentukan perwira Polri yang bersumber dari anggota Polri.
                             <br><br>
-                            Setukpa Polri sebelumnya bernama <span class="font-medium italic text-[#2c3e50]">Secapa Polri</span> (Sekolah Calon Perwira Polri).Setukpa Polri terletak di Kota Sukabumi, Jawa Barat serta dikepalai oleh Kasetukpa Polri yang bertanggungjawab kepada Kalemdiklat Polri. Kasetukpa Polri petahana saat ini adalah Brigadir Jenderal Polisi. Mardiaz Kusin Dwihananto, S.IK., M.Hum.
+                            Setukpa Polri sebelumnya bernama <span class="font-medium italic text-[#2c3e50]">Secapa Polri</span> (Sekolah Calon Perwira Polri).Setukpa Polri terletak di Kota Sukabumi, Jawa Barat serta dikepalai oleh Kasetukpa Polri yang bertanggungjawab kepada Kalemdiklat Polri. Kasetukpa Polri saat ini adalah Brigadir Jenderal Polisi. Dirin, S.I.K., M.H.
                         </p>
                     </div>
                 </div>

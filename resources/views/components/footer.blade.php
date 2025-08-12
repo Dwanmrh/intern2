@@ -17,6 +17,9 @@
                 <a href="{{ route('fasilitas.index') }}" class="hover:text-blue-300">Fasilitas</a> <!-- Tambahan -->
                 <a href="{{ route('galeri.index') }}" class="hover:text-blue-300">Galeri</a>
             </div>
+            <div class="flex flex-wrap gap-x-10 gap-y-3">
+                <a href="{{ route(name: 'link.index') }}" class="hover:text-blue-300">Link</a>
+            </div>
         </div>
 
         {{-- Kontak --}}

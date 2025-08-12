@@ -54,9 +54,9 @@
                         <option value="">-- Pilih Subkategori --</option>
                         @php
                             $subkategories = [
-                                'Sespim', 'Sespimti', 'Sespimen', 'Sespima', 'Akpol', 'STIK-PTIK',
-                                'Diklat Reserse', 'Pusdik Intel', 'Pusdik Lantas', 'Pusdik Binmas', 'Pusdik Min',
-                                'Pusdik Sabhara', 'Pusdik Sebasa','Pusdik Brimob'
+                                'SESPIM', 'SESPIMTI', 'SESPIMMEN', 'SESPIMMA', 'STIK-PTIK', 'AKPOL',
+                                'Diklat RESERSE', 'Pusdik LANTAS', 'Pusdik SABHARA', 'Pusdik SEBASA', 'Pusdik BINMAS',
+                                'Pusdik INTEL', 'Pusdik MIN','Pusdik BRIMOB'
                             ];
                         @endphp
                         @foreach ($subkategories as $pusdik)
