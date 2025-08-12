@@ -28,9 +28,18 @@
                 </div>
                 {{-- Notifikasi --}}
                 @if (session('success'))
-                    <div class="mt-4 p-4 bg-green-100 text-green-800 rounded">
+                    <div id="success-alert" class="mt-4 p-4 bg-green-100 text-green-800 rounded transition-opacity duration-500">
                         {{ session('success') }}
                     </div>
+                    <script>
+                        setTimeout(function () {
+                            let alertBox = document.getElementById('success-alert');
+                            if (alertBox) {
+                                alertBox.style.opacity = '0'; // efek fade out
+                                setTimeout(() => alertBox.remove(), 500); // hapus setelah fade
+                            }
+                        }, 5000); // 5000ms = 5 detik
+                    </script>
                 @endif
 
                 {{-- Grid Informasi --}}
