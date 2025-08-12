@@ -92,7 +92,7 @@
             </div>
 
             {{-- PEMBATAS --}}
-            <div class="pt-10 mt-10 border-t border-gray-200"></div>
+            <div class="pt-1 mt-1 border-t border-gray-200"></div>
 
             {{-- SECTION 4: Struktur Organisasi --}}
             <div class="mb-12 shadow rounded-lg p-6 text-center" style="background-color: rgba(255, 255, 255, 0.60);">
@@ -252,10 +252,10 @@
 
                 {{-- Grid Pimpinan Lain --}}
                 @if ($pimpinanLain->count())
-                <div class="flex overflow-x-auto gap-4 pb-4">
+                <div class="flex overflow-x-auto gap-4 pb-4 py-4">
 
                         @foreach ($pimpinanLain as $profil)
-                        <div class="w-56 bg-white shadow-md rounded-lg overflow-hidden flex-shrink-0 flex flex-col relative transition transform duration-300 ease-in-out hover:scale-105 group pb-4">
+                        <div class="w-56 bg-white shadow-md rounded-lg overflow-hidden flex-shrink-0 flex flex-col relative transition transform duration-300 ease-in-out hover:scale-105 group pb-4 mx-1">
 
                                 <div class="w-full aspect-[3/4] overflow-hidden bg-gray-100 max-h-60">
                                     @if ($profil->foto)

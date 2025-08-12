@@ -2,7 +2,7 @@
 
     @section('title', 'HOME | SETUKPA LEMDIKLAT POLRI')
 
-    <div class="@auth py-3 @else py-0 @endauth">
+    <div class="@auth py-3 @else py-2 @endauth">
         <div class="container">
 
             {{-- Header & Tombol Tambah --}}
@@ -113,6 +113,8 @@
                         </div>
                     @endforeach
 
+                    {{-- PEMBATAS --}}
+            <div class="pt-10 mt-10 border-t border-gray-200"></div>
             {{-- Section Berita --}}
             <div class="card mb-5">
                 <div class="card-header d-flex justify-content-between align-items-center">

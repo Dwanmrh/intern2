@@ -12,7 +12,7 @@
                             <i class="bi bi-gear-fill text-3xl text-blue-700"></i>
                             <h2 class="text-3xl font-extrabold text-[#2c3e50] tracking-wide">FASILITAS</h2>
                         </div>
-                        <p class="text-gray-700 text-sm max-w-xl">
+                        <p class="text-gray-700 text-base max-w-xl">
                             Informasi mengenai berbagai fasilitas yang tersedia di lingkungan SETUKPA LEMDIKLAT POLRI untuk menunjang kegiatan pembelajaran dan pelatihan.
                         </p>
                     </div>
@@ -42,7 +42,7 @@
                         <i class="bi bi-building text-2xl text-blue-700 group-hover:scale-110 transition-transform duration-300"></i>
                         <h3 class="text-xl font-bold text-[#2c3e50]">Fasilitas Umum</h3>
                     </div>
-                    <p class="text-gray-700 text-sm leading-relaxed">Informasi fasilitas umum seperti lapangan, tempat ibadah, kantin, dan lainnya.</p>
+                    <p class="text-gray-700 text-lg leading-relaxed">Informasi fasilitas umum seperti lapangan, tempat ibadah, kantin, dan lainnya.</p>
                 </a>
 
                 {{-- Fasilitas Belajar --}}
@@ -52,7 +52,7 @@
                         <i class="bi bi-journal-bookmark text-2xl text-green-600 group-hover:scale-110 transition-transform duration-300"></i>
                         <h3 class="text-xl font-bold text-[#2c3e50]">Fasilitas Belajar</h3>
                     </div>
-                    <p class="text-gray-700 text-sm leading-relaxed">Ruang kelas, perpustakaan, dan laboratorium penunjang kegiatan belajar.</p>
+                    <p class="text-gray-700 text-lg leading-relaxed">Ruang kelas, Lapangan Tembak, dan Dojo penunjang kegiatan belajar.</p>
                 </a>
 
                 {{-- Fasilitas Khusus --}}
@@ -62,7 +62,7 @@
                         <i class="bi bi-shield-lock text-2xl text-red-600 group-hover:scale-110 transition-transform duration-300"></i>
                         <h3 class="text-xl font-bold text-[#2c3e50]">Fasilitas Khusus</h3>
                     </div>
-                    <p class="text-gray-700 text-sm leading-relaxed">Fasilitas terbatas seperti ruang komando, pusat data, dan sejenisnya.</p>
+                    <p class="text-gray-700 text-lg leading-relaxed">Fasilitas terbatas seperti Pom Bensin, Barak, Lapangan Apel, dan sejenisnya.</p>
                 </a>
 
             </div>
