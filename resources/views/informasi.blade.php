@@ -147,7 +147,7 @@
             @endforeach
 
             {{-- Media Sosial dan Kontak --}}
-            <div class="mt-16 mb-16 bg-gradient-to-b from-[#dfe0e8] to-white rounded-lg px-6 py-10 text-center">
+            <div class="mt-16 mb-16 bg-gradient-to-b from-[#dfe0e8] to-white rounded-lg px-6 py-10 text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                 <h2 class="text-2xl font-bold text-[#2c3e50] mb-6">Media Sosial dan Kontak</h2>
                 <div class="flex flex-wrap justify-center gap-6 mb-10 mt-5 ">
                     <a href="https://www.instagram.com/humas_setukpa?igsh=MTE3dWU4emFjYjFtdg==" class="bg-white shadow p-4 h-32 rounded-lg w-28 text-sm flex flex-col items-center justify-center hover:shadow-md transition hover:shadow-2xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 cursor-pointer">

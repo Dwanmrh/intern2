@@ -13,12 +13,24 @@
                     <h2 class="text-2xl font-bold text-[#2c3e50]">Fasilitas Umum</h2>
                 </div>
 
-                {{-- Tombol Kembali --}}
-                <div class="absolute left-4 top-6">
+                {{-- Tombol Kembali & Tambah --}}
+                <div class="absolute top-6 left-4 right-4 flex justify-between items-center">
+                    {{-- Tombol Kembali --}}
                     <a href="{{ route('fasilitas.index') }}"
                     class="inline-flex items-center px-3 py-1.5 bg-gray-700 hover:bg-gray-800 text-white text-sm font-medium rounded transition duration-200">
                         ← Kembali
                     </a>
+
+                    {{-- Tombol Tambah Data (hanya untuk admin) --}}
+                    @auth
+                        @if(Auth::user()->role === 'admin')
+                            <a href="{{ route('fasilitas.create') }}"
+                            class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-1.5 rounded-md text-sm shadow transition duration-300">
+                                <i class="bi bi-plus-circle text-base text-white"></i>
+                                Tambah Fasilitas
+                            </a>
+                        @endif
+                    @endauth
                 </div>
 
                 {{-- Notifikasi --}}
