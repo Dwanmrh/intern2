@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    @section('title', 'Tambah Preview | SETUKPA LEMDIKLAT POLRI')
+    @section('title', 'TAMBAH PREVIEW | SETUKPA LEMDIKLAT POLRI')
 
     <div class="py-10 px-4">
         <div class="max-w-md mx-auto bg-gradient-to-br from-[#2c3e50] to-[#3b4a5a] p-8 rounded-xl shadow-2xl border border-white/10 transition-all duration-300">
@@ -22,7 +22,7 @@
                     <label class="block text-white font-semibold mb-1">Judul</label>
                     <input type="text" name="judul"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 shadow-inner transition"
-                        required placeholder="Masukkan judul">
+                        required placeholder="Masukkan judul preview">
                 </div>
 
                 {{-- Tanggal --}}

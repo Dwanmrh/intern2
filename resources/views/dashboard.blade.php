@@ -40,11 +40,11 @@
             @php
                 $validDashboards = $dashboards->filter(fn($item) => !empty($item->file));
 
-                // Pindahkan Preview 3 ke posisi pertama jika ada
-                $preview3 = $validDashboards->firstWhere('judul', 'Preview 3');
+                // Pindahkan Gerbang Setukpa ke posisi pertama jika ada
+                $preview3 = $validDashboards->firstWhere('judul', 'Gerbang Setukpa');
                 if ($preview3) {
                     $validDashboards = collect([$preview3])
-                        ->merge($validDashboards->filter(fn($item) => $item->judul !== 'Preview 3'));
+                        ->merge($validDashboards->filter(fn($item) => $item->judul !== 'Gerbang Setukpa'));
                 }
 
                 $validDashboards = $validDashboards->values(); // Reset index agar $index === 0 tetap akurat

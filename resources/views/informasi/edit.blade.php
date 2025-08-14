@@ -1,12 +1,12 @@
 <x-app-layout>
 
-    @section('title', 'Edit Kegiatan | SETUKPA LEMDIKLAT POLRI')
+    @section('title', 'Edit Informasi | SETUKPA LEMDIKLAT POLRI')
 
     <div class="py-10 px-4">
         <div class="max-w-md mx-auto bg-gradient-to-br from-[#2c3e50] to-[#3b4a5a] p-5 rounded-xl shadow-2xl border border-white/10 transition-all duration-300">
 
             {{-- Header --}}
-            <h2 class="text-xl text-white font-bold text-center mb-8">Edit Kegiatan</h2>
+            <h2 class="text-xl text-white font-bold text-center mb-8">Edit Informasi</h2>
 
             {{-- Error Message --}}
             @if($errors->any())
@@ -24,7 +24,7 @@
                     <label class="block text-white font-semibold mb-1">Judul</label>
                     <input type="text" name="judul" value="{{ $informasi->judul }}"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        placeholder="Masukkan judul kegiatan" required>
+                        placeholder="Masukkan judul informasi" required>
                 </div>
 
                 {{-- Deskripsi --}}
@@ -39,7 +39,7 @@
                 {{-- File Sebelumnya --}}
                 @if ($informasi->file_informasi)
                     <div class="mb-4">
-                        <label class="block text-white font-semibold mb-1">File Kegiatan Saat Ini</label>
+                        <label class="block text-white font-semibold mb-1">File Informasi Saat Ini</label>
 
                         {{-- Link lihat file --}}
                         <a href="{{ asset('storage/' . $informasi->file_informasi) }}" target="_blank"
@@ -56,7 +56,7 @@
 
                 {{-- Upload File Baru --}}
                 <div class="mb-3">
-                    <label class="block text-white font-semibold mb-1">Upload File Kegiatan (PDF)</label>
+                    <label class="block text-white font-semibold mb-1">Upload File Informasi (PDF)</label>
                     <input type="file" name="file_informasi" accept=".pdf"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition">
                     <small class="font-bold text-yellow-400 italic">Kosongkan upload file jika memasukkan deskripsi</small>

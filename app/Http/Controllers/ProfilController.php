@@ -25,7 +25,7 @@ class ProfilController extends Controller
 
         return view('profil', compact('kasetukpa', 'wakasetukpa', 'pimpinanLain'));
     }
-    
+
     public function create()
     {
         return view('profil.create');
@@ -67,13 +67,13 @@ class ProfilController extends Controller
         }
 
         $profil->update($validated);
-        return redirect()->route('profil.index')->with('success', 'Pimpinan berhasil diperbarui');
+        return redirect()->route('profil.index')->with('success', 'Personel berhasil diperbarui');
     }
 
     public function destroy($id)
     {
         $profil = Profil::findOrFail($id);
         $profil->delete();
-        return redirect()->route('profil.index')->with('success', 'Pimpinan berhasil dihapus');
+        return redirect()->route('profil.index')->with('success', 'Personel berhasil dihapus');
     }
 }

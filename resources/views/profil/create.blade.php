@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    @section('title', 'Tambah Pimpinan | SETUKPA LEMDIKLAT POLRI')
+    @section('title', 'TAMBAH PERSONEL | SETUKPA LEMDIKLAT POLRI')
 
     <div class="py-10 px-4">
         <div class="max-w-md mx-auto bg-gradient-to-br from-[#2c3e50] to-[#3b4a5a] p-5 rounded-xl shadow-2xl border border-white/10 transition-all duration-300">
@@ -16,7 +16,7 @@
                     <label class="block text-white font-semibold mb-1">Nama</label>
                     <input type="text" name="nama"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 shadow-inner transition"
-                        required placeholder="Masukkan nama Personel">
+                        required placeholder="Masukkan nama personel">
                 </div>
 
                 {{-- Jabatan --}}
@@ -29,7 +29,7 @@
 
                 {{-- Foto --}}
                 <div class="mb-3">
-                    <label class="block text-white font-semibold mb-1">Foto (Opsional)</label>
+                    <label class="block text-white font-semibold mb-1">Upload Foto Personel (Opsional)</label>
                     <input type="file" name="foto"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition" />
                 </div>

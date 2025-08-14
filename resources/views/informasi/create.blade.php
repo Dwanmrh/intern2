@@ -1,12 +1,12 @@
 <x-app-layout>
 
-    @section('title', 'Tambah Kegiatan | SETUKPA LEMDIKLAT POLRI')
+    @section('title', 'Tambah Informasi | SETUKPA LEMDIKLAT POLRI')
 
     <div class="py-10 px-4">
         <div class="max-w-md mx-auto bg-gradient-to-br from-[#2c3e50] to-[#3b4a5a] p-5 rounded-xl shadow-2xl border border-white/10 transition-all duration-300">
 
             {{-- Header --}}
-            <h2 class="text-xl text-white font-bold text-center mb-4">Tambah Kegiatan</h2>
+            <h2 class="text-xl text-white font-bold text-center mb-4">Tambah Informasi</h2>
 
             @if($errors->any())
                 <div class="bg-red-500 text-white px-3 py-1.5 rounded shadow mb-4 text-sm">
@@ -22,7 +22,7 @@
                     <label class="block text-white font-semibold mb-1">Judul</label>
                     <input type="text" name="judul"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
-                        required placeholder="Masukkan judul kegiatan">
+                        required placeholder="Masukkan judul informasi">
                 </div>
 
                 {{-- Deskripsi --}}
@@ -30,7 +30,7 @@
                     <label class="block text-white font-semibold mb-1">Deskripsi</label>
                     <textarea name="deskripsi" rows="5"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
-                        placeholder="Masukkan deskripsi kegiatan"></textarea>
+                        placeholder="Masukkan deskripsi informasi"></textarea>
                     <small class="font-bold text-yellow-400 italic">Kosongkan deskripsi jika menggunakan file</small>
                 </div>
 

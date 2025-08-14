@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    @section('title', 'Edit Link | SETUKPA LEMDIKLAT POLRI')
+    @section('title', 'EDIT LINK | SETUKPA LEMDIKLAT POLRI')
 
     <div class="py-10 px-4">
         <div class="max-w-md mx-auto bg-gradient-to-br from-[#2c3e50] to-[#3b4a5a] p-5 rounded-xl shadow-2xl border border-white/10 transition-all duration-300">
@@ -23,7 +23,7 @@
                     <label class="block text-white font-semibold mb-1">Nama</label>
                     <input type="text" name="nama" value="{{ $link->nama }}"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
-                        required placeholder="Masukkan nama link">
+                        required placeholder="Masukkan nama website">
                 </div>
 
                 {{-- URL --}}

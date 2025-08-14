@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    @section('title', 'Fasilitas Belajar | SETUKPA LEMDIKLAT POLRI')
+    @section('title', 'FASILITAS BELAJAR | SETUKPA LEMDIKLAT POLRI')
 
     <div class="py-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
