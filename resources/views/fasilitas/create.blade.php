@@ -75,7 +75,7 @@
 
                 {{-- Buttons --}}
                 <div class="flex justify-end space-x-3">
-                    <a href="{{ route('fasilitas.index') }}"
+                    <a href="{{ url()->previous() ?? route('fasilitas.index') }}"
                         class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-md shadow-md hover:shadow-lg transition">
                         Batal
                     </a>
