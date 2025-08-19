@@ -11,8 +11,8 @@
                     @if(Auth::user()->role === 'admin')
                         <div class="absolute right-0">
                             <a href="{{ route('dashboard.create') }}"
-                               class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm shadow">
-                               <i class="bi bi-plus-circle text-base "></i>
+                            class="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 hover:from-cyan-500 hover:via-blue-600 hover:to-blue-800 text-white px-4 py-2 rounded-md text-sm shadow-md transition duration-300 ease-in-out">
+                                <i class="bi bi-plus-circle text-base "></i>
                                 Tambah Preview
                             </a>
                         </div>

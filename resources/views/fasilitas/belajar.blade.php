@@ -25,7 +25,7 @@
                     @auth
                         @if(Auth::user()->role === 'admin')
                             <a href="{{ route('fasilitas.create') }}"
-                            class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-1.5 rounded-md text-sm shadow transition duration-300">
+                            class="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 hover:from-cyan-500 hover:via-blue-600 hover:to-blue-800 text-white px-4 py-2 rounded-md text-sm shadow-md transition duration-300 ease-in-out">
                                 <i class="bi bi-plus-circle text-base text-white"></i>
                                 Tambah Fasilitas
                             </a>
@@ -53,8 +53,8 @@
                 @forelse ($fasilitas as $subKategori => $items)
 
                 {{-- HEADER SUBKATEGORI --}}
-                    <div class="mt-6 flex flex-wrap justify-center gap-4">
-                    <div class="bg-gradient-to-r from-gray-100 to-gray-200 px-4 py-2 rounded-full text-base font-semibold text-[#2c3e50] shadow transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:from-gray-200 hover:to-gray-300">
+                <div class="mt-6 flex flex-wrap justify-center gap-4">
+                        <div class="bg-yellow-400 px-4 py-2 rounded-full text-base font-semibold text-black shadow transform transition-all duration-300 hover:scale-110 hover:shadow-xl">
                             {{ $subKategori }}
                         </div>
                     </div>

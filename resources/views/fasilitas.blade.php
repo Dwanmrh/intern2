@@ -29,7 +29,7 @@
                         <i class="bi bi-journal-bookmark text-2xl text-green-600 group-hover:scale-110 transition-transform duration-300"></i>
                         <h3 class="text-xl font-bold text-[#2c3e50]">Fasilitas Belajar</h3>
                     </div>
-                    <p class="text-gray-700 text-lg leading-relaxed">Ruang kelas, Lapangan Tembak, dan Dojo penunjang kegiatan belajar.</p>
+                    <p class="text-gray-700 text-lg leading-relaxed">Fasilitas Belajar meliputi ruang kelas, gedung perkuliahan, perpustakaan, dan lapangan latihan penunjang kegiatan pendidikan.</p>
                 </a>
 
                 {{-- Fasilitas Umum --}}
@@ -39,7 +39,7 @@
                         <i class="bi bi-building text-2xl text-blue-700 group-hover:scale-110 transition-transform duration-300"></i>
                         <h3 class="text-xl font-bold text-[#2c3e50]">Fasilitas Umum</h3>
                     </div>
-                    <p class="text-gray-700 text-lg leading-relaxed">Informasi fasilitas umum seperti lapangan, tempat ibadah, kantin, dan lainnya.</p>
+                    <p class="text-gray-700 text-lg leading-relaxed">Fasilitas umum mencakup tempat ibadah, sarana olahraga, layanan kesehatan, area kuliner, dan fasilitas penunjang keseharian.</p>
                 </a>
 
 
@@ -50,7 +50,7 @@
                         <i class="bi bi-shield-lock text-2xl text-red-600 group-hover:scale-110 transition-transform duration-300"></i>
                         <h3 class="text-xl font-bold text-[#2c3e50]">Fasilitas Khusus</h3>
                     </div>
-                    <p class="text-gray-700 text-lg leading-relaxed">Fasilitas terbatas seperti Pom Bensin, Barak, Lapangan Apel, dan sejenisnya.</p>
+                    <p class="text-gray-700 text-lg leading-relaxed">Fasilitas khusus terdiri dari gedung perkantoran, barak siswa, rumah dinas, serta fasilitas terbatas seperti SPBU, Gudang Senjata, dan sarana penunjang lainnya.</p>
                 </a>
             </div>
         </div>
