@@ -37,29 +37,80 @@
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner"
                         required>
                         <option value="">-- Pilih Kategori --</option>
-                        <option value="umum" {{ $fasilitas->kategori === 'umum' ? 'selected' : '' }}>Fasilitas Umum</option>
                         <option value="belajar" {{ $fasilitas->kategori === 'belajar' ? 'selected' : '' }}>Fasilitas Belajar</option>
+                        <option value="umum" {{ $fasilitas->kategori === 'umum' ? 'selected' : '' }}>Fasilitas Umum</option>
                         <option value="khusus" {{ $fasilitas->kategori === 'khusus' ? 'selected' : '' }}>Fasilitas Khusus</option>
                     </select>
                 </div>
 
                 {{-- Subkategori --}}
-                <div class="mb-3">
+                <div class="mb-3" id="subKategoriWrapper">
                     <label class="block text-white font-semibold mb-1">Subkategori</label>
-                    <select name="subKategori"
+                    <select name="subKategori" id="subKategori"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner"
                         required>
                         <option value="">-- Pilih Subkategori --</option>
-                        <option value="Tempat Ibadah" {{ $fasilitas->subKategori === 'Tempat Ibadah' ? 'selected' : '' }}>Tempat Ibadah</option>
-                        <option value="Tempat Olahraga" {{ $fasilitas->subKategori === 'Tempat Olahraga' ? 'selected' : '' }}>Tempat Olahraga</option>
-                        <option value="Ruang Kelas" {{ $fasilitas->subKategori === 'Ruang Kelas' ? 'selected' : '' }}>Ruang Kelas</option>
-                        <option value="Kantor" {{ $fasilitas->subKategori === 'Kantor' ? 'selected' : '' }}>Kantor</option>
-                        <option value="Barak" {{ $fasilitas->subKategori === 'Barak' ? 'selected' : '' }}>Barak</option>
-                        <option value="Gedung" {{ $fasilitas->subKategori === 'Gedung' ? 'selected' : '' }}>Gedung</option>
-                        <option value="Lapangan Apel" {{ $fasilitas->subKategori === 'Lapangan Apel' ? 'selected' : '' }}>Lapangan Apel</option>
-                        <option value="Lainnya" {{ $fasilitas->subKategori === 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
                     </select>
                 </div>
+
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        const kategoriSelect = document.querySelector('select[name="kategori"]');
+                        const subKategoriWrapper = document.getElementById('subKategoriWrapper');
+                        const subKategoriSelect = document.getElementById('subKategori');
+
+                        const options = {
+                            umum: [
+                                "Tempat Ibadah",
+                                "Olahraga & Rekreasi",
+                                "Kesehatan & Penunjang",
+                                "Sejarah",
+                                "Gedung Lain"
+                            ],
+                            belajar: [
+                                "Ruang Kelas & Gedung",
+                                "Lapangan Latihan"
+                            ],
+                            khusus: [
+                                "Perkantoran",
+                                "Barak Siswa",
+                                "Rumah Dinas",
+                                "SPBU",
+                                "Gudang Senjata",
+                                "Sarana Penunjang"
+                            ]
+                        };
+
+                        // ✅ Ambil data lama langsung dari Laravel (aman, tidak ke-escape)
+                        const oldSubKategori = @json($fasilitas->subKategori);
+
+                        function updateSubKategori() {
+                            const kategori = kategoriSelect.value;
+                            subKategoriSelect.innerHTML = '<option value="">-- Pilih Subkategori --</option>';
+
+                            if (options[kategori] && options[kategori].length > 0) {
+                                subKategoriWrapper.style.display = 'block';
+                                options[kategori].forEach(opt => {
+                                    let option = document.createElement('option');
+                                    option.value = opt;
+                                    option.textContent = opt;
+
+                                    // ✅ Auto select subKategori lama
+                                    if (opt === oldSubKategori) {
+                                        option.selected = true;
+                                    }
+
+                                    subKategoriSelect.appendChild(option);
+                                });
+                            } else {
+                                subKategoriWrapper.style.display = 'none';
+                            }
+                        }
+
+                        kategoriSelect.addEventListener('change', updateSubKategori);
+                        updateSubKategori(); // load awal
+                    });
+                </script>
 
                 {{-- Tanggal --}}
                 <div class="mb-3">
@@ -74,20 +125,54 @@
                 @if ($fasilitas->foto)
                     <div class="mb-3">
                         <label class="block text-white font-semibold mb-1">Foto Saat Ini</label>
-                        <img src="{{ asset('storage/' . $fasilitas->foto) }}" class="h-40 rounded shadow-md">
+                        <img src="{{ asset('storage/' . $fasilitas->foto) }}"
+                            class="w-40 rounded-md shadow-md mb-2">
+
+                        {{-- Checkbox Hapus Foto Lama --}}
+                        <div class="flex items-center space-x-2">
+                            <input type="checkbox" id="hapusFoto" name="hapus_foto" value="1"
+                                class="w-4 h-4 text-red-600 border-gray-300 rounded focus:ring-red-500">
+                            <label for="hapusFoto" class="text-white text-sm">Hapus foto lama</label>
+                        </div>
                     </div>
                 @endif
 
                 {{-- Ganti Foto --}}
                 <div class="mb-4">
                     <label class="block text-white font-semibold mb-1">Ganti Foto (Opsional)</label>
-                    <input type="file" name="foto"
+                    <input type="file" name="foto" id="fotoInput"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-400">
+
+                    {{-- Preview Foto Baru --}}
+                    <div id="previewContainer" class="mt-3 hidden">
+                        <p class="text-white text-sm mb-1">Preview Foto Baru:</p>
+                        <img id="fotoPreview" src="" alt="Preview Foto" class="w-40 rounded-md shadow-md">
+                    </div>
                 </div>
+
+                <script>
+                    document.getElementById('fotoInput').addEventListener('change', function (event) {
+                        const file = event.target.files[0];
+                        const previewContainer = document.getElementById('previewContainer');
+                        const fotoPreview = document.getElementById('fotoPreview');
+
+                        if (file) {
+                            const reader = new FileReader();
+                            reader.onload = function (e) {
+                                fotoPreview.src = e.target.result;
+                                previewContainer.classList.remove('hidden');
+                            };
+                            reader.readAsDataURL(file);
+                        } else {
+                            fotoPreview.src = "";
+                            previewContainer.classList.add('hidden');
+                        }
+                    });
+                </script>
 
                 {{-- Buttons --}}
                 <div class="flex justify-end space-x-3">
-                    <a href="{{ route('fasilitas.index') }}"
+                    <a href="{{ url()->previous() ?? route('fasilitas.index') }}"
                         class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-md shadow-md hover:shadow-lg transition">
                         Batal
                     </a>

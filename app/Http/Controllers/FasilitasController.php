@@ -49,17 +49,6 @@ class FasilitasController extends Controller
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:10000',
         ]);
 
-        // Format tanggal dari d/m/Y ke Y-m-d
-        try {
-            $tanggal = Carbon::createFromFormat('d/m/Y', $request->tanggal);
-            if ($tanggal->format('d/m/Y') !== $request->tanggal) {
-                throw new \Exception('Invalid date');
-            }
-            $data['tanggal'] = $tanggal->format('Y-m-d');
-        } catch (\Exception $e) {
-            return back()->withErrors(['tanggal' => 'Format tanggal tidak valid'])->withInput();
-        }
-
         $data = $validated;
 
         // Format tanggal dari d/m/Y ke Y-m-d
@@ -108,18 +97,8 @@ class FasilitasController extends Controller
             'kategori' => 'required|string|in:umum,belajar,khusus',
             'subKategori' => 'required|string|max:100',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:10000',
+            'hapus_foto' => 'nullable|boolean', // ✅ tambahan
         ]);
-
-        // Format tanggal dari d/m/Y ke Y-m-d
-        try {
-            $tanggal = Carbon::createFromFormat('d/m/Y', $request->tanggal);
-            if ($tanggal->format('d/m/Y') !== $request->tanggal) {
-                throw new \Exception('Invalid date');
-            }
-            $data['tanggal'] = $tanggal->format('Y-m-d');
-        } catch (\Exception $e) {
-            return back()->withErrors(['tanggal' => 'Format tanggal tidak valid'])->withInput();
-        }
 
         $data = $validated;
 
@@ -134,18 +113,26 @@ class FasilitasController extends Controller
             return back()->withErrors(['tanggal' => 'Format tanggal tidak valid'])->withInput();
         }
 
-        // Ganti foto jika ada upload
+        // ✅ Hapus foto lama jika dicentang
+        if ($request->has('hapus_foto') && $fasilitas->foto) {
+            if (Storage::disk('public')->exists($fasilitas->foto)) {
+                Storage::disk('public')->delete($fasilitas->foto);
+            }
+            $data['foto'] = null;
+        }
+
+        // ✅ Upload foto baru (menggantikan foto lama)
         if ($request->hasFile('foto')) {
             if ($fasilitas->foto && Storage::disk('public')->exists($fasilitas->foto)) {
                 Storage::disk('public')->delete($fasilitas->foto);
             }
-
             $data['foto'] = $request->file('foto')->store('fasilitas', 'public');
         }
 
         $fasilitas->update($data);
 
-        return redirect()->route('fasilitas.' . $data['kategori'])->with('success', 'Fasilitas ' . ucfirst($data['kategori']) . ' berhasil diperbarui');
+        return redirect()->route('fasilitas.' . $data['kategori'])
+            ->with('success', 'Fasilitas ' . ucfirst($data['kategori']) . ' berhasil diperbarui');
     }
 
     public function destroy($id)
