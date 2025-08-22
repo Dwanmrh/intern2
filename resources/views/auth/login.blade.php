@@ -98,11 +98,11 @@
                 </div>
 
                 <!-- Register -->
-                <div class="text-center text-sm">
+                <!-- <div class="text-center text-sm">
                     <a href="{{ route('register') }}" class="text-gray-700 hover:underline">
                         Belum Punya Akun?
                     </a>
-                </div>
+                </div> -->
             </form>
         </div>
     </div>
