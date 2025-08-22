@@ -41,16 +41,49 @@
                 @if ($galeri->foto)
                     <div class="mb-3">
                         <label class="block text-white font-semibold mb-1">Foto Saat Ini</label>
-                        <img src="{{ asset('storage/' . $galeri->foto) }}" class="h-40 rounded shadow-md">
+                        <img src="{{ asset('storage/' . $galeri->foto) }}" class="w-40 rounded-md shadow-md mb-2">
+
+                        {{-- Checkbox Hapus Foto Lama --}}
+                        <div class="flex items-center space-x-2">
+                            <input type="checkbox" id="hapusFoto" name="hapus_foto" value="1"
+                                class="w-4 h-4 text-red-600 border-gray-300 rounded focus:ring-red-500">
+                            <label for="hapusFoto" class="text-white text-sm">Hapus foto lama</label>
+                        </div>
                     </div>
                 @endif
 
                 {{-- Ganti Foto --}}
-                <div class="mb-3">
+                <div class="mb-4">
                     <label class="block text-white font-semibold mb-1">Ganti Foto (Opsional)</label>
-                    <input type="file" name="foto"
+                    <input type="file" name="foto" id="fotoInput"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-400">
+
+                    {{-- Preview Foto Baru --}}
+                    <div id="previewContainer" class="mt-3 hidden">
+                        <p class="text-white text-sm mb-1">Preview Foto Baru:</p>
+                        <img id="fotoPreview" src="" alt="Preview Foto" class="w-40 rounded-md shadow-md">
+                    </div>
                 </div>
+
+                <script>
+                    document.getElementById('fotoInput').addEventListener('change', function (event) {
+                        const file = event.target.files[0];
+                        const previewContainer = document.getElementById('previewContainer');
+                        const fotoPreview = document.getElementById('fotoPreview');
+
+                        if (file) {
+                            const reader = new FileReader();
+                            reader.onload = function (e) {
+                                fotoPreview.src = e.target.result;
+                                previewContainer.classList.remove('hidden');
+                            };
+                            reader.readAsDataURL(file);
+                        } else {
+                            fotoPreview.src = "";
+                            previewContainer.classList.add('hidden');
+                        }
+                    });
+                </script>
 
                 {{-- Tombol --}}
                 <div class="flex justify-end space-x-3">

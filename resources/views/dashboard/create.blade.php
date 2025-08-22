@@ -31,14 +31,55 @@
                     <input type="text" name="tanggal" id="tanggal"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 shadow-inner transition"
                         required placeholder="Format: DD/MM/YYYY">
+                    <small class="font-bold text-yellow-400 italic">Tanggal Wajib Diisi</small>
                 </div>
 
-                {{-- Foto atau Video --}}
+                {{-- File --}}
                 <div class="mb-3">
-                    <label class="block text-white font-semibold mb-1">Upload File Preview (Opsional)</label>
-                    <input type="file" name="file"
-                        class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 shadow-inner transition" />
+                    <label class="block text-white font-semibold mb-1">Upload Preview</label>
+                    <input type="file" name="file" id="fileInput"
+                        class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-400">
+
+                    {{-- Preview --}}
+                    <div id="filePreviewContainer" class="mt-3 hidden">
+                        <p class="text-white text-sm mb-1">Preview:</p>
+                        <div id="filePreviewWrapper" class="rounded-md shadow-md"></div>
+                    </div>
                 </div>
+
+                <script>
+                    document.getElementById('fileInput').addEventListener('change', function (event) {
+                        const file = event.target.files[0];
+                        const previewContainer = document.getElementById('filePreviewContainer');
+                        const previewWrapper = document.getElementById('filePreviewWrapper');
+
+                        previewWrapper.innerHTML = ""; // reset konten preview
+
+                        if (file) {
+                            const reader = new FileReader();
+                            reader.onload = function (e) {
+                                if (file.type.startsWith('image/')) {
+                                    // preview gambar
+                                    const img = document.createElement('img');
+                                    img.src = e.target.result;
+                                    img.classList.add('w-40', 'rounded-md', 'shadow-md');
+                                    previewWrapper.appendChild(img);
+                                } else if (file.type.startsWith('video/')) {
+                                    // preview video
+                                    const video = document.createElement('video');
+                                    video.src = e.target.result;
+                                    video.controls = true;
+                                    video.classList.add('w-60', 'rounded-md', 'shadow-md');
+                                    previewWrapper.appendChild(video);
+                                }
+                                previewContainer.classList.remove('hidden');
+                            };
+                            reader.readAsDataURL(file);
+                        } else {
+                            previewContainer.classList.add('hidden');
+                        }
+                    });
+                </script>
 
                 {{-- Tombol --}}
                 <div class="flex justify-end space-x-3">

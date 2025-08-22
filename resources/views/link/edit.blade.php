@@ -71,16 +71,50 @@
                 @if ($link->logo)
                     <div class="mb-3">
                         <label class="block text-white font-semibold mb-1">Logo Saat Ini</label>
-                        <img src="{{ asset('storage/' . $link->logo) }}" class="h-20 mb-2 rounded shadow">
+                        <img src="{{ asset('storage/' . $link->logo) }}" class="w-40 rounded-md shadow-md mb-2">
+
+                        {{-- Checkbox Hapus Logo Lama --}}
+                        <div class="flex items-center space-x-2">
+                            <input type="checkbox" id="hapusLogo" name="hapus_logo" value="1"
+                                class="w-4 h-4 text-red-600 border-gray-300 rounded focus:ring-red-500">
+                            <label for="hapusLogo" class="text-white text-sm">Hapus logo lama</label>
+                        </div>
                     </div>
                 @endif
 
-                {{-- Upload Logo Baru --}}
+                {{-- Ganti Logo --}}
                 <div class="mb-3">
                     <label class="block text-white font-semibold mb-1">Ganti Logo (Opsional)</label>
-                    <input type="file" name="logo" accept="image/*"
-                        class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition">
+                    <input type="file" name="logo" id="logoInput"
+                        accept="image/*"
+                        class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-400">
+
+                    {{-- Preview Logo Baru --}}
+                    <div id="logoPreviewContainer" class="mt-3 hidden">
+                        <p class="text-white text-sm mb-1">Preview Logo Baru:</p>
+                        <img id="logoPreview" src="" alt="Preview Logo" class="w-40 rounded-md shadow-md">
+                    </div>
                 </div>
+
+                <script>
+                    document.getElementById('logoInput').addEventListener('change', function (event) {
+                        const file = event.target.files[0];
+                        const previewContainer = document.getElementById('logoPreviewContainer');
+                        const logoPreview = document.getElementById('logoPreview');
+
+                        if (file) {
+                            const reader = new FileReader();
+                            reader.onload = function (e) {
+                                logoPreview.src = e.target.result;
+                                previewContainer.classList.remove('hidden');
+                            };
+                            reader.readAsDataURL(file);
+                        } else {
+                            logoPreview.src = "";
+                            previewContainer.classList.add('hidden');
+                        }
+                    });
+                </script>
 
                 {{-- Tombol --}}
                 <div class="flex justify-end space-x-3">

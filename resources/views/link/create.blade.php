@@ -70,10 +70,37 @@
                 {{-- Logo --}}
                 <div class="mb-3">
                     <label class="block text-white font-semibold mb-1">Logo</label>
-                    <input type="file" name="logo" accept="image/*"
-                        class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
+                    <input type="file" name="logo" id="logoInput"
+                        accept="image/*"
+                        class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-400"
                         required>
+
+                    {{-- Preview Logo --}}
+                    <div id="logoPreviewContainer" class="mt-3 hidden">
+                        <p class="text-white text-sm mb-1">Preview Logo:</p>
+                        <img id="logoPreview" src="" alt="Preview Logo" class="w-40 rounded-md shadow-md">
+                    </div>
                 </div>
+
+                <script>
+                    document.getElementById('logoInput').addEventListener('change', function (event) {
+                        const file = event.target.files[0];
+                        const previewContainer = document.getElementById('logoPreviewContainer');
+                        const logoPreview = document.getElementById('logoPreview');
+
+                        if (file) {
+                            const reader = new FileReader();
+                            reader.onload = function (e) {
+                                logoPreview.src = e.target.result;
+                                previewContainer.classList.remove('hidden');
+                            };
+                            reader.readAsDataURL(file);
+                        } else {
+                            logoPreview.src = "";
+                            previewContainer.classList.add('hidden');
+                        }
+                    });
+                </script>
 
                 {{-- Tombol --}}
                 <div class="flex justify-end space-x-3">

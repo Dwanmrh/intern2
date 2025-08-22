@@ -32,22 +32,80 @@
                     <input type="text" name="tanggal" id="tanggal" value="{{ $dashboard->tanggal }}"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
                         required placeholder="Format: DD/MM/YYYY">
+                    <small class="font-bold text-yellow-400 italic">Tanggal Wajib Diisi</small>
                 </div>
 
                 {{-- File Lama --}}
                 @if ($dashboard->file)
-                    <div class="mb-4">
-                        <label class="block text-white text-sm font-medium mb-1">File Saat Ini</label>
-                        <img src="{{ asset('storage/' . $dashboard->file) }}" class="h-40 rounded-md shadow-md border border-white/20">
+                    <div class="mb-3">
+                        <label class="block text-white font-semibold mb-1">File Saat Ini</label>
+
+                        {{-- Preview file lama --}}
+                        @php
+                            $ext = pathinfo($dashboard->file, PATHINFO_EXTENSION);
+                        @endphp
+
+                        @if (in_array(strtolower($ext), ['jpg', 'jpeg', 'png', 'gif', 'webp']))
+                            <img src="{{ asset('storage/' . $dashboard->file) }}" class="w-40 rounded-md shadow-md mb-2">
+                        @elseif (in_array(strtolower($ext), ['mp4', 'webm', 'ogg']))
+                            <video src="{{ asset('storage/' . $dashboard->file) }}" controls class="w-60 rounded-md shadow-md mb-2"></video>
+                        @else
+                            <p class="text-gray-300 text-sm mb-2">File lama tidak bisa dipreview (format: {{ $ext }})</p>
+                        @endif
+
+                        {{-- Checkbox Hapus File Lama --}}
+                        <div class="flex items-center space-x-2">
+                            <input type="checkbox" id="hapusFile" name="hapus_file" value="1"
+                                class="w-4 h-4 text-red-600 border-gray-300 rounded focus:ring-red-500">
+                            <label for="hapusFile" class="text-white text-sm">Hapus file lama</label>
+                        </div>
                     </div>
                 @endif
 
                 {{-- Ganti File --}}
                 <div class="mb-4">
-                    <label class="block text-white text-sm font-medium mb-1">Ganti File Preview (Opsional)</label>
-                    <input type="file" name="file"
-                        class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition" />
+                    <label class="block text-white font-semibold mb-1">Ganti File (Opsional)</label>
+                    <input type="file" name="file" id="fileInput"
+                        class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-400">
+
+                    {{-- Preview File Baru --}}
+                    <div id="filePreviewContainer" class="mt-3 hidden">
+                        <p class="text-white text-sm mb-1">Preview File Baru:</p>
+                        <div id="filePreviewWrapper" class="rounded-md shadow-md"></div>
+                    </div>
                 </div>
+
+                <script>
+                    document.getElementById('fileInput').addEventListener('change', function (event) {
+                        const file = event.target.files[0];
+                        const previewContainer = document.getElementById('filePreviewContainer');
+                        const previewWrapper = document.getElementById('filePreviewWrapper');
+
+                        previewWrapper.innerHTML = ""; // reset isi preview
+
+                        if (file) {
+                            const reader = new FileReader();
+                            reader.onload = function (e) {
+                                if (file.type.startsWith('image/')) {
+                                    const img = document.createElement('img');
+                                    img.src = e.target.result;
+                                    img.classList.add('w-40', 'rounded-md', 'shadow-md');
+                                    previewWrapper.appendChild(img);
+                                } else if (file.type.startsWith('video/')) {
+                                    const video = document.createElement('video');
+                                    video.src = e.target.result;
+                                    video.controls = true;
+                                    video.classList.add('w-60', 'rounded-md', 'shadow-md');
+                                    previewWrapper.appendChild(video);
+                                }
+                                previewContainer.classList.remove('hidden');
+                            };
+                            reader.readAsDataURL(file);
+                        } else {
+                            previewContainer.classList.add('hidden');
+                        }
+                    });
+                </script>
 
                 {{-- Tombol --}}
                 <div class="flex justify-end gap-2 pt-4">
