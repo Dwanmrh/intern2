@@ -1,12 +1,13 @@
 <x-app-layout>
-
     @section('title', 'INFORMASI | SETUKPA LEMDIKLAT POLRI')
 
     <div class="py-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
             {{-- CARD UTAMA HEADER INFORMASI --}}
-            <div class="shadow rounded-lg p-6 mb-10 relative" style="background-color: rgba(255, 255, 255, 0.50); min-height: 64px;">
+            <div class="shadow rounded-lg p-6 mb-10 relative"
+                 style="background-color: rgba(255, 255, 255, 0.50); min-height: 64px;">
+
                 {{-- Judul dan Tombol Tambah --}}
                 <div class="relative flex items-center justify-center border-b pb-2 mb-8">
                     <h2 class="text-2xl font-bold text-[#2c3e50] flex items-center gap-2">
@@ -18,51 +19,57 @@
                         @if(Auth::user()->role === 'admin')
                             <div class="absolute right-0 top-1">
                                 <a href="{{ route('informasi.create') }}"
-                                class="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 hover:from-cyan-500 hover:via-blue-600 hover:to-blue-800 text-white px-4 py-2 rounded-md text-sm shadow-md transition duration-300 ease-in-out">
-                                <i class="bi bi-plus-circle text-base "></i>
+                                   class="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700
+                                          hover:from-cyan-500 hover:via-blue-600 hover:to-blue-800
+                                          text-white px-4 py-2 rounded-md text-sm shadow-md transition duration-300 ease-in-out">
+                                    <i class="bi bi-plus-circle text-base"></i>
                                     Tambah Informasi
                                 </a>
                             </div>
                         @endif
                     @endauth
                 </div>
+
                 {{-- Notifikasi --}}
                 @if (session('success'))
-                    <div id="success-alert" class="mt-4 p-4 bg-green-100 text-green-800 rounded transition-opacity duration-500">
+                    <div id="success-alert"
+                         class="mt-4 p-4 bg-green-100 text-green-800 rounded transition-opacity duration-500">
                         {{ session('success') }}
                     </div>
                     <script>
                         setTimeout(function () {
                             let alertBox = document.getElementById('success-alert');
                             if (alertBox) {
-                                alertBox.style.opacity = '0'; // efek fade out
-                                setTimeout(() => alertBox.remove(), 500); // hapus setelah fade
+                                alertBox.style.opacity = '0';
+                                setTimeout(() => alertBox.remove(), 500);
                             }
-                        }, 5000); // 5000ms = 5 detik
+                        }, 5000);
                     </script>
                 @endif
 
                 {{-- Grid Informasi --}}
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 items-start">
+                <div id="cardGrid"
+                     class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 items-start invisible">
                     @forelse ($informasi as $data)
-                        <div
-                            x-data="{ showDetailBtn: false }"
-                            class="bg-gradient-to-br from-[#dfe0e8] to-[#f0f4f8] border border-gray shadow-md rounded-lg flex flex-col justify-between cursor-pointer hover:scale-105 transition duration-300 ease-in-out relative"
-                        >
-                            {{-- Gambar (jika ada) --}}
+                        <div x-data="{ showDetailBtn: false }"
+                             class="bg-gradient-to-br from-[#dfe0e8] to-[#f0f4f8] border border-gray shadow-md rounded-lg
+                                    flex flex-col justify-between cursor-pointer hover:scale-105
+                                    transition duration-300 ease-in-out transform-gpu will-change-transform relative h-full">
+
+                            {{-- Gambar --}}
                             @if ($data->foto)
-                                <img src="{{ asset('storage/' . $data->foto) }}" alt="{{ $data->judul }}" class="w-full max-h-48 object-cover rounded-t-lg">
+                                <img src="{{ asset('storage/' . $data->foto) }}" alt="{{ $data->judul }}"
+                                     class="w-full max-h-48 object-cover rounded-t-lg">
                             @endif
 
                             {{-- Konten teks --}}
                             <div class="p-4 flex flex-col flex-grow overflow-hidden {{ !$data->foto ? 'rounded-t-lg' : '' }}"
-                                :class="showDetailBtn ? 'h-auto' : 'h-[200px]'">
+                                 :class="showDetailBtn ? 'h-auto' : 'h-[200px]'">
                                 <p class="text-sm text-gray-500 flex items-center gap-1 mb-2">
-                                    {{-- Tanggal --}}
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-500" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
+                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                                     </svg>
                                     <span class="mt-[1px]">
                                         {{ \Carbon\Carbon::parse($data->tanggal)->translatedFormat('d F Y') }}
@@ -73,9 +80,8 @@
                                     {{ $data->judul }}
                                 </h3>
 
-                                {{-- Deskripsi --}}
                                 <p class="text-gray-700 text-base leading-relaxed text-justify break-words transition-all duration-300"
-                                    :class="showDetailBtn ? '' : 'line-clamp-3'">
+                                   :class="showDetailBtn ? '' : 'line-clamp-3'">
                                     {!! strip_tags($data->deskripsi) !!}
                                 </p>
                             </div>
@@ -83,7 +89,8 @@
                             {{-- Tombol aksi --}}
                             <div class="px-4 pb-4 pt-1 flex items-center justify-between">
                                 <button @click.stop="showDetailBtn = !showDetailBtn"
-                                    class="bg-[#2c3e50] hover:bg-[#1a252f] text-white px-4 py-2 rounded-md text-sm font-medium shadow-md transition duration-300">
+                                        class="bg-[#2c3e50] hover:bg-[#1a252f] text-white px-4 py-2 rounded-md
+                                               text-sm font-medium shadow-md transition duration-300">
                                     <span x-text="showDetailBtn ? 'Tutup' : 'Baca Lebih Lanjut'"></span>
                                 </button>
 
@@ -91,23 +98,22 @@
                                     @if(Auth::user()->role === 'admin')
                                         <div class="flex gap-4">
                                             <a href="{{ route('informasi.edit', $data->id) }}" @click.stop
-                                                class="text-blue-600 hover:text-blue-800 transition" title="Edit">
+                                               class="text-blue-600 hover:text-blue-800 transition" title="Edit">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                     viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-5M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                                          d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-5M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z"/>
                                                 </svg>
                                             </a>
-
                                             <button type="button" @click.stop
-                                                class="text-red-600 hover:text-red-800 transition"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#hapusInformasiModal{{ $data->id }}"
-                                                title="Hapus">
+                                                    class="text-red-600 hover:text-red-800 transition"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#hapusInformasiModal{{ $data->id }}"
+                                                    title="Hapus">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                     viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7h6m-3-4v4"/>
+                                                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7h6m-3-4v4"/>
                                                 </svg>
                                             </button>
                                         </div>
@@ -123,7 +129,8 @@
 
             {{-- Modal Konfirmasi Hapus --}}
             @foreach($informasi as $data)
-                <div class="modal fade" id="hapusInformasiModal{{ $data->id }}" tabindex="-1" aria-labelledby="hapusInformasiLabel{{ $data->id }}" aria-hidden="true">
+                <div class="modal fade" id="hapusInformasiModal{{ $data->id }}" tabindex="-1"
+                     aria-labelledby="hapusInformasiLabel{{ $data->id }}" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header bg-danger text-white">
@@ -150,26 +157,35 @@
             <div class="mt-16 mb-16 bg-gradient-to-b from-[#dfe0e8] to-white rounded-lg px-6 py-10 text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                 <h2 class="text-2xl font-bold text-[#2c3e50] mb-6">Media Sosial dan Kontak</h2>
                 <div class="flex flex-wrap justify-center gap-6 mb-10 mt-5 ">
-                    <a href="https://www.instagram.com/humas_setukpa?igsh=MTE3dWU4emFjYjFtdg==" class="bg-white shadow p-4 h-32 rounded-lg w-28 text-sm flex flex-col items-center justify-center hover:shadow-md transition hover:shadow-2xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 cursor-pointer">
+                    <a href="https://www.instagram.com/humas_setukpa?igsh=MTE3dWU4emFjYjFtdg=="
+                       class="bg-white shadow p-4 h-32 rounded-lg w-28 text-sm flex flex-col items-center justify-center
+                              hover:shadow-2xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 cursor-pointer">
                         <i class="bi bi-instagram text-2xl mb-2"></i>
                         <span>Instagram</span>
                     </a>
-                    <a href="https://youtube.com/@humassetukpa566?si=b4Ret7QbAoK5vW39" class="bg-white shadow p-4 h-32 rounded-lg w-28 text-sm flex flex-col items-center justify-center hover:shadow-md transition hover:shadow-2xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 cursor-pointer">
+                    <a href="https://youtube.com/@humassetukpa566?si=b4Ret7QbAoK5vW39"
+                       class="bg-white shadow p-4 h-32 rounded-lg w-28 text-sm flex flex-col items-center justify-center
+                              hover:shadow-2xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 cursor-pointer">
                         <i class="bi bi-youtube text-2xl mb-2"></i>
                         <span>YouTube</span>
                     </a>
-                    <a href="https://www.tiktok.com/@humas_setukpa?_t=ZS-8yOduXJ7cs4&_r=1" class="bg-white shadow p-4 h-32 rounded-lg w-28 text-sm flex flex-col items-center justify-center hover:shadow-md transition hover:shadow-2xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 cursor-pointer">
+                    <a href="https://www.tiktok.com/@humas_setukpa?_t=ZS-8yOduXJ7cs4&_r=1"
+                       class="bg-white shadow p-4 h-32 rounded-lg w-28 text-sm flex flex-col items-center justify-center
+                              hover:shadow-2xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 cursor-pointer">
                         <i class="bi bi-tiktok text-2xl mb-2"></i>
                         <span>TikTok</span>
                     </a>
                     <div x-data="{ modalOpen: false }">
                         <button @click="modalOpen = true"
-                            class="bg-white shadow p-4 h-32 rounded-lg w-28 text-sm flex flex-col items-center justify-center hover:shadow-md transition hover:shadow-2xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 cursor-pointer">
+                                class="bg-white shadow p-4 h-32 rounded-lg w-28 text-sm flex flex-col items-center justify-center
+                                       hover:shadow-2xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 cursor-pointer">
                             <i class="bi bi-telephone text-2xl mb-2"></i>
                             <span>Telpon</span>
                         </button>
 
-                        <div x-show="modalOpen" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50" x-cloak>
+                        <div x-show="modalOpen"
+                             class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50"
+                             x-cloak>
                             <div class="bg-white p-6 rounded-lg shadow-lg w-80">
                                 <h2 class="text-lg font-semibold mb-4">Konfirmasi Panggilan</h2>
                                 <p>Apakah Anda ingin menelepon <strong>062266225481</strong>?</p>
@@ -178,7 +194,8 @@
                                        class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
                                         Panggil
                                     </a>
-                                    <button @click="modalOpen = false" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition">
+                                    <button @click="modalOpen = false"
+                                            class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition">
                                         Batal
                                     </button>
                                 </div>
@@ -186,7 +203,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
 
             {{-- Peta --}}
@@ -198,4 +214,13 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Hilangin flash berantakan pas load grid
+        document.addEventListener("DOMContentLoaded", () => {
+            let grid = document.getElementById("cardGrid");
+            grid.classList.remove("invisible");
+            grid.classList.add("visible");
+        });
+    </script>
 </x-app-layout>

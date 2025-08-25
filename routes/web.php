@@ -9,6 +9,7 @@ use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\LinkController;
+use App\Http\Controllers\ModulController;
 
 Route::get('/', function () {
     return redirect()->route('dashboard.index');
@@ -121,6 +122,19 @@ Route::middleware(['auth', 'verified'])->prefix('link')->group(function () {
 // HALAMAN KHUSUS SADIKLAT (akses publik)
 Route::get('/sadiklat', [LinkController::class, 'sadiklat'])->name('sadiklat.index');
 
+//
+
+// MODUL
+Route::get('/modul/sip', [ModulController::class, 'sip'])->name('modul.sip');
+Route::get('/modul/pag', [ModulController::class, 'pag'])->name('modul.pag');
+Route::resource('modul', ModulController::class);
+// MODUL SIP (akses publik)
+Route::get('/modul', [ModulController::class, 'index'])->name('modul.index');      // Read (list)
+Route::get('/modul/create', [ModulController::class, 'create'])->name('modul.create'); // Form Create
+Route::post('/modul', [ModulController::class, 'store'])->name('modul.store');     // Create (save)
+Route::get('/modul/{id}/edit', [ModulController::class, 'edit'])->name('modul.edit'); // Form Edit
+Route::put('/modul/{id}', [ModulController::class, 'update'])->name('modul.update');  // Update
+Route::delete('/modul/{id}', [ModulController::class, 'destroy'])->name('modul.destroy'); // Delete
 
 // Route bawaan Breeze untuk profile user
 Route::middleware('auth')->group(function () {
