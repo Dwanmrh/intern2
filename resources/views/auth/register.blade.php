@@ -122,6 +122,9 @@
                     <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                 </div>
 
+                <!-- Role (hidden default siswa) -->
+                <input type="hidden" name="role" value="siswa">
+
                 <!-- Submit & Login Link -->
                 <div class="flex items-center justify-between text-sm">
                     <a href="{{ route('login') }}" class="text-gray-700 hover:underline">

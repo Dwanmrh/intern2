@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use App\Models\User;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -22,13 +23,28 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
-        $request->authenticate();
+        // Validasi login
+        $request->validate([
+            'email' => ['required','email'],
+            'password' => ['required'],
+            'role' => ['required','in:siswa,personel,admin'], // cek role valid
+        ]);
 
-        $request->session()->regenerate();
+        $credentials = $request->only('email', 'password');
 
-        return redirect()->intended(route('dashboard.index', absolute: false));
+        // Tambahkan role ke credential
+        $credentials['role'] = $request->role;
+
+        if (Auth::attempt($credentials, $request->filled('remember'))) {
+            $request->session()->regenerate();
+            return redirect()->intended(route('dashboard.index'));
+        }
+
+        return back()->withErrors([
+            'email' => 'Email, kata sandi, atau role salah.',
+        ]);
     }
 
     /**

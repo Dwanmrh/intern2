@@ -31,7 +31,7 @@
                     {{-- Button Tambah Modul (kanan, hanya admin) --}}
                     <div class="text-right">
                         @auth
-                            @if(Auth::user()->role === 'admin')
+                            @if(in_array(Auth::user()->role, ['admin', 'personel']))
                                 <a href="{{ route('modul.create') }}"
                                     class="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 hover:from-cyan-500 hover:via-blue-600 hover:to-blue-800 text-white px-4 py-2 rounded-md text-sm shadow-md transition duration-300 ease-in-out">
                                     <i class="bi bi-plus-circle text-base text-white"></i>
@@ -115,7 +115,7 @@
 
                                         {{-- Aksi Edit & Hapus --}}
                                         @auth
-                                            @if(Auth::user()->role === 'admin')
+                                            @if(in_array(Auth::user()->role, ['admin', 'personel']))
                                                 <div class="flex justify-end gap-4 mt-2">
                                                     {{-- Tombol Edit --}}
                                                     <a href="{{ route('modul.edit', $modul->id) }}" @click.stop
@@ -127,7 +127,7 @@
                                                         </svg>
                                                     </a>
 
-                                                    {{-- Tombol Hapus (pakai modal) --}}
+                                                    {{-- Tombol Hapus --}}
                                                     <button type="button" @click.stop
                                                             class="text-red-600 hover:text-red-800 transition"
                                                             data-bs-toggle="modal"
@@ -164,7 +164,6 @@
                                                 </div>
                                             @endif
                                         @endauth
-
                                     </div>
                                 @endforeach
                             </div>

@@ -11,14 +11,13 @@ use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\LinkController;
 use App\Http\Controllers\ModulController;
 
-Route::get('/', function () {
-    return redirect()->route('dashboard.index');
-});
+// Default Redirect
+Route::get('/', fn() => redirect()->route('dashboard.index'));
 
-// READ Dashboard (akses publik)
+// DASHBOARD READ (Publik)
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
-// CUD Dashboard (hanya untuk Admin)
+// DASHBOARD CU (Admin only)
 Route::middleware(['auth', 'verified'])->prefix('dashboard')->group(function () {
     Route::get('/create', [DashboardController::class, 'create'])->name('dashboard.create');
     Route::post('/', [DashboardController::class, 'store'])->name('dashboard.store');
@@ -27,10 +26,10 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard')->group(function () 
     Route::delete('/{dashboard}', [DashboardController::class, 'destroy'])->name('dashboard.destroy');
 });
 
-// READ Profil (akses publik)
+// PROFIL READ (Publik)
 Route::get('/profil', [ProfilController::class, 'index'])->name('profil.index');
 
-// CUD Profil (hanya untuk Admin)
+// PROFIL CU (Admin only)
 Route::middleware(['auth', 'verified'])->prefix('profil')->group(function () {
     Route::get('/create', [ProfilController::class, 'create'])->name('profil.create');
     Route::post('/', [ProfilController::class, 'store'])->name('profil.store');
@@ -39,104 +38,105 @@ Route::middleware(['auth', 'verified'])->prefix('profil')->group(function () {
     Route::delete('/{id}', [ProfilController::class, 'destroy'])->name('profil.destroy');
 });
 
-// READ Berita (akses publik)
+// BERITA READ (Publik)
 Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
 
-// CUD Berita (hanya untuk Admin)
+// BERITA CU
 Route::middleware(['auth', 'verified'])->prefix('berita')->group(function () {
     Route::get('/create', [BeritaController::class, 'create'])->name('berita.create');
     Route::post('/', [BeritaController::class, 'store'])->name('berita.store');
+
     Route::get('/{id}/edit', [BeritaController::class, 'edit'])->name('berita.edit');
     Route::put('/{id}', [BeritaController::class, 'update'])->name('berita.update');
     Route::delete('/{id}', [BeritaController::class, 'destroy'])->name('berita.destroy');
 });
 
-// DETAIL Berita (akses publik)
+// BERITA DETAIL
 Route::get('/berita/{id}', [BeritaController::class, 'show'])->name('berita.show');
 
-// READ Informasi (akses publik)
+// INFORMASI READ (Publik)
 Route::get('/informasi', [InformasiController::class, 'index'])->name('informasi.index');
 
-// CUD Informasi (hanya untuk Admin)
+// INFORMASI CU
 Route::middleware(['auth', 'verified'])->prefix('informasi')->group(function () {
     Route::get('/create', [InformasiController::class, 'create'])->name('informasi.create');
     Route::post('/', [InformasiController::class, 'store'])->name('informasi.store');
+
     Route::get('/{id}/edit', [InformasiController::class, 'edit'])->name('informasi.edit');
     Route::put('/{id}', [InformasiController::class, 'update'])->name('informasi.update');
     Route::delete('/{id}', [InformasiController::class, 'destroy'])->name('informasi.destroy');
 });
 
-// DETAIL Informasi (akses publik)
+// INFORMASI DETAIL
 Route::get('/informasi/{id}', [InformasiController::class, 'show'])->name('informasi.show');
 
-// READ Fasilitas (akses publik)
+// FASILITAS  READ (Publik)
 Route::get('/fasilitas', [FasilitasController::class, 'index'])->name('fasilitas.index');
-
-// KATEGORI Fasilitas (akses publik)
 Route::get('/fasilitas/umum', [FasilitasController::class, 'umum'])->name('fasilitas.umum');
 Route::get('/fasilitas/belajar', [FasilitasController::class, 'belajar'])->name('fasilitas.belajar');
 Route::get('/fasilitas/khusus', [FasilitasController::class, 'khusus'])->name('fasilitas.khusus');
 
-// CUD Fasilitas (hanya untuk Admin)
+// FASILITAS CU
 Route::middleware(['auth', 'verified'])->prefix('fasilitas')->group(function () {
     Route::get('/create', [FasilitasController::class, 'create'])->name('fasilitas.create');
     Route::post('/', [FasilitasController::class, 'store'])->name('fasilitas.store');
+
     Route::get('/{id}/edit', [FasilitasController::class, 'edit'])->name('fasilitas.edit');
     Route::put('/{id}', [FasilitasController::class, 'update'])->name('fasilitas.update');
     Route::delete('/{id}', [FasilitasController::class, 'destroy'])->name('fasilitas.destroy');
 });
 
-// DETAIL Fasilitas (akses publik)
+// FASILITAS DETAIL
 Route::get('/fasilitas/{id}', [FasilitasController::class, 'show'])->name('fasilitas.show');
 
-// READ Galeri (akses publik)
+// GALERI READ (Publik)
 Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri.index');
 
-// CUD Galeri (hanya untuk Admin)
+// GALERI CU
 Route::middleware(['auth', 'verified'])->prefix('galeri')->group(function () {
     Route::get('/create', [GaleriController::class, 'create'])->name('galeri.create');
     Route::post('/', [GaleriController::class, 'store'])->name('galeri.store');
+
     Route::get('/{id}/edit', [GaleriController::class, 'edit'])->name('galeri.edit');
     Route::put('/{id}', [GaleriController::class, 'update'])->name('galeri.update');
     Route::delete('/{id}', [GaleriController::class, 'destroy'])->name('galeri.destroy');
 });
 
-// DETAIL Galeri (akses publik)
+// GALERI DETAIL
 Route::get('/galeri/{id}', [GaleriController::class, 'show'])->name('galeri.show');
 
-// Route Search
-Route::get('/search', [App\Http\Controllers\SearchController::class, 'search'])->name('search');
-
-// READ Link (akses publik)
+// LINK READ (Publik)
 Route::get('/link', [LinkController::class, 'index'])->name('link.index');
+Route::get('/sadiklat', [LinkController::class, 'sadiklat'])->name('sadiklat.index');
 
-// CUD Link (hanya untuk Admin)
+// LINK CU
 Route::middleware(['auth', 'verified'])->prefix('link')->group(function () {
     Route::get('/create', [LinkController::class, 'create'])->name('link.create');
     Route::post('/', [LinkController::class, 'store'])->name('link.store');
+
     Route::get('/{id}/edit', [LinkController::class, 'edit'])->name('link.edit');
     Route::put('/{id}', [LinkController::class, 'update'])->name('link.update');
     Route::delete('/{id}', [LinkController::class, 'destroy'])->name('link.destroy');
 });
 
-// HALAMAN KHUSUS SADIKLAT (akses publik)
-Route::get('/sadiklat', [LinkController::class, 'sadiklat'])->name('sadiklat.index');
-
-//
-
-// MODUL
+// MODUL READ (Publik)
+Route::get('/modul', [ModulController::class, 'index'])->name('modul.index');
 Route::get('/modul/sip', [ModulController::class, 'sip'])->name('modul.sip');
 Route::get('/modul/pag', [ModulController::class, 'pag'])->name('modul.pag');
-Route::resource('modul', ModulController::class);
-// MODUL SIP (akses publik)
-Route::get('/modul', [ModulController::class, 'index'])->name('modul.index');      // Read (list)
-Route::get('/modul/create', [ModulController::class, 'create'])->name('modul.create'); // Form Create
-Route::post('/modul', [ModulController::class, 'store'])->name('modul.store');     // Create (save)
-Route::get('/modul/{id}/edit', [ModulController::class, 'edit'])->name('modul.edit'); // Form Edit
-Route::put('/modul/{id}', [ModulController::class, 'update'])->name('modul.update');  // Update
-Route::delete('/modul/{id}', [ModulController::class, 'destroy'])->name('modul.destroy'); // Delete
 
-// Route bawaan Breeze untuk profile user
+// MODUL CU (Admin + Personel)
+Route::middleware(['auth', 'verified'])->prefix('modul')->group(function () {
+    Route::get('/create', [ModulController::class, 'create'])->name('modul.create');
+    Route::post('/', [ModulController::class, 'store'])->name('modul.store');
+    Route::get('/{id}/edit', [ModulController::class, 'edit'])->name('modul.edit');
+    Route::put('/{id}', [ModulController::class, 'update'])->name('modul.update');
+    Route::delete('/{id}', [ModulController::class, 'destroy'])->name('modul.destroy');
+});
+
+// SEARCH
+Route::get('/search', [App\Http\Controllers\SearchController::class, 'search'])->name('search');
+
+// User Profile (Breeze default)
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

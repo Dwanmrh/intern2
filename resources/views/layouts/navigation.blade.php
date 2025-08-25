@@ -1,6 +1,6 @@
 <nav x-data="{ open: false }"
-    class="fixed top-0 w-full z-50 bg-[#1E293B] text-white border-b border-gray-700 py-2 shadow-lg">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    class="fixed top-0 w-full z-50 bg-[#1E293B] text-white border-b border-gray-700 py-1.5 shadow-lg">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <!-- GRID: Left - Center - Right -->
         <div class="flex justify-between items-center w-full">
 
@@ -17,7 +17,7 @@
                 </a>
 
                 <!-- Desktop Navigation -->
-                <div class="hidden lg:flex items-center space-x-3 text-sm font-medium">
+                <div class="hidden lg:flex items-center space-x-6 text-sm font-medium">
                     @php
                         $navItems = [
                             ['name' => 'HOME', 'route' => 'dashboard.index'],
@@ -35,14 +35,16 @@
                             :href="route($item['route'])"
                             :active="request()->routeIs($item['route'])"
                             class="{{ request()->routeIs($item['route'])
-                                ? 'bg-gray-100 text-blue-500 px-3 py-1 rounded-lg font-semibold'
-                                : 'text-white hover:bg-gray-500 hover:text-white px-3 py-1 rounded-lg transition font-medium' }}">
+                                ? 'bg-gray-100 text-blue-500 px-2 py-1 rounded-md font-semibold text-sm'
+                                : 'text-white hover:bg-gray-500 hover:text-white px-2 py-1 rounded-md transition font-medium text-sm' }}">
                             {{ __($item['name']) }}
                         </x-nav-link>
                     @endforeach
+                </div>
 
-                    <!-- Search -->
-                    <div class="search-container ml-6">
+                <!-- CENTER: Search -->
+                <div class="hidden lg:flex items-center mx-4">
+                    <div class="relative w-64 search-container">
                         <svg xmlns="http://www.w3.org/2000/svg"
                             class="absolute left-2 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400"
                             fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -74,17 +76,17 @@
             </div>
 
             <!-- RIGHT: Auth -->
-            <div class="flex items-center space-x-4 ml-6">
+            <div class="flex items-center space-x-4 ml-3">
                 @auth
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button
-                                class="inline-flex items-center px-4 py-2 rounded-lg transition font-semibold
+                                class="inline-flex items-center px-3 py-1.5 rounded-lg transition font-semibold whitespace-nowrap
                                 {{ request()->routeIs('profile.edit')
                                     ? 'bg-gray-100 text-[#1E293B]'
                                     : 'bg-gray-300 text-black hover:bg-gray-500 hover:text-blue-700' }}">
-                                <div>{{ Auth::user()->name }}</div>
-                                <svg class="ms-2 w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+                                <span class="truncate">{{ Auth::user()->name }}</span>
+                                <svg class="ml-2 w-4 h-4 shrink-0" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd"
                                         d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                                         clip-rule="evenodd" />
@@ -104,7 +106,7 @@
                     </x-dropdown>
                 @else
                     <a href="{{ route('login') }}"
-                        class="ml-4 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700 transition">
+                        class="ml-4 px-3 py-1.5 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700 transition">
                         Login
                     </a>
                 @endauth
@@ -135,7 +137,7 @@
         class="fixed top-0 right-0 w-3/4 max-w-sm h-full bg-[#1E293B] text-white z-50 shadow-xl overflow-y-auto lg:hidden">
 
         <!-- Drawer Header -->
-        <div class="flex items-center justify-between px-4 py-4 border-b border-gray-700">
+        <div class="flex items-center justify-between px-3 py-4 border-b border-gray-700">
             <div class="flex items-center space-x-2">
                 <img src="{{ asset('assets/images/logo_setukpa.png') }}" alt="Logo" class="h-8 w-8">
                 <span>SETUKPA LEMDIKLAT <span class="text-yellow-400">POLRI</span> </span>
@@ -144,7 +146,7 @@
         </div>
 
         <!-- Search (Mobile) -->
-        <div class="px-4 py-4 relative search-container">
+        <div class="px-3 py-4 relative search-container">
             <div class="relative w-full">
                 <!-- Icon search -->
                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -156,7 +158,7 @@
 
                 <!-- Input -->
                 <input type="text" id="searchInputMobile" placeholder="Search..."
-                    class="w-full bg-gray-700 text-white rounded-lg pl-10 pr-3 py-2 text-sm
+                    class="w-full bg-gray-700 text-white rounded-lg pl-10 pr-3 py-1.5 text-sm
                         focus:outline-none focus:ring-2 focus:ring-blue-400" />
             </div>
 
@@ -168,7 +170,7 @@
         </div>
 
         <!-- Navigation Links -->
-        <div class="px-4 py-6 space-y-3">
+        <div class="px-3 py-6 space-y-3">
             <x-responsive-nav-link :href="route('dashboard.index')" :active="request()->routeIs('dashboard')">Home</x-responsive-nav-link>
             <x-responsive-nav-link :href="route('profil.index')" :active="request()->routeIs('profil')">Profil</x-responsive-nav-link>
             <x-responsive-nav-link :href="route('berita.index')" :active="request()->routeIs('berita')">Berita</x-responsive-nav-link>
@@ -181,7 +183,7 @@
 
         <!-- Auth Section -->
         @auth
-            <div class="px-4 py-4 border-t border-gray-700">
+            <div class="px-3 py-4 border-t border-gray-700">
                 <div class="mb-3">
                     <div class="font-medium text-base text-white">{{ Auth::user()->name }}</div>
                     <div class="font-medium text-sm text-gray-300">{{ Auth::user()->email }}</div>
@@ -194,7 +196,7 @@
                 </form>
             </div>
         @else
-            <div class="px-4 py-4 border-t border-gray-700">
+            <div class="px-3 py-4 border-t border-gray-700">
                 <a href="{{ route('login') }}" class="block text-sm text-white underline hover:text-blue-300">Log in</a>
             </div>
         @endauth
@@ -233,7 +235,7 @@
                 }
 
                 if (uniqueData.length === 0) {
-                    resultsDiv.innerHTML = '<div class="px-4 py-2 text-sm text-gray-300">Tidak ditemukan</div>';
+                    resultsDiv.innerHTML = '<div class="px-3 py-1.5 text-sm text-gray-300">Tidak ditemukan</div>';
                     resultsDiv.classList.remove('hidden');
                     return;
                 }
@@ -241,7 +243,7 @@
                 uniqueData.forEach(item => {
                     const resultItem = document.createElement('a');
                     resultItem.href = item.url;
-                    resultItem.className = 'search-item flex items-start gap-3 px-4 py-3 text-sm text-white border-b border-gray-700 rounded-md transition';
+                    resultItem.className = 'search-item flex items-start gap-3 px-3 py-3 text-sm text-white border-b border-gray-700 rounded-md transition';
 
                     // Pilih ikon sesuai kategori
                     let icon = '🔎';

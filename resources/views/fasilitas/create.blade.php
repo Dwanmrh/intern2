@@ -74,8 +74,6 @@
                                 "Perkantoran",
                                 "Barak Siswa",
                                 "Rumah Dinas",
-                                "SPBU",
-                                "Gudang Senjata",
                                 "Sarana Penunjang"
                             ]
                         };
