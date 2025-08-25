@@ -128,29 +128,4 @@
         </div>
     </div>
 
-    {{-- Modal Konfirmasi Hapus --}}
-    @foreach($beritas as $berita)
-        <div class="modal fade" id="hapusBeritaModal{{ $berita->id }}" tabindex="-1" aria-labelledby="hapusBeritaLabel{{ $berita->id }}" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header bg-danger text-white">
-                        <h5 class="modal-title" id="hapusBeritaLabel{{ $berita->id }}">Konfirmasi Hapus</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        Apakah anda yakin ingin menghapus data <strong>{{ $berita->judul }}</strong>?
-                    </div>
-                    <div class="modal-footer">
-                        <form action="{{ route('berita.destroy', $berita->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Hapus</button>
-                        </form>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endforeach
-
 </x-app-layout>

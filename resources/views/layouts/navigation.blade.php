@@ -24,8 +24,7 @@
                             ['name' => 'PROFIL', 'route' => 'profil.index'],
                             ['name' => 'BERITA', 'route' => 'berita.index'],
                             ['name' => 'INFORMASI', 'route' => 'informasi.index'],
-                            ['name' => 'FASILITAS', 'route' => 'fasilitas.index'],
-                            ['name' => 'GALERI', 'route' => 'galeri.index'],
+                            ['name' => 'FASDIK', 'route' => 'fasilitas.index'],
                             ['name' => 'LINK', 'route' => 'link.index'],
                             ['name' => 'MODUL', 'route' => 'modul.index'],
                         ];
@@ -171,14 +170,13 @@
 
         <!-- Navigation Links -->
         <div class="px-3 py-6 space-y-3">
-            <x-responsive-nav-link :href="route('dashboard.index')" :active="request()->routeIs('dashboard')">Home</x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('profil.index')" :active="request()->routeIs('profil')">Profil</x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('berita.index')" :active="request()->routeIs('berita')">Berita</x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('informasi.index')" :active="request()->routeIs('informasi')">Informasi</x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('fasilitas.index')" :active="request()->routeIs('fasilitas')">Fasilitas</x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('galeri.index')" :active="request()->routeIs('galeri')">Galeri</x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('link.index')" :active="request()->routeIs('link')">Link</x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('modul.index')" :active="request()->routeIs('modul')">Modul</x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('dashboard.index')" :active="request()->routeIs('dashboard')">HOME</x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('profil.index')" :active="request()->routeIs('profil')">PROFIL</x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('berita.index')" :active="request()->routeIs('berita')">BERITA</x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('informasi.index')" :active="request()->routeIs('informasi')">INFORMASI</x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('fasilitas.index')" :active="request()->routeIs('fasilitas')">FASDIK</x-responsive-nav-link>
+\            <x-responsive-nav-link :href="route('link.index')" :active="request()->routeIs('link')">LINK</x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('modul.index')" :active="request()->routeIs('modul')">MODUL</x-responsive-nav-link>
         </div>
 
         <!-- Auth Section -->

@@ -136,49 +136,26 @@
                     <div class="row">
                         @forelse($beritas as $berita)
                             <div class="col-md-3 mb-4">
-                                <div class="card h-100">
-                                    <img src="{{ asset('storage/' . $berita->foto) }}" class="card-img-top" style="height: 180px; object-fit: cover;" alt="Berita">
-                                    <div class="card-body">
-                                        <p class="text-muted small">
-                                            <i class="bi bi-calendar"></i>
-                                            {{ \Carbon\Carbon::parse($berita->tanggal)->translatedFormat('l, d M Y') }}
-                                        </p>
-                                        <p class="card-text">{{ \Illuminate\Support\Str::limit(strip_tags($berita->judul), 50) }}</p>
+                                <a href="{{ route('berita.show', $berita->id) }}" class="text-decoration-none text-dark">
+                                    <div class="card h-100 shadow-sm hover-shadow transition">
+                                        <img src="{{ asset('storage/' . $berita->foto) }}"
+                                            class="card-img-top"
+                                            style="height: 180px; object-fit: cover;"
+                                            alt="Berita">
+                                        <div class="card-body">
+                                            <p class="text-muted small mb-1">
+                                                <i class="bi bi-calendar"></i>
+                                                {{ \Carbon\Carbon::parse($berita->tanggal)->translatedFormat('l, d M Y') }}
+                                            </p>
+                                            <p class="card-text fw-semibold">
+                                                {{ \Illuminate\Support\Str::limit(strip_tags($berita->judul), 50) }}
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                         @empty
                             <p class="text-center text-muted">Belum ada berita.</p>
-                        @endforelse
-                    </div>
-                </div>
-            </div>
-
-            {{-- Section Galeri --}}
-            <div class="card mb-5">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h2 class="mb-0 fw-bold" style="color: #2c3e50; font-size: 1.55rem;">Galeri</h2>
-                    <a href="{{ route('galeri.index') }}" class="text-decoration-none fw-bold d-flex align-items-center gap-1" style="color: #2c3e50; font-size: 0.95rem;">
-                        Lihat Lebih Lanjut <i class="bi bi-box-arrow-up-right" style="font-size: 1.05rem;"></i>
-                    </a>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        @forelse($galeris as $galeri)
-                            <div class="col-md-3 mb-4">
-                                <div class="card h-100">
-                                    <img src="{{ asset('storage/' . $galeri->foto) }}" class="card-img-top" style="height: 180px; object-fit: cover;" alt="Galeri">
-                                    <div class="card-body">
-                                        <p class="text-muted small">
-                                            <i class="bi bi-calendar"></i>
-                                            {{ \Carbon\Carbon::parse($galeri->tanggal)->translatedFormat('l, d M Y') }}
-                                        </p>
-                                        <p class="card-text">{{ $galeri->judul }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        @empty
-                            <p class="text-center text-muted">Belum ada galeri.</p>
                         @endforelse
                     </div>
                 </div>

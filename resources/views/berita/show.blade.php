@@ -35,9 +35,15 @@
 
                 {{-- Tombol Kembali --}}
                 <div class="mt-6">
-                    <a href="{{ route('berita.index') }}"
-                       class="inline-block bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-md text-sm">
-                        ← Kembali ke Daftar Berita
+                    @php
+                        $previous = url()->previous();
+                        $beritaIndex = route('berita.index');
+                        $home = route('dashboard.index'); // atau route('dashboard') tergantung nama route-mu
+                    @endphp
+
+                    <a href="{{ str_contains($previous, 'berita') ? $beritaIndex : $home }}"
+                    class="inline-block bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-md text-sm">
+                        ← Kembali
                     </a>
                 </div>
             </div>

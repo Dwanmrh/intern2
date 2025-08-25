@@ -52,16 +52,6 @@
                             </option>
                         @endforeach
                     </select>
-                    <select name="periode" class="form-select text-sm rounded-md w-40">
-                        <option value="">Pilih Periode</option>
-                        @foreach ($allPeriode as $periode)
-                            @if($periode)
-                                <option value="{{ $periode }}" {{ request('periode') == $periode ? 'selected' : '' }}>
-                                    {{ $periode }}
-                                </option>
-                            @endif
-                        @endforeach
-                    </select>
                     <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md shadow">
                         Search
                     </button>

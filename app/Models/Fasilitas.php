@@ -9,5 +9,5 @@ class Fasilitas extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['judul', 'kategori', 'subKategori', 'deskripsi', 'tanggal', 'foto'];
+    protected $fillable = ['judul', 'deskripsi', 'tanggal', 'foto'];
 }
