@@ -2,52 +2,111 @@
 
     @section('title', $berita->judul . ' | SETUKPA LEMDIKLAT POLRI')
 
-    <div class="py-8">
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white p-6 rounded-lg shadow-md">
+    <div class="py-6">
+        <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
 
-                {{-- Gambar Berita --}}
-                @if ($berita->foto)
-                <div class="w-full bg-gray-100 rounded mb-6 overflow-hidden flex justify-center items-center border border-gray-200 shadow-sm">
+            {{-- HERO IMAGE + Judul --}}
+            @if ($berita->foto)
+                <div class="relative w-full h-[350px] md:h-[450px] rounded-xl overflow-hidden shadow-lg mb-8">
                     <img src="{{ asset('storage/' . $berita->foto) }}"
-                        alt="{{ $berita->judul }}"
-                        class="max-h-[450px] w-auto object-contain">
+                         alt="{{ $berita->judul }}"
+                         class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+
+                    {{-- Judul di atas gambar --}}
+                    <div class="absolute bottom-6 left-6 right-6">
+                        <h1 class="text-2xl md:text-4xl font-bold text-white drop-shadow-lg">
+                            {{ $berita->judul }}
+                        </h1>
+                    </div>
                 </div>
-                @endif
+            @endif
 
-                {{-- Tanggal --}}
-                <p class="text-sm text-gray-500 flex items-center gap-1 mb-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-500" fill="none"
-                         viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                    </svg>
-                    {{ \Carbon\Carbon::parse($berita->tanggal)->translatedFormat('d F Y') }}
-                </p>
+            <div class="bg-white p-6 md:p-10 rounded-xl shadow-md">
 
-                {{-- Judul --}}
-                <h1 class="text-2xl font-bold text-gray-800 mb-4">{{ $berita->judul }}</h1>
+                {{-- Info Berita --}}
+                <div class="flex flex-wrap items-center text-lg text-gray-500 gap-4 mb-6">
+                    {{-- Tanggal --}}
+                    <div class="flex items-center gap-1">
+                        <i class="bi bi-calendar-event"></i>
+                        {{ \Carbon\Carbon::parse($berita->tanggal)->translatedFormat('d F Y') }}
+                    </div>
+                    {{-- Penulis (opsional) --}}
+                    <div class="flex items-center gap-1">
+                        <i class="bi bi-person-circle"></i>
+                        Admin SETUKPA
+                    </div>
+                </div>
 
                 {{-- Isi Berita --}}
-                <div class="text-gray-700 leading-relaxed prose max-w-none">
+                <div class="text-gray-800 leading-relaxed text text-xl max-w-none">
                     {!! $berita->isi_berita !!}
                 </div>
 
+                {{-- Share Section --}}
+                <div class="mt-8 border-t pt-6 flex items-center justify-between flex-wrap gap-3">
+                    <span class="text-lg text-gray-500">Bagikan berita ini:</span>
+                    <div class="flex gap-3 text-lg">
+                        {{-- FACEBOOK tetap --}}
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl()) }}"
+                           target="_blank" class="text-blue-600 hover:text-blue-800 transition">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->fullUrl()) }}&text={{ urlencode($berita->judul) }}"
+                           target="_blank" class="text-sky-500 hover:text-sky-700 transition">
+                            <i class="bi bi-twitter"></i>
+                        </a>
+                        <a href="https://api.whatsapp.com/send?text={{ urlencode($berita->judul . ' ' . request()->fullUrl()) }}"
+                           target="_blank" class="text-green-500 hover:text-green-700 transition">
+                            <i class="bi bi-whatsapp"></i>
+                        </a>
+                        {{-- Tombol Copy Link --}}
+                        <button onclick="copyLink()"
+                                class="text-gray-600 hover:text-gray-900 transition">
+                            <i class="bi bi-link-45deg"></i>
+                        </button>
+                    </div>
+                </div>
+
+                {{-- Toast Notification (Atas Tengah) --}}
+                <div id="copyToast"
+                     class="hidden fixed top-6 left-1/2 transform -translate-x-1/2 bg-white text-gray px-6 py-3 rounded-lg shadow-lg text-sm font-medium opacity-0 transition-opacity duration-500 z-50">
+                    ✅ Link berita berhasil disalin
+                </div>
+
                 {{-- Tombol Kembali --}}
-                <div class="mt-6">
+                <div class="mt-8">
                     @php
                         $previous = url()->previous();
                         $beritaIndex = route('berita.index');
-                        $home = route('dashboard.index'); // atau route('dashboard') tergantung nama route-mu
+                        $home = route('dashboard.index'); // sesuaikan route dashboard
                     @endphp
 
                     <a href="{{ str_contains($previous, 'berita') ? $beritaIndex : $home }}"
-                    class="inline-block bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-md text-sm">
-                        ← Kembali
+                       class="inline-flex items-center gap-2 bg-gray-800 hover:bg-gray-900 text-white px-5 py-2.5 rounded-lg text-sm shadow-md transition">
+                        <i class="bi-chevron-left"></i> Kembali
                     </a>
                 </div>
             </div>
         </div>
     </div>
+
+    {{-- Script untuk Copy Toast --}}
+    <script>
+        function copyLink() {
+            navigator.clipboard.writeText("{{ request()->fullUrl() }}");
+            let toast = document.getElementById('copyToast');
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('opacity-100');
+            }, 10);
+
+            // Hilang otomatis setelah 3 detik
+            setTimeout(() => {
+                toast.classList.remove('opacity-100');
+                setTimeout(() => toast.classList.add('hidden'), 500);
+            }, 3000);
+        }
+    </script>
 
 </x-app-layout>

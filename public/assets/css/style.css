@@ -289,54 +289,6 @@ div.bg-white.rounded-md.ring-1 a:hover,
     background-color: #34495e !important;
 }
 
-
-/* SIDEBAR (BELUM DIPAKE) */
-.sidebar {
-    position: fixed;
-    top: 0; left: 0;
-    width: 230px;
-    height: 100vh;
-    background-color: #1e2b37;
-    padding-top: 90px;
-    overflow-y: auto;
-    z-index: 999;
-}
-.sidebar a {
-    display: block;
-    padding: 10px 15px;
-    font-size: 14px;
-    color: white;
-    text-decoration: none;
-    transition: background-color .3s;
-}
-.sidebar a.active {
-    color: #3498db;
-    font-weight: bold;
-}
-.sidebar a:hover {
-    background-color: #575d63;
-    border-radius: 4px;
-}
-.submenu {
-    display: none;
-    margin: .5rem 0 .5rem 1rem;
-    padding-left: 1rem;
-    border-left: 2px solid #555;
-}
-.submenu a {
-    padding: 6px 0;
-    font-size: 13px;
-    color: #fff;
-}
-.submenu a:hover {
-    background-color: #575d63;
-    border-radius: 4px;
-}
-.submenu-toggle.active .submenu {
-    display: block !important;
-}
-
-
 /* MAIN CONTENT */
 .main-content {
     margin-left: 230px;

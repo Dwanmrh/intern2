@@ -8,10 +8,9 @@
             <div class="shadow rounded-lg p-6 mb-10 relative" style="background-color: rgba(255, 255, 255, 0.50); min-height: 64px;">
             <div class="relative flex items-center justify-center border-b pb-2 mb-4">
                     <div class="flex items-center space-x-2">
-                        <h2 class="text-lg md:text-xl lg:text-2xl font-bold text-white inline-flex items-center gap-2 
-                            bg-gray-700 px-10 py-1.5 rounded-xl shadow-md 
-                            hover:scale-105 transition-transform duration-300">
-                            <i class="bi bi-mortarboard text-2xl text-white"></i>
+                        <h2 class="text-lg md:text-xl lg:text-xl font-bold text-white inline-flex items-center gap-2 
+                            bg-gray-700 px-10 py-1 rounded-xl shadow-md">
+                            <i class="bi bi-mortarboard text-xl text-white"></i>
                             SATDIKLAT
                         </h2>
                     </div>
@@ -21,7 +20,8 @@
                 <div class="absolute left-4 top-4 p-2">
                     <a href="{{ route('link.index') }}"
                     class="inline-flex items-center px-3 py-1.5 bg-gray-700 hover:bg-gray-800 text-white text-sm font-medium rounded transition duration-200">
-                        ← Kembali
+                    <i class="bi-chevron-left"></i>     
+                    Kembali
                     </a>
                 </div>
 

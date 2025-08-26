@@ -16,17 +16,17 @@
                     <div class="flex items-center">
                         <a href="{{ route('modul.index') }}"
                             class="inline-flex items-center px-3 py-1.5 bg-gray-700 hover:bg-gray-800 text-white text-sm font-medium rounded transition duration-200">
-                            ← Kembali
+                            <i class="bi-chevron-left"></i> Kembali
                         </a>
                     </div>
 
                     {{-- JUDUL (tengah, selalu center) --}}
                     <div class="text-center">
-                        <h2 class="text-lg md:text-xl lg:text-2xl font-bold text-white 
+                        <h2 class="text-lg md:text-xl lg:text-xl font-bold text-white 
                                    inline-flex items-center gap-2 
-                                   bg-gray-700 px-6 py-1.5
-                                   rounded-xl shadow-md hover:scale-105 transition-transform duration-300">
-                            <i class="bi bi-person-workspace text-xl md:text-2xl"></i>
+                                   bg-gray-700 px-6 py-1
+                                   rounded-xl shadow-md">
+                            <i class="bi bi-person-workspace text-xl md:text-xl"></i>
                             MODUL PAG
                         </h2>
                     </div>
@@ -59,7 +59,7 @@
                             </option>
                         @endforeach
                     </select>
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-md shadow">
+                    <button class="bg-blue-600 hover:bg-blue-800 text-white px-4 py-2 rounded-md shadow">
                         Search
                     </button>
                 </form>

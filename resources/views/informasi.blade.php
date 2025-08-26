@@ -4,22 +4,138 @@
     <div class="py-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
+            {{-- CARD PERSYARATAN --}}
+                <div class="text-center">
+                    <h2 class="text-lg md:text-xl lg:text-xl font-bold text-white inline-flex items-center gap-2
+                            bg-gray-700 px-4 py-1 rounded-xl shadow-md
+                            hover:scale-105 transition-transform duration-300">
+                        <i class="bi bi-journal-check text-white text-xl md:text-lg"></i>
+                        PERSYARATAN MASUK SETUKPA
+                    </h2>
+                </div>
+
+            {{-- SYARAT UMUM --}}
+            <div x-data="{ open: true }"
+                class="mb-6 border rounded-lg pt-8">
+                <button @click="open = !open"
+                        class="w-full flex justify-between items-center px-6 py-3
+                            bg-gradient-to-r from-[#1E293B] to-[#2C3E50] text-yellow-400 font-bold rounded-t-lg hover:opacity-90 transition">
+                    <span>SYARAT UMUM</span>
+                    <i :class="open ? 'bi bi-chevron-up' : 'bi bi-chevron-down'"></i>
+                </button>
+                <div x-show="open" x-collapse
+                    class="p-6 text-gray-800 leading-relaxed space-y-2 bg-white">
+                    <ul class="list-decimal pl-6 space-y-2">
+                        <li>Anggota Polri dengan pangkat minimal sesuai ketentuan:
+                            <ul class="list-disc pl-6 mt-1">
+                                <li>Brigadir MDDP 4 tahun (lulusan S3/S2)</li>
+                                <li>Brigadir MDDP 5 tahun (lulusan S1/D4)</li>
+                                <li>Bripka MDDP 0 tahun (lulusan D3)</li>
+                                <li>Bripka MDDP 1 tahun (lulusan SMA/SMK sederajat)</li>
+                            </ul>
+                        </li>
+                        <li>Usia maksimal 45 tahun (NRP 79 ke bawah tidak dapat mendaftar).</li>
+                        <li>Ijazah dari perguruan tinggi terakreditasi minimal B (Pulau Jawa) atau C (luar Jawa).
+                            Alternatif: akreditasi “Baik” / IAPS 4.0 / IAPT 3.0 sesuai BAN-PT No.1 Tahun 2022.</li>
+                        <li>Diusulkan oleh atasan yang berwenang (dinilai potensial).</li>
+                        <li>Memiliki SKHP (Surat Keterangan Hasil Penelitian) dari Bidpropam Polda.</li>
+                        <li>Bebas radikalisme, penyimpangan seksual, serta tidak bertentangan dengan norma agama/sosial.</li>
+                        <li>Menyatakan siap ditempatkan di seluruh wilayah NKRI (bermaterai).</li>
+                    </ul>
+                    <p class="mt-4 text-sm text-white">
+                        Sumber:
+                        <a href="https://www.infopenerimaanpolri.com/2023/11/syarat-lengkap-pendaftaran-sip-bintara.html"
+                        class="text-blue-600 hover:underline" target="_blank">
+                            infopenerimaanpolri.com
+                        </a>
+                    </p>
+                </div>
+            </div>
+
+            {{-- TAHAPAN SELEKSI --}}
+            <div x-data="{ open: false }"
+                class="mb-6 border rounded-lg shadow bg-white">
+                <button @click="open = !open"
+                        class="w-full flex justify-between items-center px-6 py-3
+                            bg-gradient-to-r from-[#1E293B] to-[#2C3E50] text-yellow-400 font-bold rounded-t-lg hover:opacity-90 transition">
+                    <span>TAHAPAN SELEKSI</span>
+                    <i :class="open ? 'bi bi-chevron-up' : 'bi bi-chevron-down'"></i>
+                </button>
+                <div x-show="open" x-collapse
+                    class="p-6 text-gray-800 leading-relaxed space-y-2 bg-white">
+                    <ol class="list-decimal pl-6 space-y-2">
+                        <li>Pendaftaran online dan verifikasi di Bag SDM Polda/Polres.</li>
+                        <li>Verifikasi administrasi tingkat Panda/Subpanpus.</li>
+                        <li>Penandatanganan Pakta Integritas.</li>
+                        <li>Verifikasi 13 komponen & pemeriksaan kesehatan (Rikkes).</li>
+                        <li>Tes Kesamaptaan Jasmani (TKJ).</li>
+                        <li>Tes Psikologi.</li>
+                        <li>Tes Akademik.</li>
+                        <li>Tes Komputer.</li>
+                        <li>Sidang kelulusan Panda/Subpanpus.</li>
+                        <li>Surat panggilan pendidikan di LAN RI & Setukpa.</li>
+                    </ol>
+                    <p class="mt-4 text-sm text-white">
+                        Sumber:
+                        <a href="https://www.infopenerimaanpolri.com/2024/01/persyaratan-sip-polri-2024-dan-tahapan.html"
+                        class="text-blue-600 hover:underline" target="_blank">
+                            infopenerimaanpolri.com
+                        </a>
+                    </p>
+                </div>
+            </div>
+
+            {{-- PENDIDIKAN & OUTCOME --}}
+            <div x-data="{ open: false }"
+                class="mb-6 border rounded-lg shadow bg-white">
+                <button @click="open = !open"
+                        class="w-full flex justify-between items-center px-6 py-3
+                            bg-gradient-to-r from-[#1E293B] to-[#2C3E50] text-yellow-400 font-bold rounded-t-lg hover:opacity-90 transition">
+                    <span>PENDIDIKAN & OUTCOME</span>
+                    <i :class="open ? 'bi bi-chevron-up' : 'bi bi-chevron-down'"></i>
+                </button>
+                <div x-show="open" x-collapse
+                    class="p-6 text-gray-800 leading-relaxed space-y-2 bg-white">
+                    <ul class="list-disc pl-6 space-y-2">
+                        <li>Durasi pendidikan SIP di Setukpa: <strong>7 bulan</strong>.</li>
+                        <li>Lulusan memperoleh pangkat: <strong>Inspektur Polisi Dua (IPDA)</strong>.</li>
+                    </ul>
+                    <p class="mt-4 text-sm text-white">
+                        Sumber:
+                        <a href="https://www.infopenerimaanpolri.com/2023/11/syarat-lengkap-pendaftaran-sip-bintara.html"
+                        class="text-blue-600 hover:underline" target="_blank">
+                            infopenerimaanpolri.com
+                        </a>
+                    </p>
+                </div>
+            </div>
+          {{-- BUTTON INFORMASI LEBIH LANJUT --}}
+        <div class="mt-8 mb-6">
+            <a href="https://penerimaan.polri.go.id/" target="_blank" rel="noopener noreferrer"
+                class="cursor-pointer w-full block text-center bg-yellow-500 
+                    text-black font-extrabold text-xl py-3 rounded-lg shadow-lg 
+                    hover:bg-yellow-500 hover:scale-[1.02] 
+                    transition transform duration-300">
+                <i class="bi bi-info-circle mr-2"></i>
+                Lihat Informasi Lebih Lanjut
+            </a>
+        </div>
+
             {{-- CARD UTAMA HEADER INFORMASI --}}
             <div class="shadow rounded-lg p-6 mb-10 relative"
                  style="background-color: rgba(255, 255, 255, 0.50); min-height: 64px;">
 
                 {{-- Judul dan Tombol Tambah --}}
                 <div class="text-center">
-                    <h2 class="text-lg md:text-xl lg:text-2xl font-bold text-white inline-flex items-center gap-2 
-                            bg-gray-700 px-6 py-1.5 rounded-xl shadow-md 
-                            hover:scale-105 transition-transform duration-300">
-                        <i class="bi bi-calendar-event text-white text-xl md:text-2xl"></i>
+                    <h2 class="text-lg md:text-xl lg:text-xl font-bold text-white inline-flex items-center gap-2
+                            bg-gray-700 px-6 py-1 rounded-xl shadow-md">
+                        <i class="bi bi-calendar-event text-white text-xl md:text-xl"></i>
                         INFORMASI
                     </h2>
 
                     @auth
                         @if(Auth::user()->role === 'admin')
-                            <div class="absolute right-0 top-1">
+                            <div class="absolute right-8 top-8">
                                 <a href="{{ route('informasi.create') }}"
                                    class="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700
                                           hover:from-cyan-500 hover:via-blue-600 hover:to-blue-800

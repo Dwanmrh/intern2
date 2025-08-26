@@ -12,15 +12,15 @@
             {{-- Navigasi --}}
             <div class="px-4">
                 <div class="grid grid-cols-3 gap-y-4 text-sm">
-                    <div class="text-left"><a href="{{ url('/') }}" class="hover:text-blue-300">Home</a></div>
-                    <div class="text-center"><a href="{{ url('profil') }}" class="hover:text-blue-300">Profil</a></div>
-                    <div class="text-right"><a href="{{ route('berita.index') }}" class="hover:text-blue-300">Berita</a></div>
+                    <div class="text-left"><a href="{{ url('/') }}" class="hover:text-blue-300">HOME</a></div>
+                    <div class="text-center"><a href="{{ url('profil') }}" class="hover:text-blue-300">PROFIL</a></div>
+                    <div class="text-right"><a href="{{ route('berita.index') }}" class="hover:text-blue-300">BERITA</a></div>
 
-                    <div class="text-left"><a href="{{ route('informasi.index') }}" class="hover:text-blue-300">Informasi</a></div>
-                    <div class="text-center"><a href="{{ route('fasilitas.index') }}" class="hover:text-blue-300">Fasdik</a></div>
-                    <div class="text-right"><a href="{{ route('link.index') }}" class="hover:text-blue-300">Link</a></div>
+                    <div class="text-left"><a href="{{ route('informasi.index') }}" class="hover:text-blue-300">INFORMASI</a></div>
+                    <div class="text-center"><a href="{{ route('fasilitas.index') }}" class="hover:text-blue-300">FASDIK</a></div>
+                    <div class="text-right"><a href="{{ route('link.index') }}" class="hover:text-blue-300">LINK</a></div>
 
-                    <div class="text-left"><a href="{{ route('modul.index') }}" class="hover:text-blue-300">Modul</a></div>
+                    <div class="text-left"><a href="{{ route('modul.index') }}" class="hover:text-blue-300">MODUL</a></div>
                 </div>
             </div>
 

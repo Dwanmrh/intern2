@@ -10,10 +10,9 @@
 
                 {{-- Judul Header (tengah, selalu center) --}}
                 <div class="text-center">
-                    <h2 class="text-lg md:text-xl lg:text-2xl font-bold text-white inline-flex items-center gap-2
-                            bg-gray-700 px-4 py-2 rounded-xl shadow-md
-                            hover:scale-105 transition-transform duration-300">
-                        <i class="bi bi-bank2 text-white text-xl md:text-2xl"></i>
+                    <h2 class="text-lg md:text-xl lg:text-xl font-bold text-white inline-flex items-center gap-2
+                            bg-gray-700 px-4 py-1 rounded-xl shadow-md">
+                        <i class="bi bi-bank2 text-white text-xl md:text-lg"></i>
                         FASILITAS PENDIDIKAN
                     </h2>
                 </div>
@@ -25,7 +24,7 @@
                         class="absolute right-6 top-6
                                 bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700
                                 hover:from-cyan-500 hover:via-blue-600 hover:to-blue-800
-                                text-white px-4 py-2 rounded-md text-sm shadow-md
+                                text-white px-4 py-1.5 rounded-md text-sm shadow-md
                                 transition duration-300 ease-in-out inline-flex items-center">
                             <i class="bi bi-plus-circle text-sm mr-1"></i>
                             Tambah Fasdik
@@ -59,7 +58,9 @@
                                 @if($item->foto)
                                     <img src="{{ asset('storage/' . $item->foto) }}"
                                          alt="{{ $item->judul }}"
-                                         class="rounded-lg shadow-md w-full object-cover h-56">
+                                         class="rounded-lg shadow-md w-full object-cover h-56 cursor-pointer"
+                                         data-bs-toggle="modal"
+                                         data-bs-target="#previewImageModal{{ $item->id }}">
                                 @else
                                     <div class="w-full h-56 bg-gray-200 flex items-center justify-center text-gray-500 rounded-lg">
                                         <i class="bi bi-image text-3xl"></i>
@@ -139,6 +140,34 @@
                 </div>
             </div>
         </div>
+    @endforeach
+
+    {{-- Modal Preview Gambar --}}
+    @foreach ($fasilitas as $item)
+        @if($item->foto)
+            <div class="modal fade" id="previewImageModal{{ $item->id }}" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content bg-transparent border-0 shadow-none relative">
+
+                        {{-- Tombol Tutup (ikon X di pojok kanan atas) --}}
+                        <button type="button" 
+                                class="absolute top-3 right-3 text-white bg-black/40 hover:bg-black/80 
+                                    rounded-full w-10 h-10 flex items-center justify-center 
+                                    shadow-lg transition z-10"
+                                data-bs-dismiss="modal" aria-label="Close">
+                            <i class="bi bi-x-lg text-xl"></i>
+                        </button>
+
+
+                        <div class="modal-body text-center p-0">
+                            <img src="{{ asset('storage/' . $item->foto) }}"
+                                 alt="{{ $item->judul }}"
+                                 class="img-fluid rounded-lg shadow-lg w-full">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
     @endforeach
 
 </x-app-layout>

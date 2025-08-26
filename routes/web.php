@@ -7,7 +7,6 @@ use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\FasilitasController;
-use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\LinkController;
 use App\Http\Controllers\ModulController;
 
@@ -89,21 +88,6 @@ Route::middleware(['auth', 'verified'])->prefix('fasilitas')->group(function () 
 // FASILITAS DETAIL
 Route::get('/fasilitas/{id}', [FasilitasController::class, 'show'])->name('fasilitas.show');
 
-// GALERI READ (Publik)
-Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri.index');
-
-// GALERI CU
-Route::middleware(['auth', 'verified'])->prefix('galeri')->group(function () {
-    Route::get('/create', [GaleriController::class, 'create'])->name('galeri.create');
-    Route::post('/', [GaleriController::class, 'store'])->name('galeri.store');
-
-    Route::get('/{id}/edit', [GaleriController::class, 'edit'])->name('galeri.edit');
-    Route::put('/{id}', [GaleriController::class, 'update'])->name('galeri.update');
-    Route::delete('/{id}', [GaleriController::class, 'destroy'])->name('galeri.destroy');
-});
-
-// GALERI DETAIL
-Route::get('/galeri/{id}', [GaleriController::class, 'show'])->name('galeri.show');
 
 // LINK READ (Publik)
 Route::get('/link', [LinkController::class, 'index'])->name('link.index');

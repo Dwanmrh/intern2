@@ -175,7 +175,7 @@
             <x-responsive-nav-link :href="route('berita.index')" :active="request()->routeIs('berita')">BERITA</x-responsive-nav-link>
             <x-responsive-nav-link :href="route('informasi.index')" :active="request()->routeIs('informasi')">INFORMASI</x-responsive-nav-link>
             <x-responsive-nav-link :href="route('fasilitas.index')" :active="request()->routeIs('fasilitas')">FASDIK</x-responsive-nav-link>
-\            <x-responsive-nav-link :href="route('link.index')" :active="request()->routeIs('link')">LINK</x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('link.index')" :active="request()->routeIs('link')">LINK</x-responsive-nav-link>
             <x-responsive-nav-link :href="route('modul.index')" :active="request()->routeIs('modul')">MODUL</x-responsive-nav-link>
         </div>
 
