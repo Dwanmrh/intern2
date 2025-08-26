@@ -2,7 +2,7 @@
 
     @section('title', 'EDIT MODUL | SETUKPA LEMDIKLAT POLRI')
 
-    <div class="flex justify-center items-center min-h-screen bg-gray-200">
+    <div class="flex justify-center items-center min-h-screen bg-gray-200 pt-10">
         <div class="bg-[#2c3e50] w-full max-w-md rounded-lg shadow-lg p-6">
             <h2 class="text-center text-xl font-bold text-white mb-6">Edit Modul</h2>
 
@@ -128,9 +128,10 @@
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition">
 
                     @if($modul->file)
-                        <p class="text-sm text-yellow-400 mt-1">
-                            File saat ini:
-                            <a href="{{ asset('storage/'.$modul->file) }}" target="_blank" class="font-bold text-yellow-400 italic underline">
+                    <p class="text-sm mt-1">
+                            <span class="text-white font-bold">File saat ini:</span>
+                            <a href="{{ asset('storage/'.$modul->file) }}" target="_blank" 
+                            class="text-blue-400 italic underline hover:text-blue-500">
                                 Lihat File
                             </a>
                         </p>

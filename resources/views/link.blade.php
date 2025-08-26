@@ -6,28 +6,34 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
             {{-- CARD UTAMA HEADER LINK --}}
-            <div class="shadow rounded-lg p-6 mb-10 relative" style="background-color: rgba(255, 255, 255, 0.50); min-height: 64px;">
+            <div class="relative bg-gray-50
+            backdrop-blur-md rounded-xl shadow-lg px-6 py-4 mb-8 overflow-hidden">
 
-                {{-- Header dengan Icon di Tengah --}}
-                <div class="relative flex items-center justify-center border-b pb-2 mb-4">
-                    <div class="flex items-center space-x-2">
-                        <i class="bi bi-link-45deg text-2xl" style="color: #2c3e50;"></i>
-                        <h2 class="text-2xl font-bold text-[#2c3e50]">LINK TERKAIT</h2>
-                    </div>
-
-                    {{-- Tombol Tambah Data --}}
-                    @auth
-                        @if(Auth::user()->role === 'admin')
-                            <div class="absolute right-0 top-1">
-                                <a href="{{ route('link.create') }}"
-                                class="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 hover:from-cyan-500 hover:via-blue-600 hover:to-blue-800 text-white px-4 py-2 rounded-md text-sm shadow-md transition duration-300 ease-in-out">
-                                <i class="bi bi-plus-circle text-base "></i>
-                                    Tambah Link
-                                </a>
-                            </div>
-                        @endif
-                    @endauth
+                {{-- Judul Header (tengah, selalu center) --}}
+                <div class="text-center">
+                    <h2 class="text-lg md:text-xl lg:text-2xl font-bold text-white inline-flex items-center gap-2 
+                            bg-gray-700 px-4 py-1.5 rounded-xl shadow-md 
+                            hover:scale-105 transition-transform duration-300">
+                        <i class="bi bi-link-45deg text-white text-xl md:text-2xl"></i>
+                        LINK TERKAIT
+                    </h2>
                 </div>
+
+                {{-- Tombol Tambah Data (posisi kanan atas) --}}
+                @auth
+                    @if(Auth::user()->role === 'admin')
+                        <a href="{{ route('link.create') }}"
+                        class="absolute right-6 top-4
+                                bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 
+                                hover:from-cyan-500 hover:via-blue-600 hover:to-blue-800 
+                                text-white px-3 py-1.5 rounded-md text-sm shadow-md 
+                                transition duration-300 ease-in-out inline-flex items-center">
+                            <i class="bi bi-plus-circle text-sm mr-1"></i>
+                            Tambah Link
+                        </a>
+                    @endif
+                @endauth
+
 
                 {{-- Notifikasi --}}
                 @if (session('success'))
@@ -131,5 +137,6 @@
                             </div>
                         @endforeach
                     </div>
+                </div>
                 </div>
 </x-app-layout>

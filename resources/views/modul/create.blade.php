@@ -2,7 +2,7 @@
 
     @section('title', 'TAMBAH MODUL | SETUKPA LEMDIKLAT POLRI')
 
-    <div class="flex justify-center items-center min-h-screen bg-gray-200">
+    <div class="flex justify-center items-center min-h-screen bg-gray-200 pt-10">
         <div class="bg-[#2c3e50] w-full max-w-md rounded-lg shadow-lg p-6">
             <h2 class="text-center text-xl font-bold text-white mb-6">Tambah Modul</h2>
 

@@ -5,11 +5,11 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             {{-- HEADER --}}
-            <div class="relative bg-[#edf0f8] rounded-xl shadow-lg p-8 mb-10 overflow-hidden">
+            <div class="relative bg-gradient-to-r from-[#F4F7FE] to-[#FFFFFF] rounded-xl shadow-lg p-8 mb-10 overflow-hidden">
                 <div class="flex items-center justify-between">
                     <div>
                         <div class="flex items-center space-x-3 mb-2">
-                            <i class="bi bi-gear-fill text-3xl text-blue-700"></i>
+                        <i class="bi bi-mortarboard-fill text-3xl text-[#2c3e50]"></i>
                             <h2 class="text-3xl font-extrabold text-[#2c3e50] tracking-wide">MODUL SISWA</h2>
                         </div>
                         <p class="text-gray-700 text-base max-w-xl">
@@ -20,7 +20,7 @@
             </div>
 
             {{-- GRID CARD --}}
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                 {{-- Modul SIP --}}
                 <a href="{{ route('modul.sip') }}"
@@ -38,7 +38,7 @@
                 <a href="{{ route('modul.pag') }}"
                    class="group bg-white border border-gray-200 rounded-xl p-6 shadow-md hover:shadow-2xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 cursor-pointer">
                     <div class="flex items-center mb-4 space-x-3">
-                        <i class="bi bi-people-fill text-2xl text-blue-700 group-hover:scale-110 transition-transform duration-300"></i>
+                    <i class="bi-person-workspace text-2xl text-blue-700 group-hover:scale-110 transition-transform duration-300"></i>
                         <h3 class="text-xl font-bold text-[#2c3e50]">Modul PAG</h3>
                     </div>
                     <p class="text-gray-700 text-lg leading-relaxed">

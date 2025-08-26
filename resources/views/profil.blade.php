@@ -8,44 +8,100 @@
 
                 {{-- Gambar (Tanpa animasi) --}}
                 <div class="w-full md:w-1/2 overflow-hidden rounded-lg">
-                    <img src="{{ asset('assets/images/kantor-2.jpg') }}"
+                    <img src="{{ asset('assets/images/gerbang.png') }}"
                         alt="Profil Setukpa"
-                        class="rounded-lg w-full object-cover h-[320px]">
+                        class="rounded-lg w-full object-cover h-[460px]">
                 </div>
 
                 {{-- SECTION 1: Sejarah Setukpa --}}
-                <div x-data="{ expanded: false }" class="w-full md:w-1/2">
+                <div class="w-full md:w-1/2">
                     <div class="flex items-center space-x-3 mb-3">
                         <i class="bi bi-mortarboard-fill text-[#2c3e50] text-2xl"></i>
-                        <h2 class="text-2xl font-bold text-[#2c3e50]">Sejarah Setukpa Lemdiklat Polri</h2>
+                        <h2 class="text-2xl font-bold text-[#2c3e50]">
+                            Sejarah Singkat Pendidikan Kepolisian di Sukabumi
+                        </h2>
                     </div>
 
-                    <p class="text-gray-700 mb-5 text-base leading-relaxed text-justify line-clamp-4" :class="{ 'line-clamp-none': expanded }">
-                        Diawali Tahun 1927 s/d 1942 didirikan di zaman penjajahan Belanda dengan nama Politie School, dengan tujuan pendidikan siswa agen polisi, siswa komandan polisi, siswa inspektur polisi, dan siswa mantri polisi.
-                        <br><br>
-                        Tahun 1942 s/d 1944 di zaman penjajahan Jepang berganti nama menjadi Jawakaisatsu dengan sasaran didik siswa kotoka sodhako (pendidikan polisi tinggi), siswa gaikie kaisat (pendidikan polisi rendah). Tercatat lima angkatan alumninya terdapat diantaranya mantan Kapolri yang ke tiga yaitu Komisaris Besar Polisi R. Sutjipto Danoekoesoemo.
-                        <br><br>
-                        Tahun 1945 s/d 1948 Negara dalam keadaan perang (Agresi Belanda) namanya SPB semua siswannya dikerahkan untuk membela Negara yang ditunjuk menjadi Direkturnya adalah Komisaris Polisi Bustami Aman Gelar Datuk Rangkayo Besar.
-                        <br><br>
-                        Tahun 1949 s/d 1951 zaman Republik Indonesia Serikat (RIS) terdapat pendidikan gabungan, pendidikan Kepolisian Belanda dan RI diberi nama SPI/Politie School yang menjabat direkturnya pada waktu itu Komisaris Besar Polisi R. Soebarkah.
-                        <br><br>
-                        Tahun 1952 s/d 1960 diberi nama SPN Siswa yang dididik: Siswa Agen Polisi, Siswa Brigadir Polisi, Siswa Inspektur Polisi dan Siswa Komisaris Polisi, termasuk Siswa Inspektur ABCDE, alumninya terdapat mantan Kapolri yang ke sembilan Jenderal Polisi Anton Sudjarwo yang menjabat Direkturnya Komisaris Besar Polisi R. Saleh Sastra Negara.
-                        <br><br>
-                        Tahun 1960 s/d 1965 Awal Polisi Masuk ABRI yang diberi nama SAKRI yang dididik: Basis PTIK angkatan Rajawali, Siswa Untea dari Irian Barat, Siswa Agen Polisi, Brigadir Polisi, Inspektur Polisi, Siswa Komisaris Polisi, Siswa Brigwan dan Siswa Sie Bang, yang menjabat Direkturnya Komisaris Besar Polisi R. Suroso Tjokrosoebroto dan Ajun Komisaris Besar Polisi. Drs. Moh. Soebekti.
-                    </p>
+                    {{-- Konten dengan scroll internal --}}
+                    <div class="text-gray-700 text-base leading-relaxed text-justify prose max-w-none
+                                border rounded-lg p-4 shadow-inner overflow-y-auto"
+                        style="max-height: 350px; scrollbar-width: thin; scrollbar-color: #2c3e50 #f1f1f1;">
 
-                    <button @click="expanded = !expanded"
-                        class="inline-block bg-[#2c3e50] hover:bg-[#1a252f] text-white px-5 py-2 rounded-md text-sm font-medium shadow-md transition duration-300">
-                        <span x-text="expanded ? 'Tutup' : 'Baca Lebih Lanjut'"></span>
-                    </button>
+                        <p><strong>MASA PENJAJAHAN BELANDA</strong></p>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li><strong>PADA TAHUN 1905</strong><br>
+                                Sudah terbentuk Kepolisian untuk menghasilkan Polisi Pemerintah dan Polisi Desa; anggota korps ini adalah orang-orang yang tidak berpendidikan, tidak ada sistem apa pun dalam pekerjaan mereka.
+                            </li>
+                            <li><strong>PADA TAHUN 1911</strong><br>
+                                Rencana Reorganisasi Polisi dirancang. Pada saat itu masyarakat mulai menuntut adanya Polisi yang profesional sehingga pemerintah berencana mendirikan sekolah Polisi di Sukabumi.
+                            </li>
+                            <li><strong>PADA TAHUN 1912</strong><br>
+                                Pemerintah melalui Asisten Residen Priangan membuat laporan kepada pemerintah Hindia Belanda mengenai persiapan pendirian sekolah Polisi di Sukabumi.
+                            </li>
+                            <li><strong>PADA TAHUN 1913</strong><br>
+                                Dibuka Sekolah Polisi di Sukabumi dengan lama pendidikan 2 tahun, menghasilkan Inspektur Polisi lulusan pertama sebanyak 50 orang.
+                            </li>
+                            <li><strong>PADA TAHUN 1914</strong><br>
+                                Dibuka Sekolah Inspektur Polisi yang setara dengan akademi, lama pendidikan 3 tahun.
+                            </li>
+                            <li><strong>PADA TAHUN 1920</strong><br>
+                                Didikan pertama Sekolah Inspektur Polisi dilantik menjadi Inspektur Polisi.
+                            </li>
+                            <li><strong>PADA TAHUN 1925</strong><br>
+                                Pendidikan Polisi dibagi 2: Sekolah Polisi Menengah (setara SMA) dan Sekolah Polisi Atas (setara Akademi).
+                            </li>
+                            <li><strong>PADA TAHUN 1928</strong><br>
+                                Sekolah Polisi di Sukabumi ditutup, pendidikan Polisi dialihkan ke Jakarta.
+                            </li>
+                        </ul>
+
+                        <p class="mt-4"><strong>MASA PENJAJAHAN JEPANG</strong></p>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li><strong>PADA TAHUN 1942 s/d 1944</strong><br>
+                                Ketika pasukan Jepang melakukan pengeboman ke kota Sukabumi, gedung sekolah Polisi hancur. Namun Jepang tetap memanfaatkan area tersebut sebagai pusat pendidikan Polisi Jepang.
+                            </li>
+                            <li><strong>PADA TANGGAL 1 OKTOBER 1945</strong><br>
+                                Momen heroik: para pemuda dan Polisi Indonesia mengambil alih sekolah Polisi dari tangan Jepang, lalu diresmikan sebagai Sekolah Polisi Negara (SPN).
+                            </li>
+                        </ul>
+
+                        <p class="mt-4"><strong>MASA KEMERDEKAAN</strong></p>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li><strong>PADA TAHUN 1946</strong><br>
+                                Pendidikan di SPN Sukabumi dibuka kembali dengan tujuan mencetak kader-kader kepolisian Republik Indonesia.
+                            </li>
+                            <li><strong>PADA TAHUN 1947</strong><br>
+                                SPN Sukabumi melaksanakan pendidikan Inspektur Polisi.
+                            </li>
+                            <li><strong>PADA TAHUN 1949</strong><br>
+                                Setelah pengakuan kedaulatan, SPN Sukabumi tetap berjalan untuk mendidik kader Polisi.
+                            </li>
+                            <li><strong>PADA TAHUN 1950</strong><br>
+                                SPN Sukabumi berubah menjadi Sekolah Polisi Negara Tingkat Menengah (SPNM).
+                            </li>
+                            <li><strong>PADA TAHUN 1955</strong><br>
+                                SPNM berubah menjadi Sekolah Polisi Negara Sukabumi (SPN Sukabumi).
+                            </li>
+                            <li><strong>PADA TAHUN 1961</strong><br>
+                                SPN Sukabumi ditingkatkan menjadi Sekolah Calon Perwira (SECAPA) Polri.
+                            </li>
+                            <li><strong>PADA TAHUN 1965</strong><br>
+                                SECAPA Polri Sukabumi berubah nama menjadi Sekolah Pembentukan Perwira (SETUKPA) Polri, yang hingga kini menjadi lembaga pendidikan untuk mencetak perwira Polri.
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
                 {{-- SECTION 2: Profil Setukpa --}}
                 <div class="mb-10 bg-white shadow rounded-lg p-6 flex flex-col md:flex-row items-center md:items-start gap-6">
-                    {{-- Gambar --}}
+                    {{-- Video --}}
                     <div class="w-full md:w-1/2">
-                        <img src="{{ asset('assets/images/lapmer2-1.jpg') }}" alt="Profil Setukpa" class="rounded-lg w-full object-cover h-[320px]">
+                        <div class="rounded-lg overflow-hidden w-full h-[320px]">
+                            <iframe src="https://drive.google.com/file/d/1buntvpTyUqHKJOyVkq6BkF7n9gx07DqH/preview"
+                                width="100%" height="100%" allow="autoplay"
+                                class="rounded-lg"></iframe>
+                        </div>
                     </div>
 
                     {{-- Konten Teks --}}
@@ -54,9 +110,15 @@
                             Profil Setukpa Lemdiklat Polri
                         </h2>
                         <p class="text-gray-700 mb-4 text-[15px] leading-relaxed tracking-wide text-justify">
-                            <span class="font-semibold text-[#2c3e50]">Setukpa Lemdiklat Polri</span> atau <em>Sekolah Pembentukan Perwira Polri</em> adalah sekolah kedinasan Kepolisian Negara Republik Indonesia yang bertugas untuk menyelenggarakan fungsi pembentukan perwira Polri yang bersumber dari anggota Polri.
+                            <span class="font-semibold text-[#2c3e50]">Setukpa Lemdiklat Polri</span> atau
+                            <em>Sekolah Pembentukan Perwira Polri</em> adalah sekolah kedinasan Kepolisian Negara Republik Indonesia
+                            yang bertugas untuk menyelenggarakan fungsi pembentukan perwira Polri yang bersumber dari anggota Polri.
                             <br><br>
-                            Setukpa Polri sebelumnya bernama <span class="font-medium italic text-[#2c3e50]">Secapa Polri</span> (Sekolah Calon Perwira Polri).Setukpa Polri terletak di Kota Sukabumi, Jawa Barat serta dikepalai oleh Kasetukpa Polri yang bertanggungjawab kepada Kalemdiklat Polri. Kasetukpa Polri saat ini adalah Brigadir Jenderal Polisi. Dirin, S.I.K., M.H.
+                            Setukpa Polri sebelumnya bernama
+                            <span class="font-medium italic text-[#2c3e50]">Secapa Polri</span> (Sekolah Calon Perwira Polri).
+                            Setukpa Polri terletak di Kota Sukabumi, Jawa Barat serta dikepalai oleh Kasetukpa Polri
+                            yang bertanggungjawab kepada Kalemdiklat Polri.
+                            Kasetukpa Polri saat ini adalah Brigadir Jenderal Polisi. Dirin, S.I.K., M.H.
                         </p>
                     </div>
                 </div>
@@ -94,29 +156,32 @@
             {{-- PEMBATAS --}}
             <div class="pt-1 mt-1 border-t border-gray-200"></div>
 
-            {{-- SECTION 4: Struktur Organisasi --}}
-            <div class="mb-12 shadow rounded-lg p-6 text-center" style="background-color: rgba(255, 255, 255, 0.60);">
-                {{-- Judul dan Tombol Tambah --}}
-                <div class="relative pb-6 text-center border-b pb-2">
-                {{-- Judul + Ikon --}}
-                <div class="inline-flex items-center space-x-3">
-                    <i class="bi bi-people-fill text-2xl text-[#2c3e50]"></i>
-                    <h2 class="text-2xl font-bold text-[#2c3e50]">STRUKTUR ORGANISASI</h2>
-                </div>
+{{-- SECTION 4: Struktur Organisasi --}}
+<div class="mb-12 shadow rounded-lg p-8 text-center bg-white">
+                
+                {{-- Judul --}}
+                <div class="relative mb-8">
+                    <h2 class="inline-flex items-center gap-3 text-2xl font-bold text-white 
+                            bg-gray-700 px-4 py-2 rounded-xl shadow-md 
+                            hover:scale-105 transition-transform duration-300">
+                        <i class="bi bi-people-fill text-2xl text-white"></i>
+                        STRUKTUR ORGANISASI
+                    </h2>
 
-                {{-- Tombol Tambah Data --}}
-                @auth
-                    @if(Auth::user()->role === 'admin')
-                        <div class="absolute right-0 top-1">
-                            <a href="{{ route('profil.create') }}"
-                            class="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 hover:from-cyan-500 hover:via-blue-600 hover:to-blue-800 text-white px-4 py-2 rounded-md text-sm shadow-md transition duration-300 ease-in-out">
-                            <i class="bi bi-plus-circle text-base "></i>
-                                Tambah Personel
-                            </a>
-                        </div>
-                    @endif
-                @endauth
-            </div>
+                    {{-- Tombol Tambah Data --}}
+                    @auth
+                        @if(Auth::user()->role === 'admin')
+                            <div class="absolute right-0 top-1/2 -translate-y-1/2">
+                                <a href="{{ route('profil.create') }}"
+                                class="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 
+                                        hover:from-cyan-500 hover:via-blue-600 hover:to-blue-800 
+                                        text-white px-4 py-2 rounded-md text-sm shadow-md">
+                                    <i class="bi bi-plus-circle me-1"></i> Tambah Personel
+                                </a>
+                            </div>
+                        @endif
+                    @endauth
+                </div>
 
                 {{-- Notifikasi --}}
                 @if (session('success'))

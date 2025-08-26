@@ -9,9 +9,11 @@
                  style="background-color: rgba(255, 255, 255, 0.50); min-height: 64px;">
 
                 {{-- Judul dan Tombol Tambah --}}
-                <div class="relative flex items-center justify-center border-b pb-2 mb-8">
-                    <h2 class="text-2xl font-bold text-[#2c3e50] flex items-center gap-2">
-                        <i class="bi bi-calendar-event text-[#2c3e50]"></i>
+                <div class="text-center">
+                    <h2 class="text-lg md:text-xl lg:text-2xl font-bold text-white inline-flex items-center gap-2 
+                            bg-gray-700 px-6 py-1.5 rounded-xl shadow-md 
+                            hover:scale-105 transition-transform duration-300">
+                        <i class="bi bi-calendar-event text-white text-xl md:text-2xl"></i>
                         INFORMASI
                     </h2>
 
@@ -89,7 +91,7 @@
                             {{-- Tombol aksi --}}
                             <div class="px-4 pb-4 pt-1 flex items-center justify-between">
                                 <button @click.stop="showDetailBtn = !showDetailBtn"
-                                        class="bg-[#2c3e50] hover:bg-[#1a252f] text-white px-4 py-2 rounded-md
+                                        class="bg-blue-500 hover:bg-blue-900 text-white px-4 py-2 rounded-md
                                                text-sm font-medium shadow-md transition duration-300">
                                     <span x-text="showDetailBtn ? 'Tutup' : 'Baca Lebih Lanjut'"></span>
                                 </button>

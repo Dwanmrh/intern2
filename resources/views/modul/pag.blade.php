@@ -13,7 +13,7 @@
                 <div class="grid grid-cols-3 items-center mb-6">
 
                     {{-- Tombol Kembali (kiri) --}}
-                    <div>
+                    <div class="flex items-center">
                         <a href="{{ route('modul.index') }}"
                             class="inline-flex items-center px-3 py-1.5 bg-gray-700 hover:bg-gray-800 text-white text-sm font-medium rounded transition duration-200">
                             ← Kembali
@@ -22,18 +22,23 @@
 
                     {{-- JUDUL (tengah, selalu center) --}}
                     <div class="text-center">
-                        <h2 class="text-lg md:text-xl lg:text-2xl font-bold text-[#2c3e50] inline-flex items-center gap-2">
-                            <i class="bi bi-book"></i>
+                        <h2 class="text-lg md:text-xl lg:text-2xl font-bold text-white 
+                                   inline-flex items-center gap-2 
+                                   bg-gray-700 px-6 py-1.5
+                                   rounded-xl shadow-md hover:scale-105 transition-transform duration-300">
+                            <i class="bi bi-person-workspace text-xl md:text-2xl"></i>
                             MODUL PAG
                         </h2>
                     </div>
 
-                    {{-- Button Tambah Modul (kanan, hanya admin) --}}
-                    <div class="text-right">
+                    {{-- Button Tambah Modul (kanan, hanya admin dan personel) --}}
+                    <div class="flex justify-end items-center">
                         @auth
                             @if(in_array(Auth::user()->role, ['admin', 'personel']))
                                 <a href="{{ route('modul.create') }}"
-                                    class="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 hover:from-cyan-500 hover:via-blue-600 hover:to-blue-800 text-white px-4 py-2 rounded-md text-sm shadow-md transition duration-300 ease-in-out">
+                                    class="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 
+                                           hover:from-cyan-500 hover:via-blue-600 hover:to-blue-800 
+                                           text-white px-4 py-1.5 rounded-md text-sm shadow-md transition duration-300 ease-in-out">
                                     <i class="bi bi-plus-circle text-base text-white"></i>
                                     Tambah Modul
                                 </a>
@@ -42,9 +47,11 @@
                     </div>
                 </div>
 
-                {{-- BARIS FILTER (baru) --}}
+                {{-- BARIS FILTER --}}
                 <form method="GET" action="{{ route('modul.pag') }}" class="flex flex-wrap items-center gap-3 mb-6">
-                    <select name="tahun" class="form-select text-sm rounded-md w-36">
+                    <select name="tahun" 
+                            class="form-select text-sm rounded-md w-auto min-w-[100px] max-w-[130px] 
+                                bg-[#edf0f8] text-black border border-gray-300 focus:border-blue-400 focus:ring-blue-300">
                         <option value="">Pilih Tahun</option>
                         @foreach ($allTahun as $tahun)
                             <option value="{{ $tahun }}" {{ request('tahun') == $tahun ? 'selected' : '' }}>
@@ -52,26 +59,26 @@
                             </option>
                         @endforeach
                     </select>
-                    <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md shadow">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-md shadow">
                         Search
                     </button>
                 </form>
 
                 {{-- Notifikasi --}}
-                    @if (session('success'))
-                        <div id="success-alert" class="mt-4 p-4 bg-green-100 text-green-800 rounded transition-opacity duration-500">
-                            {{ session('success') }}
-                        </div>
-                        <script>
-                            setTimeout(function () {
-                                let alertBox = document.getElementById('success-alert');
-                                if (alertBox) {
-                                    alertBox.style.opacity = '0'; // efek fade out
-                                    setTimeout(() => alertBox.remove(), 500); // hapus setelah fade
-                                }
-                            }, 5000); // 5000ms = 5 detik
-                        </script>
-                    @endif
+                @if (session('success'))
+                    <div id="success-alert" class="mt-4 p-4 bg-green-100 text-green-800 rounded transition-opacity duration-500">
+                        {{ session('success') }}
+                    </div>
+                    <script>
+                        setTimeout(function () {
+                            let alertBox = document.getElementById('success-alert');
+                            if (alertBox) {
+                                alertBox.style.opacity = '0';
+                                setTimeout(() => alertBox.remove(), 500);
+                            }
+                        }, 5000);
+                    </script>
+                @endif
 
                 {{-- GARIS PEMBATAS --}}
                 <div class="border-b mb-6"></div>
@@ -93,7 +100,12 @@
                                 @foreach ($list as $modul)
                                     <div class="flex items-center justify-between bg-gray-100 hover:bg-gray-200 p-3 rounded-md">
                                         <div class="flex items-start gap-3">
-                                            <div class="bg-blue-600 text-white px-2 py-1 rounded text-xs font-bold">PDF</div>
+                                            <div class="inline-flex items-center bg-red-600 text-white px-3 py-1.5 rounded text-sm font-bold">
+                                                <svg class="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M6 2C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2H6ZM13 3.5L18.5 9H13V3.5ZM9 13H11C11.55 13 12 13.45 12 14V16C12 16.55 11.55 17 11 17H9V13ZM13 13H15.5C16.33 13 17 13.67 17 14.5V15.5C17 16.33 16.33 17 15.5 17H13V13Z"/>
+                                                </svg>
+                                                PDF
+                                            </div>
                                             <div>
                                                 <a href="{{ asset('storage/' . $modul->file) }}" target="_blank" class="font-semibold text-[#2c3e50] hover:underline">
                                                     {{ $modul->judul }}
@@ -107,7 +119,6 @@
                                         @auth
                                             @if(in_array(Auth::user()->role, ['admin', 'personel']))
                                                 <div class="flex justify-end gap-4 mt-2">
-                                                    {{-- Tombol Edit --}}
                                                     <a href="{{ route('modul.edit', $modul->id) }}" @click.stop
                                                         class="text-blue-600 hover:text-blue-800 transition" title="Edit">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
@@ -117,7 +128,6 @@
                                                         </svg>
                                                     </a>
 
-                                                    {{-- Tombol Hapus --}}
                                                     <button type="button" @click.stop
                                                             class="text-red-600 hover:text-red-800 transition"
                                                             data-bs-toggle="modal"

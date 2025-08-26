@@ -6,10 +6,14 @@
 
             {{-- HEADER --}}
             <div class="shadow rounded-lg p-6 mb-10 relative" style="background-color: rgba(255, 255, 255, 0.50); min-height: 64px;">
-                <div class="relative flex items-center justify-center border-b pb-2 mb-4">
+            <div class="relative flex items-center justify-center border-b pb-2 mb-4">
                     <div class="flex items-center space-x-2">
-                        <i class="bi bi-mortarboard text-2xl text-[#2c3e50]"></i>
-                        <h2 class="text-2xl font-bold text-[#2c3e50]">SATDIKLAT</h2>
+                        <h2 class="text-lg md:text-xl lg:text-2xl font-bold text-white inline-flex items-center gap-2 
+                            bg-gray-700 px-10 py-1.5 rounded-xl shadow-md 
+                            hover:scale-105 transition-transform duration-300">
+                            <i class="bi bi-mortarboard text-2xl text-white"></i>
+                            SATDIKLAT
+                        </h2>
                     </div>
                 </div>
 
