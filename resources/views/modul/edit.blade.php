@@ -36,55 +36,6 @@
                     </select>
                 </div>
 
-                {{-- Periode --}}
-                <div class="mb-4">
-                    <label class="block text-white font-semibold mb-1">Periode</label>
-                    <select id="periode" name="periode"
-                            class="w-full px-3 py-2 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none">
-                        <option value="">-- Pilih Periode --</option>
-                        {{-- nanti diisi otomatis via script --}}
-                    </select>
-                </div>
-
-                <script>
-                    document.addEventListener("DOMContentLoaded", function () {
-                        const prodiklatSelect = document.getElementById("prodiklat");
-                        const periodeSelect = document.getElementById("periode");
-
-                        const options = {
-                            SIP: ["SIP", "SIP Gelombang I", "SIP Gelombang II"],
-                            PAG: ["PAG", "PAG Gelombang I", "PAG Gelombang II"],
-                        };
-
-                        function loadPeriode(selectedProdiklat, currentValue = null) {
-                            periodeSelect.innerHTML = '<option value="">-- Pilih Periode --</option>';
-                            if (options[selectedProdiklat]) {
-                                options[selectedProdiklat].forEach(function (p) {
-                                    const opt = document.createElement("option");
-                                    opt.value = p;
-                                    opt.textContent = p;
-                                    if (p === currentValue) {
-                                        opt.selected = true;
-                                    }
-                                    periodeSelect.appendChild(opt);
-                                });
-                            }
-                        }
-
-                        // Load default saat halaman terbuka
-                        const currentProdiklat = prodiklatSelect.value;
-                        const currentPeriode = "{{ old('periode', $modul->periode) }}";
-                        if (currentProdiklat) {
-                            loadPeriode(currentProdiklat, currentPeriode);
-                        }
-
-                        // Update jika prodiklat diganti
-                        prodiklatSelect.addEventListener("change", function () {
-                            loadPeriode(this.value);
-                        });
-                    });
-                </script>
-
                 {{-- Mapel --}}
                 <div class="mb-4">
                     <label class="block text-white font-semibold mb-1">Mapel</label>
@@ -128,9 +79,9 @@
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition">
 
                     @if($modul->file)
-                    <p class="text-sm mt-1">
+                        <p class="text-sm mt-1">
                             <span class="text-white font-bold">File saat ini:</span>
-                            <a href="{{ asset('storage/'.$modul->file) }}" target="_blank" 
+                            <a href="{{ asset('storage/'.$modul->file) }}" target="_blank"
                             class="text-blue-400 italic underline hover:text-blue-500">
                                 Lihat File
                             </a>

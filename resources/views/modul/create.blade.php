@@ -34,40 +34,6 @@
                     </select>
                 </div>
 
-                {{-- Periode --}}
-                <div class="mb-4">
-                    <label class="block text-white font-semibold mb-1">Periode</label>
-                    <select id="periode" name="periode"
-                        class="w-full px-3 py-2 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none">
-                        <option value="">-- Pilih Periode --</option>
-                    </select>
-                </div>
-
-                <script>
-                    document.addEventListener("DOMContentLoaded", function () {
-                        const prodiklatSelect = document.getElementById("prodiklat");
-                        const periodeSelect = document.getElementById("periode");
-
-                        const options = {
-                            SIP: ["SIP", "SIP Gelombang I", "SIP Gelombang II"],
-                            PAG: ["PAG", "PAG Gelombang I", "PAG Gelombang II"],
-                        };
-
-                        prodiklatSelect.addEventListener("change", function () {
-                            periodeSelect.innerHTML = '<option value="">-- Pilih Periode --</option>';
-                            const selected = this.value;
-                            if (options[selected]) {
-                                options[selected].forEach(function (p) {
-                                    const opt = document.createElement("option");
-                                    opt.value = p;
-                                    opt.textContent = p;
-                                    periodeSelect.appendChild(opt);
-                                });
-                            }
-                        });
-                    });
-                </script>
-
                 {{-- Mapel --}}
                 <div class="mb-4">
                     <label class="block text-white font-semibold mb-1">Mapel</label>
@@ -118,7 +84,7 @@
                     </a>
                     <button type="submit"
                         class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-md shadow-md hover:shadow-lg transition">
-                        Perbarui
+                        Simpan
                     </button>
                 </div>
             </form>

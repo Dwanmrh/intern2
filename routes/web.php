@@ -125,12 +125,8 @@ Route::get('/modul/sip', [ModulController::class, 'sip'])->name('modul.sip');
 Route::get('/modul/pag', [ModulController::class, 'pag'])->name('modul.pag');
 
 // MODUL CU (Admin + Personel)
-Route::middleware(['auth', 'verified'])->prefix('modul')->group(function () {
-    Route::get('/create', [ModulController::class, 'create'])->name('modul.create');
-    Route::post('/', [ModulController::class, 'store'])->name('modul.store');
-    Route::get('/{id}/edit', [ModulController::class, 'edit'])->name('modul.edit');
-    Route::put('/{id}', [ModulController::class, 'update'])->name('modul.update');
-    Route::delete('/{id}', [ModulController::class, 'destroy'])->name('modul.destroy');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::resource('modul', ModulController::class)->except(['show']);
 });
 
 // SEARCH

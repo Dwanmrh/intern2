@@ -10,8 +10,8 @@
 
                 {{-- Judul Header (tengah, selalu center) --}}
                 <div class="text-center">
-                    <h2 class="text-lg md:text-xl lg:text-2xl font-bold text-white inline-flex items-center gap-2 
-                            bg-gray-700 px-4 py-2 rounded-xl shadow-md 
+                    <h2 class="text-lg md:text-xl lg:text-2xl font-bold text-white inline-flex items-center gap-2
+                            bg-gray-700 px-4 py-2 rounded-xl shadow-md
                             hover:scale-105 transition-transform duration-300">
                         <i class="bi bi-bank2 text-white text-xl md:text-2xl"></i>
                         FASILITAS PENDIDIKAN
@@ -23,9 +23,9 @@
                     @if(Auth::user()->role === 'admin')
                         <a href="{{ route('fasilitas.create') }}"
                         class="absolute right-6 top-6
-                                bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 
-                                hover:from-cyan-500 hover:via-blue-600 hover:to-blue-800 
-                                text-white px-4 py-2 rounded-md text-sm shadow-md 
+                                bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700
+                                hover:from-cyan-500 hover:via-blue-600 hover:to-blue-800
+                                text-white px-4 py-2 rounded-md text-sm shadow-md
                                 transition duration-300 ease-in-out inline-flex items-center">
                             <i class="bi bi-plus-circle text-sm mr-1"></i>
                             Tambah Fasdik
@@ -80,15 +80,20 @@
 
                                 {{-- Aksi Edit & Hapus --}}
                                 @auth
-                                    @if(Auth::user()->role === 'admin')
-                                        <div class="flex gap-4">
-                                            <a href="{{ route('fasilitas.edit', $item->id) }}"
-                                               class="text-blue-600 hover:text-blue-800 transition" title="Edit">
-                                                <i class="bi bi-pencil-square text-lg"></i>
+                                    @if(in_array(Auth::user()->role, ['admin', 'personel']))
+                                        <div class="flex gap-4 mt-2">
+                                            {{-- Tombol Edit --}}
+                                            <a href="{{ route('fasilitas.edit', $item->id) }}" onclick="event.stopPropagation()"
+                                                class="text-blue-600 hover:text-blue-800 transition" title="Edit">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-5M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                                </svg>
                                             </a>
 
-                                             <!-- Tombol Trigger Modal -->
-                                             <button type="button" @click.stop
+                                            {{-- Tombol Hapus --}}
+                                            <button type="button" onclick="event.stopPropagation()"
                                                     class="text-red-600 hover:text-red-800 transition"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#hapusFasilitasModal{{ $item->id }}"
@@ -111,4 +116,29 @@
             </div>
         </div>
     </div>
+
+    {{-- Modal Hapus --}}
+    @foreach ($fasilitas as $item)
+        <div class="modal fade" id="hapusFasilitasModal{{ $item->id }}" tabindex="-1" aria-labelledby="hapusLabel{{ $item->id }}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content rounded-lg shadow-lg">
+                    <div class="modal-header bg-red-600 text-white rounded-t-lg">
+                        <h5 class="modal-title" id="hapusLabel{{ $item->id }}">Konfirmasi Hapus</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Yakin ingin menghapus fasilitas <b>{{ $item->judul }}</b>?
+                    </div>
+                    <div class="modal-footer">
+                        <form action="{{ route('fasilitas.destroy', $item->id) }}" method="POST">
+                            @csrf @method('DELETE')
+                            <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Hapus</button>
+                        </form>
+                        <button type="button" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400" data-bs-dismiss="modal">Batal</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+
 </x-app-layout>

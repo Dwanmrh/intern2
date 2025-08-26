@@ -17,28 +17,22 @@ class ModulController extends Controller
             $query->where('tahun', $request->tahun);
         }
 
-        // 🔎 Filter Periode
-        if ($request->filled('periode')) {
-            $query->where('periode', $request->periode);
-        }
-
         // 🔎 Pencarian judul / deskripsi
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function($q) use ($search) {
                 $q->where('judul', 'like', "%{$search}%")
-                ->orWhere('deskripsi', 'like', "%{$search}%");
+                  ->orWhere('deskripsi', 'like', "%{$search}%");
             });
         }
 
         // Ambil data modul hasil filter
         $moduls = $query->orderBy('mapel')->get();
 
-        // Ambil semua pilihan Tahun & Periode untuk dropdown
+        // Ambil semua pilihan Tahun untuk dropdown
         $allTahun = Modul::select('tahun')->distinct()->pluck('tahun');
-        $allPeriode = Modul::select('periode')->distinct()->pluck('periode');
 
-        return view('modul', compact('moduls', 'allTahun', 'allPeriode'));
+        return view('modul', compact('moduls', 'allTahun'));
     }
 
     public function sip(Request $request)
@@ -48,15 +42,11 @@ class ModulController extends Controller
         if ($request->filled('tahun')) {
             $query->where('tahun', $request->tahun);
         }
-        if ($request->filled('periode')) {
-            $query->where('periode', $request->periode);
-        }
 
         $moduls = $query->get();
         $allTahun = Modul::where('prodiklat', 'SIP')->select('tahun')->distinct()->pluck('tahun');
-        $allPeriode = Modul::where('prodiklat', 'SIP')->select('periode')->distinct()->pluck('periode');
 
-        return view('modul.sip', compact('moduls', 'allTahun', 'allPeriode'));
+        return view('modul.sip', compact('moduls', 'allTahun'));
     }
 
     public function pag(Request $request)
@@ -66,15 +56,11 @@ class ModulController extends Controller
         if ($request->filled('tahun')) {
             $query->where('tahun', $request->tahun);
         }
-        if ($request->filled('periode')) {
-            $query->where('periode', $request->periode);
-        }
 
         $moduls = $query->get();
         $allTahun = Modul::where('prodiklat', 'PAG')->select('tahun')->distinct()->pluck('tahun');
-        $allPeriode = Modul::where('prodiklat', 'PAG')->select('periode')->distinct()->pluck('periode');
 
-        return view('modul.pag', compact('moduls', 'allTahun', 'allPeriode'));
+        return view('modul.pag', compact('moduls', 'allTahun'));
     }
 
     public function create()
@@ -89,7 +75,6 @@ class ModulController extends Controller
             'file'      => 'required|mimes:pdf|max:2048',
             'deskripsi' => 'nullable|string',
             'prodiklat' => 'required|string',
-            'periode'   => 'required|string',
             'mapel'     => 'nullable|string',
             'tahun'     => 'nullable|digits:4',
         ]);
@@ -101,7 +86,6 @@ class ModulController extends Controller
             'file'      => $path,
             'deskripsi' => $request->deskripsi,
             'prodiklat' => $request->prodiklat,
-            'periode'   => $request->periode,
             'mapel'     => $request->mapel,
             'tahun'     => $request->tahun,
         ]);
@@ -133,13 +117,12 @@ class ModulController extends Controller
             'file'      => 'nullable|mimes:pdf|max:2048',
             'deskripsi' => 'nullable|string',
             'prodiklat' => 'nullable|string',
-            'periode'   => 'nullable|string',
             'mapel'     => 'nullable|string',
             'tahun'     => 'nullable|digits:4',
         ]);
 
         $data = $request->only([
-            'judul','deskripsi','prodiklat','periode','mapel','tahun'
+            'judul','deskripsi','prodiklat','mapel','tahun'
         ]);
 
         if ($request->hasFile('file')) {

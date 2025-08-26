@@ -22,8 +22,8 @@
 
                     {{-- JUDUL (tengah, selalu center) --}}
                     <div class="text-center">
-                        <h2 class="text-lg md:text-xl lg:text-2xl font-bold text-white 
-                                inline-flex items-center gap-2 
+                        <h2 class="text-lg md:text-xl lg:text-2xl font-bold text-white
+                                inline-flex items-center gap-2
                                 bg-gray-700 px-6 py-1.5
                                 rounded-xl shadow-md hover:scale-105 transition-transform duration-300">
                             <i class="bi bi-book text-xl md:text-2xl"></i>
@@ -36,8 +36,8 @@
                         @auth
                             @if(in_array(Auth::user()->role, ['admin', 'personel']))
                                 <a href="{{ route('modul.create') }}"
-                                    class="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 
-                                        hover:from-cyan-500 hover:via-blue-600 hover:to-blue-800 
+                                    class="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700
+                                        hover:from-cyan-500 hover:via-blue-600 hover:to-blue-800
                                         text-white px-4 py-1.5 rounded-md text-sm shadow-md transition duration-300 ease-in-out">
                                     <i class="bi bi-plus-circle text-base text-white"></i>
                                     Tambah Modul
@@ -49,8 +49,8 @@
 
                 {{-- BARIS FILTER --}}
                 <form method="GET" action="{{ route('modul.sip') }}" class="flex flex-wrap items-center gap-3 mb-6">
-                    <select name="tahun" 
-                            class="form-select text-sm rounded-md w-auto min-w-[100px] max-w-[130px] 
+                    <select name="tahun"
+                            class="form-select text-sm rounded-md w-auto min-w-[100px] max-w-[130px]
                             bg-[#edf0f8] text-black border border-gray-300 focus:border-blue-400 focus:ring-blue-300">
                         <option value="">Pilih Tahun</option>
                         @foreach ($allTahun as $tahun)
@@ -73,10 +73,10 @@
                         setTimeout(function () {
                             let alertBox = document.getElementById('success-alert');
                             if (alertBox) {
-                                alertBox.style.opacity = '0'; 
-                                setTimeout(() => alertBox.remove(), 500); 
+                                alertBox.style.opacity = '0';
+                                setTimeout(() => alertBox.remove(), 500);
                             }
-                        }, 5000); 
+                        }, 5000);
                     </script>
                 @endif
 
@@ -111,7 +111,7 @@
                                                     {{ $modul->judul }}
                                                 </a>
                                                 <p class="text-sm text-gray-600">{{ $modul->deskripsi ?? '-' }}</p>
-                                                <p class="text-xs text-gray-500">Tahun: {{ $modul->tahun ?? '-' }} | Periode: {{ $modul->periode ?? '-' }}</p>
+                                                <p class="text-xs text-gray-500">Tahun: {{ $modul->tahun ?? '-' }}</p>
                                             </div>
                                         </div>
 
@@ -155,11 +155,11 @@
                                                                 Yakin ingin menghapus modul <b>{{ $modul->judul }}</b>?
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400" data-bs-dismiss="modal">Batal</button>
                                                                 <form action="{{ route('modul.destroy', $modul->id) }}" method="POST">
                                                                     @csrf @method('DELETE')
                                                                     <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Hapus</button>
                                                                 </form>
+                                                                <button type="button" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400" data-bs-dismiss="modal">Batal</button>
                                                             </div>
                                                         </div>
                                                     </div>
