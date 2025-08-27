@@ -4,21 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Dashboard;
 use App\Models\Berita;
-use App\Models\Galeri;
+use App\Models\Link;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
-    // Menampilkan daftar preview dashboard
+    // Menampilkan halaman HOME
     public function index()
     {
-         $dashboards = Dashboard::latest()->get();
-         $beritas = Berita::orderBy('tanggal', 'desc')->take(4)->get();
-         $galeris = Galeri::orderBy('tanggal', 'desc')->take(4)->get();
+        $dashboards = Dashboard::latest()->get();
+        $beritas = Berita::orderBy('tanggal', 'desc')->take(4)->get();
+        $links = Link::all(); // ambil semua link terkait
 
-        return view('dashboard', compact('dashboards', 'beritas', 'galeris'));
+        return view('dashboard', compact('dashboards', 'beritas', 'links'));
     }
 
     // Menampilkan form tambah data
@@ -33,7 +33,7 @@ class DashboardController extends Controller
         $request->validate([
             'judul' => 'required|string|max:255',
             'tanggal' => 'required|string',
-            'file' => 'nullable|mimes:jpg,jpeg,png,mp4,mov,webm|max:15000',
+            'file' => 'nullable|mimes:jpg,jpeg,png,mp4,mov,webm|max:40000',
         ]);
 
         $data = $request->only('judul', 'tanggal');
@@ -77,7 +77,7 @@ class DashboardController extends Controller
         $request->validate([
             'judul' => 'required|string|max:255',
             'tanggal' => 'required|string',
-            'file' => 'nullable|mimes:jpg,jpeg,png,mp4,mov,webm|max:15000',
+            'file' => 'nullable|mimes:jpg,jpeg,png,mp4,mov,webm|max:40000',
         ]);
 
         $data = $request->only('judul', 'tanggal');
@@ -95,8 +95,6 @@ class DashboardController extends Controller
 
         // Handle file upload
         if ($request->hasFile('file')) {
-
-            // Hapus file lama jika ada
             if ($dashboard->file && Storage::disk('public')->exists($dashboard->file)) {
                 Storage::disk('public')->delete($dashboard->file);
             }
