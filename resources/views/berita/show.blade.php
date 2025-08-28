@@ -7,7 +7,7 @@
 
             {{-- HERO IMAGE + Judul --}}
             @if ($berita->foto)
-                <div class="relative w-full h-[350px] md:h-[450px] rounded-xl overflow-hidden shadow-lg mb-8">
+                <div class="relative w-full aspect-[2/1] rounded-xl overflow-hidden shadow-lg mb-8">
                     <img src="{{ asset('storage/' . $berita->foto) }}"
                          alt="{{ $berita->judul }}"
                          class="w-full h-full object-cover">

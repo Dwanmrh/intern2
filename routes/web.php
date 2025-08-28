@@ -7,7 +7,6 @@ use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\FasilitasController;
-use App\Http\Controllers\LinkController;
 use App\Http\Controllers\ModulController;
 
 // Default Redirect
@@ -16,13 +15,22 @@ Route::get('/', fn() => redirect()->route('dashboard.index'));
 // DASHBOARD READ (Publik)
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
-// DASHBOARD CU (Admin only)
+// DASHBOARD PREVIEW CU (Admin only)
 Route::middleware(['auth', 'verified'])->prefix('dashboard')->group(function () {
     Route::get('/create', [DashboardController::class, 'create'])->name('dashboard.create');
     Route::post('/', [DashboardController::class, 'store'])->name('dashboard.store');
     Route::get('/{dashboard}/edit', [DashboardController::class, 'edit'])->name('dashboard.edit');
     Route::put('/{dashboard}', [DashboardController::class, 'update'])->name('dashboard.update');
     Route::delete('/{dashboard}', [DashboardController::class, 'destroy'])->name('dashboard.destroy');
+});
+
+// DASHBOARD LINKS CU (Admin only)
+Route::middleware(['auth', 'verified'])->prefix('dashboard/link')->name('dashboard.link.')->group(function () {
+    Route::get('/create', [DashboardController::class, 'linkCreate'])->name('create');
+    Route::post('/', [DashboardController::class, 'linkStore'])->name('store');
+    Route::get('/{id}/edit', [DashboardController::class, 'linkEdit'])->name('edit');
+    Route::put('/{id}', [DashboardController::class, 'linkUpdate'])->name('update');
+    Route::delete('/{id}', [DashboardController::class, 'linkDestroy'])->name('destroy');
 });
 
 // PROFIL READ (Publik)
@@ -40,7 +48,7 @@ Route::middleware(['auth', 'verified'])->prefix('profil')->group(function () {
 // BERITA READ (Publik)
 Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
 
-// BERITA CU
+// BERITA CU (Admin Only)
 Route::middleware(['auth', 'verified'])->prefix('berita')->group(function () {
     Route::get('/create', [BeritaController::class, 'create'])->name('berita.create');
     Route::post('/', [BeritaController::class, 'store'])->name('berita.store');
@@ -69,13 +77,13 @@ Route::middleware(['auth', 'verified'])->prefix('informasi')->group(function () 
 // INFORMASI DETAIL
 Route::get('/informasi/{id}', [InformasiController::class, 'show'])->name('informasi.show');
 
-// FASILITAS  READ (Publik)
+// FASDIK  READ (Publik)
 Route::get('/fasilitas', [FasilitasController::class, 'index'])->name('fasilitas.index');
 Route::get('/fasilitas/umum', [FasilitasController::class, 'umum'])->name('fasilitas.umum');
 Route::get('/fasilitas/belajar', [FasilitasController::class, 'belajar'])->name('fasilitas.belajar');
 Route::get('/fasilitas/khusus', [FasilitasController::class, 'khusus'])->name('fasilitas.khusus');
 
-// FASILITAS CU
+// FASDIK CU (Admin Only)
 Route::middleware(['auth', 'verified'])->prefix('fasilitas')->group(function () {
     Route::get('/create', [FasilitasController::class, 'create'])->name('fasilitas.create');
     Route::post('/', [FasilitasController::class, 'store'])->name('fasilitas.store');
@@ -85,23 +93,8 @@ Route::middleware(['auth', 'verified'])->prefix('fasilitas')->group(function () 
     Route::delete('/{id}', [FasilitasController::class, 'destroy'])->name('fasilitas.destroy');
 });
 
-// FASILITAS DETAIL
+// FASDIK DETAIL
 Route::get('/fasilitas/{id}', [FasilitasController::class, 'show'])->name('fasilitas.show');
-
-
-// LINK READ (Publik)
-Route::get('/link', [LinkController::class, 'index'])->name('link.index');
-Route::get('/sadiklat', [LinkController::class, 'sadiklat'])->name('sadiklat.index');
-
-// LINK CU
-Route::middleware(['auth', 'verified'])->prefix('link')->group(function () {
-    Route::get('/create', [LinkController::class, 'create'])->name('link.create');
-    Route::post('/', [LinkController::class, 'store'])->name('link.store');
-
-    Route::get('/{id}/edit', [LinkController::class, 'edit'])->name('link.edit');
-    Route::put('/{id}', [LinkController::class, 'update'])->name('link.update');
-    Route::delete('/{id}', [LinkController::class, 'destroy'])->name('link.destroy');
-});
 
 // MODUL READ (Publik)
 Route::get('/modul', [ModulController::class, 'index'])->name('modul.index');

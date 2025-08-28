@@ -11,7 +11,6 @@ use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
-    // Menampilkan halaman HOME
     public function index()
     {
         $dashboards = Dashboard::latest()->get();
@@ -21,13 +20,11 @@ class DashboardController extends Controller
         return view('dashboard', compact('dashboards', 'beritas', 'links'));
     }
 
-    // Menampilkan form tambah data
     public function create()
     {
         return view('dashboard.create');
     }
 
-    // Menyimpan data baru
     public function store(Request $request)
     {
         $request->validate([
@@ -60,7 +57,6 @@ class DashboardController extends Controller
         return redirect()->route('dashboard.index')->with('success', 'Preview berhasil ditambahkan.');
     }
 
-    // Menampilkan form edit
     public function edit($id)
     {
         $dashboard = Dashboard::findOrFail($id);
@@ -69,7 +65,6 @@ class DashboardController extends Controller
         return view('dashboard.edit', compact('dashboard'));
     }
 
-    // Mengupdate data
     public function update(Request $request, $id)
     {
         $dashboard = Dashboard::findOrFail($id);
@@ -108,7 +103,6 @@ class DashboardController extends Controller
         return redirect()->route('dashboard.index')->with('success', 'Preview berhasil diperbarui.');
     }
 
-    // Menghapus data
     public function destroy($id)
     {
         $dashboard = Dashboard::findOrFail($id);
@@ -121,4 +115,73 @@ class DashboardController extends Controller
 
         return redirect()->route('dashboard.index')->with('success', 'Preview berhasil dihapus.');
     }
+
+    // === CRUD LINK DI DASHBOARD ===
+    public function linkCreate()
+    {
+        return view('dashboard.link-create');
+    }
+
+    public function linkStore(Request $request)
+    {
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'url' => 'required|url',
+            'logo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        $data = $request->only('nama', 'url');
+
+        if ($request->hasFile('logo')) {
+            $data['logo'] = $request->file('logo')->store('links', 'public');
+        }
+
+        Link::create($data);
+
+        return redirect()->route('dashboard.index')->with('success', 'Link berhasil ditambahkan.');
+    }
+
+    public function linkEdit($id)
+    {
+        $link = Link::findOrFail($id);
+        return view('dashboard.link-edit', compact('link'));
+    }
+
+    public function linkUpdate(Request $request, $id)
+    {
+        $link = Link::findOrFail($id);
+
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'url' => 'required|url',
+            'logo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        $data = $request->only('nama', 'url');
+
+        if ($request->hasFile('logo')) {
+            if ($link->logo && Storage::disk('public')->exists($link->logo)) {
+                Storage::disk('public')->delete($link->logo);
+            }
+            $data['logo'] = $request->file('logo')->store('links', 'public');
+        }
+
+        $link->update($data);
+
+        return redirect()->route('dashboard.index')->with('success', 'Link berhasil diperbarui.');
+    }
+
+    public function linkDestroy($id)
+    {
+        $link = Link::findOrFail($id);
+
+        if ($link->logo && Storage::disk('public')->exists($link->logo)) {
+            Storage::disk('public')->delete($link->logo);
+        }
+
+        $link->delete();
+
+        return redirect()->route('dashboard.index')->with('success', 'Link berhasil dihapus.');
+    }
+
 }

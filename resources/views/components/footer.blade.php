@@ -3,7 +3,7 @@
 
         <!-- Grid utama: Logo | Navigasi | Kontak -->
         <div class="grid grid-cols-1 md:grid-cols-[200px,1fr,1fr] gap-12">
-            
+
             {{-- Logo --}}
             <div class="flex items-start">
                 <img src="{{ asset('assets/images/logo_setukpa.png') }}" alt="Logo" class="w-28 h-auto">
@@ -18,9 +18,8 @@
 
                     <div class="text-left"><a href="{{ route('informasi.index') }}" class="hover:text-blue-300">INFORMASI</a></div>
                     <div class="text-center"><a href="{{ route('fasilitas.index') }}" class="hover:text-blue-300">FASDIK</a></div>
-                    <div class="text-right"><a href="{{ route('link.index') }}" class="hover:text-blue-300">LINK</a></div>
 
-                    <div class="text-left"><a href="{{ route('modul.index') }}" class="hover:text-blue-300">MODUL</a></div>
+                    <div class="text-right"><a href="{{ route('modul.index') }}" class="hover:text-blue-300">MODUL</a></div>
                 </div>
             </div>
 
@@ -37,7 +36,7 @@
                 </p>
                 <p class="flex items-center">
                     <i class="bi bi-envelope-fill mr-2 text-blue-400"></i>
-                    Email: 
+                    Email:
                     <a href="mailto:setukpaweb@gmail.com" class="hover:text-blue-300">
                         setukpaweb@gmail.com
                     </a>
