@@ -36,20 +36,66 @@
                     </select>
                 </div>
 
-                {{-- Mapel --}}
+{{-- Mapel --}}
                 <div class="mb-4">
                     <label class="block text-white font-semibold mb-1">Mapel</label>
                     <select name="mapel" class="w-full px-3 py-2 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none">
                         <option value="">-- Pilih Mapel --</option>
-                        <option value="Pancasila dan Wawasan Kebangsaan" {{ old('mapel', $modul->mapel) == 'Pancasila dan Wawasan Kebangsaan' ? 'selected' : '' }}>Pancasila dan Wawasan Kebangsaan</option>
-                        <option value="Etika Profesi dan Kepemimpinan" {{ old('mapel', $modul->mapel) == 'Etika Profesi dan Kepemimpinan' ? 'selected' : '' }}>Etika Profesi dan Kepemimpinan</option>
-                        <option value="Psikologi Kepolisian" {{ old('mapel', $modul->mapel) == 'Psikologi Kepolisian' ? 'selected' : '' }}>Psikologi Kepolisian</option>
-                        <option value="Komunikasi dan Hubungan Masyarakat" {{ old('mapel', $modul->mapel) == 'Komunikasi dan Hubungan Masyarakat' ? 'selected' : '' }}>Komunikasi dan Hubungan Masyarakat</option>
-                        <option value="Teknologi Informasi Kepolisian" {{ old('mapel', $modul->mapel) == 'Teknologi Informasi Kepolisian' ? 'selected' : '' }}>Teknologi Informasi Kepolisian</option>
-                        <option value="Cybercrime dan Digital Forensik" {{ old('mapel', $modul->mapel) == 'Cybercrime dan Digital Forensik' ? 'selected' : '' }}>Cybercrime dan Digital Forensik</option>
-                        <option value="Kesehatan Jasmani dan Bela Diri Polri" {{ old('mapel', $modul->mapel) == 'Kesehatan Jasmani dan Bela Diri Polri' ? 'selected' : '' }}>Kesehatan Jasmani dan Bela Diri Polri</option>
-                        <option value="Sistem Informasi Kriminal Nasional" {{ old('mapel', $modul->mapel) == 'Sistem Informasi Kriminal Nasional' ? 'selected' : '' }}>Sistem Informasi Kriminal Nasional</option>
-                        <option value="Intelijen Kepolisian" {{ old('mapel', $modul->mapel) == 'Intelijen Kepolisian' ? 'selected' : '' }}>Intelijen Kepolisian</option>
+                        @php
+                            $mapels = [
+                                "Wawasan Kebangsaan",
+                                "Etika Dan Kode Etik Profesi Polri",
+                                "Peraturan Pemerintah Nomor 1, 2, Dan 3 Tahun 2003",
+                                "Nilai Sejarah Polri",
+                                "Integritas Dan Budaya Anti Korupsi",
+                                "Hukum Pidana Dan Hukum Acara Pidana",
+                                "Pengetahuan Tentang Ham",
+                                "Diskresi & Restorative Justice",
+                                "PPA dan ABH",
+                                "Manajemen Training Level I",
+                                "Kepemimpinan",
+                                "Sistem, Manajemen Dan Standar Keberhasilan Operasioanal Kepolisian",
+                                "Sistem Pelayanan Kepolisian Terpadu",
+                                "Manajemen Fungsi Intelkam",
+                                "Manajemen Fungsi Binmas",
+                                "Manajemen Fungsi Sabhara",
+                                "Manajemen Fungsi Lantas",
+                                "Manajemen Fungsi Reserse",
+                                "Perencanaan Dan Penganggaran Polri",
+                                "Manajemen Sdm Polri",
+                                "Manajemen Logistik Polri",
+                                "Keuangan Polri",
+                                "Manajemen Tingkat Polsek",
+                                "Community Policing",
+                                "Democtratic Policing",
+                                "Predictive Policing",
+                                "Konflik Sosial",
+                                "Komunikasi Sosial",
+                                "Pelayanan Prima",
+                                "Manajemen Penanggulangan Bencana",
+                                "Search and Rescue (SAR)",
+                                "Identifikasi Kepolisian",
+                                "Laboratorium Forensik Kedokteran Kepolisian",
+                                "Tata Naskah Dinas Di Lingkungan Polri",
+                                "Tata Upacara Dan Pedang Perwira",
+                                "Penggunaan Senjata Api Dan Menembak",
+                                "Teknik Keselamatan Dan Bela Diri Polri",
+                                "Sistem Pelayanan Polri Berbasis Elektronik",
+                                "Psikologi Sosial Dan Teknik Dasar Konseling",
+                                "Manajemen Kehumasan Polri",
+                                "Teknologi Informasi Kepolisian",
+                                "Pencegahan Kejahatan (Crime Prevention)",
+                                "Gladi Wirottama",
+                                "Porismas",
+                                "Latihan Teknis/Latihan Kerja",
+                                "Ujian Kompetensi Perwira Pertama"
+                            ];
+                        @endphp
+                        @foreach($mapels as $mapel)
+                            <option value="{{ $mapel }}" {{ old('mapel', $modul->mapel) == $mapel ? 'selected' : '' }}>
+                                {{ $mapel }}
+                            </option>
+                        @endforeach
                     </select>
                 </div>
 
