@@ -54,7 +54,7 @@
                         <div class="bg-white shadow-md rounded-lg overflow-hidden flex flex-col hover:scale-105 transition duration-300 ease-in-out relative">
 
                             {{-- Bagian yang bisa diklik --}}
-                            <a href="{{ $link->kategori === 'sadiklat' ? route('sadiklat.index') : $link->url }}"
+                            <a href="{{ $link->url }}"
                                 target="_blank"
                                 class="flex flex-col text-inherit no-underline cursor-pointer">
 
