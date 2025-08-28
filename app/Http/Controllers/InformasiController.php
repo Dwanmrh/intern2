@@ -28,7 +28,7 @@ class InformasiController extends Controller
             'deskripsi' => 'nullable|string',
             'tanggal' => 'required|string',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:23000',
-            'file_informasi' => 'nullable|mimes:pdf|max:10240',
+            'file_informasi' => 'nullable|mimes:pdf|max:15000',
         ]);
 
         // Rule: kalau deskripsi diisi manual → tidak boleh upload PDF
@@ -103,7 +103,7 @@ class InformasiController extends Controller
             'deskripsi' => 'nullable|string',
             'tanggal' => 'required|string',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:23000',
-            'file_informasi' => 'nullable|mimes:pdf|max:10240',
+            'file_informasi' => 'nullable|mimes:pdf|max:15000',
         ]);
 
         // Rule: kalau deskripsi diisi manual → tidak boleh upload PDF

@@ -7,7 +7,7 @@
 
             {{-- CARD UTAMA --}}
             <div class="shadow rounded-lg p-6 mb-10"
-                 style="background-color: rgba(255, 255, 255, 0.95);">
+                style="background-color: rgba(255, 255, 255, 0.95);">
 
                 {{-- BARIS ATAS: KEMBALI + JUDUL + TAMBAH --}}
                 <div class="grid grid-cols-3 items-center mb-6">
@@ -15,17 +15,18 @@
                     {{-- Tombol Kembali (kiri) --}}
                     <div class="flex items-center">
                         <a href="{{ route('modul.index') }}"
-                            class="inline-flex items-center px-3 py-1.5 bg-gray-700 hover:bg-gray-800 text-white text-sm font-medium rounded transition duration-200">
-                            <i class="bi-chevron-left"></i> Kembali
+                        class="inline-flex items-center px-3 py-2 bg-gradient-to-r from-gray-700 to-gray-800 
+                                hover:from-gray-800 hover:to-black text-white text-sm font-medium rounded-lg shadow transition">
+                                <i class="bi-chevron-left"></i> Kembali
                         </a>
                     </div>
 
                     {{-- JUDUL (tengah, selalu center) --}}
                     <div class="text-center">
-                        <h2 class="text-lg md:text-xl lg:text-xl font-bold text-white 
-                                   inline-flex items-center gap-2 
-                                   bg-gray-700 px-6 py-1
-                                   rounded-xl shadow-md">
+                        <h2 class="text-lg md:text-xl lg:text-base font-bold text-white 
+                                inline-flex items-center gap-2 
+                                bg-gradient-to-r from-slate-700 via-slate-600 to-slate-800 px-6 py-1
+                                rounded-xl shadow-md">
                             <i class="bi bi-person-workspace text-xl md:text-xl"></i>
                             MODUL PAG
                         </h2>
@@ -36,9 +37,9 @@
                         @auth
                             @if(in_array(Auth::user()->role, ['admin', 'personel']))
                                 <a href="{{ route('modul.create') }}"
-                                    class="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 
-                                           hover:from-cyan-500 hover:via-blue-600 hover:to-blue-800 
-                                           text-white px-4 py-1.5 rounded-md text-sm shadow-md transition duration-300 ease-in-out">
+                                    class="bg-gradient-to-r from-cyan-500 via-blue-600 to-blue-800
+                                            hover:from-cyan-600 hover:via-blue-700 hover:to-blue-900
+                                            text-white px-4 py-1.5 rounded-md text-sm shadow-xs transition duration-300 ease-in-out">
                                     <i class="bi bi-plus-circle text-base text-white"></i>
                                     Tambah Modul
                                 </a>
@@ -51,7 +52,8 @@
                 <form method="GET" action="{{ route('modul.pag') }}" class="flex flex-wrap items-center gap-3 mb-6">
                     <select name="tahun" 
                             class="form-select text-sm rounded-md w-auto min-w-[100px] max-w-[130px] 
-                                bg-[#edf0f8] text-black border border-gray-300 focus:border-blue-400 focus:ring-blue-300">
+                            bg-gray-100 text-gray-800 border border-gray-300
+                            text-black border border-gray-300 focus:border-blue-400 focus:ring-blue-300">
                         <option value="">Pilih Tahun</option>
                         @foreach ($allTahun as $tahun)
                             <option value="{{ $tahun }}" {{ request('tahun') == $tahun ? 'selected' : '' }}>
@@ -118,9 +120,9 @@
                                         {{-- Aksi Edit & Hapus --}}
                                         @auth
                                             @if(in_array(Auth::user()->role, ['admin', 'personel']))
-                                                <div class="flex justify-end gap-4 mt-2">
+                                                <div class="flex justify-end gap-2 mt-2">
                                                     <a href="{{ route('modul.edit', $modul->id) }}" @click.stop
-                                                        class="text-blue-600 hover:text-blue-800 transition" title="Edit">
+                                                    class="p-2 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 shadow-md transition" title="Edit">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
                                                             viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -129,7 +131,7 @@
                                                     </a>
 
                                                     <button type="button" @click.stop
-                                                            class="text-red-600 hover:text-red-800 transition"
+                                                            class="p-2 rounded-full bg-red-50 text-red-600 hover:bg-red-100 shadow-md transition"
                                                             data-bs-toggle="modal"
                                                             data-bs-target="#hapusModulModal{{ $modul->id }}"
                                                             title="Hapus">

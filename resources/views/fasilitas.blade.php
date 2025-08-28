@@ -10,8 +10,9 @@
 
                 {{-- Judul Header (tengah, selalu center) --}}
                 <div class="text-center">
-                    <h2 class="text-lg md:text-xl lg:text-xl font-bold text-white inline-flex items-center gap-2
-                            bg-gray-700 px-4 py-1 rounded-xl shadow-md">
+                    <h2 class="text-lg md:text-xl lg:text-base font-bold text-white inline-flex items-center gap-2
+                            bg-gradient-to-r from-slate-700 via-slate-600 to-slate-800
+                            px-4 py-1 rounded-xl shadow-md">
                         <i class="bi bi-bank2 text-white text-xl md:text-lg"></i>
                         FASILITAS PENDIDIKAN
                     </h2>
@@ -24,7 +25,7 @@
                         class="absolute right-6 top-6
                                 bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700
                                 hover:from-cyan-500 hover:via-blue-600 hover:to-blue-800
-                                text-white px-4 py-1.5 rounded-md text-sm shadow-md
+                                text-white px-3 py-1.5 rounded-md text-sm shadow-md
                                 transition duration-300 ease-in-out inline-flex items-center">
                             <i class="bi bi-plus-circle text-sm mr-1"></i>
                             Tambah Fasdik
@@ -82,20 +83,22 @@
                                 {{-- Aksi Edit & Hapus --}}
                                 @auth
                                     @if(in_array(Auth::user()->role, ['admin', 'personel']))
-                                        <div class="flex gap-4 mt-2">
+                                        <div class="flex gap-2 mt-2">
                                             {{-- Tombol Edit --}}
                                             <a href="{{ route('fasilitas.edit', $item->id) }}" onclick="event.stopPropagation()"
-                                                class="text-blue-600 hover:text-blue-800 transition" title="Edit">
+                                            class="p-2 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 shadow-md transition"
+                                            title="Edit">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
                                                     viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-5M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                                        d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-5M18.5 2.5a2.121
+                                                            2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z"/>
                                                 </svg>
                                             </a>
 
                                             {{-- Tombol Hapus --}}
                                             <button type="button" onclick="event.stopPropagation()"
-                                                    class="text-red-600 hover:text-red-800 transition"
+                                                    class="p-2 rounded-full bg-red-50 text-red-600 hover:bg-red-100 shadow-md transition"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#hapusFasilitasModal{{ $item->id }}"
                                                     title="Hapus">
@@ -135,7 +138,7 @@
                             @csrf @method('DELETE')
                             <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Hapus</button>
                         </form>
-                        <button type="button" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400" data-bs-dismiss="modal">Batal</button>
+                        <button type="button" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-800" data-bs-dismiss="modal">Batal</button>
                     </div>
                 </div>
             </div>
@@ -150,9 +153,9 @@
                     <div class="modal-content bg-transparent border-0 shadow-none relative">
 
                         {{-- Tombol Tutup (ikon X di pojok kanan atas) --}}
-                        <button type="button" 
-                                class="absolute top-3 right-3 text-white bg-black/40 hover:bg-black/80 
-                                    rounded-full w-10 h-10 flex items-center justify-center 
+                        <button type="button"
+                                class="absolute top-3 right-3 text-white bg-black/40 hover:bg-black/80
+                                    rounded-full w-10 h-10 flex items-center justify-center
                                     shadow-lg transition z-10"
                                 data-bs-dismiss="modal" aria-label="Close">
                             <i class="bi bi-x-lg text-xl"></i>

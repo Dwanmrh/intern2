@@ -49,6 +49,9 @@
                     <label class="block text-white font-semibold mb-1">Ganti Logo (Opsional)</label>
                     <input type="file" name="logo" id="logoInput"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-400">
+                        <p class="mt-1 text-sm text-red-500">
+                        Ukuran file max 15 MB
+                    </p>
 
                     {{-- Preview Logo Baru --}}
                     <div id="logoPreviewContainer" class="mt-3 hidden">

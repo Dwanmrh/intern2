@@ -67,6 +67,9 @@
                     <label class="block text-white font-semibold mb-1">Ganti File (Opsional)</label>
                     <input type="file" name="file" id="fileInput"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-400">
+                         <p class="mt-1 text-sm text-red-500">
+                        Ukuran file max 40 MB
+                    </p>
 
                     {{-- Preview File Baru --}}
                     <div id="filePreviewContainer" class="mt-3 hidden">

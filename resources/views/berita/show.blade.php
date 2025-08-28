@@ -4,10 +4,9 @@
 
     <div class="py-6">
         <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
-
-            {{-- HERO IMAGE + Judul --}}
+                {{-- HERO IMAGE + Judul --}}
             @if ($berita->foto)
-                <div class="relative w-full aspect-[2/1] rounded-xl overflow-hidden shadow-lg mb-8">
+            <div class="relative w-full aspect-[2/1] rounded-xl overflow-hidden shadow-lg mb-8">
                     <img src="{{ asset('storage/' . $berita->foto) }}"
                          alt="{{ $berita->judul }}"
                          class="w-full h-full object-cover">
@@ -21,9 +20,6 @@
                     </div>
                 </div>
             @endif
-
-            <div class="bg-white p-6 md:p-10 rounded-xl shadow-md">
-
                 {{-- Info Berita --}}
                 <div class="flex flex-wrap items-center text-lg text-gray-500 gap-4 mb-6">
                     {{-- Tanggal --}}
@@ -44,7 +40,7 @@
                 </div>
 
                 {{-- Share Section --}}
-                <div class="mt-8 border-t pt-6 flex items-center justify-between flex-wrap gap-3">
+                <div class="mt-8 border-t border-gray-300 text-gray-500 pt-6 flex items-center justify-between flex-wrap gap-3">
                     <span class="text-lg text-gray-500">Bagikan berita ini:</span>
                     <div class="flex gap-3 text-lg">
                         {{-- FACEBOOK tetap --}}
@@ -83,12 +79,12 @@
                     @endphp
 
                     <a href="{{ str_contains($previous, 'berita') ? $beritaIndex : $home }}"
-                       class="inline-flex items-center gap-2 bg-gray-800 hover:bg-gray-900 text-white px-5 py-2.5 rounded-lg text-sm shadow-md transition">
+                    class="inline-flex items-center px-3 py-2 bg-gradient-to-r from-gray-700 to-gray-800 
+                        hover:from-gray-800 hover:to-black text-white text-sm font-medium rounded-lg shadow transition">
                         <i class="bi-chevron-left"></i> Kembali
                     </a>
                 </div>
             </div>
-        </div>
     </div>
 
     {{-- Script untuk Copy Toast --}}

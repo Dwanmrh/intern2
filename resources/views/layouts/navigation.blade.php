@@ -5,7 +5,7 @@
         <div class="flex justify-between items-center w-full">
 
             <!-- LEFT: Logo + Nav -->
-            <div class="flex items-center space-x-6">
+            <div class="flex items-center space-x-16">
                 <!-- Logo -->
                 <a href="{{ route('dashboard.index') }}" class="flex items-center space-x-3 shrink-0">
                     <img src="{{ asset('assets/images/logo_setukpa.png') }}" class="h-12 w-auto" alt="Logo" />
@@ -17,22 +17,22 @@
                 </a>
 
                 <!-- Desktop Navigation -->
-                <div class="hidden lg:flex items-center space-x-6 text-sm font-medium">
-                    @php
-                        $navItems = [
-                            ['name' => 'HOME', 'route' => 'dashboard.index'],
-                            ['name' => 'PROFIL', 'route' => 'profil.index'],
-                            ['name' => 'BERITA', 'route' => 'berita.index'],
-                            ['name' => 'INFORMASI', 'route' => 'informasi.index'],
-                            ['name' => 'FASDIK', 'route' => 'fasilitas.index'],
-                            ['name' => 'MODUL', 'route' => 'modul.index'],
-                        ];
+                <div class="hidden lg:flex items-center flex-1 justify-center space-x-8 text-sm font-medium">
+                @php
+                    $navItems = [
+                        ['name' => 'HOME', 'routes' => ['dashboard.index','dashboard.create','dashboard.edit','dashboard.link.create','dashboard.link.edit']],
+                        ['name' => 'PROFIL', 'routes' => ['profil.index','profil.create','profil.edit']],
+                        ['name' => 'BERITA', 'routes' => ['berita.index','berita.show','berita.create','berita.edit']],
+                        ['name' => 'INFORMASI', 'routes' => ['informasi.index','informasi.create','informasi.edit']],
+                        ['name' => 'FASDIK', 'routes' => ['fasilitas.index','fasilitas.create','fasilitas.edit']],
+                        ['name' => 'MODUL', 'routes' => ['modul.index','modul.sip','modul.pag','modul.create','modul.edit']],
+                    ];
                     @endphp
                     @foreach ($navItems as $item)
                         <x-nav-link
-                            :href="route($item['route'])"
-                            :active="request()->routeIs($item['route'])"
-                            class="{{ request()->routeIs($item['route'])
+                            :href="route($item['routes'][0])"
+                            :active="collect($item['routes'])->contains(fn($route) => request()->routeIs($route))"
+                            class="{{ collect($item['routes'])->contains(fn($route) => request()->routeIs($route))
                                 ? 'bg-gray-100 text-blue-500 px-2 py-1 rounded-md font-semibold text-sm'
                                 : 'text-white hover:bg-gray-500 hover:text-white px-2 py-1 rounded-md transition font-medium text-sm' }}">
                             {{ __($item['name']) }}
@@ -41,7 +41,7 @@
                 </div>
 
                 <!-- CENTER: Search -->
-                <div class="hidden lg:flex items-center mx-4">
+                <div class="hidden lg:flex items-center mx-8">
                     <div class="relative w-64 search-container">
                         <svg xmlns="http://www.w3.org/2000/svg"
                             class="absolute left-2 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400"

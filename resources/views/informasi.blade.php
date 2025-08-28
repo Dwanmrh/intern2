@@ -6,9 +6,9 @@
 
             {{-- CARD PERSYARATAN --}}
                 <div class="text-center">
-                    <h2 class="text-lg md:text-xl lg:text-xl font-bold text-white inline-flex items-center gap-2
-                            bg-gray-700 px-4 py-1 rounded-xl shadow-md
-                            hover:scale-105 transition-transform duration-300">
+                    <h2 class="text-lg md:text-xl lg:text-base font-bold text-white inline-flex items-center gap-2
+                    bg-gradient-to-r from-slate-700 via-slate-600 to-slate-800 
+                            px-4 py-1 rounded-xl shadow-md">
                         <i class="bi bi-journal-check text-white text-xl md:text-lg"></i>
                         PERSYARATAN MASUK SETUKPA
                     </h2>
@@ -112,9 +112,9 @@
           {{-- BUTTON INFORMASI LEBIH LANJUT --}}
         <div class="mt-8 mb-6">
             <a href="https://penerimaan.polri.go.id/" target="_blank" rel="noopener noreferrer"
-                class="cursor-pointer w-full block text-center bg-yellow-500 
-                    text-black font-extrabold text-xl py-3 rounded-lg shadow-lg 
-                    hover:bg-yellow-500 hover:scale-[1.02] 
+                class="cursor-pointer w-full block text-center bg-yellow-500
+                    text-black font-extrabold text-base py-3 rounded-lg shadow-lg
+                    hover:bg-yellow-500 hover:scale-[1.02]
                     transition transform duration-300">
                 <i class="bi bi-info-circle mr-2"></i>
                 Lihat Informasi Lebih Lanjut
@@ -127,8 +127,9 @@
 
                 {{-- Judul dan Tombol Tambah --}}
                 <div class="text-center">
-                    <h2 class="text-lg md:text-xl lg:text-xl font-bold text-white inline-flex items-center gap-2
-                            bg-gray-700 px-6 py-1 rounded-xl shadow-md">
+                    <h2 class="text-lg md:text-xl lg:text-base font-bold text-white inline-flex items-center gap-2
+                            bg-gradient-to-r from-slate-700 via-slate-600 to-slate-800
+                            px-6 py-1 rounded-xl shadow-md">
                         <i class="bi bi-calendar-event text-white text-xl md:text-xl"></i>
                         INFORMASI
                     </h2>
@@ -137,9 +138,9 @@
                         @if(Auth::user()->role === 'admin')
                             <div class="absolute right-8 top-8">
                                 <a href="{{ route('informasi.create') }}"
-                                   class="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700
-                                          hover:from-cyan-500 hover:via-blue-600 hover:to-blue-800
-                                          text-white px-4 py-2 rounded-md text-sm shadow-md transition duration-300 ease-in-out">
+                                   class="bg-gradient-to-r from-cyan-500 via-blue-600 to-blue-800
+                                          hover:from-cyan-600 hover:via-blue-700 hover:to-blue-900
+                                          text-white px-3 py-2.5 rounded-md text-sm shadow-md transition duration-300 ease-in-out">
                                     <i class="bi bi-plus-circle text-base"></i>
                                     Tambah Informasi
                                 </a>
@@ -208,30 +209,35 @@
                             <div class="px-4 pb-4 pt-1 flex items-center justify-between">
                                 <button @click.stop="showDetailBtn = !showDetailBtn"
                                         class="bg-blue-500 hover:bg-blue-900 text-white px-4 py-2 rounded-md
-                                               text-sm font-medium shadow-md transition duration-300">
+                                            text-sm font-medium shadow-md transition duration-300">
                                     <span x-text="showDetailBtn ? 'Tutup' : 'Baca Lebih Lanjut'"></span>
                                 </button>
 
                                 @auth
                                     @if(Auth::user()->role === 'admin')
-                                        <div class="flex gap-4">
+                                        <div class="flex gap-2">
+                                            {{-- Edit --}}
                                             <a href="{{ route('informasi.edit', $data->id) }}" @click.stop
-                                               class="text-blue-600 hover:text-blue-800 transition" title="Edit">
+                                            class="p-2 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 shadow-md transition"
+                                            title="Edit">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                                     viewBox="0 0 24 24" stroke="currentColor">
+                                                    viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                          d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-5M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                                        d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-5M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4
+                                                            9.5-9.5z"/>
                                                 </svg>
                                             </a>
+
+                                            {{-- Hapus --}}
                                             <button type="button" @click.stop
-                                                    class="text-red-600 hover:text-red-800 transition"
+                                                    class="p-2 rounded-full bg-red-50 text-red-600 hover:bg-red-100 shadow-md transition"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#hapusInformasiModal{{ $data->id }}"
                                                     title="Hapus">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                                     viewBox="0 0 24 24" stroke="currentColor">
+                                                    viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7h6m-3-4v4"/>
+                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7h6m-3-4v4"/>
                                                 </svg>
                                             </button>
                                         </div>
@@ -264,7 +270,7 @@
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Hapus</button>
                                 </form>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                <button type="button" class="btn btn-secondary bg-blue-600 text-white rounded hover:bg-blue-800" data-bs-dismiss="modal">Batal</button>
                             </div>
                         </div>
                     </div>
@@ -272,44 +278,59 @@
             @endforeach
 
             {{-- Media Sosial dan Kontak --}}
-            <div class="mt-16 mb-16 bg-gradient-to-b from-[#dfe0e8] to-white rounded-lg px-6 py-10 text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <h2 class="text-2xl font-bold text-[#2c3e50] mb-6">Media Sosial dan Kontak</h2>
-                <div class="flex flex-wrap justify-center gap-6 mb-10 mt-5 ">
+            <div class="mb-6 shadow rounded-lg py-8 px-6 bg-gradient-to-b from-white to-blue-50 border-t-4 border-blue-400">
+                {{-- Header --}}
+                <div class="flex justify-center items-center mb-6">
+                    <h2 class="font-bold text-2xl text-[#2c3e50] flex items-center gap-2 mb-3">
+                        MEDIA SOSIAL & KONTAK
+                    </h2>
+                </div>
+
+                {{-- Body --}}
+                <div class="flex justify-center flex-wrap gap-6 mt-4 mb-6">
+                    {{-- Instagram --}}
                     <a href="https://www.instagram.com/humas_setukpa?igsh=MTE3dWU4emFjYjFtdg=="
-                       class="bg-white shadow p-4 h-32 rounded-lg w-28 text-sm flex flex-col items-center justify-center
-                              hover:shadow-2xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 cursor-pointer">
-                        <i class="bi bi-instagram text-2xl mb-2"></i>
-                        <span>Instagram</span>
+                        class="bg-white shadow-md border border-gray-200 rounded-xl w-32 h-32 flex flex-col items-center justify-center
+                            hover:shadow-xl hover:-translate-y-1 hover:scale-105 transition-all duration-300">
+                        <i class="bi bi-instagram text-3xl text-pink-500 mb-2"></i>
+                        <span class="font-medium text-gray-700 text-center">Instagram</span>
                     </a>
+
+                    {{-- YouTube --}}
                     <a href="https://youtube.com/@humassetukpa566?si=b4Ret7QbAoK5vW39"
-                       class="bg-white shadow p-4 h-32 rounded-lg w-28 text-sm flex flex-col items-center justify-center
-                              hover:shadow-2xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 cursor-pointer">
-                        <i class="bi bi-youtube text-2xl mb-2"></i>
-                        <span>YouTube</span>
+                        class="bg-white shadow-md border border-gray-200 rounded-xl w-32 h-32 flex flex-col items-center justify-center
+                            hover:shadow-xl hover:-translate-y-1 hover:scale-105 transition-all duration-300">
+                        <i class="bi bi-youtube text-3xl text-red-600 mb-2"></i>
+                        <span class="font-medium text-gray-700 text-center">YouTube</span>
                     </a>
+
+                    {{-- TikTok --}}
                     <a href="https://www.tiktok.com/@humas_setukpa?_t=ZS-8yOduXJ7cs4&_r=1"
-                       class="bg-white shadow p-4 h-32 rounded-lg w-28 text-sm flex flex-col items-center justify-center
-                              hover:shadow-2xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 cursor-pointer">
-                        <i class="bi bi-tiktok text-2xl mb-2"></i>
-                        <span>TikTok</span>
+                        class="bg-white shadow-md border border-gray-200 rounded-xl w-32 h-32 flex flex-col items-center justify-center
+                            hover:shadow-xl hover:-translate-y-1 hover:scale-105 transition-all duration-300">
+                        <i class="bi bi-tiktok text-3xl text-black mb-2"></i>
+                        <span class="font-medium text-gray-700 text-center">TikTok</span>
                     </a>
-                    <div x-data="{ modalOpen: false }">
+
+                    {{-- Telpon --}}
+                    <div x-data="{ modalOpen: false }" class="relative">
                         <button @click="modalOpen = true"
-                                class="bg-white shadow p-4 h-32 rounded-lg w-28 text-sm flex flex-col items-center justify-center
-                                       hover:shadow-2xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 cursor-pointer">
-                            <i class="bi bi-telephone text-2xl mb-2"></i>
-                            <span>Telpon</span>
+                                class="bg-white shadow-md border border-gray-200 rounded-xl w-32 h-32 flex flex-col items-center justify-center
+                                    hover:shadow-xl hover:-translate-y-1 hover:scale-105 transition-all duration-300">
+                            <i class="bi bi-telephone text-3xl text-green-600 mb-2"></i>
+                            <span class="font-medium text-gray-700 text-center">Telpon</span>
                         </button>
 
-                        <div x-show="modalOpen"
-                             class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50"
-                             x-cloak>
+                        {{-- Modal --}}
+                        <div x-show="modalOpen" x-transition
+                            class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50"
+                            x-cloak>
                             <div class="bg-white p-6 rounded-lg shadow-lg w-80">
                                 <h2 class="text-lg font-semibold mb-4">Konfirmasi Panggilan</h2>
                                 <p>Apakah Anda ingin menelepon <strong>062266225481</strong>?</p>
                                 <div class="mt-6 flex justify-end gap-3">
                                     <a href="tel:062266225481"
-                                       class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
+                                    class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
                                         Panggil
                                     </a>
                                     <button @click="modalOpen = false"
@@ -324,7 +345,7 @@
             </div>
 
             {{-- Peta --}}
-            <div class="mt-10 mb-10 w-full">
+            <div class="mt-6 mb-10 w-full">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15843.305004477184!2d106.90528948715817!3d-6.911367899999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6848356fffffff%3A0xf319c6be506068e7!2sEducational%20Establishment%20Officer!5e0!3m2!1sen!2sid!4v1753245232528!5m2!1sen!2sid"
                         width="100%" height="320" style="border:0;" allowfullscreen="" loading="lazy"
                         referrerpolicy="no-referrer-when-downgrade" class="rounded-lg shadow-md">

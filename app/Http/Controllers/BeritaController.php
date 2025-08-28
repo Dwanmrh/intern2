@@ -28,7 +28,7 @@ class BeritaController extends Controller
             'isi_berita' => 'nullable|string',
             'tanggal' => 'required|string',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:23000',
-            'file_berita' => 'nullable|mimes:pdf|max:10240',
+            'file_berita' => 'nullable|mimes:pdf|max:15000',
         ]);
 
         // Cek rule: jika isi_berita diisi manual, file_berita tidak boleh di-upload
@@ -104,7 +104,7 @@ class BeritaController extends Controller
             'isi_berita' => 'nullable|string',
             'tanggal' => 'required|string',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:23000',
-            'file_berita' => 'nullable|mimes:pdf|max:10240',
+            'file_berita' => 'nullable|mimes:pdf|max:15000',
         ]);
 
         // Rule: kalau isi berita diisi manual → tidak boleh upload PDF

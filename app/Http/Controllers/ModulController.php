@@ -72,7 +72,7 @@ class ModulController extends Controller
     {
         $request->validate([
             'judul'     => 'required|string',
-            'file'      => 'required|mimes:pdf|max:2048',
+            'file'      => 'required|mimes:pdf|max:20000',
             'deskripsi' => 'nullable|string',
             'prodiklat' => 'required|string',
             'mapel'     => 'nullable|string',
@@ -114,7 +114,7 @@ class ModulController extends Controller
     {
         $request->validate([
             'judul'     => 'required|string',
-            'file'      => 'nullable|mimes:pdf|max:2048',
+            'file'      => 'nullable|mimes:pdf|max:20000',
             'deskripsi' => 'nullable|string',
             'prodiklat' => 'nullable|string',
             'mapel'     => 'nullable|string',

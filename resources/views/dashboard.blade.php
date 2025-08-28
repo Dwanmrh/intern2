@@ -123,7 +123,7 @@
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Hapus</button>
                                 </form>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                <button type="button" class="btn btn-secondary bg-blue-600 text-white rounded hover:bg-blue-800" data-bs-dismiss="modal">Batal</button>
                             </div>
                         </div>
                     </div>
@@ -172,36 +172,117 @@
             </div>
 
             {{-- Section Logo Link Terkait --}}
-            @if($links->count())
+            @if($links->count() || Auth::user()->role === 'admin')
                 <div class="mb-10 mt-8 shadow rounded-lg p-8 bg-white border-t-4 border-blue-400 text-center">
 
                     {{-- Header --}}
-                    <div class="mb-6">
-                        <p class="text-sm uppercase text-gray-500 tracking-wide">Related Unit</p>
-                        <h2 class="font-bold text-2xl text-[#2c3e50]">INSTANSI TERKAIT</h2>
-                    </div>
+                    <div class="grid grid-cols-3 items-center mb-6">
+                        <div></div> {{-- kosong biar judul bisa center --}}
 
+                        {{-- Judul di tengah --}}
+                        <div class="text-center">
+                            <p class="text-sm uppercase text-gray-500 tracking-wide">Related Unit</p>
+                            <h2 class="font-bold text-2xl text-[#2c3e50]">INSTANSI TERKAIT</h2>
+                        </div>
+
+                        {{-- Tombol di kanan --}}
+                        <div class="flex justify-end">
+                            @auth
+                                @if(Auth::user()->role === 'admin')
+                                    <a href="{{ route('dashboard.link.create') }}"
+                                    class="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700
+                                hover:from-cyan-500 hover:via-blue-600 hover:to-blue-800
+                                text-white px-3 py-1.5 rounded-md text-sm shadow-md
+                                transition duration-300 ease-in-out inline-flex items-center">
+                                <i class="bi bi-plus-circle text-sm mr-1"></i>
+                                        Tambah Link
+                                    </a>
+                                @endif
+                            @endauth
+                        </div>
+                    </div>
+                    
                     {{-- Grid Logo --}}
                     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-10 place-items-center">
                         @foreach($links as $link)
-                            <a href="{{ $link->kategori === 'sadiklat' ? route('sadiklat.index') : $link->url }}"
-                            target="_blank"
-                            class="flex flex-col items-center gap-2 hover:scale-105 transition transform">
-
-                                @if ($link->logo)
-                                    <img src="{{ asset('storage/' . $link->logo) }}"
-                                        alt="{{ $link->nama }}"
-                                        class="max-h-20 object-contain">
-                                @else
-                                    <div class="w-20 h-20 flex items-center justify-center bg-gray-100 rounded-full text-gray-500 text-sm">
-                                        Tanpa Logo
-                                    </div>
-                                @endif
+                            <div class="flex flex-col items-center gap-2">
+                                <a href="{{ $link->url }}" target="_blank"
+                                    class="hover:scale-105 transition transform">
+                                    @if ($link->logo)
+                                        <img src="{{ asset('storage/' . $link->logo) }}"
+                                            alt="{{ $link->nama }}"
+                                            class="max-h-20 object-contain">
+                                    @else
+                                        <div class="w-20 h-20 flex items-center justify-center bg-gray-100 rounded-full text-gray-500 text-sm">
+                                            Tanpa Logo
+                                        </div>
+                                    @endif
+                                </a>
 
                                 <span class="font-semibold text-sm text-[#2c3e50] uppercase tracking-wide">
                                     {{ $link->nama }}
                                 </span>
-                            </a>
+
+                                {{-- Tombol Edit / Hapus --}}
+                                @auth
+                                    @if(Auth::user()->role === 'admin')
+                                        <div class="flex justify-center items-center gap-3 mt-2">
+                                            {{-- Tombol Edit --}}
+                                            <a href="{{ route('dashboard.link.edit', $link->id) }}"
+                                            class="p-2 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 shadow-md transition"
+                                            title="Edit">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M11 5H6a2 2 0 00-2 2v12a2 2 0
+                                                            002 2h12a2 2 0 002-2v-5M18.5
+                                                            2.5a2.121 2.121 0 113 3L12 15l-4
+                                                            1 1-4 9.5-9.5z"/>
+                                                </svg>
+                                            </a>
+
+                                            {{-- Tombol Hapus (trigger modal) --}}
+                                            <button type="button"
+                                                    class="p-2 rounded-full bg-red-50 text-red-600 hover:bg-red-100 shadow-md transition"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#hapusLinkModal{{ $link->id }}"
+                                                    title="Hapus">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M19 7l-.867 12.142A2 2 0
+                                                            0116.138 21H7.862a2 2 0
+                                                            01-1.995-1.858L5 7m5
+                                                            4v6m4-6v6M9 7h6m-3-4v4"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+
+                                        {{-- Modal Konfirmasi Hapus --}}
+                                        <div class="modal fade" id="hapusLinkModal{{ $link->id }}" tabindex="-1" aria-labelledby="hapusLinkLabel{{ $link->id }}" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header bg-danger text-white">
+                                                        <h5 class="modal-title" id="hapusLinkLabel{{ $link->id }}">Konfirmasi Hapus</h5>
+                                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Apakah anda yakin ingin menghapus link <strong>{{ $link->nama }}</strong>?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <form action="{{ route('dashboard.link.destroy', $link->id) }}" method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger">Hapus</button>
+                                                        </form>
+                                                        <button type="button" class="btn btn-secondary bg-blue-600 text-white rounded hover:bg-blue-800" data-bs-dismiss="modal">Batal</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endauth
+                            </div>
                         @endforeach
                     </div>
                 </div>

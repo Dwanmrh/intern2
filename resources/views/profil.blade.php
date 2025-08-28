@@ -1,10 +1,30 @@
+
+
+
 <x-app-layout>
     @section('title', 'PROFIL | SETUKPA LEMDIKLAT POLRI')
 
     <div class="py-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
+            {{-- Notifikasi --}}
+            @if (session('success'))
+                    <div id="success-alert" class="mt-4 p-4 bg-green-100 text-green-800 rounded transition-opacity duration-500">
+                        {{ session('success') }}
+                    </div>
+                    <script>
+                        setTimeout(function () {
+                            let alertBox = document.getElementById('success-alert');
+                            if (alertBox) {
+                                alertBox.style.opacity = '0';
+                                setTimeout(() => alertBox.remove(), 500);
+                            }
+                        }, 5000);
+                    </script>
+                @endif
+
             {{-- SECTION 1: Sejarah Setukpa --}}
-            <div class="mb-10 bg-white shadow-md rounded-xl p-6 flex flex-col md:flex-row items-center md:items-start gap-8">
+            <div class="mb-10  mt-4 bg-white shadow-md rounded-xl p-6 flex flex-col md:flex-row items-center md:items-start gap-8">
                 {{-- Gambar (Tanpa animasi) --}}
                 <div class="w-full md:w-1/2 overflow-hidden rounded-lg">
                     <img src="{{ asset('assets/images/gerbang.png') }}" alt="Profil Setukpa" class="rounded-lg w-full object-cover h-[460px]">
@@ -132,7 +152,7 @@
             <div class="mb-12 bg-white shadow rounded-lg px-6 py-10">
                 {{-- Visi --}}
                 <div class="text-center mb-12">
-                    <h3 class="text-2xl md:text-3xl font-bold text-[#2c3e50] mb-4">VISI SETUKPA LEMDIKLAT POLRI</h3>
+                    <h3 class="text-2xl md:text-2xl font-bold text-[#2c3e50] mb-4">VISI SETUKPA LEMDIKLAT POLRI</h3>
                     <p class="text-gray-700 text-base md:text-lg leading-relaxed max-w-3xl mx-auto">
                         Mewujudkan Lulusan Perwira Polri Yang Unggul, Berintegritas, Profesional Dan Modern
                     </p>
@@ -140,7 +160,7 @@
 
                 {{-- Misi --}}
                 <div class="text-center mb-8">
-                    <h3 class="text-2xl md:text-3xl font-bold text-[#2c3e50] mb-6">MISI SETUKPA LEMDIKLAT POLRI</h3>
+                    <h3 class="text-2xl md:text-2xl font-bold text-[#2c3e50] mb-6">MISI SETUKPA LEMDIKLAT POLRI</h3>
                     <div class="max-w-3xl mx-auto text-left space-y-6">
                         @foreach ([
                             'Membangun moral kepribadian dan perubahan karakter peserta didik, yang berlandaskan agama, penguasaan ilmu pengetahuan dan teknologi kepolisian serta didukung oleh kesiapan jasmani.',
@@ -166,7 +186,7 @@
                         border-t-4 border-yellow-400">
                 {{-- Judul --}}
                 <div class="relative mb-8">
-                    <h2 class="inline-flex items-center gap-2 text-lg md:text-xl lg:text-xl font-bold
+                    <h2 class="inline-flex items-center gap-2 text-lg md:text-xl lg:text-base font-bold
                             text-black bg-gradient-to-r from-yellow-400 to-yellow-500
                             px-4 py-1 rounded-xl shadow-md">
                         <i class="bi bi-people-fill text-xl text-black md:text-lg"></i>
@@ -177,7 +197,9 @@
                     @auth
                         @if(Auth::user()->role === 'admin')
                             <div class="absolute right-0 top-1/2 -translate-y-1/2">
-                                <a href="{{ route('profil.create') }}" class="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 hover:from-cyan-500 hover:via-blue-600 hover:to-blue-800 text-white px-4 py-2 rounded-md text-sm shadow-md">
+                                <a href="{{ route('profil.create') }}"
+                                class="bg-yellow-500 hover:bg-yellow-600 text-black
+                                        px-3 py-2 rounded-md text-sm shadow-md font-medium transition">
                                     <i class="bi bi-plus-circle me-1"></i> Tambah Personel
                                 </a>
                             </div>
@@ -186,7 +208,7 @@
                 </div>
 
                 {{-- Notifikasi --}}
-                @if (session('success'))
+                <!-- @if (session('success'))
                     <div id="success-alert" class="mt-4 p-4 bg-green-100 text-green-800 rounded transition-opacity duration-500">
                         {{ session('success') }}
                     </div>
@@ -199,12 +221,12 @@
                             }
                         }, 5000);
                     </script>
-                @endif
+                @endif -->
 
                 {{-- Grid Kasetukpa --}}
                 @if ($kasetukpa)
                     <div class="flex justify-center mt-6 mb-8 relative">
-                        <div class="bg-gradient-to-b from-white to-gray-50 shadow-2xl rounded-2xl overflow-hidden w-56 flex flex-col relative
+                        <div class="bg-gradient-to-b from-white to-gray-50 shadow-xl rounded-2xl overflow-hidden w-56 flex flex-col relative
                                     transition duration-300 ease-in-out transform hover:-translate-y-2 hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)]
                                     border border-gray-200 hover:border-yellow-500">
 
@@ -258,10 +280,35 @@
                     </div>
                 @endif
 
+                {{-- Modal Hapus Kasetukpa --}}
+                @if(Auth::check() && Auth::user()->role === 'admin')
+                    <div class="modal fade" id="hapusProfilModal{{ $kasetukpa->id }}" tabindex="-1" aria-labelledby="hapusProfilLabel{{ $kasetukpa->id }}" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header bg-red-500 text-white">
+                                    <h5 class="modal-title" id="hapusProfilLabel{{ $kasetukpa->id }}">Hapus Profil</h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Apakah Anda yakin ingin menghapus <strong>{{ $kasetukpa->nama }}</strong>?
+                                </div>
+                                <div class="modal-footer">
+                                    <form action="{{ route('profil.destroy', $kasetukpa->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Hapus</button>
+                                    </form>
+                                    <button type="button" class="btn btn-secondary bg-blue-600 text-white rounded hover:bg-blue-800" data-bs-dismiss="modal">Batal</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
                 {{-- Grid Wakasetukpa --}}
                 @if ($wakasetukpa)
                     <div class="flex justify-center mt-6 mb-8 relative">
-                        <div class="bg-gradient-to-b from-white to-gray-50 shadow-2xl rounded-2xl overflow-hidden w-56 flex flex-col relative
+                        <div class="bg-gradient-to-b from-white to-gray-50 shadow-xl rounded-2xl overflow-hidden w-56 flex flex-col relative
                                     transition duration-300 ease-in-out transform hover:-translate-y-2 hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)]
                                     border border-gray-200 hover:border-yellow-500">
 
@@ -315,11 +362,36 @@
                     </div>
                 @endif
 
+                {{-- Modal Hapus Wakasetukpa --}}
+                @if(Auth::check() && Auth::user()->role === 'admin')
+                    <div class="modal fade" id="hapusProfilModal{{ $wakasetukpa->id }}" tabindex="-1" aria-labelledby="hapusProfilLabel{{ $wakasetukpa->id }}" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header bg-red-500 text-white">
+                                    <h5 class="modal-title" id="hapusProfilLabel{{ $wakasetukpa->id }}">Hapus Profil</h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Apakah Anda yakin ingin menghapus <strong>{{ $wakasetukpa->nama }}</strong>?
+                                </div>
+                                <div class="modal-footer">
+                                    <form action="{{ route('profil.destroy', $wakasetukpa->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Hapus</button>
+                                    </form>
+                                    <button type="button" class="btn btn-secondary bg-blue-600 text-white rounded hover:bg-blue-800" data-bs-dismiss="modal">Batal</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
                 {{-- Grid Pimpinan Lain --}}
                 @if ($pimpinanLain->count())
                     <div class="flex overflow-x-auto gap-4 pb-4 py-4">
                         @foreach ($pimpinanLain as $profil)
-                            <div class="bg-gradient-to-b from-white to-gray-50 shadow-2xl rounded-2xl overflow-hidden w-56 flex flex-col relative
+                            <div class="bg-gradient-to-b from-white to-gray-50 shadow-xl rounded-2xl overflow-hidden w-56 flex flex-col relative
                                         transition duration-300 ease-in-out transform hover:-translate-y-2 hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)]
                                         border border-gray-200 hover:border-yellow-500 flex-shrink-0">
 
@@ -349,6 +421,7 @@
                                             <a href="{{ route('profil.edit', $profil->id) }}"
                                             class="p-2 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 shadow-md transition"
                                             title="Edit">
+                                                <!-- Icon Edit -->
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
                                                     viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -363,6 +436,7 @@
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#hapusProfilModal{{ $profil->id }}"
                                                     title="Hapus">
+                                                <!-- Icon Delete -->
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
                                                     viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -378,6 +452,35 @@
                             </div>
                         @endforeach
                     </div>
+
+                    {{-- Modal Hapus Pimpinan Lain --}}
+                    @foreach ($pimpinanLain as $profil)
+                        @auth
+                            @if(Auth::user()->role === 'admin')
+                                <div class="modal fade" id="hapusProfilModal{{ $profil->id }}" tabindex="-1" aria-labelledby="hapusProfilLabel{{ $profil->id }}" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header bg-red-500 text-white">
+                                                <h5 class="modal-title" id="hapusProfilLabel{{ $profil->id }}">Hapus Profil</h5>
+                                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Apakah Anda yakin ingin menghapus <strong>{{ $profil->nama }}</strong>?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <form action="{{ route('profil.destroy', $profil->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger">Hapus</button>
+                                                </form>
+                                                <button type="button" class="btn btn-secondary bg-blue-600 text-white rounded hover:bg-blue-800" data-bs-dismiss="modal">Batal</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                        @endauth
+                    @endforeach
                 @else
                     <p class="text-gray-600 col-span-4 text-center">Belum ada Data lain.</p>
                 @endif
