@@ -61,8 +61,8 @@
                             </option>
                         @endforeach
                     </select>
-                    <button class="bg-blue-600 hover:bg-blue-800 text-white px-4 py-2 rounded-md shadow">
-                        Search
+                    <button class="bg-blue-600 hover:bg-blue-800 text-white px-4 py-2 rounded-lg shadow transition">
+                    <i class="bi bi-search mr-1"></i>Search
                     </button>
                 </form>
 

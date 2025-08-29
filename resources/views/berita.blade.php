@@ -61,18 +61,18 @@
                     transition transform hover:-translate-y-2 relative card-berita">
 
             {{-- FOTO --}}
-            @if ($berita->foto)
-                <div class="relative w-full aspect-[2/1]">
+            <div class="aspect-[2/1] overflow-hidden bg-gray-100 relative">
+                @if ($berita->foto)
                     <img src="{{ asset('storage/' . $berita->foto) }}"
                         alt="{{ $berita->judul }}"
-                        class="w-full h-56 object-cover">
+                        class="w-full h-full object-cover object-center">
                     <span class="absolute bottom-2 left-2 bg-slate-600 text-white text-xs px-3 py-1 rounded-full shadow">
                         {{ \Carbon\Carbon::parse($berita->tanggal)->translatedFormat('d M Y') }}
                     </span>
-                </div>
-            @else
-                <x-placeholder-foto />
-            @endif
+                @else
+                    <x-placeholder-foto />
+                @endif
+            </div>
 
             {{-- KONTEN --}}
             <div class="p-5 flex flex-col flex-grow">

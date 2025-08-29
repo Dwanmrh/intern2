@@ -147,7 +147,7 @@
 
                         @forelse ($sortedMapels as $mapel=>$list)
                         <details class="group border border-gray-200 rounded-xl shadow-md bg-white transition">
-                            <summary class="flex items-center justify-between px-5 py-3 cursor-pointer
+                            <summary class="flex items-center border-t-2 border-blue-400 justify-between px-5 py-3 cursor-pointer
                                             font-semibold text-gray-700 hover:bg-gray-100 rounded-t-xl">
                                 <div class="flex items-center gap-3">
                                     <i class="bi bi-journal-text text-blue-600"></i>

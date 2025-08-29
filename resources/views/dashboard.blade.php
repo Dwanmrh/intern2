@@ -66,9 +66,8 @@
                                 @endif
                             @else
                                 {{-- Placeholder kalau file kosong --}}
-                                <div class="d-flex justify-content-center align-items-center bg-secondary text-white"
-                                    style="height: 300px; border-radius: 8px;">
-                                    <p class="mb-0">Tidak ada file</p>
+                                <div class="aspect-video w-full max-h-[550px] rounded overflow-hidden">
+                                    <x-placeholder-foto />
                                 </div>
                             @endif
 
@@ -222,8 +221,8 @@
                                             alt="{{ $link->nama }}"
                                             class="max-h-20 object-contain">
                                     @else
-                                        <div class="w-20 h-20 flex items-center justify-center bg-gray-100 rounded-full text-gray-500 text-sm">
-                                            Tanpa Logo
+                                        <div class="w-20 h-20 rounded-full overflow-hidden">
+                                            <x-placeholder-foto />
                                         </div>
                                     @endif
                                 </a>

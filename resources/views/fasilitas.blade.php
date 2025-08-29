@@ -57,15 +57,17 @@
 
                             {{-- Gambar --}}
                             <div class="w-full md:w-1/3">
-                                @if($item->foto)
-                                    <img src="{{ asset('storage/' . $item->foto) }}"
-                                        alt="{{ $item->judul }}"
-                                        class="rounded-lg shadow-md w-full object-cover h-56 cursor-pointer"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#previewImageModal{{ $item->id }}">
-                                @else
-                                    <x-placeholder-foto height="h-56" />
-                                @endif
+                                <div class="aspect-[16/9] overflow-hidden rounded-lg shadow-md">
+                                    @if($item->foto)
+                                        <img src="{{ asset('storage/' . $item->foto) }}"
+                                            alt="{{ $item->judul }}"
+                                            class="w-full h-full object-cover cursor-pointer"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#previewImageModal{{ $item->id }}">
+                                    @else
+                                        <x-placeholder-foto />
+                                    @endif
+                                </div>
                             </div>
 
                             {{-- Konten --}}

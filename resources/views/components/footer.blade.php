@@ -45,7 +45,7 @@
 
         <!-- Garis + Copyright -->
         <div class="border-t border-gray-700 mt-6 pt-3 flex flex-col md:flex-row justify-between items-center gap-2 text-xs">
-        <p class="text-yellow-500">&copy; 2025 Setukpa Lemdiklat Polri Sukabumi by RR</p>
+        <p class="text-yellow-400">&copy; 2025 Setukpa Lemdiklat Polri Sukabumi by RR</p>
             <div class="flex gap-4 text-base">
                 <a href="https://youtube.com/@humassetukpa566?si=b4Ret7QbAoK5vW39" class="hover:text-blue-300">
                     <i class="bi bi-youtube"></i>
