@@ -8,11 +8,10 @@
             <div class="relative bg-gradient-to-r from-slate-600 via-slate-700 to-slate-800
                         text-white rounded-2xl shadow-lg px-6 py-8 mb-10 overflow-hidden">
 
-                        <div class="absolute inset-0 
+                        <div class="absolute inset-0
                             bg-[url('/assets/images/header.jpg')]
                             bg-cover bg-center opacity-15 rounded-2xl">
                         </div>
-
 
                 <div class="relative text-center">
                     <h2 class="text-2xl md:text-3xl font-extrabold tracking-wide drop-shadow mb-2">
@@ -65,16 +64,14 @@
             @if ($berita->foto)
                 <div class="relative w-full aspect-[2/1]">
                     <img src="{{ asset('storage/' . $berita->foto) }}"
-                         alt="{{ $berita->judul }}"
-                         class="w-full h-56 object-cover">
+                        alt="{{ $berita->judul }}"
+                        class="w-full h-56 object-cover">
                     <span class="absolute bottom-2 left-2 bg-slate-600 text-white text-xs px-3 py-1 rounded-full shadow">
                         {{ \Carbon\Carbon::parse($berita->tanggal)->translatedFormat('d M Y') }}
                     </span>
                 </div>
             @else
-                <div class="w-full h-56 bg-gray-200 flex items-center justify-center text-gray-500">
-                    Tidak ada gambar
-                </div>
+                <x-placeholder-foto />
             @endif
 
             {{-- KONTEN --}}

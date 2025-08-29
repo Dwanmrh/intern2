@@ -39,10 +39,7 @@
                     <label class="block text-white font-semibold mb-1">Upload File (PDF)</label>
                     <input type="file" name="file_berita" accept=".pdf"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition">
-                    <small class="font-bold text-yellow-400 italic">Kosongkan jika memasukkan isi berita</small>
-                    <p class="mt-1 text-sm text-red-500">
-                        Ukuran file max 23 MB
-                    </p>
+                    <small class="font-bold text-yellow-400 italic">Kosongkan jika memasukkan isi berita | Max Size 23 MB</small>
                 </div>
 
                 {{-- Tanggal --}}
@@ -59,9 +56,7 @@
                     <label class="block text-white font-semibold mb-1">Upload Foto (Opsional)</label>
                     <input type="file" name="foto" id="fotoInput"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-2 shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-400">
-                        <p class="mt-1 text-sm text-red-500">
-                        Ukuran file max 15 MB
-                    </p>
+                        <small class="font-bold text-yellow-400 italic">Max Size 15 MB</small>
 
                     {{-- Preview --}}
                     <div id="previewContainer" class="mt-3 hidden">

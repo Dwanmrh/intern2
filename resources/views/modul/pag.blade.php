@@ -15,7 +15,7 @@
                     {{-- Tombol Kembali (kiri) --}}
                     <div class="flex items-center">
                         <a href="{{ route('modul.index') }}"
-                        class="inline-flex items-center px-3 py-2 bg-gradient-to-r from-gray-700 to-gray-800 
+                        class="inline-flex items-center px-3 py-2 bg-gradient-to-r from-gray-700 to-gray-800
                                 hover:from-gray-800 hover:to-black text-white text-sm font-medium rounded-lg shadow transition">
                                 <i class="bi-chevron-left"></i> Kembali
                         </a>
@@ -23,8 +23,8 @@
 
                     {{-- JUDUL (tengah, selalu center) --}}
                     <div class="text-center">
-                        <h2 class="text-lg md:text-xl lg:text-base font-bold text-white 
-                                inline-flex items-center gap-2 
+                        <h2 class="text-lg md:text-xl lg:text-base font-bold text-white
+                                inline-flex items-center gap-2
                                 bg-gradient-to-r from-slate-700 via-slate-600 to-slate-800 px-6 py-1
                                 rounded-xl shadow-md">
                             <i class="bi bi-person-workspace text-xl md:text-xl"></i>
@@ -50,8 +50,8 @@
 
                 {{-- BARIS FILTER --}}
                 <form method="GET" action="{{ route('modul.pag') }}" class="flex flex-wrap items-center gap-3 mb-6">
-                    <select name="tahun" 
-                            class="form-select text-sm rounded-md w-auto min-w-[100px] max-w-[130px] 
+                    <select name="tahun"
+                            class="form-select text-sm rounded-md w-auto min-w-[100px] max-w-[130px]
                             bg-gray-100 text-gray-800 border border-gray-300
                             text-black border border-gray-300 focus:border-blue-400 focus:ring-blue-300">
                         <option value="">Pilih Tahun</option>

@@ -54,18 +54,17 @@
                 <div class="space-y-12 mt-8">
                     @forelse($fasilitas as $item)
                         <div class="flex flex-col md:flex-row items-start md:items-start gap-6 border-b pb-8">
+
                             {{-- Gambar --}}
                             <div class="w-full md:w-1/3">
                                 @if($item->foto)
                                     <img src="{{ asset('storage/' . $item->foto) }}"
-                                         alt="{{ $item->judul }}"
-                                         class="rounded-lg shadow-md w-full object-cover h-56 cursor-pointer"
-                                         data-bs-toggle="modal"
-                                         data-bs-target="#previewImageModal{{ $item->id }}">
+                                        alt="{{ $item->judul }}"
+                                        class="rounded-lg shadow-md w-full object-cover h-56 cursor-pointer"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#previewImageModal{{ $item->id }}">
                                 @else
-                                    <div class="w-full h-56 bg-gray-200 flex items-center justify-center text-gray-500 rounded-lg">
-                                        <i class="bi bi-image text-3xl"></i>
-                                    </div>
+                                    <x-placeholder-foto height="h-56" />
                                 @endif
                             </div>
 

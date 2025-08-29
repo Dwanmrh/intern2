@@ -36,10 +36,10 @@
                 </div>
 
                 {{-- File Lama --}}
-                @if ($dashboard->file)
-                    <div class="mb-3">
-                        <label class="block text-white font-semibold mb-1">File Saat Ini</label>
+                <div class="mb-3">
+                    <label class="block text-white font-semibold mb-1">File Saat Ini</label>
 
+                    @if ($dashboard->file)
                         {{-- Preview file lama --}}
                         @php
                             $ext = pathinfo($dashboard->file, PATHINFO_EXTENSION);
@@ -54,22 +54,23 @@
                         @endif
 
                         {{-- Checkbox Hapus File Lama --}}
-                        <div class="flex items-center space-x-2">
+                        <div class="flex items-center space-x-2 mt-2">
                             <input type="checkbox" id="hapusFile" name="hapus_file" value="1"
                                 class="w-4 h-4 text-red-600 border-gray-300 rounded focus:ring-red-500">
                             <label for="hapusFile" class="text-white text-sm">Hapus file lama</label>
                         </div>
-                    </div>
-                @endif
+                    @else
+                        {{-- Kalau file kosong/null --}}
+                        <p class="text-gray-300 text-sm italic">Tidak ada file yang terlampir.</p>
+                    @endif
+                </div>
 
                 {{-- Ganti File --}}
                 <div class="mb-4">
                     <label class="block text-white font-semibold mb-1">Ganti File (Opsional)</label>
                     <input type="file" name="file" id="fileInput"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-400">
-                         <p class="mt-1 text-sm text-red-500">
-                        Ukuran file max 40 MB
-                    </p>
+                         <small class="font-bold text-yellow-400 italic">Max Size 40 MB</small>
 
                     {{-- Preview File Baru --}}
                     <div id="filePreviewContainer" class="mt-3 hidden">

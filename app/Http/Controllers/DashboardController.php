@@ -88,14 +88,21 @@ class DashboardController extends Controller
             return back()->withErrors(['tanggal' => 'Format tanggal tidak valid'])->withInput();
         }
 
-        // Handle file upload
+        // === Jika centang hapus file lama ===
+        if ($request->has('hapus_file') && $dashboard->file) {
+            if (Storage::disk('public')->exists($dashboard->file)) {
+                Storage::disk('public')->delete($dashboard->file);
+            }
+            $data['file'] = null; // kosongkan di DB
+        }
+
+        // === Upload file baru (replace kalau ada) ===
         if ($request->hasFile('file')) {
+            // hapus file lama kalau masih ada
             if ($dashboard->file && Storage::disk('public')->exists($dashboard->file)) {
                 Storage::disk('public')->delete($dashboard->file);
             }
-
-            $filePath = $request->file('file')->store('dashboard', 'public');
-            $data['file'] = $filePath;
+            $data['file'] = $request->file('file')->store('dashboard', 'public');
         }
 
         $dashboard->update($data);
@@ -153,12 +160,21 @@ class DashboardController extends Controller
 
         $request->validate([
             'nama' => 'required|string|max:255',
-            'url' => 'required|url',
-            'logo' => 'nullable|image|mimes:jpg,jpeg,png|max:15000',
+            'url'  => 'required|url',
+            'logo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:15000',
         ]);
 
         $data = $request->only('nama', 'url');
 
+        // === Hapus logo lama jika dicentang ===
+        if ($request->has('hapus_logo') && $link->logo) {
+            if (Storage::disk('public')->exists($link->logo)) {
+                Storage::disk('public')->delete($link->logo);
+            }
+            $data['logo'] = null; // <- perbaikan di sini
+        }
+
+        // === Upload logo baru (replace lama kalau ada) ===
         if ($request->hasFile('logo')) {
             if ($link->logo && Storage::disk('public')->exists($link->logo)) {
                 Storage::disk('public')->delete($link->logo);
@@ -168,7 +184,7 @@ class DashboardController extends Controller
 
         $link->update($data);
 
-        return redirect()->route('dashboard.index')->with('success', 'Link berhasil diperbarui.');
+        return redirect()->route('dashboard.index')->with('success', 'Link berhasil diperbarui!');
     }
 
     public function linkDestroy($id)

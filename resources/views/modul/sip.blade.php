@@ -14,7 +14,7 @@
                     {{-- Tombol Kembali --}}
                     <div class="flex items-center">
                         <a href="{{ route('modul.index') }}"
-                           class="inline-flex items-center px-3 py-2 bg-gradient-to-r from-gray-700 to-gray-800 
+                           class="inline-flex items-center px-3 py-2 bg-gradient-to-r from-gray-700 to-gray-800
                                   hover:from-gray-800 hover:to-black text-white text-sm font-medium rounded-lg shadow transition">
                             <i class="bi-chevron-left mr-1"></i> Kembali
                         </a>
@@ -47,11 +47,11 @@
                 </div>
 
                 {{-- FILTER --}}
-                <form method="GET" action="{{ route('modul.sip') }}" 
+                <form method="GET" action="{{ route('modul.sip') }}"
                         class="flex flex-wrap items-center gap-3 mb-6">
                     <select name="tahun"
                             class="form-select text-sm rounded-lg w-auto min-w-[100px] max-w-[140px]
-                                bg-gray-100 text-gray-800 border border-gray-300 
+                                bg-gray-100 text-gray-800 border border-gray-300
                                 focus:border-blue-500 focus:ring-blue-400">
                         <option value="">Pilih Tahun</option>
                         @foreach ($allTahun as $tahun)
@@ -67,7 +67,7 @@
 
                 {{-- Notifikasi --}}
                 @if (session('success'))
-                    <div id="success-alert" 
+                    <div id="success-alert"
                         class="mt-4 p-4 bg-green-100 text-green-800 rounded-lg shadow transition-opacity duration-500">
                         {{ session('success') }}
                     </div>
@@ -88,66 +88,66 @@
                 {{-- ACCORDION PER MAPEL --}}
                 <div class="space-y-6">
                     @php
-                    // Urutan mapel sesuai dropdown di create.blade.php
-                    $orderMapel = [
+                        $orderMapel = [
                             "Wawasan Kebangsaan",
-                            "Etika Dan Kode Etik Profesi Polri",
-                            "Peraturan Pemerintah Nomor 1, 2, Dan 3 Tahun 2003",
+                            "Etika dan Kode Etik Profesi Polri",
+                            "Peraturan Pemerintah Nomor 1, 2, dan 3 Tahun 2003",
                             "Nilai Sejarah Polri",
-                            "Integritas Dan Budaya Anti Korupsi",
-                            "Hukum Pidana Dan Hukum Acara Pidana",
-                            "Pengetahuan Tentang Ham",
+                            "Integritas dan Budaya Anti Korupsi",
+                            "Hukum Pidana dan Hukum Acara Pidana",
+                            "Pengetahuan Tentang HAM",
                             "Diskresi & Restorative Justice",
                             "PPA dan ABH",
                             "Manajemen Training Level I",
                             "Kepemimpinan",
-                            "Sistem, Manajemen Dan Standar Keberhasilan Operasioanal Kepolisian",
+                            "Sistem, Manajemen dan Standar Keberhasilan Operasional Kepolisian",
                             "Sistem Pelayanan Kepolisian Terpadu",
                             "Manajemen Fungsi Intelkam",
                             "Manajemen Fungsi Binmas",
                             "Manajemen Fungsi Sabhara",
                             "Manajemen Fungsi Lantas",
                             "Manajemen Fungsi Reserse",
-                            "Perencanaan Dan Penganggaran Polri",
-                            "Manajemen Sdm Polri",
+                            "Perencanaan dan Penganggaran Polri",
+                            "Manajemen SDM Polri",
                             "Manajemen Logistik Polri",
                             "Keuangan Polri",
                             "Manajemen Tingkat Polsek",
                             "Community Policing",
-                            "Democtratic Policing",
+                            "Democratic Policing",
                             "Predictive Policing",
-                            "Konflik Sosial",
-                            "Komunikasi Sosial",
+                            "Pengetahuan Sosial",
                             "Pelayanan Prima",
                             "Manajemen Penanggulangan Bencana",
                             "Search and Rescue (SAR)",
                             "Identifikasi Kepolisian",
                             "Laboratorium Forensik Kedokteran Kepolisian",
-                            "Tata Naskah Dinas Di Lingkungan Polri",
-                            "Tata Upacara Dan Pedang Perwira",
-                            "Penggunaan Senjata Api Dan Menembak",
-                            "Teknik Keselamatan Dan Bela Diri Polri",
+                            "Tata Naskah Dinas di Lingkungan Polri",
+                            "Tata Upacara dan Pedang Perwira",
+                            "Penggunaan Senjata Api dan Menembak",
+                            "Teknik Keselamatan dan Bela Diri Polri",
                             "Sistem Pelayanan Polri Berbasis Elektronik",
-                            "Psikologi Sosial Dan Teknik Dasar Konseling",
+                            "Psikologi Sosial dan Teknik Dasar Konseling",
                             "Manajemen Kehumasan Polri",
                             "Teknologi Informasi Kepolisian",
                             "Pencegahan Kejahatan (Crime Prevention)",
                             "Gladi Wirottama",
                             "Porismas",
                             "Latihan Teknis/Latihan Kerja",
-                            "Ujian Kompetensi Perwira Pertama"
+                            "Ujian Kompetensi Perwira Pertama",
                         ];
 
                         $mapels = $moduls->groupBy('mapel');
+
                         // urutkan mapel sesuai array orderMapel
                         $sortedMapels = collect($orderMapel)
                             ->mapWithKeys(fn($mapel) => isset($mapels[$mapel]) ? [$mapel => $mapels[$mapel]] : []);
+
                         $no = 1;
                     @endphp
 
                         @forelse ($sortedMapels as $mapel=>$list)
                         <details class="group border border-gray-200 rounded-xl shadow-md bg-white transition">
-                            <summary class="flex items-center justify-between px-5 py-3 cursor-pointer 
+                            <summary class="flex items-center justify-between px-5 py-3 cursor-pointer
                                             font-semibold text-gray-700 hover:bg-gray-100 rounded-t-xl">
                                 <div class="flex items-center gap-3">
                                     <i class="bi bi-journal-text text-blue-600"></i>
@@ -159,7 +159,7 @@
                             {{-- Daftar Modul --}}
                             <div class="space-y-3 p-5 border-t bg-gray-50">
                                 @foreach ($list as $mod)
-                                    <div class="flex items-center justify-between bg-white shadow hover:shadow-lg 
+                                    <div class="flex items-center justify-between bg-white shadow hover:shadow-lg
                                                 transition rounded-xl p-4 border border-gray-100">
                                         <div class="flex items-start gap-3">
                                             <a href="{{ asset('storage/' . $mod->file) }}" target="_blank"

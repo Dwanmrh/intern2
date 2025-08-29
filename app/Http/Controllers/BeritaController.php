@@ -31,14 +31,14 @@ class BeritaController extends Controller
             'file_berita' => 'nullable|mimes:pdf|max:15000',
         ]);
 
-        // Cek rule: jika isi_berita diisi manual, file_berita tidak boleh di-upload
+        // Cek rule: isi berita manual + upload PDF → error
         if ($request->filled('isi_berita') && $request->hasFile('file_berita')) {
             return back()->withErrors([
                 'file_berita' => 'Jika isi berita diisi manual, jangan upload file PDF.'
             ])->withInput();
         }
 
-        // Cek rule: jika isi_berita kosong dan tidak ada file PDF
+        // Cek rule: isi berita kosong + tidak ada file → error
         if (!$request->filled('isi_berita') && !$request->hasFile('file_berita')) {
             return back()->withErrors([
                 'isi_berita' => 'Isi berita atau file PDF harus diisi salah satu.'
@@ -107,14 +107,14 @@ class BeritaController extends Controller
             'file_berita' => 'nullable|mimes:pdf|max:15000',
         ]);
 
-        // Rule: kalau isi berita diisi manual → tidak boleh upload PDF
+        // Rule: isi berita manual + upload PDF → error
         if ($request->filled('isi_berita') && $request->hasFile('file_berita')) {
             return back()->withErrors([
                 'file_berita' => 'Jika isi berita diisi manual, jangan upload file PDF.'
             ])->withInput();
         }
 
-        // Rule: kalau isi berita kosong dan tidak ada file PDF (serta file lama dihapus)
+        // Rule: isi berita kosong + tidak ada file PDF (serta file lama dihapus) → error
         if (
             !$request->filled('isi_berita') &&
             !$request->hasFile('file_berita') &&
@@ -139,7 +139,11 @@ class BeritaController extends Controller
             return back()->withErrors(['tanggal' => 'Format tanggal tidak valid'])->withInput();
         }
 
-        // Foto
+        // =============================
+        // HANDLE FOTO
+        // =============================
+
+        // Upload foto baru → hapus lama
         if ($request->hasFile('foto')) {
             if ($berita->foto && Storage::disk('public')->exists($berita->foto)) {
                 Storage::disk('public')->delete($berita->foto);
@@ -147,7 +151,19 @@ class BeritaController extends Controller
             $data['foto'] = $request->file('foto')->store('foto_berita', 'public');
         }
 
-        // Hapus file PDF lama
+        // Hapus foto lama (checkbox)
+        if ($request->filled('hapus_foto') && $request->hapus_foto == 1) {
+            if ($berita->foto && Storage::disk('public')->exists($berita->foto)) {
+                Storage::disk('public')->delete($berita->foto);
+            }
+            $data['foto'] = null;
+        }
+
+        // =============================
+        // HANDLE FILE PDF
+        // =============================
+
+        // Hapus file PDF lama (checkbox)
         if ($request->filled('hapus_file') && $request->hapus_file == 1) {
             if ($berita->file_berita && Storage::disk('public')->exists($berita->file_berita)) {
                 Storage::disk('public')->delete($berita->file_berita);
@@ -155,7 +171,7 @@ class BeritaController extends Controller
             $data['file_berita'] = null;
         }
 
-        // Upload file baru (hanya kalau isi berita kosong)
+        // Upload file PDF baru (hanya kalau isi berita kosong)
         if (!$request->filled('isi_berita') && $request->hasFile('file_berita')) {
             if ($berita->file_berita && Storage::disk('public')->exists($berita->file_berita)) {
                 Storage::disk('public')->delete($berita->file_berita);

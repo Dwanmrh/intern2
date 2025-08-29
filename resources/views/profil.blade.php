@@ -232,9 +232,13 @@
 
                             <!-- Foto -->
                             <div class="aspect-[3/4] overflow-hidden bg-gray-100 relative">
-                                <img src="{{ asset('storage/' . $kasetukpa->foto) }}"
-                                    alt="Foto Kasetukpa"
-                                    class="w-full h-full object-cover object-top rounded-t-2xl border-b border-gray-200">
+                                @if ($kasetukpa->foto)
+                                    <img src="{{ asset('storage/' . $kasetukpa->foto) }}"
+                                        alt="Foto Kasetukpa"
+                                        class="w-full h-full object-cover object-top rounded-t-2xl border-b border-gray-200">
+                                @else
+                                    <x-placeholder-foto />
+                                @endif
                             </div>
 
                             <!-- Nama & Jabatan -->
@@ -314,9 +318,11 @@
 
                             <!-- Foto -->
                             <div class="aspect-[3/4] overflow-hidden bg-gray-100 relative">
-                                <img src="{{ asset('storage/' . $wakasetukpa->foto) }}"
-                                    alt="Foto Wakasetukpa"
-                                    class="w-full h-full object-cover object-top rounded-t-2xl border-b border-gray-200">
+                                @if ($wakasetukpa->foto)
+                                    <img src="{{ asset('storage/' . $wakasetukpa->foto) }}" alt="Foto Wakasetukpa" class="...">
+                                @else
+                                    <x-placeholder-foto />
+                                @endif
                             </div>
 
                             <!-- Nama & Jabatan -->
@@ -402,9 +408,7 @@
                                             alt="Foto Pimpinan"
                                             class="w-full h-full object-cover object-top rounded-t-2xl border-b border-gray-200">
                                     @else
-                                        <div class="w-full h-full flex items-center justify-center text-gray-600 bg-gray-200">
-                                            Tidak ada foto
-                                        </div>
+                                        <x-placeholder-foto />
                                     @endif
                                 </div>
 

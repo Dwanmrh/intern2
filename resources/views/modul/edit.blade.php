@@ -36,66 +36,65 @@
                     </select>
                 </div>
 
-{{-- Mapel --}}
+                {{-- Mapel --}}
                 <div class="mb-4">
                     <label class="block text-white font-semibold mb-1">Mapel</label>
                     <select name="mapel" class="w-full px-3 py-2 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none">
                         <option value="">-- Pilih Mapel --</option>
-                        @php
-                            $mapels = [
-                                "Wawasan Kebangsaan",
-                                "Etika Dan Kode Etik Profesi Polri",
-                                "Peraturan Pemerintah Nomor 1, 2, Dan 3 Tahun 2003",
-                                "Nilai Sejarah Polri",
-                                "Integritas Dan Budaya Anti Korupsi",
-                                "Hukum Pidana Dan Hukum Acara Pidana",
-                                "Pengetahuan Tentang Ham",
-                                "Diskresi & Restorative Justice",
-                                "PPA dan ABH",
-                                "Manajemen Training Level I",
-                                "Kepemimpinan",
-                                "Sistem, Manajemen Dan Standar Keberhasilan Operasioanal Kepolisian",
-                                "Sistem Pelayanan Kepolisian Terpadu",
-                                "Manajemen Fungsi Intelkam",
-                                "Manajemen Fungsi Binmas",
-                                "Manajemen Fungsi Sabhara",
-                                "Manajemen Fungsi Lantas",
-                                "Manajemen Fungsi Reserse",
-                                "Perencanaan Dan Penganggaran Polri",
-                                "Manajemen Sdm Polri",
-                                "Manajemen Logistik Polri",
-                                "Keuangan Polri",
-                                "Manajemen Tingkat Polsek",
-                                "Community Policing",
-                                "Democtratic Policing",
-                                "Predictive Policing",
-                                "Konflik Sosial",
-                                "Komunikasi Sosial",
-                                "Pelayanan Prima",
-                                "Manajemen Penanggulangan Bencana",
-                                "Search and Rescue (SAR)",
-                                "Identifikasi Kepolisian",
-                                "Laboratorium Forensik Kedokteran Kepolisian",
-                                "Tata Naskah Dinas Di Lingkungan Polri",
-                                "Tata Upacara Dan Pedang Perwira",
-                                "Penggunaan Senjata Api Dan Menembak",
-                                "Teknik Keselamatan Dan Bela Diri Polri",
-                                "Sistem Pelayanan Polri Berbasis Elektronik",
-                                "Psikologi Sosial Dan Teknik Dasar Konseling",
-                                "Manajemen Kehumasan Polri",
-                                "Teknologi Informasi Kepolisian",
-                                "Pencegahan Kejahatan (Crime Prevention)",
-                                "Gladi Wirottama",
-                                "Porismas",
-                                "Latihan Teknis/Latihan Kerja",
-                                "Ujian Kompetensi Perwira Pertama"
-                            ];
-                        @endphp
-                        @foreach($mapels as $mapel)
-                            <option value="{{ $mapel }}" {{ old('mapel', $modul->mapel) == $mapel ? 'selected' : '' }}>
-                                {{ $mapel }}
-                            </option>
-                        @endforeach
+                            @php
+                                $mapels = [
+                                    "Wawasan Kebangsaan",
+                                    "Etika dan Kode Etik Profesi Polri",
+                                    "Peraturan Pemerintah Nomor 1, 2, dan 3 Tahun 2003",
+                                    "Nilai Sejarah Polri",
+                                    "Integritas dan Budaya Anti Korupsi",
+                                    "Hukum Pidana dan Hukum Acara Pidana",
+                                    "Pengetahuan Tentang HAM",
+                                    "Diskresi & Restorative Justice",
+                                    "PPA dan ABH",
+                                    "Manajemen Training Level I",
+                                    "Kepemimpinan",
+                                    "Sistem, Manajemen dan Standar Keberhasilan Operasional Kepolisian",
+                                    "Sistem Pelayanan Kepolisian Terpadu",
+                                    "Manajemen Fungsi Intelkam",
+                                    "Manajemen Fungsi Binmas",
+                                    "Manajemen Fungsi Sabhara",
+                                    "Manajemen Fungsi Lantas",
+                                    "Manajemen Fungsi Reserse",
+                                    "Perencanaan dan Penganggaran Polri",
+                                    "Manajemen SDM Polri",
+                                    "Manajemen Logistik Polri",
+                                    "Keuangan Polri",
+                                    "Manajemen Tingkat Polsek",
+                                    "Community Policing",
+                                    "Democratic Policing",
+                                    "Predictive Policing",
+                                    "Pengetahuan Sosial",
+                                    "Pelayanan Prima",
+                                    "Manajemen Penanggulangan Bencana",
+                                    "Search and Rescue (SAR)",
+                                    "Identifikasi Kepolisian",
+                                    "Laboratorium Forensik Kedokteran Kepolisian",
+                                    "Tata Naskah Dinas di Lingkungan Polri",
+                                    "Tata Upacara dan Pedang Perwira",
+                                    "Penggunaan Senjata Api dan Menembak",
+                                    "Teknik Keselamatan dan Bela Diri Polri",
+                                    "Sistem Pelayanan Polri Berbasis Elektronik",
+                                    "Psikologi Sosial dan Teknik Dasar Konseling",
+                                    "Manajemen Kehumasan Polri",
+                                    "Teknologi Informasi Kepolisian",
+                                    "Pencegahan Kejahatan (Crime Prevention)",
+                                    "Gladi Wirottama",
+                                    "Porismas",
+                                    "Latihan Teknis/Latihan Kerja",
+                                    "Ujian Kompetensi Perwira Pertama"
+                                ];
+                            @endphp
+                            @foreach($mapels as $mapel)
+                                <option value="{{ $mapel }}" {{ old('mapel', $modul->mapel) == $mapel ? 'selected' : '' }}>
+                                    {{ $mapel }}
+                                </option>
+                            @endforeach
                     </select>
                 </div>
 
@@ -123,9 +122,7 @@
                     <label class="block text-white font-semibold mb-1">Upload File (PDF)</label>
                     <input type="file" name="file" accept=".pdf"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition">
-                        <p class="mt-1 text-sm text-red-500">
-                        Ukuran file max 15 MB
-                    </p>
+                        <small class="font-bold text-yellow-400 italic">Max Size 15 MB</small>
 
                     @if($modul->file)
                         <p class="text-sm mt-1">

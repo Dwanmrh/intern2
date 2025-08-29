@@ -38,7 +38,8 @@
 
             {{-- Carousel --}}
             @php
-                $validDashboards = $dashboards->filter(fn($item) => !empty($item->file));
+                // Ambil semua data dashboard, tidak filter file kosong
+                $validDashboards = $dashboards;
 
                 // Pindahkan Gerbang Setukpa ke posisi pertama jika ada
                 $preview3 = $validDashboards->firstWhere('judul', 'Gerbang Setukpa');
@@ -47,20 +48,28 @@
                         ->merge($validDashboards->filter(fn($item) => $item->judul !== 'Gerbang Setukpa'));
                 }
 
-                $validDashboards = $validDashboards->values(); // Reset index agar $index === 0 tetap akurat
+                $validDashboards = $validDashboards->values();
             @endphp
 
             <div id="dashboardCarousel" class="carousel slide mb-5 position-relative" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     @foreach($validDashboards as $index => $item)
                         <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                            @if(\Illuminate\Support\Str::endsWith($item->file, ['.mp4', '.mov', '.webm']))
-                                <video class="d-block w-100 rounded" autoplay loop muted style="object-fit: cover; max-height: 550px;">
-                                    <source src="{{ asset('storage/' . $item->file) }}" type="video/mp4">
-                                </video>
+                            @if($item->file)
+                                @if(\Illuminate\Support\Str::endsWith($item->file, ['.mp4', '.mov', '.webm']))
+                                    <video class="d-block w-100 rounded" autoplay loop muted style="object-fit: cover; max-height: 550px;">
+                                        <source src="{{ asset('storage/' . $item->file) }}" type="video/mp4">
+                                    </video>
+                                @else
+                                    <img src="{{ asset('storage/' . $item->file) }}"
+                                        class="d-block w-100 rounded" style="object-fit: cover; max-height: 550px;" alt="Preview">
+                                @endif
                             @else
-                                <img src="{{ asset('storage/' . $item->file) }}"
-                                     class="d-block w-100 rounded" style="object-fit: cover; max-height: 550px;" alt="Preview">
+                                {{-- Placeholder kalau file kosong --}}
+                                <div class="d-flex justify-content-center align-items-center bg-secondary text-white"
+                                    style="height: 300px; border-radius: 8px;">
+                                    <p class="mb-0">Tidak ada file</p>
+                                </div>
                             @endif
 
                                                         {{-- Tombol Edit & Hapus --}}
@@ -201,7 +210,7 @@
                             @endauth
                         </div>
                     </div>
-                    
+
                     {{-- Grid Logo --}}
                     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-10 place-items-center">
                         @foreach($links as $link)

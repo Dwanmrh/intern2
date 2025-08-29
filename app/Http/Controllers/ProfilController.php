@@ -56,17 +56,35 @@ class ProfilController extends Controller
     public function update(Request $request, $id)
     {
         $profil = Profil::findOrFail($id);
+
         $validated = $request->validate([
             'nama' => 'required|string|max:255',
             'jabatan' => 'required|string|max:255',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:10000',
         ]);
 
-        if ($request->hasFile('foto')) {
-            $validated['foto'] = $request->file('foto')->store('foto_pimpinan', 'public');
+        // Jika hapus foto dicentang
+        if ($request->has('hapus_foto') && $profil->foto) {
+            \Illuminate\Support\Facades\Storage::delete('public/' . $profil->foto);
+            $profil->foto = null;
         }
 
-        $profil->update($validated);
+        // Jika ada upload foto baru
+        if ($request->hasFile('foto')) {
+            // hapus foto lama kalau ada
+            if ($profil->foto) {
+                \Illuminate\Support\Facades\Storage::delete('public/' . $profil->foto);
+            }
+            $validated['foto'] = $request->file('foto')->store('foto_pimpinan', 'public');
+            $profil->foto = $validated['foto'];
+        }
+
+        // Update field lain
+        $profil->nama = $validated['nama'];
+        $profil->jabatan = $validated['jabatan'];
+
+        $profil->save();
+
         return redirect()->route('profil.index')->with('success', 'Personel berhasil diperbarui');
     }
 

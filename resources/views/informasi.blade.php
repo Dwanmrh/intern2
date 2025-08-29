@@ -7,7 +7,7 @@
             {{-- CARD PERSYARATAN --}}
                 <div class="text-center">
                     <h2 class="text-lg md:text-xl lg:text-base font-bold text-white inline-flex items-center gap-2
-                    bg-gradient-to-r from-slate-700 via-slate-600 to-slate-800 
+                    bg-gradient-to-r from-slate-700 via-slate-600 to-slate-800
                             px-4 py-1 rounded-xl shadow-md">
                         <i class="bi bi-journal-check text-white text-xl md:text-lg"></i>
                         PERSYARATAN MASUK SETUKPA
@@ -288,6 +288,7 @@
 
                 {{-- Body --}}
                 <div class="flex justify-center flex-wrap gap-6 mt-4 mb-6">
+
                     {{-- Instagram --}}
                     <a href="https://www.instagram.com/humas_setukpa?igsh=MTE3dWU4emFjYjFtdg=="
                         class="bg-white shadow-md border border-gray-200 rounded-xl w-32 h-32 flex flex-col items-center justify-center
@@ -310,6 +311,14 @@
                             hover:shadow-xl hover:-translate-y-1 hover:scale-105 transition-all duration-300">
                         <i class="bi bi-tiktok text-3xl text-black mb-2"></i>
                         <span class="font-medium text-gray-700 text-center">TikTok</span>
+                    </a>
+
+                    {{-- WhatsApp --}}
+                    <a href="https://wa.me/6281212121212" target="_blank"
+                        class="bg-white shadow-md border border-gray-200 rounded-xl w-32 h-32 flex flex-col items-center justify-center
+                            hover:shadow-xl hover:-translate-y-1 hover:scale-105 transition-all duration-300">
+                        <i class="bi bi-whatsapp text-3xl text-green-500 mb-2"></i>
+                        <span class="font-medium text-gray-700 text-center">WhatsApp</span>
                     </a>
 
                     {{-- Telpon --}}
