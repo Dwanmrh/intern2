@@ -25,8 +25,12 @@
                         ['name' => 'BERITA', 'routes' => ['berita.index','berita.show','berita.create','berita.edit']],
                         ['name' => 'INFORMASI', 'routes' => ['informasi.index','informasi.create','informasi.edit']],
                         ['name' => 'FASDIK', 'routes' => ['fasilitas.index','fasilitas.create','fasilitas.edit']],
-                        ['name' => 'MODUL', 'routes' => ['modul.index','modul.sip','modul.pag','modul.create','modul.edit']],
                     ];
+
+                    // Tambah modul hanya jika login dan role siswa/personel/admin
+                    if(auth()->check() && in_array(auth()->user()->role, ['siswa','personel','admin'])){
+                        $navItems[] = ['name' => 'MODUL', 'routes' => ['modul.index','modul.sip','modul.pag','modul.create','modul.edit']];
+                    }
                     @endphp
                     @foreach ($navItems as $item)
                         <x-nav-link
@@ -174,7 +178,12 @@
             <x-responsive-nav-link :href="route('berita.index')" :active="request()->routeIs('berita')">BERITA</x-responsive-nav-link>
             <x-responsive-nav-link :href="route('informasi.index')" :active="request()->routeIs('informasi')">INFORMASI</x-responsive-nav-link>
             <x-responsive-nav-link :href="route('fasilitas.index')" :active="request()->routeIs('fasilitas')">FASDIK</x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('modul.index')" :active="request()->routeIs('modul')">MODUL</x-responsive-nav-link>
+
+            @auth
+                @if(in_array(Auth::user()->role, ['siswa','personel','admin']))
+                    <x-responsive-nav-link :href="route('modul.index')" :active="request()->routeIs('modul')">MODUL</x-responsive-nav-link>
+                @endif
+            @endauth
         </div>
 
         <!-- Auth Section -->
