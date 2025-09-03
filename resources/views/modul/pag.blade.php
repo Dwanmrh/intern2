@@ -23,7 +23,7 @@
 
                     {{-- JUDUL (tengah, selalu center) --}}
                     <div class="text-center">
-                        <h2 class="text-lg md:text-xl lg:text-base font-bold text-white
+                        <h2 class="text-lg md:text-xl lg:text-lg font-bold text-white
                                 inline-flex items-center gap-2
                                 bg-gradient-to-r from-slate-700 via-slate-600 to-slate-800 px-6 py-1
                                 rounded-xl shadow-md">
@@ -37,8 +37,7 @@
                         @auth
                             @if(in_array(Auth::user()->role, ['admin', 'personel']))
                                 <a href="{{ route('modul.create') }}"
-                                    class="bg-gradient-to-r from-cyan-500 via-blue-600 to-blue-800
-                                            hover:from-cyan-600 hover:via-blue-700 hover:to-blue-900
+                                    class="bg-[#800000] hover:bg-[#660000]
                                             text-white px-4 py-1.5 rounded-md text-sm shadow-xs transition duration-300 ease-in-out">
                                     <i class="bi bi-plus-circle text-base text-white"></i>
                                     Tambah Modul
@@ -113,7 +112,7 @@
                                                     {{ $modul->judul }}
                                                 </a>
                                                 <p class="text-sm text-gray-600">{{ $modul->deskripsi ?? '-' }}</p>
-                                                <p class="text-xs text-gray-500">Tahun: {{ $modul->tahun ?? '-' }} | Periode: {{ $modul->periode ?? '-' }}</p>
+                                                <p class="text-xs text-gray-500">Tahun: {{ $modul->tahun ?? '-' }} </p>
                                             </div>
                                         </div>
 

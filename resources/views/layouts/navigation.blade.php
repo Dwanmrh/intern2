@@ -18,7 +18,7 @@
                 <div class="hidden lg:flex items-center flex-1 justify-center space-x-8 text-sm font-medium">
                     @php
                         $navItems = [
-                            ['name' => 'HOME', 'routes' => ['dashboard.index','dashboard.create','dashboard.edit','dashboard.link.create','dashboard.link.edit']],
+                            ['name' => 'BERANDA', 'routes' => ['dashboard.index','dashboard.create','dashboard.edit','dashboard.link.create','dashboard.link.edit']],
                             ['name' => 'PROFIL', 'routes' => ['profil.index','profil.create','profil.edit']],
                             ['name' => 'BERITA', 'routes' => ['berita.index','berita.show','berita.create','berita.edit']],
                             ['name' => 'INFORMASI', 'routes' => ['informasi.index','informasi.create','informasi.edit']],
@@ -230,7 +230,7 @@
         <!-- Navigation Links -->
         <div class="px-3 py-6 space-y-3">
             <x-responsive-nav-link :href="route('dashboard.index')" :active="request()->routeIs('dashboard')">
-                HOME
+                BERANDA
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('profil.index')" :active="request()->routeIs('profil')">
                 PROFIL
@@ -331,10 +331,12 @@
 
                     // Pilih ikon sesuai kategori
                     let icon = '🔎';
-                    if (item.category.toLowerCase().includes('fasilitas')) icon = '🏛️';
+                    if (item.category.toLowerCase().includes('fasdik')) icon = '🏛️';
                     if (item.category.toLowerCase().includes('berita')) icon = '📰';
-                    if (item.category.toLowerCase().includes('informasi')) icon = '📚';
-                    if (item.category.toLowerCase().includes('profil')) icon = '👤';
+                    if (item.category.toLowerCase().includes('informasi')) icon = '📑';
+                    if (item.category.toLowerCase().includes('profil')) icon = '👮';
+                    if (item.category.toLowerCase().includes('sip')) icon = '📖';
+                    if (item.category.toLowerCase().includes('pag')) icon = '📖';
 
                     resultItem.innerHTML = `
                         <span class="text-lg">${icon}</span>

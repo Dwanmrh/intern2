@@ -6,11 +6,11 @@
 
             {{-- CARD PERSYARATAN --}}
                 <div class="text-center">
-                    <h2 class="text-lg md:text-xl lg:text-base font-bold text-white inline-flex items-center gap-2
+                    <h2 class="text-lg md:text-xl lg:text-lg font-bold text-white inline-flex items-center gap-2
                     bg-gradient-to-r from-slate-700 via-slate-600 to-slate-800
                             px-4 py-1 rounded-xl shadow-md">
                         <i class="bi bi-journal-check text-white text-xl md:text-lg"></i>
-                        PERSYARATAN MASUK SETUKPA
+                        SETUKPA ADMISSION REQUIRMENTS
                     </h2>
                 </div>
 
@@ -127,19 +127,18 @@
 
                 {{-- Judul dan Tombol Tambah --}}
                 <div class="text-center">
-                    <h2 class="text-lg md:text-xl lg:text-base font-bold text-white inline-flex items-center gap-2
+                    <h2 class="text-lg md:text-xl lg:text-lg font-bold text-white inline-flex items-center gap-2
                             bg-gradient-to-r from-slate-700 via-slate-600 to-slate-800
                             px-6 py-1 rounded-xl shadow-md">
                         <i class="bi bi-calendar-event text-white text-xl md:text-xl"></i>
-                        INFORMASI
+                        INFORMATION
                     </h2>
 
                     @auth
                         @if(Auth::user()->role === 'admin')
                             <div class="absolute right-8 top-8">
                                 <a href="{{ route('informasi.create') }}"
-                                   class="bg-gradient-to-r from-cyan-500 via-blue-600 to-blue-800
-                                          hover:from-cyan-600 hover:via-blue-700 hover:to-blue-900
+                                   class="bg-[#800000] hover:bg-[#660000]
                                           text-white px-3 py-2.5 rounded-md text-sm shadow-md transition duration-300 ease-in-out">
                                     <i class="bi bi-plus-circle text-base"></i>
                                     Tambah Informasi
@@ -166,51 +165,60 @@
                     </script>
                 @endif
 
-                {{-- Grid Informasi --}}
+                {{-- Flex/Grid Informasi --}}
                 <div id="cardGrid"
-                     class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 items-start invisible">
+                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8 items-start invisible">
                     @forelse ($informasi as $data)
-                        <div x-data="{ showDetailBtn: false }"
-                             class="bg-gradient-to-br from-[#dfe0e8] to-[#f0f4f8] border border-gray shadow-md rounded-lg
-                                    flex flex-col justify-between cursor-pointer hover:scale-105
-                                    transition duration-300 ease-in-out transform-gpu will-change-transform relative h-full">
+                    <div x-data="{ expanded: false }"
+     class="w-full bg-white shadow-lg rounded-2xl overflow-hidden flex flex-col
+            cursor-pointer hover:scale-[1.03] transition duration-300 ease-in-out
+            border border-gray-200 group relative min-h-[360px]">
+
 
                             {{-- Gambar --}}
                             @if ($data->foto)
-                                <img src="{{ asset('storage/' . $data->foto) }}" alt="{{ $data->judul }}"
-                                     class="w-full max-h-48 object-cover rounded-t-lg">
+                                <div class="w-full h-52 overflow-hidden">
+                                    <img src="{{ asset('storage/' . $data->foto) }}" alt="{{ $data->judul }}"
+                                        class="w-full h-full object-cover">
+                                </div>
                             @endif
 
                             {{-- Konten teks --}}
-                            <div class="p-4 flex flex-col flex-grow overflow-hidden {{ !$data->foto ? 'rounded-t-lg' : '' }}"
-                                 :class="showDetailBtn ? 'h-auto' : 'h-[200px]'">
-                                <p class="text-sm text-gray-500 flex items-center gap-1 mb-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-500" fill="none"
-                                         viewBox="0 0 24 24" stroke="currentColor">
+                            <div class="p-5 flex flex-col flex-grow overflow-hidden">
+                                <p class="text-xs text-gray-500 flex items-center gap-1 mb-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-blue-500" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 
+                                            002-2V7a2 2 0 00-2-2H5a2 2 0 
+                                            00-2 2v12a2 2 0 002 2z"/>
                                     </svg>
-                                    <span class="mt-[1px]">
+                                    <span>
                                         {{ \Carbon\Carbon::parse($data->tanggal)->translatedFormat('d F Y') }}
                                     </span>
                                 </p>
 
-                                <h3 class="text-lg font-bold text-gray-800 mb-[2px]">
+                                <h3 class="text-xl font-semibold text-gray-800 mb-2 line-clamp-2">
                                     {{ $data->judul }}
                                 </h3>
 
-                                <p class="text-gray-700 text-base leading-relaxed text-justify break-words transition-all duration-300"
-                                   :class="showDetailBtn ? '' : 'line-clamp-3'">
-                                    {!! strip_tags($data->deskripsi) !!}
-                                </p>
+                                {{-- Deskripsi dengan toggle --}}
+                                <div class="text-gray-600 text-sm leading-relaxed text-justify break-words flex-grow">
+                                    <p x-show="!expanded" class="line-clamp-3">
+                                        {!! strip_tags($data->deskripsi) !!}
+                                    </p>
+                                    <p x-show="expanded" x-cloak>
+                                        {!! strip_tags($data->deskripsi) !!}
+                                    </p>
+                                </div>
                             </div>
 
                             {{-- Tombol aksi --}}
-                            <div class="px-4 pb-4 pt-1 flex items-center justify-between">
-                                <button @click.stop="showDetailBtn = !showDetailBtn"
-                                        class="bg-blue-500 hover:bg-blue-900 text-white px-4 py-2 rounded-md
-                                            text-sm font-medium shadow-md transition duration-300">
-                                    <span x-text="showDetailBtn ? 'Tutup' : 'Baca Lebih Lanjut'"></span>
+                            <div class="px-5 pb-4 flex items-center justify-between mt-auto">
+                                <button @click.stop="expanded = !expanded"
+                                        class="bg-blue-600 hover:bg-blue-800 text-white px-4 py-2 rounded-lg
+                                            text-sm font-medium shadow transition duration-300">
+                                    <span x-text="expanded ? 'Tutup' : 'Baca Lebih Lanjut'"></span>
                                 </button>
 
                                 @auth
@@ -218,26 +226,32 @@
                                         <div class="flex gap-2">
                                             {{-- Edit --}}
                                             <a href="{{ route('informasi.edit', $data->id) }}" @click.stop
-                                            class="p-2 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 shadow-md transition"
-                                            title="Edit">
+                                            class="p-2 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100
+                                                    shadow transition" title="Edit">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
                                                     viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-5M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4
-                                                            9.5-9.5z"/>
+                                                        d="M11 5H6a2 2 0 00-2 2v12a2 2 0 
+                                                        002 2h12a2 2 0 002-2v-5M18.5 
+                                                        2.5a2.121 2.121 0 113 3L12 15l-4 
+                                                        1 1-4 9.5-9.5z"/>
                                                 </svg>
                                             </a>
 
                                             {{-- Hapus --}}
                                             <button type="button" @click.stop
-                                                    class="p-2 rounded-full bg-red-50 text-red-600 hover:bg-red-100 shadow-md transition"
+                                                    class="p-2 rounded-full bg-red-50 text-red-600 hover:bg-red-100
+                                                        shadow transition"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#hapusInformasiModal{{ $data->id }}"
                                                     title="Hapus">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
                                                     viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7h6m-3-4v4"/>
+                                                        d="M19 7l-.867 12.142A2 2 0 
+                                                        0116.138 21H7.862a2 2 0 
+                                                        01-1.995-1.858L5 7m5 4v6m4-6v6M9 
+                                                        7h6m-3-4v4"/>
                                                 </svg>
                                             </button>
                                         </div>
@@ -246,20 +260,20 @@
                             </div>
                         </div>
                     @empty
-                        <p class="text-gray-600 col-span-3 text-center">Belum ada informasi yang ditambahkan.</p>
+                        <p class="text-gray-600 w-full text-center">Belum ada informasi yang ditambahkan.</p>
                     @endforelse
                 </div>
-            </div>
 
             {{-- Modal Konfirmasi Hapus --}}
             @foreach($informasi as $data)
                 <div class="modal fade" id="hapusInformasiModal{{ $data->id }}" tabindex="-1"
-                     aria-labelledby="hapusInformasiLabel{{ $data->id }}" aria-hidden="true">
+                    aria-labelledby="hapusInformasiLabel{{ $data->id }}" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header bg-danger text-white">
                                 <h5 class="modal-title" id="hapusInformasiLabel{{ $data->id }}">Konfirmasi Hapus</h5>
-                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 Apakah anda yakin ingin menghapus data <strong>{{ $data->judul }}</strong>?
@@ -270,12 +284,14 @@
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Hapus</button>
                                 </form>
-                                <button type="button" class="btn btn-secondary bg-blue-600 text-white rounded hover:bg-blue-800" data-bs-dismiss="modal">Batal</button>
+                                <button type="button" class="btn btn-secondary bg-blue-600 text-white rounded hover:bg-blue-800"
+                                        data-bs-dismiss="modal">Batal</button>
                             </div>
                         </div>
                     </div>
                 </div>
             @endforeach
+        </div>
 
             {{-- Media Sosial dan Kontak --}}
             <div class="mb-6 shadow rounded-lg py-8 px-6 bg-gradient-to-b from-white to-blue-50 border-t-4 border-blue-400">

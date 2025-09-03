@@ -165,8 +165,8 @@
                             'Mengembangkan 8 (delapan) standar pendidikan yang modern.'
                         ] as $i => $misi)
                             <div class="flex items-start gap-3">
-                                <div class="text-blue-700 font-semibold">{{ $i + 1 }}.</div>
-                                <div class="border-l-4 border-blue-600 pl-4 text-gray-700 text-base leading-relaxed">
+                                <div class="text-[#900000] font-semibold">{{ $i + 1 }}.</div>
+                                <div class="border-l-4 border-[#900000] pl-4 text-gray-700 text-base leading-relaxed">
                                     {{ $misi }}
                                 </div>
                             </div>
@@ -183,7 +183,7 @@
                         border-t-4 border-yellow-400">
                 {{-- Judul --}}
                 <div class="relative mb-8">
-                    <h2 class="inline-flex items-center gap-2 text-lg md:text-xl lg:text-base font-bold
+                    <h2 class="inline-flex items-center gap-2 text-lg md:text-xl lg:text-lg font-bold
                             text-black bg-gradient-to-r from-yellow-400 to-yellow-500
                             px-4 py-1 rounded-xl shadow-md">
                         <i class="bi bi-people-fill text-xl text-black md:text-lg"></i>

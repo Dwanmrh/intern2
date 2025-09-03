@@ -22,7 +22,7 @@
 
                     {{-- Judul --}}
                     <div class="text-center">
-                        <h2 class="text-lg md:text-base font-bold text-white
+                        <h2 class="text-lg md:text-lg font-bold text-white
                                 inline-flex items-center gap-2
                                 bg-gradient-to-r from-slate-700 via-slate-600 to-slate-800
                                 px-6 py-1 rounded-xl shadow-lg">
@@ -244,8 +244,7 @@
             <a href="{{ route('modul.create', ['prodiklat' => 'SIP']) }}"
             class="fixed bottom-6 right-6 z-[9999] w-14 h-14 flex items-center justify-center
                     rounded-full shadow-xl text-white text-2xl
-                    bg-gradient-to-r from-cyan-500 via-blue-600 to-blue-800
-                    hover:scale-110 hover:from-cyan-600 hover:via-blue-700 hover:to-blue-900
+                    bg-[#800000] hover:bg-[#660000]
                     transform transition"
             title="Tambah Modul">
                 <i class="bi bi-plus"></i>

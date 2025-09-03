@@ -12,7 +12,7 @@
             {{-- Navigasi --}}
             <div class="px-4">
                 <div class="grid grid-cols-3 gap-y-4 text-sm">
-                    <div class="text-left"><a href="{{ url('/') }}" class="hover:text-blue-300">HOME</a></div>
+                    <div class="text-left"><a href="{{ url('/') }}" class="hover:text-blue-300">BERANDA</a></div>
                     <div class="text-center"><a href="{{ url('profil') }}" class="hover:text-blue-300">PROFIL</a></div>
                     <div class="text-right"><a href="{{ route('berita.index') }}" class="hover:text-blue-300">BERITA</a></div>
 

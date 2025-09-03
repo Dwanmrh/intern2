@@ -24,12 +24,12 @@
                 <div class="flex flex-wrap items-center text-lg text-gray-500 gap-4 mb-6">
                     {{-- Tanggal --}}
                     <div class="flex items-center gap-1">
-                        <i class="bi bi-calendar-event"></i>
+                        <i class="bi bi-calendar-event text-blue-500"></i>
                         {{ \Carbon\Carbon::parse($berita->tanggal)->translatedFormat('d F Y') }}
                     </div>
                     {{-- Penulis (opsional) --}}
                     <div class="flex items-center gap-1">
-                        <i class="bi bi-person-circle"></i>
+                        <i class="bi bi-person-circle text-blue-500"></i>
                         Admin SETUKPA
                     </div>
                 </div>

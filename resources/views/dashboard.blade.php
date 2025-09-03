@@ -10,8 +10,7 @@
                     @if(Auth::user()->role === 'admin')
                         <div class="absolute right-0">
                             <a href="{{ route('dashboard.create') }}"
-                               class="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700
-                                      hover:from-cyan-500 hover:via-blue-600 hover:to-blue-800
+                               class="bg-[#800000] hover:bg-[#660000]
                                       text-white px-4 py-2 rounded-md text-sm shadow-md
                                       transition duration-300 ease-in-out">
                                 <i class="bi bi-plus-circle text-base"></i>
@@ -148,10 +147,10 @@
             <div class="mb-5 shadow rounded-lg p-6 bg-gradient-to-b from-white to-blue-50 border-t-4 border-blue-400">
                 {{-- Header --}}
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="font-bold text-[1.55rem] text-[#2c3e50]">Berita</h2>
+                    <h2 class="font-bold text-[1.55rem] text-[#2c3e50]">NEWS & INFORMATION</h2>
                     <a href="{{ route('berita.index') }}"
-                       class="flex items-center gap-1 font-bold text-[#2c3e50] text-[0.95rem] hover:underline">
-                        Lihat Lebih Lanjut
+                       class="flex items-center gap-1 font-bold text-blue-600 text-[0.95rem] hover:underline">
+                        Read More
                         <i class="bi bi-box-arrow-up-right text-[1.05rem]"></i>
                     </a>
                 </div>
@@ -168,7 +167,7 @@
                                      class="w-full h-[180px] object-cover">
                                 <div class="p-3">
                                     <p class="text-gray-500 text-sm mb-1 flex items-center gap-1">
-                                        <i class="bi bi-calendar"></i>
+                                        <i class="bi bi-calendar text-blue-500"></i>
                                         {{ \Carbon\Carbon::parse($berita->tanggal)->translatedFormat('l, d M Y') }}
                                     </p>
                                     <p class="font-semibold text-gray-800">
@@ -193,8 +192,12 @@
 
                         {{-- Judul di tengah --}}
                         <div class="text-center">
-                            <p class="text-sm uppercase text-gray-500 tracking-wide">Related Unit</p>
-                            <h2 class="font-bold text-2xl text-[#2c3e50]">INSTANSI TERKAIT</h2>
+                            <h2 class="text-lg md:text-xl lg:text-lg font-bold text-white inline-flex items-center gap-2
+                                    bg-gradient-to-r from-slate-700 via-slate-600 to-slate-800
+                                    px-6 py-1 rounded-xl shadow-md">
+                                    <i class="bi bi-link-45deg text-white text-xl md:text-2xl"></i>
+                                RELATED UNIT
+                            </h2>
                         </div>
 
                         {{-- Tombol di kanan --}}
@@ -202,8 +205,7 @@
                             @auth
                                 @if(Auth::user()->role === 'admin')
                                     <a href="{{ route('dashboard.link.create') }}"
-                                       class="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700
-                                              hover:from-cyan-500 hover:via-blue-600 hover:to-blue-800
+                                       class="bg-[#800000] hover:bg-[#660000]
                                               text-white px-3 py-1.5 rounded-md text-sm shadow-md
                                               transition duration-300 ease-in-out inline-flex items-center">
                                         <i class="bi bi-plus-circle text-sm mr-1"></i>

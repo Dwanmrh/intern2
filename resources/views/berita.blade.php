@@ -15,12 +15,12 @@
 
                 <div class="relative text-center">
                     <h2 class="text-2xl md:text-3xl font-extrabold tracking-wide drop-shadow mb-2">
-                        <i class="bi bi-newspaper mr-2"></i> Berita Terbaru
+                        <i class="bi bi-newspaper mr-2"></i> NEWS & INFORMATION
                     </h2>
-                    <p class="text-sm md:text-base text-gray-200">Update informasi seputar Setukpa Lemdiklat Polri</p>
+                    <ic class="text-sm md:text-base text-gray-200">Official Updates From Setukpa Lemdiklat Polri</p>
                 </div>
 
-                {{-- Tombol Tambah Data (TETAP warna biru gradasi) --}}
+                {{-- Tombol Tambah Data  --}}
                 @auth
                     @if(Auth::user()->role === 'admin')
                         <a href="{{ route('berita.create') }}"

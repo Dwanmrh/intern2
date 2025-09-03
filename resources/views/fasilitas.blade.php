@@ -10,11 +10,11 @@
 
                 {{-- Judul Header (tengah, selalu center) --}}
                 <div class="text-center">
-                    <h2 class="text-lg md:text-xl lg:text-base font-bold text-white inline-flex items-center gap-2
+                    <h2 class="text-lg md:text-xl lg:text-lg font-bold text-white inline-flex items-center gap-2
                             bg-gradient-to-r from-slate-700 via-slate-600 to-slate-800
                             px-4 py-1 rounded-xl shadow-md">
                         <i class="bi bi-bank2 text-white text-xl md:text-lg"></i>
-                        FASILITAS PENDIDIKAN
+                        EDUCATIONAL FACILITIES
                     </h2>
                 </div>
 
@@ -23,8 +23,7 @@
                     @if(Auth::user()->role === 'admin')
                         <a href="{{ route('fasilitas.create') }}"
                         class="absolute right-6 top-6
-                                bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700
-                                hover:from-cyan-500 hover:via-blue-600 hover:to-blue-800
+                        bg-[#800000] hover:bg-[#660000]
                                 text-white px-3 py-1.5 rounded-md text-sm shadow-md
                                 transition duration-300 ease-in-out inline-flex items-center">
                             <i class="bi bi-plus-circle text-sm mr-1"></i>
