@@ -1,5 +1,4 @@
 <x-app-layout>
-
     @section('title', 'TAMBAH BERITA | SETUKPA LEMDIKLAT POLRI')
 
     <div class="py-10 px-4">
@@ -21,16 +20,18 @@
                 <div class="mb-3">
                     <label class="block text-white font-semibold mb-1">Judul</label>
                     <input type="text" name="judul"
-                        class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
-                        required placeholder="Masukkan judul berita">
+                           class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5
+                                  focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
+                           required placeholder="Masukkan judul berita">
                 </div>
 
                 {{-- Berita --}}
                 <div class="mb-3">
                     <label class="block text-white font-semibold mb-1">Berita</label>
                     <textarea name="isi_berita" rows="5"
-                        class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
-                        placeholder="Masukkan isi berita"></textarea>
+                              class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5
+                                     focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
+                              placeholder="Masukkan isi berita"></textarea>
                     <small class="font-bold text-yellow-400 italic">Kosongkan jika menggunakan file</small>
                 </div>
 
@@ -38,7 +39,8 @@
                 <div class="mb-3">
                     <label class="block text-white font-semibold mb-1">Upload File (PDF)</label>
                     <input type="file" name="file_berita" accept=".pdf"
-                        class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition">
+                           class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5
+                                  focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition">
                     <small class="font-bold text-yellow-400 italic">Kosongkan jika memasukkan isi berita | Max Size 23 MB</small>
                 </div>
 
@@ -46,8 +48,9 @@
                 <div class="mb-3">
                     <label class="block text-white font-semibold mb-1">Tanggal</label>
                     <input type="text" name="tanggal" id="tanggal"
-                        class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
-                        required placeholder="Format: DD/MM/YYYY">
+                           class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5
+                                  focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
+                           required placeholder="Format: DD/MM/YYYY">
                     <small class="font-bold text-yellow-400 italic">Tanggal Wajib Diisi</small>
                 </div>
 
@@ -55,8 +58,9 @@
                 <div class="mb-3">
                     <label class="block text-white font-semibold mb-1">Upload Foto (Opsional)</label>
                     <input type="file" name="foto" id="fotoInput"
-                        class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-2 shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-400">
-                        <small class="font-bold text-yellow-400 italic">Max Size 15 MB</small>
+                           class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-2
+                                  shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <small class="font-bold text-yellow-400 italic">Max Size 15 MB</small>
 
                     {{-- Preview --}}
                     <div id="previewContainer" class="mt-3 hidden">
@@ -65,49 +69,52 @@
                     </div>
                 </div>
 
-                <script>
-                    document.getElementById('fotoInput').addEventListener('change', function (event) {
-                        const file = event.target.files[0];
-                        const previewContainer = document.getElementById('previewContainer');
-                        const fotoPreview = document.getElementById('fotoPreview');
-
-                        if (file) {
-                            const reader = new FileReader();
-                            reader.onload = function (e) {
-                                fotoPreview.src = e.target.result;
-                                previewContainer.classList.remove('hidden');
-                            };
-                            reader.readAsDataURL(file);
-                        } else {
-                            fotoPreview.src = "";
-                            previewContainer.classList.add('hidden');
-                        }
-                    });
-                </script>
-
                 {{-- Tombol --}}
                 <div class="flex justify-end space-x-3">
                     <a href="{{ route('berita.index') }}"
-                        class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-md shadow-md hover:shadow-lg transition">
+                       class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-md
+                              shadow-md hover:shadow-lg transition">
                         Batal
                     </a>
                     <button type="submit"
-                        class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-md shadow-md hover:shadow-lg transition">
+                            class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-md
+                                   shadow-md hover:shadow-lg transition">
                         Simpan
                     </button>
                 </div>
             </form>
 
-            {{-- Flatpickr --}}
-            <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-            <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/id.js"></script>
-            <script>
-                flatpickr("#tanggal", {
-                    dateFormat: "d/m/Y",
-                    locale: "id",
-                });
-            </script>
-
         </div>
     </div>
+
+    {{-- Scripts --}}
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/id.js"></script>
+
+    <script>
+        // Flatpickr initialization
+        flatpickr("#tanggal", {
+            dateFormat: "d/m/Y",
+            locale: "id",
+        });
+
+        // Foto preview functionality
+        document.getElementById('fotoInput').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            const previewContainer = document.getElementById('previewContainer');
+            const fotoPreview = document.getElementById('fotoPreview');
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    fotoPreview.src = e.target.result;
+                    previewContainer.classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            } else {
+                fotoPreview.src = "";
+                previewContainer.classList.add('hidden');
+            }
+        });
+    </script>
 </x-app-layout>

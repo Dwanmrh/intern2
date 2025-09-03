@@ -8,7 +8,7 @@
             {{-- CARD UTAMA --}}
             <div class="shadow-lg rounded-2xl p-6 mb-10 bg-white/95 backdrop-blur">
 
-                {{-- BARIS ATAS: KEMBALI + JUDUL + TAMBAH --}}
+                {{-- BARIS ATAS: KEMBALI + JUDUL --}}
                 <div class="grid grid-cols-3 items-center mb-6">
 
                     {{-- Tombol Kembali --}}
@@ -31,19 +31,8 @@
                         </h2>
                     </div>
 
-                    {{-- Button Tambah Modul --}}
-                    <div class="flex justify-end items-center">
-                        @auth
-                            @if(in_array(Auth::user()->role, ['admin', 'personel']))
-                                <a href="{{ route('modul.create') }}"
-                                    class="bg-gradient-to-r from-cyan-500 via-blue-600 to-blue-800
-                                        hover:from-cyan-600 hover:via-blue-700 hover:to-blue-900
-                                        text-white px-4 py-2 rounded-lg text-sm shadow-lg transition">
-                                    <i class="bi bi-plus-circle mr-1"></i> Tambah Modul
-                                </a>
-                            @endif
-                        @endauth
-                    </div>
+                    {{-- Kanan dikosongkan --}}
+                    <div class="flex justify-end items-center"></div>
                 </div>
 
                 {{-- FILTER --}}
@@ -136,16 +125,24 @@
                             "Ujian Kompetensi Perwira Pertama",
                         ];
 
+                        // pastikan collection
+                        $moduls = collect($moduls);
+
                         $mapels = $moduls->groupBy('mapel');
 
-                        // urutkan mapel sesuai array orderMapel
+                        // urutkan sesuai orderMapel
                         $sortedMapels = collect($orderMapel)
-                            ->mapWithKeys(fn($mapel) => isset($mapels[$mapel]) ? [$mapel => $mapels[$mapel]] : []);
+                            ->filter(fn($mapel) => $mapels->has($mapel))
+                            ->mapWithKeys(fn($mapel) => [$mapel => $mapels[$mapel]]);
+
+                        // tambahkan mapel lain yang belum ada di orderMapel
+                        $others = $mapels->except($orderMapel);
+                        $sortedMapels = $sortedMapels->merge($others);
 
                         $no = 1;
                     @endphp
 
-                        @forelse ($sortedMapels as $mapel=>$list)
+                    @forelse ($sortedMapels as $mapel => $list)
                         <details class="group border border-gray-200 rounded-xl shadow-md bg-white transition">
                             <summary class="flex items-center border-t-2 border-blue-400 justify-between px-5 py-3 cursor-pointer
                                             font-semibold text-gray-700 hover:bg-gray-100 rounded-t-xl">
@@ -217,7 +214,7 @@
         </div>
     </div>
 
-    {{-- MODAL HAPUS DI LUAR LOOP ACCORDION --}}
+    {{-- MODAL HAPUS --}}
     @foreach ($moduls as $mod)
         <div class="modal fade" id="hapusModulModal{{ $mod->id }}" tabindex="-1" aria-labelledby="hapusLabel{{ $mod->id }}" aria-hidden="true" style="z-index:1050;">
             <div class="modal-dialog modal-dialog-centered">
@@ -240,5 +237,20 @@
             </div>
         </div>
     @endforeach
+
+    {{-- FLOATING BUTTON --}}
+    @auth
+        @if(in_array(Auth::user()->role, ['admin', 'personel']))
+            <a href="{{ route('modul.create', ['prodiklat' => 'SIP']) }}"
+            class="fixed bottom-6 right-6 z-[9999] w-14 h-14 flex items-center justify-center
+                    rounded-full shadow-xl text-white text-2xl
+                    bg-gradient-to-r from-cyan-500 via-blue-600 to-blue-800
+                    hover:scale-110 hover:from-cyan-600 hover:via-blue-700 hover:to-blue-900
+                    transform transition"
+            title="Tambah Modul">
+                <i class="bi bi-plus"></i>
+            </a>
+        @endif
+    @endauth
 
 </x-app-layout>

@@ -1,5 +1,3 @@
-<!-- FASILITAS/CREATE.BLADE.PHP -->
-
 <x-app-layout>
 
     @section('title', 'Tambah Fasilitas | SETUKPA LEMDIKLAT POLRI')

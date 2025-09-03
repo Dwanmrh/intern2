@@ -52,7 +52,7 @@
                 <form method="GET" action="{{ route('modul.pag') }}" class="flex flex-wrap items-center gap-3 mb-6">
                     <select name="tahun"
                             class="form-select text-sm rounded-md w-auto min-w-[100px] max-w-[130px]
-                            bg-gray-100 text-gray-800 border border-gray-300
+                            bg-gray-100
                             text-black border border-gray-300 focus:border-blue-400 focus:ring-blue-300">
                         <option value="">Pilih Tahun</option>
                         @foreach ($allTahun as $tahun)

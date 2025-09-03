@@ -44,7 +44,11 @@ class ModulController extends Controller
         }
 
         $moduls = $query->get();
-        $allTahun = Modul::where('prodiklat', 'SIP')->select('tahun')->distinct()->pluck('tahun');
+        $allTahun = Modul::where('prodiklat', 'SIP')
+        ->select('tahun')
+        ->distinct()
+        ->orderBy('tahun', 'desc')
+        ->pluck('tahun');
 
         return view('modul.sip', compact('moduls', 'allTahun'));
     }
@@ -63,9 +67,10 @@ class ModulController extends Controller
         return view('modul.pag', compact('moduls', 'allTahun'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        return view('modul.create');
+        $prodiklat = $request->get('prodiklat'); // bisa null kalau tidak ada
+        return view('modul.create', compact('prodiklat'));
     }
 
     public function store(Request $request)
@@ -125,10 +130,20 @@ class ModulController extends Controller
             'judul','deskripsi','prodiklat','mapel','tahun'
         ]);
 
+        // ✅ Jika user upload file baru
         if ($request->hasFile('file')) {
-            Storage::disk('public')->delete($modul->file);
+            if ($modul->file) {
+                Storage::disk('public')->delete($modul->file);
+            }
             $path = $request->file('file')->store('moduls', 'public');
             $data['file'] = $path;
+        }
+        // ✅ Jika user centang "hapus file ini"
+        elseif ($request->filled('hapus_file')) {
+            if ($modul->file) {
+                Storage::disk('public')->delete($modul->file);
+            }
+            $data['file'] = null;
         }
 
         $modul->update($data);
@@ -141,12 +156,14 @@ class ModulController extends Controller
         }
 
         return redirect()->route('modul.index')->with('success','Modul berhasil diperbarui.');
-    }
+}
 
     public function destroy(Modul $modul)
     {
-        // Hapus file
-        Storage::disk('public')->delete($modul->file);
+        // ✅ Hapus file kalau ada
+        if ($modul->file) {
+            Storage::disk('public')->delete($modul->file);
+        }
 
         // Simpan dulu prodiklat sebelum delete
         $prodiklat = $modul->prodiklat;
@@ -164,3 +181,4 @@ class ModulController extends Controller
         return redirect()->route('modul.index')->with('success','Modul berhasil dihapus.');
     }
 }
+

@@ -8,6 +8,8 @@ use App\Models\Profil;
 use App\Models\Berita;
 use App\Models\Informasi;
 use App\Models\Fasilitas;
+use App\Models\Modul;
+
 class SearchController extends Controller
 {
     public function search(Request $request)
@@ -24,10 +26,11 @@ class SearchController extends Controller
             ]);
 
         $profil = Profil::where('nama', 'like', "%{$query}%")
-            ->select('id', 'nama as title')
+            ->orWhere('jabatan', 'like', "%{$query}%")
+            ->select('id', 'nama as title', 'jabatan')
             ->get()
             ->map(fn($item) => [
-                'title' => $item->title,
+                'title' => $item->title . ' - ' . ($item->jabatan ?? ''),
                 'url' => route('profil.index') . "#profil{$item->id}",
                 'category' => 'Profil'
             ]);
@@ -37,7 +40,7 @@ class SearchController extends Controller
             ->get()
             ->map(fn($item) => [
                 'title' => $item->title,
-                'url' => route('berita.index') . "#berita{$item->id}",
+                'url' => route('berita.show', $item->id),
                 'category' => 'Berita'
             ]);
 
@@ -46,18 +49,28 @@ class SearchController extends Controller
             ->get()
             ->map(fn($item) => [
                 'title' => $item->title,
-                'url' => route('informasi.index') . "#info{$item->id}",
+                'url' => route('informasi.show', $item->id),
                 'category' => 'Informasi'
             ]);
 
-            $fasilitas = Fasilitas::where('judul', 'like', "%{$query}%")
+        $fasilitas = Fasilitas::where('judul', 'like', "%{$query}%")
             ->orWhere('deskripsi', 'like', "%{$query}%")
             ->select('id', 'judul as title')
             ->get()
             ->map(fn($item) => [
                 'title' => $item->title,
-                'url' => route('fasilitas.index') . "#fasilitas{$item->id}",
+                'url' => route('fasilitas.show', $item->id),
                 'category' => 'FASDIK'
+            ]);
+
+        $modul = Modul::where('judul', 'like', "%{$query}%")
+            ->orWhere('deskripsi', 'like', "%{$query}%")
+            ->select('id', 'judul as title', 'prodiklat')
+            ->get()
+            ->map(fn($item) => [
+                'title' => $item->title,
+                'url' => route('modul.index') . "#modul{$item->id}",
+                'category' => strtoupper($item->prodiklat ?? 'Modul')
             ]);
 
         $results = collect()
@@ -66,8 +79,9 @@ class SearchController extends Controller
             ->merge($berita)
             ->merge($informasi)
             ->merge($fasilitas)
+            ->merge($modul)
             ->unique('url')
-            ->values(); // reset indexing
+            ->values();
 
         return response()->json($results);
     }

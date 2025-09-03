@@ -52,7 +52,6 @@ Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
 Route::middleware(['auth', 'verified'])->prefix('berita')->group(function () {
     Route::get('/create', [BeritaController::class, 'create'])->name('berita.create');
     Route::post('/', [BeritaController::class, 'store'])->name('berita.store');
-
     Route::get('/{id}/edit', [BeritaController::class, 'edit'])->name('berita.edit');
     Route::put('/{id}', [BeritaController::class, 'update'])->name('berita.update');
     Route::delete('/{id}', [BeritaController::class, 'destroy'])->name('berita.destroy');
@@ -68,7 +67,6 @@ Route::get('/informasi', [InformasiController::class, 'index'])->name('informasi
 Route::middleware(['auth', 'verified'])->prefix('informasi')->group(function () {
     Route::get('/create', [InformasiController::class, 'create'])->name('informasi.create');
     Route::post('/', [InformasiController::class, 'store'])->name('informasi.store');
-
     Route::get('/{id}/edit', [InformasiController::class, 'edit'])->name('informasi.edit');
     Route::put('/{id}', [InformasiController::class, 'update'])->name('informasi.update');
     Route::delete('/{id}', [InformasiController::class, 'destroy'])->name('informasi.destroy');
@@ -79,15 +77,11 @@ Route::get('/informasi/{id}', [InformasiController::class, 'show'])->name('infor
 
 // FASDIK  READ (Publik)
 Route::get('/fasilitas', [FasilitasController::class, 'index'])->name('fasilitas.index');
-Route::get('/fasilitas/umum', [FasilitasController::class, 'umum'])->name('fasilitas.umum');
-Route::get('/fasilitas/belajar', [FasilitasController::class, 'belajar'])->name('fasilitas.belajar');
-Route::get('/fasilitas/khusus', [FasilitasController::class, 'khusus'])->name('fasilitas.khusus');
 
 // FASDIK CU (Admin Only)
 Route::middleware(['auth', 'verified'])->prefix('fasilitas')->group(function () {
     Route::get('/create', [FasilitasController::class, 'create'])->name('fasilitas.create');
     Route::post('/', [FasilitasController::class, 'store'])->name('fasilitas.store');
-
     Route::get('/{id}/edit', [FasilitasController::class, 'edit'])->name('fasilitas.edit');
     Route::put('/{id}', [FasilitasController::class, 'update'])->name('fasilitas.update');
     Route::delete('/{id}', [FasilitasController::class, 'destroy'])->name('fasilitas.destroy');

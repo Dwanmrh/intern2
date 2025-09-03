@@ -1,8 +1,7 @@
 <x-app-layout>
-
     @section('title', 'HOME | SETUKPA LEMDIKLAT POLRI')
 
-    <div class="@auth py-3 @else py-2 @endauth">
+    <div class="{{ Auth::check() ? 'py-3' : 'py-2' }}">
         <div class="container">
 
             {{-- Header & Tombol Tambah --}}
@@ -11,8 +10,11 @@
                     @if(Auth::user()->role === 'admin')
                         <div class="absolute right-0">
                             <a href="{{ route('dashboard.create') }}"
-                            class="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 hover:from-cyan-500 hover:via-blue-600 hover:to-blue-800 text-white px-4 py-2 rounded-md text-sm shadow-md transition duration-300 ease-in-out">
-                                <i class="bi bi-plus-circle text-base "></i>
+                               class="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700
+                                      hover:from-cyan-500 hover:via-blue-600 hover:to-blue-800
+                                      text-white px-4 py-2 rounded-md text-sm shadow-md
+                                      transition duration-300 ease-in-out">
+                                <i class="bi bi-plus-circle text-base"></i>
                                 Tambah Preview
                             </a>
                         </div>
@@ -62,36 +64,37 @@
                                     </video>
                                 @else
                                     <img src="{{ asset('storage/' . $item->file) }}"
-                                        class="d-block w-100 rounded" style="object-fit: cover; max-height: 550px;" alt="Preview">
+                                         class="d-block w-100 rounded" style="object-fit: cover; max-height: 550px;" alt="Preview">
                                 @endif
                             @else
                                 {{-- Placeholder kalau file kosong --}}
-                                <div class="aspect-video w-full max-h-[550px] rounded overflow-hidden">
-                                    <x-placeholder-foto />
+                                <div class="d-flex justify-content-center align-items-center bg-secondary text-white"
+                                     style="height: 300px; border-radius: 8px;">
+                                    <p class="mb-0">Tidak ada file</p>
                                 </div>
                             @endif
 
-                                                        {{-- Tombol Edit & Hapus --}}
-                                                        @auth
+                            {{-- Tombol Edit & Hapus --}}
+                            @auth
                                 @if(Auth::user()->role === 'admin')
                                     <div class="absolute top-3 right-3 flex gap-2 z-30">
 
                                         {{-- Edit Button --}}
                                         <a href="{{ route('dashboard.edit', $item->id) }}"
-                                        class="bg-transparent border border-yellow-400 text-white
-                                                hover:!bg-yellow-400 hover:!text-white
-                                                px-3 py-1 rounded text-sm shadow
-                                                transition-colors duration-300 ease-in-out"
-                                        title="Edit">
+                                           class="bg-transparent border border-yellow-400 text-white
+                                                  hover:!bg-yellow-400 hover:!text-white
+                                                  px-3 py-1 rounded text-sm shadow
+                                                  transition-colors duration-300 ease-in-out"
+                                           title="Edit">
                                             Edit
                                         </a>
 
                                         {{-- Hapus Button --}}
                                         <button type="button"
                                                 class="bg-transparent border border-red-600 text-white
-                                                    hover:!bg-red-600 hover:!text-white
-                                                    px-3 py-1 rounded text-sm shadow
-                                                    transition-colors duration-300 ease-in-out"
+                                                       hover:!bg-red-600 hover:!text-white
+                                                       px-3 py-1 rounded text-sm shadow
+                                                       transition-colors duration-300 ease-in-out"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#hapusModal{{ $item->id }}">
                                             Hapus
@@ -147,7 +150,7 @@
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="font-bold text-[1.55rem] text-[#2c3e50]">Berita</h2>
                     <a href="{{ route('berita.index') }}"
-                    class="flex items-center gap-1 font-bold text-[#2c3e50] text-[0.95rem] hover:underline">
+                       class="flex items-center gap-1 font-bold text-[#2c3e50] text-[0.95rem] hover:underline">
                         Lihat Lebih Lanjut
                         <i class="bi bi-box-arrow-up-right text-[1.05rem]"></i>
                     </a>
@@ -157,11 +160,12 @@
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                     @forelse($beritas as $berita)
                         <a href="{{ route('berita.show', $berita->id) }}" class="block text-dark no-underline">
-                            <div
-                                class="shadow-sm rounded-lg overflow-hidden bg-white hover:shadow-lg transition-transform duration-300 ease-in-out transform hover:scale-105 h-full">
+                            <div class="shadow-sm rounded-lg overflow-hidden bg-white
+                                        hover:shadow-lg transition-transform duration-300 ease-in-out
+                                        transform hover:scale-105 h-full">
                                 <img src="{{ asset('storage/' . $berita->foto) }}"
-                                    alt="Berita"
-                                    class="w-full h-[180px] object-cover">
+                                     alt="Berita"
+                                     class="w-full h-[180px] object-cover">
                                 <div class="p-3">
                                     <p class="text-gray-500 text-sm mb-1 flex items-center gap-1">
                                         <i class="bi bi-calendar"></i>
@@ -180,7 +184,7 @@
             </div>
 
             {{-- Section Logo Link Terkait --}}
-            @if($links->count() || Auth::user()->role === 'admin')
+            @if($links->count() || (Auth::check() && Auth::user()->role === 'admin'))
                 <div class="mb-10 mt-8 shadow rounded-lg p-8 bg-white border-t-4 border-blue-400 text-center">
 
                     {{-- Header --}}
@@ -198,11 +202,11 @@
                             @auth
                                 @if(Auth::user()->role === 'admin')
                                     <a href="{{ route('dashboard.link.create') }}"
-                                    class="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700
-                                hover:from-cyan-500 hover:via-blue-600 hover:to-blue-800
-                                text-white px-3 py-1.5 rounded-md text-sm shadow-md
-                                transition duration-300 ease-in-out inline-flex items-center">
-                                <i class="bi bi-plus-circle text-sm mr-1"></i>
+                                       class="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700
+                                              hover:from-cyan-500 hover:via-blue-600 hover:to-blue-800
+                                              text-white px-3 py-1.5 rounded-md text-sm shadow-md
+                                              transition duration-300 ease-in-out inline-flex items-center">
+                                        <i class="bi bi-plus-circle text-sm mr-1"></i>
                                         Tambah Link
                                     </a>
                                 @endif
@@ -215,14 +219,14 @@
                         @foreach($links as $link)
                             <div class="flex flex-col items-center gap-2">
                                 <a href="{{ $link->url }}" target="_blank"
-                                    class="hover:scale-105 transition transform">
+                                   class="hover:scale-105 transition transform">
                                     @if ($link->logo)
                                         <img src="{{ asset('storage/' . $link->logo) }}"
-                                            alt="{{ $link->nama }}"
-                                            class="max-h-20 object-contain">
+                                             alt="{{ $link->nama }}"
+                                             class="max-h-20 object-contain">
                                     @else
-                                        <div class="w-20 h-20 rounded-full overflow-hidden">
-                                            <x-placeholder-foto />
+                                        <div class="w-20 h-20 flex items-center justify-center bg-gray-100 rounded-full text-gray-500 text-sm">
+                                            Tanpa Logo
                                         </div>
                                     @endif
                                 </a>
@@ -237,15 +241,15 @@
                                         <div class="flex justify-center items-center gap-3 mt-2">
                                             {{-- Tombol Edit --}}
                                             <a href="{{ route('dashboard.link.edit', $link->id) }}"
-                                            class="p-2 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 shadow-md transition"
-                                            title="Edit">
+                                               class="p-2 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 shadow-md transition"
+                                               title="Edit">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                     viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M11 5H6a2 2 0 00-2 2v12a2 2 0
-                                                            002 2h12a2 2 0 002-2v-5M18.5
-                                                            2.5a2.121 2.121 0 113 3L12 15l-4
-                                                            1 1-4 9.5-9.5z"/>
+                                                          d="M11 5H6a2 2 0 00-2 2v12a2 2 0
+                                                              002 2h12a2 2 0 002-2v-5M18.5
+                                                              2.5a2.121 2.121 0 113 3L12 15l-4
+                                                              1 1-4 9.5-9.5z"/>
                                                 </svg>
                                             </a>
 
@@ -256,12 +260,12 @@
                                                     data-bs-target="#hapusLinkModal{{ $link->id }}"
                                                     title="Hapus">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                     viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M19 7l-.867 12.142A2 2 0
-                                                            0116.138 21H7.862a2 2 0
-                                                            01-1.995-1.858L5 7m5
-                                                            4v6m4-6v6M9 7h6m-3-4v4"/>
+                                                          d="M19 7l-.867 12.142A2 2 0
+                                                              0116.138 21H7.862a2 2 0
+                                                              01-1.995-1.858L5 7m5
+                                                              4v6m4-6v6M9 7h6m-3-4v4"/>
                                                 </svg>
                                             </button>
                                         </div>
