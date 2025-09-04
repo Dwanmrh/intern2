@@ -32,18 +32,7 @@
                         </h2>
                     </div>
 
-                    {{-- Button Tambah Modul (kanan, hanya admin dan personel) --}}
                     <div class="flex justify-end items-center">
-                        @auth
-                            @if(in_array(Auth::user()->role, ['admin', 'personel']))
-                                <a href="{{ route('modul.create') }}"
-                                    class="bg-[#800000] hover:bg-[#660000]
-                                            text-white px-4 py-1.5 rounded-md text-sm shadow-xs transition duration-300 ease-in-out">
-                                    <i class="bi bi-plus-circle text-base text-white"></i>
-                                    Tambah Modul
-                                </a>
-                            @endif
-                        @endauth
                     </div>
                 </div>
 
@@ -154,11 +143,11 @@
                                                                 Yakin ingin menghapus modul <b>{{ $modul->judul }}</b>?
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400" data-bs-dismiss="modal">Batal</button>
                                                                 <form action="{{ route('modul.destroy', $modul->id) }}" method="POST">
                                                                     @csrf @method('DELETE')
                                                                     <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Hapus</button>
                                                                 </form>
+                                                                <button type="button" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400" data-bs-dismiss="modal">Batal</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -176,5 +165,19 @@
             </div>
         </div>
     </div>
+
+    {{-- FLOATING BUTTON --}}
+    @auth
+        @if(in_array(Auth::user()->role, ['admin', 'personel']))
+            <a href="{{ route('modul.create', ['prodiklat' => 'PAG']) }}"
+            class="fixed bottom-6 right-6 z-[9999] w-14 h-14 flex items-center justify-center
+                    rounded-full shadow-xl text-white text-2xl
+                    bg-[#800000] hover:bg-[#660000]
+                    transform transition"
+            title="Tambah Modul">
+                <i class="bi bi-plus"></i>
+            </a>
+        @endif
+    @endauth
 
 </x-app-layout>

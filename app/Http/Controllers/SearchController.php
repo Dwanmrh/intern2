@@ -67,11 +67,20 @@ class SearchController extends Controller
             ->orWhere('deskripsi', 'like', "%{$query}%")
             ->select('id', 'judul as title', 'prodiklat')
             ->get()
-            ->map(fn($item) => [
-                'title' => $item->title,
-                'url' => route('modul.index') . "#modul{$item->id}",
-                'category' => strtoupper($item->prodiklat ?? 'Modul')
-            ]);
+            ->map(function ($item) {
+                // Tentukan route berdasarkan prodiklat
+                $baseUrl = match (strtoupper($item->prodiklat)) {
+                    'SIP' => route('modul.sip'),
+                    'PAG' => route('modul.pag'),
+                    default => route('modul.index'),
+                };
+
+                return [
+                    'title' => $item->title,
+                    'url' => $baseUrl . "#modul{$item->id}",
+                    'category' => strtoupper($item->prodiklat ?? 'Modul')
+                ];
+            });
 
         $results = collect()
             ->merge($dashboard)
