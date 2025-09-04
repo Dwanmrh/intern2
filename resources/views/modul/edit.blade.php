@@ -48,44 +48,74 @@
                 {{-- Mapel --}}
                 <div class="mb-3">
                     <label class="block text-white font-semibold mb-1">Mapel</label>
-                    <select name="mapel"
+                    <select id="mapel" name="mapel"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition">
                         <option value="">-- Pilih Mapel --</option>
-                        @php
-                            $mapels = [
-                                "Wawasan Kebangsaan", "Etika dan Kode Etik Profesi Polri",
-                                "Peraturan Pemerintah Nomor 1, 2, dan 3 Tahun 2003",
-                                "Nilai Sejarah Polri", "Integritas dan Budaya Anti Korupsi",
-                                "Hukum Pidana dan Hukum Acara Pidana", "Pengetahuan Tentang HAM",
-                                "Diskresi & Restorative Justice", "PPA dan ABH",
-                                "Manajemen Training Level I", "Kepemimpinan",
-                                "Sistem, Manajemen dan Standar Keberhasilan Operasional Kepolisian",
-                                "Sistem Pelayanan Kepolisian Terpadu", "Manajemen Fungsi Intelkam",
-                                "Manajemen Fungsi Binmas", "Manajemen Fungsi Sabhara",
-                                "Manajemen Fungsi Lantas", "Manajemen Fungsi Reserse",
-                                "Perencanaan dan Penganggaran Polri", "Manajemen SDM Polri",
-                                "Manajemen Logistik Polri", "Keuangan Polri",
-                                "Manajemen Tingkat Polsek", "Community Policing",
-                                "Democratic Policing", "Predictive Policing", "Pengetahuan Sosial",
-                                "Pelayanan Prima", "Manajemen Penanggulangan Bencana",
-                                "Search and Rescue (SAR)", "Identifikasi Kepolisian",
-                                "Laboratorium Forensik Kedokteran Kepolisian",
-                                "Tata Naskah Dinas di Lingkungan Polri", "Tata Upacara dan Pedang Perwira",
-                                "Penggunaan Senjata Api dan Menembak", "Teknik Keselamatan dan Bela Diri Polri",
-                                "Sistem Pelayanan Polri Berbasis Elektronik",
-                                "Psikologi Sosial dan Teknik Dasar Konseling",
-                                "Manajemen Kehumasan Polri", "Teknologi Informasi Kepolisian",
-                                "Pencegahan Kejahatan (Crime Prevention)", "Gladi Wirottama",
-                                "Porismas", "Latihan Teknis/Latihan Kerja", "Ujian Kompetensi Perwira Pertama"
-                            ];
-                        @endphp
-                        @foreach($mapels as $i => $mapel)
-                            <option value="{{ $mapel }}" {{ old('mapel', $modul->mapel) == $mapel ? 'selected' : '' }}>
-                                {{ str_pad($i+1, 2, '0', STR_PAD_LEFT) }}. {{ $mapel }}
-                            </option>
-                        @endforeach
                     </select>
                 </div>
+
+                <script>
+                    const mapelsSIP = [
+                        "Wawasan Kebangsaan","Etika dan Kode Etik Profesi Polri",
+                        "Peraturan Pemerintah Nomor 1, 2, dan 3 Tahun 2003","Nilai Sejarah Polri",
+                        "Integritas dan Budaya Anti Korupsi","Hukum Pidana dan Hukum Acara Pidana",
+                        "Pengetahuan Tentang HAM","Diskresi & Restorative Justice","PPA dan ABH",
+                        "Manajemen Training Level I","Kepemimpinan",
+                        "Sistem, Manajemen dan Standar Keberhasilan Operasional Kepolisian",
+                        "Sistem Pelayanan Kepolisian Terpadu","Manajemen Fungsi Intelkam",
+                        "Manajemen Fungsi Binmas","Manajemen Fungsi Sabhara","Manajemen Fungsi Lantas",
+                        "Manajemen Fungsi Reserse","Perencanaan dan Penganggaran Polri",
+                        "Manajemen SDM Polri","Manajemen Logistik Polri","Keuangan Polri",
+                        "Manajemen Tingkat Polsek","Community Policing","Democratic Policing",
+                        "Predictive Policing","Pengetahuan Sosial","Pelayanan Prima",
+                        "Manajemen Penanggulangan Bencana","Search and Rescue (SAR)",
+                        "Identifikasi Kepolisian","Laboratorium Forensik Kedokteran Kepolisian",
+                        "Tata Naskah Dinas di Lingkungan Polri","Tata Upacara dan Pedang Perwira",
+                        "Penggunaan Senjata Api dan Menembak","Teknik Keselamatan dan Bela Diri Polri",
+                        "Sistem Pelayanan Polri Berbasis Elektronik","Psikologi Sosial dan Teknik Dasar Konseling",
+                        "Manajemen Kehumasan Polri","Teknologi Informasi Kepolisian",
+                        "Pencegahan Kejahatan (Crime Prevention)","Gladi Wirottama",
+                        "Porismas","Latihan Teknis/Latihan Kerja","Ujian Kompetensi Perwira Pertama"
+                    ];
+
+                    const mapelsPAG = [
+                        "Pancasila dan Wawasan Kebangsaan","Etika dan Kode Etik Profesi Polri",
+                        "Integritas dan Budaya Anti Korupsi","Peraturan Pemerintah Nomor 1, 2, dan 3 tahun 2003",
+                        "Hukum Pidana dan Hukum Acara Pidana","Diskresi Kepolisian dan Restorative Justice",
+                        "Hak Asasi Manusia (HAM)","PPA dan ABH","Kepemimpinan",
+                        "Manajemen Pembinaan Polri","Manajemen Tingkat Polsek",
+                        "Manajemen Training Level I","Sistem, Manajemen dan Standar Keberhasilan Operasional Polri",
+                        "Tata Naskah Dinas di Lingkungan Polri","Tata Upacara dan Pedang Perwira",
+                        "Pencegahan Kejahatan (Crime Prevention)","Manajemen Kehumasan Polri","Latihan Teknis"
+                    ];
+
+                    function loadMapels() {
+                        const prodiklat = document.querySelector('[name="prodiklat"]').value;
+                        const mapelSelect = document.getElementById('mapel');
+                        mapelSelect.innerHTML = '<option value="">-- Pilih Mapel --</option>';
+
+                        const list = prodiklat === 'PAG' ? mapelsPAG : mapelsSIP;
+
+                        list.forEach((m, i) => {
+                            const opt = document.createElement('option');
+                            opt.value = m;
+                            opt.textContent = String(i+1).padStart(2, '0') + ". " + m;
+
+                            // restore pilihan lama
+                            if ("{{ old('mapel', $modul->mapel) }}" === m) {
+                                opt.selected = true;
+                            }
+
+                            mapelSelect.appendChild(opt);
+                        });
+                    }
+
+                    // load saat halaman dibuka
+                    loadMapels();
+
+                    // ganti mapel setiap kali prodiklat diubah
+                    document.querySelector('[name="prodiklat"]').addEventListener('change', loadMapels);
+                </script>
 
                 {{-- Tahun --}}
                 <div class="mb-3">

@@ -23,24 +23,25 @@
             </div>
 
             {{-- Kontak (tengah kolom) --}}
-            <div class="space-y-1 mx-auto">
+            <div class="space-y-1 mx-auto text-sm">
                 <p class="flex items-start">
                     <i class="bi bi-geo-alt-fill mr-2 text-blue-400 mt-1"></i>
-                    Jl. Bhayangkara No.116, Karamat,<br>
-                    Kota Sukabumi, Jawa Barat 43122
+                    <span>
+                        Jl. Bhayangkara No.116, Karamat, Kota Sukabumi,<br>
+                        Jawa Barat 43122
+                    </span>
                 </p>
-                <p class="flex items-center">
+                <p class="flex items-center mt-2">
                     <i class="bi bi-telephone-fill mr-2 text-blue-400"></i>
-                    Telp: (0622) 66225481
+                    (0622) 66225481
                 </p>
-                <p class="flex items-center">
+                <p class="flex items-center mt-2">
                     <i class="bi bi-envelope-fill mr-2 text-blue-400"></i>
-                    Email: 
                     <a href="mailto:setukpaweb@gmail.com" class="hover:text-blue-300">
                         setukpaweb@gmail.com
                     </a>
                 </p>
-            </div>
+            </div>
         </div>
 
         <!-- Garis + Copyright -->

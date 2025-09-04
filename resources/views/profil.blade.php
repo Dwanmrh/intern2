@@ -32,7 +32,7 @@
                     <div class="flex items-center space-x-3 mb-3">
                         <i class="bi bi-mortarboard-fill text-[#2c3e50] text-2xl"></i>
                         <h2 class="text-2xl font-bold text-[#2c3e50]">
-                            Sejarah Singkat Pendidikan Kepolisian di Sukabumi
+                            Sejarah Pendidikan Kepolisian di Sukabumi
                         </h2>
                     </div>
 
@@ -267,23 +267,44 @@
                     {{-- Modal Hapus Kasetukpa --}}
                     @auth
                         @if(Auth::user()->role === 'admin')
-                            <div class="modal fade" id="hapusProfilModal{{ $kasetukpa->id }}" tabindex="-1" aria-labelledby="hapusProfilLabel{{ $kasetukpa->id }}" aria-hidden="true">
+                            <div class="modal fade" id="hapusProfilModal{{ $kasetukpa->id }}" tabindex="-1"
+                                aria-labelledby="hapusProfilLabel{{ $kasetukpa->id }}" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header bg-red-500 text-white">
-                                            <h5 class="modal-title" id="hapusProfilLabel{{ $kasetukpa->id }}">Hapus Profil</h5>
-                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <div class="modal-content rounded-2xl shadow-lg border-0">
+
+                                        {{-- Header --}}
+                                        <div class="modal-header bg-red-600 text-white rounded-t-2xl">
+                                            <h5 class="modal-title d-flex align-items-center gap-2" id="hapusProfilLabel{{ $kasetukpa->id }}">
+                                                <i class="bi bi-exclamation-triangle-fill text-warning fs-4"></i>
+                                                Hapus Profil
+                                            </h5>
+                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
                                         </div>
-                                        <div class="modal-body">
-                                            Apakah Anda yakin ingin menghapus <strong>{{ $kasetukpa->nama }}</strong>?
+
+                                        {{-- Body --}}
+                                        <div class="modal-body text-center py-4">
+                                            <i class="bi bi-trash3-fill text-danger fs-1 mb-3"></i>
+                                            <p class="fw-semibold text-gray-700">
+                                                Apakah Anda yakin ingin menghapus <br>
+                                                <span class="text-danger">"{{ $kasetukpa->nama }}"</span>?
+                                            </p>
                                         </div>
-                                        <div class="modal-footer">
+
+                                        {{-- Footer --}}
+                                        <div class="modal-footer d-flex justify-content-center gap-3 border-0 pb-4">
                                             <form action="{{ route('profil.destroy', $kasetukpa->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">Hapus</button>
+                                                <button type="submit" class="btn btn-danger px-4 py-2 rounded-pill shadow-sm">
+                                                    Hapus
+                                                </button>
                                             </form>
-                                            <button type="button" class="btn btn-secondary bg-blue-600 text-white rounded hover:bg-blue-800" data-bs-dismiss="modal">Batal</button>
+                                            <button type="button" 
+                                                    class="btn btn-primary px-4 py-2 rounded-pill shadow-sm"
+                                                    data-bs-dismiss="modal">
+                                                    Batal
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -353,23 +374,44 @@
                     {{-- Modal Hapus Wakasetukpa --}}
                     @auth
                         @if(Auth::user()->role === 'admin')
-                            <div class="modal fade" id="hapusProfilModal{{ $wakasetukpa->id }}" tabindex="-1" aria-labelledby="hapusProfilLabel{{ $wakasetukpa->id }}" aria-hidden="true">
+                            <div class="modal fade" id="hapusProfilModal{{ $wakasetukpa->id }}" tabindex="-1"
+                                aria-labelledby="hapusProfilLabel{{ $wakasetukpa->id }}" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header bg-red-500 text-white">
-                                            <h5 class="modal-title" id="hapusProfilLabel{{ $wakasetukpa->id }}">Hapus Profil</h5>
-                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <div class="modal-content rounded-2xl shadow-lg border-0">
+
+                                        {{-- Header --}}
+                                        <div class="modal-header bg-red-600 text-white rounded-t-2xl">
+                                            <h5 class="modal-title d-flex align-items-center gap-2" id="hapusProfilLabel{{ $wakasetukpa->id }}">
+                                                <i class="bi bi-exclamation-triangle-fill text-warning fs-4"></i>
+                                                Hapus Profil
+                                            </h5>
+                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
                                         </div>
-                                        <div class="modal-body">
-                                            Apakah Anda yakin ingin menghapus <strong>{{ $wakasetukpa->nama }}</strong>?
+
+                                        {{-- Body --}}
+                                        <div class="modal-body text-center py-4">
+                                            <i class="bi bi-trash3-fill text-danger fs-1 mb-3"></i>
+                                            <p class="fw-semibold text-gray-700">
+                                                Apakah Anda yakin ingin menghapus <br>
+                                                <span class="text-danger">"{{ $wakasetukpa->nama }}"</span>?
+                                            </p>
                                         </div>
-                                        <div class="modal-footer">
+
+                                        {{-- Footer --}}
+                                        <div class="modal-footer d-flex justify-content-center gap-3 border-0 pb-4">
                                             <form action="{{ route('profil.destroy', $wakasetukpa->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">Hapus</button>
+                                                <button type="submit" class="btn btn-danger px-4 py-2 rounded-pill shadow-sm">
+                                                    Hapus
+                                                </button>
                                             </form>
-                                            <button type="button" class="btn btn-secondary bg-blue-600 text-white rounded hover:bg-blue-800" data-bs-dismiss="modal">Batal</button>
+                                            <button type="button" 
+                                                    class="btn btn-primary px-4 py-2 rounded-pill shadow-sm"
+                                                    data-bs-dismiss="modal">
+                                                    Batal
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -446,23 +488,44 @@
                     @foreach ($pimpinanLain as $profil)
                         @auth
                             @if(Auth::user()->role === 'admin')
-                                <div class="modal fade" id="hapusProfilModal{{ $profil->id }}" tabindex="-1" aria-labelledby="hapusProfilLabel{{ $profil->id }}" aria-hidden="true">
+                                <div class="modal fade" id="hapusProfilModal{{ $profil->id }}" tabindex="-1"
+                                    aria-labelledby="hapusProfilLabel{{ $profil->id }}" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <div class="modal-header bg-red-500 text-white">
-                                                <h5 class="modal-title" id="hapusProfilLabel{{ $profil->id }}">Hapus Profil</h5>
-                                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <div class="modal-content rounded-2xl shadow-lg border-0">
+
+                                            {{-- Header --}}
+                                            <div class="modal-header bg-red-600 text-white rounded-t-2xl">
+                                                <h5 class="modal-title d-flex align-items-center gap-2" id="hapusProfilLabel{{ $profil->id }}">
+                                                    <i class="bi bi-exclamation-triangle-fill text-warning fs-4"></i>
+                                                    Hapus Profil
+                                                </h5>
+                                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
                                             </div>
-                                            <div class="modal-body">
-                                                Apakah Anda yakin ingin menghapus <strong>{{ $profil->nama }}</strong>?
+
+                                            {{-- Body --}}
+                                            <div class="modal-body text-center py-4">
+                                                <i class="bi bi-trash3-fill text-danger fs-1 mb-3"></i>
+                                                <p class="fw-semibold text-gray-700">
+                                                    Apakah Anda yakin ingin menghapus <br>
+                                                    <span class="text-danger">"{{ $profil->nama }}"</span>?
+                                                </p>
                                             </div>
-                                            <div class="modal-footer">
+
+                                            {{-- Footer --}}
+                                            <div class="modal-footer d-flex justify-content-center gap-3 border-0 pb-4">
                                                 <form action="{{ route('profil.destroy', $profil->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger">Hapus</button>
+                                                    <button type="submit" class="btn btn-danger px-4 py-2 rounded-pill shadow-sm">
+                                                        Hapus
+                                                    </button>
                                                 </form>
-                                                <button type="button" class="btn btn-secondary bg-blue-600 text-white rounded hover:bg-blue-800" data-bs-dismiss="modal">Batal</button>
+                                                <button type="button" 
+                                                        class="btn btn-primary px-4 py-2 rounded-pill shadow-sm"
+                                                        data-bs-dismiss="modal">
+                                                        Batal
+                                                </button>
                                             </div>
                                         </div>
                                     </div>

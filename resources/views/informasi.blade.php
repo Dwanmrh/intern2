@@ -4,6 +4,23 @@
     <div class="py-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
+        {{-- Notifikasi --}}
+        @if (session('success'))
+                    <div id="success-alert"
+                        class="mt-4 mb-4 p-4 bg-green-100 text-green-800 rounded transition-opacity duration-500">
+                        {{ session('success') }}
+                    </div>
+                    <script>
+                        setTimeout(function () {
+                            let alertBox = document.getElementById('success-alert');
+                            if (alertBox) {
+                                alertBox.style.opacity = '0';
+                                setTimeout(() => alertBox.remove(), 500);
+                            }
+                        }, 5000);
+                    </script>
+                @endif
+
             {{-- CARD PERSYARATAN --}}
                 <div class="text-center">
                     <h2 class="text-lg md:text-xl lg:text-lg font-bold text-white inline-flex items-center gap-2
@@ -109,21 +126,94 @@
                     </p>
                 </div>
             </div>
-          {{-- BUTTON INFORMASI LEBIH LANJUT --}}
-        <div class="mt-8 mb-6">
-            <a href="https://penerimaan.polri.go.id/" target="_blank" rel="noopener noreferrer"
-                class="cursor-pointer w-full block text-center bg-yellow-500
-                    text-black font-extrabold text-base py-3 rounded-lg shadow-lg
-                    hover:bg-yellow-500 hover:scale-[1.02]
-                    transition transform duration-300">
-                <i class="bi bi-info-circle mr-2"></i>
-                Lihat Informasi Lebih Lanjut
-            </a>
-        </div>
+            {{-- BUTTON INFORMASI LEBIH LANJUT --}}
+            <div class="mt-8 mb-6">
+                <a href="https://penerimaan.polri.go.id/" target="_blank" rel="noopener noreferrer"
+                    class="cursor-pointer w-full block text-center bg-yellow-500
+                        text-black font-extrabold text-sm py-3 rounded-lg shadow-lg
+                        hover:bg-yellow-500 hover:scale-[1.02]
+                        transition transform duration-300">
+                    <i class="bi bi-info-circle mr-2"></i>
+                    Lihat Informasi Lebih Lanjut
+                </a>
+            </div>
+
+            {{-- SECTION PANGKAT --}}
+            <div class="mt-12 mb-10">
+                <div class="text-center mb-6">
+                    <h2 class="text-lg md:text-xl lg:text-lg font-bold text-white inline-flex items-center gap-2
+                        bg-gradient-to-r from-slate-700 via-slate-600 to-slate-800
+                        px-6 py-1 rounded-xl shadow-md">
+                        <i class="bi bi-award text-white text-xl md:text-lg"></i>
+                        JENJANG PANGKAT SETUKPA
+                    </h2>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-10">
+
+                    {{-- Foto 1 --}}
+                    <div class="relative bg-gradient-to-r from-slate-200 to-slate-100 rounded-xl p-[1.5px] transition-all duration-300 hover:-translate-y-1 animate-fadeIn">
+                        <div class=" rounded-xl overflow-hidden">
+                            <div class="flex justify-center items-center h-36 bg-gray-50">
+                                <img src="{{ asset('assets/images/Bripka.png') }}" alt="Bripka"
+                                    class="max-h-32 object-contain">
+                            </div>
+                            <div class="p-3 text-center bg-gradient-to-r from-slate-700 to-slate-900">
+                                <p class="font-semibold text-yellow-400 text-sm tracking-wide">Brigadir Polisi Kepala</p>
+                                <p class="text-yellow-400 text-xs">(Bripka)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Foto 2 --}}
+                    <div class="relative bg-gradient-to-r from-slate-200 to-slate-100 rounded-xl p-[1.5px] transition-all duration-300 hover:-translate-y-1 animate-fadeIn delay-100">
+                        <div class=" rounded-xl overflow-hidden">
+                            <div class="flex justify-center items-center h-36 bg-gray-50">
+                                <img src="{{ asset('assets/images/Brigpol.png') }}" alt="Brigpol"
+                                    class="max-h-32 object-contain">
+                            </div>
+                            <div class="p-3 text-center bg-gradient-to-r from-slate-700 to-slate-900">
+                                <p class="font-semibold text-yellow-400 text-sm tracking-wide">Brigadir Polisi</p>
+                                <p class="text-yellow-400 text-xs">(Brigpol)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Foto 3 --}}
+                    <div class="relative bg-gradient-to-r from-slate-200 to-slate-100 rounded-xl p-[1.5px] transition-all duration-300 hover:-translate-y-1 animate-fadeIn delay-200">
+                        <div class=" rounded-xl overflow-hidden">
+                            <div class="flex justify-center items-center h-36 bg-gray-50">
+                                <img src="{{ asset('assets/images/Briptu.png') }}" alt="Briptu"
+                                    class="max-h-32 object-contain">
+                            </div>
+                            <div class="p-3 text-center bg-gradient-to-r from-slate-700 to-slate-900">
+                                <p class="font-semibold text-yellow-400 text-sm tracking-wide">Brigadir Polisi Satu</p>
+                                <p class="text-yellow-400 text-xs">(Briptu)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Foto 4 --}}
+                    <div class="relative bg-gradient-to-r from-slate-200 to-slate-100 rounded-xl p-[1.5px] transition-all duration-300 hover:-translate-y-1 animate-fadeIn delay-300">
+                        <div class=" rounded-xl overflow-hidden">
+                            <div class="flex justify-center items-center h-36 bg-gray-50">
+                                <img src="{{ asset('assets/images/Bripda.png') }}" alt="Bripda"
+                                    class="max-h-32 object-contain">
+                            </div>
+                            <div class="p-3 text-center bg-gradient-to-r from-slate-700 to-slate-900">
+                                <p class="font-semibold text-yellow-400 text-sm tracking-wide">Brigadir Polisi Dua</p>
+                                <p class="text-yellow-400 text-xs">(Bripda)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
 
             {{-- CARD UTAMA HEADER INFORMASI --}}
-            <div class="shadow rounded-lg p-6 mb-10 relative"
-                 style="background-color: rgba(255, 255, 255, 0.50); min-height: 64px;">
+            <div class="shadow rounded-lg p-6 mt-12 mb-10 relative"
+                style="background-color: rgba(255, 255, 255, 0.50); min-height: 64px;">
 
                 {{-- Judul dan Tombol Tambah --}}
                 <div class="text-center">
@@ -138,8 +228,8 @@
                         @if(Auth::user()->role === 'admin')
                             <div class="absolute right-8 top-8">
                                 <a href="{{ route('informasi.create') }}"
-                                   class="bg-[#800000] hover:bg-[#660000]
-                                          text-white px-3 py-2.5 rounded-md text-sm shadow-md transition duration-300 ease-in-out">
+                                    class="bg-[#800000] hover:bg-[#660000]
+                                            text-white px-3 py-2.5 rounded-md text-sm shadow-md transition duration-300 ease-in-out">
                                     <i class="bi bi-plus-circle text-base"></i>
                                     Tambah Informasi
                                 </a>
@@ -148,31 +238,17 @@
                     @endauth
                 </div>
 
-                {{-- Notifikasi --}}
-                @if (session('success'))
-                    <div id="success-alert"
-                         class="mt-4 p-4 bg-green-100 text-green-800 rounded transition-opacity duration-500">
-                        {{ session('success') }}
-                    </div>
-                    <script>
-                        setTimeout(function () {
-                            let alertBox = document.getElementById('success-alert');
-                            if (alertBox) {
-                                alertBox.style.opacity = '0';
-                                setTimeout(() => alertBox.remove(), 500);
-                            }
-                        }, 5000);
-                    </script>
-                @endif
 
                 {{-- Flex/Grid Informasi --}}
                 <div id="cardGrid"
                 class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8 items-start invisible">
                     @forelse ($informasi as $data)
                     <div x-data="{ expanded: false }"
-     class="w-full bg-white shadow-lg rounded-2xl overflow-hidden flex flex-col
-            cursor-pointer hover:scale-[1.03] transition duration-300 ease-in-out
-            border border-gray-200 group relative min-h-[360px]">
+                    class="w-full bg-white shadow-lg rounded-2xl overflow-hidden flex flex-col
+                    cursor-pointer hover:scale-[1.03] transition duration-300 ease-in-out
+                    border border-gray-200 group relative 
+                    {{ $data->foto ? 'min-h-[520px]' : 'min-h-[340px]' }}">
+
 
 
                             {{-- Gambar --}}
@@ -203,7 +279,7 @@
                                 </h3>
 
                                 {{-- Deskripsi dengan toggle --}}
-                                <div class="text-gray-600 text-sm leading-relaxed text-justify break-words flex-grow">
+                                <div class="text-gray-600 text-sm leading-relaxed text-justify break-words flex-grow overflow-hidden">
                                     <p x-show="!expanded" class="line-clamp-3">
                                         {!! strip_tags($data->deskripsi) !!}
                                     </p>
@@ -218,7 +294,7 @@
                                 <button @click.stop="expanded = !expanded"
                                         class="bg-blue-600 hover:bg-blue-800 text-white px-4 py-2 rounded-lg
                                             text-sm font-medium shadow transition duration-300">
-                                    <span x-text="expanded ? 'Tutup' : 'Baca Lebih Lanjut'"></span>
+                                    <span x-text="expanded ? 'Tutup' : 'Read More'"></span>
                                 </button>
 
                                 @auth
@@ -266,30 +342,49 @@
 
             {{-- Modal Konfirmasi Hapus --}}
             @foreach($informasi as $data)
-                <div class="modal fade" id="hapusInformasiModal{{ $data->id }}" tabindex="-1"
-                    aria-labelledby="hapusInformasiLabel{{ $data->id }}" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header bg-danger text-white">
-                                <h5 class="modal-title" id="hapusInformasiLabel{{ $data->id }}">Konfirmasi Hapus</h5>
-                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                Apakah anda yakin ingin menghapus data <strong>{{ $data->judul }}</strong>?
-                            </div>
-                            <div class="modal-footer">
-                                <form action="{{ route('informasi.destroy', $data->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">Hapus</button>
-                                </form>
-                                <button type="button" class="btn btn-secondary bg-blue-600 text-white rounded hover:bg-blue-800"
-                                        data-bs-dismiss="modal">Batal</button>
-                            </div>
+            <div class="modal fade" id="hapusInformasiModal{{ $data->id }}" tabindex="-1"
+                aria-labelledby="hapusInformasiLabel{{ $data->id }}" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content rounded-2xl shadow-lg border-0">
+
+                        {{-- Header --}}
+                        <div class="modal-header bg-red-600 text-white rounded-t-2xl">
+                            <h5 class="modal-title d-flex align-items-center gap-2" id="hapusInformasiLabel{{ $data->id }}">
+                                <i class="bi bi-exclamation-triangle-fill text-warning fs-4"></i>
+                                Konfirmasi Hapus
+                            </h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                         </div>
+
+                        {{-- Body --}}
+                        <div class="modal-body text-center py-4">
+                            <i class="bi bi-trash3-fill text-danger fs-1 mb-3"></i>
+                            <p class="fw-semibold text-gray-700">
+                                Apakah anda yakin ingin menghapus data <br>
+                                <span class="text-danger">"{{ $data->judul }}"</span>?
+                            </p>
+                        </div>
+
+                        {{-- Footer --}}
+                        <div class="modal-footer d-flex justify-content-center gap-3 border-0 pb-4">
+                            <form action="{{ route('informasi.destroy', $data->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger px-4 py-2 rounded-pill shadow-sm">
+                                    Hapus
+                                </button>
+                            </form>
+                            <button type="button" 
+                                    class="btn btn-primary px-4 py-2 rounded-pill shadow-sm"
+                                    data-bs-dismiss="modal">
+                                    Batal
+                            </button>
+                        </div>
+
                     </div>
                 </div>
+            </div>
             @endforeach
         </div>
 

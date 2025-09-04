@@ -24,7 +24,7 @@
                     <div class="text-center">
                         <h2 class="text-lg md:text-lg font-bold text-white
                                 inline-flex items-center gap-2
-                                bg-gradient-to-r from-slate-700 via-slate-600 to-slate-800
+                                bg-gradient-to-r from-[#1E293B] to-[#334155]
                                 px-6 py-1 rounded-xl shadow-lg">
                             <i class="bi bi-book text-xl"></i>
                             MODUL SIP
@@ -40,7 +40,7 @@
                         class="flex flex-wrap items-center gap-3 mb-6">
                     <select name="tahun"
                             class="form-select text-sm rounded-lg w-auto min-w-[100px] max-w-[140px]
-                                bg-gray-100 text-gray-800 border border-gray-300
+                                bg-gray-100 text-gray-800 border border-gray-100
                                 focus:border-blue-500 focus:ring-blue-400">
                         <option value="">Pilih Tahun</option>
                         @foreach ($allTahun as $tahun)
@@ -49,7 +49,7 @@
                             </option>
                         @endforeach
                     </select>
-                    <button class="bg-blue-600 hover:bg-blue-800 text-white px-4 py-2 rounded-lg shadow transition">
+                    <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg shadow transition">
                         <i class="bi bi-search mr-1"></i> Search
                     </button>
                 </form>
@@ -77,65 +77,14 @@
                 {{-- ACCORDION PER MAPEL --}}
                 <div class="space-y-6">
                     @php
-                        $orderMapel = [
-                            "Wawasan Kebangsaan",
-                            "Etika dan Kode Etik Profesi Polri",
-                            "Peraturan Pemerintah Nomor 1, 2, dan 3 Tahun 2003",
-                            "Nilai Sejarah Polri",
-                            "Integritas dan Budaya Anti Korupsi",
-                            "Hukum Pidana dan Hukum Acara Pidana",
-                            "Pengetahuan Tentang HAM",
-                            "Diskresi & Restorative Justice",
-                            "PPA dan ABH",
-                            "Manajemen Training Level I",
-                            "Kepemimpinan",
-                            "Sistem, Manajemen dan Standar Keberhasilan Operasional Kepolisian",
-                            "Sistem Pelayanan Kepolisian Terpadu",
-                            "Manajemen Fungsi Intelkam",
-                            "Manajemen Fungsi Binmas",
-                            "Manajemen Fungsi Sabhara",
-                            "Manajemen Fungsi Lantas",
-                            "Manajemen Fungsi Reserse",
-                            "Perencanaan dan Penganggaran Polri",
-                            "Manajemen SDM Polri",
-                            "Manajemen Logistik Polri",
-                            "Keuangan Polri",
-                            "Manajemen Tingkat Polsek",
-                            "Community Policing",
-                            "Democratic Policing",
-                            "Predictive Policing",
-                            "Pengetahuan Sosial",
-                            "Pelayanan Prima",
-                            "Manajemen Penanggulangan Bencana",
-                            "Search and Rescue (SAR)",
-                            "Identifikasi Kepolisian",
-                            "Laboratorium Forensik Kedokteran Kepolisian",
-                            "Tata Naskah Dinas di Lingkungan Polri",
-                            "Tata Upacara dan Pedang Perwira",
-                            "Penggunaan Senjata Api dan Menembak",
-                            "Teknik Keselamatan dan Bela Diri Polri",
-                            "Sistem Pelayanan Polri Berbasis Elektronik",
-                            "Psikologi Sosial dan Teknik Dasar Konseling",
-                            "Manajemen Kehumasan Polri",
-                            "Teknologi Informasi Kepolisian",
-                            "Pencegahan Kejahatan (Crime Prevention)",
-                            "Gladi Wirottama",
-                            "Porismas",
-                            "Latihan Teknis/Latihan Kerja",
-                            "Ujian Kompetensi Perwira Pertama",
-                        ];
-
-                        // pastikan collection
+                        $orderMapel = config('mapel.SIP');
                         $moduls = collect($moduls);
-
                         $mapels = $moduls->groupBy('mapel');
 
-                        // urutkan sesuai orderMapel
                         $sortedMapels = collect($orderMapel)
                             ->filter(fn($mapel) => $mapels->has($mapel))
                             ->mapWithKeys(fn($mapel) => [$mapel => $mapels[$mapel]]);
 
-                        // tambahkan mapel lain yang belum ada di orderMapel
                         $others = $mapels->except($orderMapel);
                         $sortedMapels = $sortedMapels->merge($others);
 
@@ -143,21 +92,21 @@
                     @endphp
 
                     @forelse ($sortedMapels as $mapel => $list)
-                        <details class="group border border-gray-200 rounded-xl shadow-md bg-white transition">
-                            <summary class="flex items-center border-t-2 border-blue-400 justify-between px-5 py-3 cursor-pointer
-                                            font-semibold text-gray-700 hover:bg-gray-100 rounded-t-xl">
+                        <details class="group border border-[#1E293B] rounded-xl shadow-md bg-[#1E293B]/90 transition overflow-hidden">
+                            <summary class="flex items-center justify-between px-5 py-3 cursor-pointer
+                                            font-semibold text-white hover:bg-[#42556e] rounded-t-xl">
                                 <div class="flex items-center gap-3">
-                                    <i class="bi bi-journal-text text-blue-600"></i>
+                                    <i class="bi bi-journal-text text-yellow-400"></i>
                                     <span>{{ str_pad($no++, 2, '0', STR_PAD_LEFT) }}. {{ $mapel ?? 'Tanpa Mapel' }}</span>
                                 </div>
                                 <i class="bi bi-chevron-right group-open:rotate-90 transition-transform"></i>
                             </summary>
 
                             {{-- Daftar Modul --}}
-                            <div class="space-y-3 p-5 border-t bg-gray-50">
+                            <div class="space-y-3 p-5 border-t border-gray-600 bg-[#334155]/70">
                                 @foreach ($list as $mod)
-                                    <div class="flex items-center justify-between bg-white shadow hover:shadow-lg
-                                                transition rounded-xl p-4 border border-gray-100">
+                                    <div class="flex items-center justify-between bg-gray-200 shadow hover:shadow-lg
+                                                transition rounded-xl p-4">
                                         <div class="flex items-start gap-3">
                                             <a href="{{ asset('storage/' . $mod->file) }}" target="_blank"
                                                 class="bg-red-600 text-white px-3 py-1 text-sm rounded-md shadow flex items-center gap-1 hover:bg-red-700 transition">
@@ -214,24 +163,46 @@
         </div>
     </div>
 
-    {{-- MODAL HAPUS --}}
+    {{-- Modal Hapus Modul SIP --}}
     @foreach ($moduls as $mod)
-        <div class="modal fade" id="hapusModulModal{{ $mod->id }}" tabindex="-1" aria-labelledby="hapusLabel{{ $mod->id }}" aria-hidden="true" style="z-index:1050;">
+        <div class="modal fade" id="hapusModulModal{{ $mod->id }}" tabindex="-1" 
+            aria-labelledby="hapusLabel{{ $mod->id }}" aria-hidden="true" style="z-index:1050;">
             <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content rounded-lg shadow-lg">
-                    <div class="modal-header bg-red-600 text-white rounded-t-lg">
-                        <h5 class="modal-title" id="hapusLabel{{ $mod->id }}">Konfirmasi Hapus</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-content rounded-2xl shadow-lg border-0">
+
+                    {{-- Header --}}
+                    <div class="modal-header bg-red-600 text-white rounded-t-2xl">
+                        <h5 class="modal-title d-flex align-items-center gap-2" id="hapusLabel{{ $mod->id }}">
+                            <i class="bi bi-exclamation-triangle-fill text-warning fs-4"></i>
+                            Konfirmasi Hapus
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" 
+                                data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
-                        Yakin ingin menghapus modul <b>{{ $mod->judul }}</b>?
+
+                    {{-- Body --}}
+                    <div class="modal-body text-center py-4">
+                        <i class="bi bi-trash3-fill text-danger fs-1 mb-3"></i>
+                        <p class="fw-semibold text-gray-700">
+                            Apakah anda yakin ingin menghapus modul <br>
+                            <span class="text-danger">"{{ $mod->judul }}"</span>?
+                        </p>
                     </div>
-                    <div class="modal-footer">
+
+                    {{-- Footer --}}
+                    <div class="modal-footer d-flex justify-content-center gap-3 border-0 pb-4">
                         <form action="{{ route('modul.destroy', $mod->id) }}" method="POST">
-                            @csrf @method('DELETE')
-                            <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Hapus</button>
+                            @csrf 
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger px-4 py-2 rounded-pill shadow-sm">
+                                Hapus
+                            </button>
                         </form>
-                        <button type="button" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400" data-bs-dismiss="modal">Batal</button>
+                        <button type="button" 
+                                class="btn btn-primary px-4 py-2 rounded-pill shadow-sm"
+                                data-bs-dismiss="modal">
+                                Batal
+                        </button>
                     </div>
                 </div>
             </div>

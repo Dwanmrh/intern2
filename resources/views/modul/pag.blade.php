@@ -131,23 +131,45 @@
                                                     </button>
                                                 </div>
 
-                                                {{-- Modal Hapus --}}
-                                                <div class="modal fade" id="hapusModulModal{{ $modul->id }}" tabindex="-1" aria-labelledby="hapusLabel{{ $modul->id }}" aria-hidden="true">
+                                                {{-- Modal Hapus Modul PAG --}}
+                                                <div class="modal fade" id="hapusModulModal{{ $modul->id }}" tabindex="-1" 
+                                                    aria-labelledby="hapusLabel{{ $modul->id }}" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered">
-                                                        <div class="modal-content rounded-lg shadow-lg">
-                                                            <div class="modal-header bg-red-600 text-white rounded-t-lg">
-                                                                <h5 class="modal-title" id="hapusLabel{{ $modul->id }}">Konfirmasi Hapus</h5>
-                                                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        <div class="modal-content rounded-2xl shadow-lg border-0">
+
+                                                            {{-- Header --}}
+                                                            <div class="modal-header bg-red-600 text-white rounded-t-2xl">
+                                                                <h5 class="modal-title d-flex align-items-center gap-2" id="hapusLabel{{ $modul->id }}">
+                                                                    <i class="bi bi-exclamation-triangle-fill text-warning fs-4"></i>
+                                                                    Konfirmasi Hapus
+                                                                </h5>
+                                                                <button type="button" class="btn-close btn-close-white" 
+                                                                        data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
-                                                            <div class="modal-body">
-                                                                Yakin ingin menghapus modul <b>{{ $modul->judul }}</b>?
+
+                                                            {{-- Body --}}
+                                                            <div class="modal-body text-center py-4">
+                                                                <i class="bi bi-trash3-fill text-danger fs-1 mb-3"></i>
+                                                                <p class="fw-semibold text-gray-700">
+                                                                    Apakah anda yakin ingin menghapus modul <br>
+                                                                    <span class="text-danger">"{{ $modul->judul }}"</span>?
+                                                                </p>
                                                             </div>
-                                                            <div class="modal-footer">
+
+                                                            {{-- Footer --}}
+                                                            <div class="modal-footer d-flex justify-content-center gap-3 border-0 pb-4">
                                                                 <form action="{{ route('modul.destroy', $modul->id) }}" method="POST">
-                                                                    @csrf @method('DELETE')
-                                                                    <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Hapus</button>
+                                                                    @csrf 
+                                                                    @method('DELETE')
+                                                                    <button type="submit" class="btn btn-danger px-4 py-2 rounded-pill shadow-sm">
+                                                                        Hapus
+                                                                    </button>
                                                                 </form>
-                                                                <button type="button" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400" data-bs-dismiss="modal">Batal</button>
+                                                                <button type="button" 
+                                                                        class="btn btn-primary px-4 py-2 rounded-pill shadow-sm"
+                                                                        data-bs-dismiss="modal">
+                                                                        Batal
+                                                                </button>
                                                             </div>
                                                         </div>
                                                     </div>

@@ -1,5 +1,5 @@
 <x-app-layout>
-    @section('title', 'HOME | SETUKPA LEMDIKLAT POLRI')
+    @section('title', 'BERANDA | SETUKPA LEMDIKLAT POLRI')
 
     <div class="{{ Auth::check() ? 'py-3' : 'py-2' }}">
         <div class="container">
@@ -117,23 +117,44 @@
 
             {{-- Modal Konfirmasi Hapus per Item --}}
             @foreach($validDashboards as $item)
-                <div class="modal fade" id="hapusModal{{ $item->id }}" tabindex="-1" aria-labelledby="hapusModalLabel{{ $item->id }}" aria-hidden="true">
+                <div class="modal fade" id="hapusModal{{ $item->id }}" tabindex="-1" 
+                    aria-labelledby="hapusModalLabel{{ $item->id }}" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header bg-danger text-white">
-                                <h5 class="modal-title" id="hapusModalLabel{{ $item->id }}">Konfirmasi Hapus</h5>
-                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div class="modal-content rounded-2xl shadow-lg border-0">
+
+                            {{-- Header --}}
+                            <div class="modal-header bg-red-600 text-white rounded-t-2xl">
+                                <h5 class="modal-title d-flex align-items-center gap-2" id="hapusModalLabel{{ $item->id }}">
+                                    <i class="bi bi-exclamation-triangle-fill text-warning fs-4"></i>
+                                    Konfirmasi Hapus
+                                </h5>
+                                <button type="button" class="btn-close btn-close-white" 
+                                        data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">
-                                Apakah anda yakin ingin menghapus data <strong>{{ $item->judul }}</strong>?
+
+                            {{-- Body --}}
+                            <div class="modal-body text-center py-4">
+                                <i class="bi bi-trash3-fill text-danger fs-1 mb-3"></i>
+                                <p class="fw-semibold text-gray-700">
+                                    Apakah anda yakin ingin menghapus data <br>
+                                    <span class="text-danger">"{{ $item->judul }}"</span>?
+                                </p>
                             </div>
-                            <div class="modal-footer">
+
+                            {{-- Footer --}}
+                            <div class="modal-footer d-flex justify-content-center gap-3 border-0 pb-4">
                                 <form action="{{ route('dashboard.destroy', $item->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">Hapus</button>
+                                    <button type="submit" class="btn btn-danger px-4 py-2 rounded-pill shadow-sm">
+                                        Hapus
+                                    </button>
                                 </form>
-                                <button type="button" class="btn btn-secondary bg-blue-600 text-white rounded hover:bg-blue-800" data-bs-dismiss="modal">Batal</button>
+                                <button type="button" 
+                                        class="btn btn-primary px-4 py-2 rounded-pill shadow-sm"
+                                        data-bs-dismiss="modal">
+                                        Batal
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -272,24 +293,45 @@
                                             </button>
                                         </div>
 
-                                        {{-- Modal Konfirmasi Hapus --}}
-                                        <div class="modal fade" id="hapusLinkModal{{ $link->id }}" tabindex="-1" aria-labelledby="hapusLinkLabel{{ $link->id }}" aria-hidden="true">
+                                        {{-- Modal Konfirmasi Hapus Link --}}
+                                        <div class="modal fade" id="hapusLinkModal{{ $link->id }}" tabindex="-1" 
+                                            aria-labelledby="hapusLinkLabel{{ $link->id }}" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
-                                                <div class="modal-content">
-                                                    <div class="modal-header bg-danger text-white">
-                                                        <h5 class="modal-title" id="hapusLinkLabel{{ $link->id }}">Konfirmasi Hapus</h5>
-                                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                <div class="modal-content rounded-2xl shadow-lg border-0">
+
+                                                    {{-- Header --}}
+                                                    <div class="modal-header bg-red-600 text-white rounded-t-2xl">
+                                                        <h5 class="modal-title d-flex align-items-center gap-2" id="hapusLinkLabel{{ $link->id }}">
+                                                            <i class="bi bi-exclamation-triangle-fill text-warning fs-4"></i>
+                                                            Konfirmasi Hapus
+                                                        </h5>
+                                                        <button type="button" class="btn-close btn-close-white" 
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
-                                                    <div class="modal-body">
-                                                        Apakah anda yakin ingin menghapus link <strong>{{ $link->nama }}</strong>?
+
+                                                    {{-- Body --}}
+                                                    <div class="modal-body text-center py-4">
+                                                        <i class="bi bi-trash3-fill text-danger fs-1 mb-3"></i>
+                                                        <p class="fw-semibold text-gray-700">
+                                                            Apakah anda yakin ingin menghapus link <br>
+                                                            <span class="text-danger">"{{ $link->nama }}"</span>?
+                                                        </p>
                                                     </div>
-                                                    <div class="modal-footer">
+
+                                                    {{-- Footer --}}
+                                                    <div class="modal-footer d-flex justify-content-center gap-3 border-0 pb-4">
                                                         <form action="{{ route('dashboard.link.destroy', $link->id) }}" method="POST">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="btn btn-danger">Hapus</button>
+                                                            <button type="submit" class="btn btn-danger px-4 py-2 rounded-pill shadow-sm">
+                                                                Hapus
+                                                            </button>
                                                         </form>
-                                                        <button type="button" class="btn btn-secondary bg-blue-600 text-white rounded hover:bg-blue-800" data-bs-dismiss="modal">Batal</button>
+                                                        <button type="button" 
+                                                                class="btn btn-primary px-4 py-2 rounded-pill shadow-sm"
+                                                                data-bs-dismiss="modal">
+                                                                Batal
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
