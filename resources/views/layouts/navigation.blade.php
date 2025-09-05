@@ -2,12 +2,14 @@
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <!-- GRID: Left - Center - Right -->
         <div class="flex justify-between items-center w-full">
+
             <!-- LEFT: Logo + Nav -->
-            <div class="flex items-center space-x-16">
+            <div class="flex items-center space-x-8">
+
                 <!-- Logo -->
-                <a href="{{ route('dashboard.index') }}" class="flex items-center space-x-3 shrink-0">
+                <a href="{{ route('dashboard.index') }}" class="flex items-center space-x-2 shrink-0">
                     <img src="{{ asset('assets/images/logo_setukpa.png') }}" class="h-12 w-auto" alt="Logo" />
-                    <div class="flex flex-col leading-4 text-white font-semibold text-xs sm:text-sm">
+                    <div class="flex flex-col leading-4 text-white font-semibold text-[11px] sm:text-[12px]">
                         <span>SETUKPA</span>
                         <span>LEMDIKLAT</span>
                         <span class="text-yellow-400">POLRI</span>
@@ -44,7 +46,7 @@
                     @endforeach
                 </div>
 
-                <!-- CENTER: Search -->
+                <!-- CENTER: Search (Desktop) -->
                 <div class="hidden lg:flex items-center mx-8">
                     <div class="relative w-64 search-container">
                         <svg
@@ -66,10 +68,13 @@
                             id="searchInput"
                             placeholder="Search..."
                             class="w-full bg-gray-700 text-white rounded-lg pl-9 pr-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        >
+                        />
+
+                        <!-- Samain kayak mobile -->
                         <div
                             id="searchResults"
-                            class="absolute mt-1 w-full bg-gray-800 border border-gray-600 rounded-md shadow-lg z-50 max-h-72 overflow-y-auto hidden"
+                            class="absolute left-0 right-0 top-full mt-1 bg-gray-800 border border-gray-600 rounded-md shadow-lg
+                                z-50 max-h-72 overflow-y-auto hidden"
                         >
                         </div>
                     </div>
@@ -181,18 +186,19 @@
         class="fixed top-0 right-0 w-3/4 max-w-sm h-full bg-[#1E293B] text-white z-50 shadow-xl overflow-y-auto lg:hidden"
     >
         <!-- Drawer Header -->
-        <div class="flex items-center justify-between px-3 py-4 border-b border-gray-700">
+        <div class="flex items-center justify-between px-3 py-3 border-b border-gray-700">
             <div class="flex items-center space-x-2">
                 <img src="{{ asset('assets/images/logo_setukpa.png') }}" alt="Logo" class="h-8 w-8">
-                <span>SETUKPA LEMDIKLAT <span class="text-yellow-400">POLRI</span></span>
+                <span class="text-sm font-semibold leading-tight">
+                    SETUKPA LEMDIKLAT <span class="text-yellow-400">POLRI</span>
+                </span>
             </div>
-            <button @click="open = false" class="text-gray-300 hover:text-white focus:outline-none">✕</button>
+            <button @click="open = false" class="text-gray-300 hover:text-white focus:outline-none text-base">✕</button>
         </div>
 
         <!-- Search (Mobile) -->
-        <div class="px-3 py-4 relative search-container">
+        <div class="px-3 py-3 border-b border-gray-700 relative search-container">
             <div class="relative w-full">
-                <!-- Icon search -->
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400"
@@ -207,47 +213,51 @@
                         d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z"
                     />
                 </svg>
-
-                <!-- Input -->
                 <input
                     type="text"
                     id="searchInputMobile"
                     placeholder="Search..."
-                    class="w-full bg-gray-700 text-white rounded-lg pl-10 pr-3 py-1.5 text-sm
+                    class="w-full bg-gray-700 text-white rounded-lg pl-9 pr-3 py-1.5 text-sm
                         focus:outline-none focus:ring-2 focus:ring-blue-400"
                 />
-            </div>
 
-            <!-- Hasil Search -->
-            <div
-                id="searchResultsMobile"
-                class="absolute left-0 right-0 mt-2 bg-gray-800 border border-gray-600 rounded-md shadow-lg
-                    z-50 max-h-72 overflow-y-auto hidden"
-            >
+                <!-- Pindahkan search result ke dalam relative input wrapper -->
+                <div
+                    id="searchResultsMobile"
+                    class="absolute left-0 right-0 top-full mt-1 bg-gray-800 border border-gray-600 rounded-md shadow-lg
+                        z-50 max-h-72 overflow-y-auto hidden"
+                >
+                </div>
             </div>
         </div>
 
         <!-- Navigation Links -->
-        <div class="px-3 py-6 space-y-3">
-            <x-responsive-nav-link :href="route('dashboard.index')" :active="request()->routeIs('dashboard')">
+        <div class="px-3 py-2 space-y-2">
+            <x-responsive-nav-link :href="route('dashboard.index')" :active="request()->routeIs('dashboard')"
+                class="text-sm lg:text-base font-medium">
                 BERANDA
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('profil.index')" :active="request()->routeIs('profil')">
+            <x-responsive-nav-link :href="route('profil.index')" :active="request()->routeIs('profil')"
+                class="text-sm lg:text-base font-medium">
                 PROFIL
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('berita.index')" :active="request()->routeIs('berita')">
+            <x-responsive-nav-link :href="route('berita.index')" :active="request()->routeIs('berita')"
+                class="text-sm lg:text-base font-medium">
                 BERITA
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('informasi.index')" :active="request()->routeIs('informasi')">
+            <x-responsive-nav-link :href="route('informasi.index')" :active="request()->routeIs('informasi')"
+                class="text-sm lg:text-base font-medium">
                 INFORMASI
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('fasilitas.index')" :active="request()->routeIs('fasilitas')">
+            <x-responsive-nav-link :href="route('fasilitas.index')" :active="request()->routeIs('fasilitas')"
+                class="text-sm lg:text-base font-medium">
                 FASDIK
             </x-responsive-nav-link>
 
             @auth
                 @if(in_array(Auth::user()->role, ['siswa','personel','admin']))
-                    <x-responsive-nav-link :href="route('modul.index')" :active="request()->routeIs('modul')">
+                    <x-responsive-nav-link :href="route('modul.index')" :active="request()->routeIs('modul')"
+                        class="text-sm lg:text-base font-medium">
                         MODUL
                     </x-responsive-nav-link>
                 @endif
@@ -256,15 +266,15 @@
 
         <!-- Auth Section -->
         @auth
-            <div class="px-3 py-4 border-t border-gray-700">
-                <div class="mb-3">
+            <div class="px-3 py-3 border-t border-gray-700">
+                <div class="mb-2">
                     <div class="font-medium text-base text-white">{{ Auth::user()->name }}</div>
                     <div class="font-medium text-sm text-gray-300">{{ Auth::user()->email }}</div>
                 </div>
-                <x-responsive-nav-link :href="route('profile.edit')">
+                <x-responsive-nav-link :href="route('profile.edit')" class="mb-1">
                     Profile
                 </x-responsive-nav-link>
-                <form method="POST" action="{{ route('logout') }}" class="mt-2">
+                <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <x-responsive-nav-link
                         :href="route('logout')"
@@ -275,7 +285,7 @@
                 </form>
             </div>
         @else
-            <div class="px-3 py-4 border-t border-gray-700">
+            <div class="px-3 py-3 border-t border-gray-700">
                 <a
                     href="{{ route('login') }}"
                     class="block text-sm text-white underline hover:text-blue-300"
@@ -331,7 +341,7 @@
 
                     // Pilih ikon sesuai kategori
                     let icon = '🔎';
-                    if (item.category.toLowerCase().includes('fasdik')) icon = '🏛️';
+                    if (item.category.toLowerCase().includes('fasdik')) icon = '🏛';
                     if (item.category.toLowerCase().includes('berita')) icon = '📰';
                     if (item.category.toLowerCase().includes('informasi')) icon = '📑';
                     if (item.category.toLowerCase().includes('profil')) icon = '👮';

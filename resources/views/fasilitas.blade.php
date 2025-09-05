@@ -1,8 +1,8 @@
 <x-app-layout>
     @section('title', 'FASDIK | SETUKPA LEMDIKLAT POLRI')
 
-    <div class="py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="pt-4 pb-8">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
             {{-- HEADER --}}
             <div class="relative bg-gray-50
@@ -123,7 +123,7 @@
 
     {{-- Modal Hapus Fasilitas --}}
     @foreach ($fasilitas as $item)
-        <div class="modal fade" id="hapusFasilitasModal{{ $item->id }}" tabindex="-1" 
+        <div class="modal fade" id="hapusFasilitasModal{{ $item->id }}" tabindex="-1"
             aria-labelledby="hapusLabel{{ $item->id }}" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content rounded-2xl shadow-lg border-0">
@@ -134,7 +134,7 @@
                             <i class="bi bi-exclamation-triangle-fill text-warning fs-4"></i>
                             Konfirmasi Hapus
                         </h5>
-                        <button type="button" class="btn-close btn-close-white" 
+                        <button type="button" class="btn-close btn-close-white"
                                 data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
@@ -150,13 +150,13 @@
                     {{-- Footer --}}
                     <div class="modal-footer d-flex justify-content-center gap-3 border-0 pb-4">
                         <form action="{{ route('fasilitas.destroy', $item->id) }}" method="POST">
-                            @csrf 
+                            @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger px-4 py-2 rounded-pill shadow-sm">
                                 Hapus
                             </button>
                         </form>
-                        <button type="button" 
+                        <button type="button"
                                 class="btn btn-primary px-4 py-2 rounded-pill shadow-sm"
                                 data-bs-dismiss="modal">
                                 Batal

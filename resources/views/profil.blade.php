@@ -1,7 +1,7 @@
 <x-app-layout>
     @section('title', 'PROFIL | SETUKPA LEMDIKLAT POLRI')
 
-    <div class="py-8">
+    <div class="pb-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
             {{-- Notifikasi --}}
@@ -22,9 +22,10 @@
 
             {{-- SECTION 1: Sejarah Setukpa --}}
             <div class="mb-10 mt-4 bg-white shadow-md rounded-xl p-6 flex flex-col md:flex-row items-center md:items-start gap-8">
+
                 {{-- Gambar (Tanpa animasi) --}}
                 <div class="w-full md:w-1/2 overflow-hidden rounded-lg">
-                    <img src="{{ asset('assets/images/gerbang.png') }}" alt="Profil Setukpa" class="rounded-lg w-full object-cover h-[460px]">
+                    <img src="{{ asset('assets/images/secapa.jpg') }}" alt="Profil Setukpa" class="rounded-lg w-full object-cover h-[460px]">
                 </div>
 
                 {{-- Konten Sejarah --}}
@@ -118,7 +119,7 @@
             </div>
 
             {{-- SECTION 2: Profil Setukpa --}}
-            <div class="mb-10 bg-white shadow rounded-lg p-6 flex flex-col md:flex-row items-center md:items-start gap-6">
+            <div class="mt-12 mb-10 bg-white shadow rounded-lg p-6 flex flex-col md:flex-row items-center md:items-start gap-6">
                 {{-- Video --}}
                 <div class="w-full md:w-1/2">
                     <div class="rounded-lg overflow-hidden w-full h-[320px]">
@@ -146,48 +147,67 @@
             </div>
 
             {{-- SECTION 3: Visi dan Misi --}}
-            <div class="mb-12 bg-white shadow rounded-lg px-6 py-10">
-                {{-- Visi --}}
-                <div class="text-center mb-12">
-                    <h3 class="text-2xl md:text-2xl font-bold text-[#2c3e50] mb-4">VISI SETUKPA LEMDIKLAT POLRI</h3>
-                    <p class="text-gray-700 text-base md:text-lg leading-relaxed max-w-3xl mx-auto">
-                        Mewujudkan Lulusan Perwira Polri Yang Unggul, Berintegritas, Profesional Dan Modern
-                    </p>
-                </div>
+            <div class="mt-12 mb-12 shadow rounded-lg p-8 text-center bg-white
+                        border-t-4 border-[#900000]">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
 
-                {{-- Misi --}}
-                <div class="text-center mb-8">
-                    <h3 class="text-2xl md:text-2xl font-bold text-[#2c3e50] mb-6">MISI SETUKPA LEMDIKLAT POLRI</h3>
-                    <div class="max-w-3xl mx-auto text-left space-y-6">
-                        @foreach ([
-                            'Membangun moral kepribadian dan perubahan karakter peserta didik, yang berlandaskan agama, penguasaan ilmu pengetahuan dan teknologi kepolisian serta didukung oleh kesiapan jasmani.',
-                            'Mendidik dan melatih bintara polri terpilih menjadi inspektur polisi dua yang transformatif, inovatif dan modern.',
-                            'Mengembangkan 8 (delapan) standar pendidikan yang modern.'
-                        ] as $i => $misi)
-                            <div class="flex items-start gap-3">
-                                <div class="text-[#900000] font-semibold">{{ $i + 1 }}.</div>
-                                <div class="border-l-4 border-[#900000] pl-4 text-gray-700 text-base leading-relaxed">
-                                    {{ $misi }}
-                                </div>
-                            </div>
-                        @endforeach
+                    {{-- Foto dan Nama --}}
+                    <div class="text-center md:text-left">
+                        <img src="{{ asset('assets/images/Kasetukpa-2.png') }}"
+                            alt="Brigjen Pol. Dirin"
+                            class="mx-auto md:mx-0 w-64 md:w-72">
+                        <h3 class="mt-3 text-2xl font-bold text-[#2c3e50]">
+                            Brigjen Pol. Dirin, S.I.K., M.H.
+                        </h3>
+                        <p class="text-lg text-gray-700">(Kasetukpa Lemdiklat Polri)</p>
+                    </div>
+
+                    {{-- Visi & Misi --}}
+                    <div>
+                        <h2 class="text-2xl md:text-3xl font-bold text-[#2c3e50] mb-10">
+                            VISI MISI SETUKPA LEMDIKLAT POLRI
+                        </h2>
+
+                        {{-- Visi --}}
+                        <div class="mb-8">
+                            <h3 class="font-bold text-[#900000] text-xl mb-4">VISI</h3>
+                            <p class="text-gray-700 text-base leading-relaxed">
+                                Mewujudkan Lulusan Perwira Polri Yang Unggul, Berintegritas, Profesional Dan Modern
+                            </p>
+                        </div>
+
+                        {{-- Misi --}}
+                        <div class="mt-8">
+                            <h3 class="font-bold text-[#900000] text-xl mb-4">MISI</h3>
+                            <ul class="list-decimal list-outside pl-6 space-y-2 text-gray-700 text-base leading-relaxed">
+                                <li>
+                                    Membangun moral kepribadian dan perubahan karakter peserta didik, yang berlandaskan agama,
+                                    penguasaan ilmu pengetahuan dan teknologi kepolisian serta didukung oleh kesiapan jasmani.
+                                </li>
+                                <li>
+                                    Mendidik dan melatih bintara polri terpilih menjadi inspektur polisi dua yang transformatif,
+                                    inovatif dan modern.
+                                </li>
+                                <li>
+                                    Mengembangkan 8 (delapan) standar pendidikan yang modern.
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            {{-- PEMBATAS --}}
-            <div class="pt-1 mt-1 border-t border-gray-200"></div>
-
             {{-- SECTION 4: Struktur Organisasi --}}
-            <div class="mb-12 shadow rounded-lg p-8 text-center bg-gradient-to-b from-white to-yellow-50
+            <div class="mt-12 mb-12 shadow rounded-lg p-8 text-center bg-gradient-to-b from-white to-yellow-50
                         border-t-4 border-yellow-400">
+
                 {{-- Judul --}}
                 <div class="relative mb-8">
                     <h2 class="inline-flex items-center gap-2 text-lg md:text-xl lg:text-lg font-bold
                             text-black bg-gradient-to-r from-yellow-400 to-yellow-500
                             px-4 py-1 rounded-xl shadow-md">
                         <i class="bi bi-people-fill text-xl text-black md:text-lg"></i>
-                        STRUKTUR ORGANISASI
+                        ORGANIZATIONAL STRUCTURE
                     </h2>
 
                     {{-- Tombol Tambah Data --}}
@@ -300,7 +320,7 @@
                                                     Hapus
                                                 </button>
                                             </form>
-                                            <button type="button" 
+                                            <button type="button"
                                                     class="btn btn-primary px-4 py-2 rounded-pill shadow-sm"
                                                     data-bs-dismiss="modal">
                                                     Batal
@@ -407,7 +427,7 @@
                                                     Hapus
                                                 </button>
                                             </form>
-                                            <button type="button" 
+                                            <button type="button"
                                                     class="btn btn-primary px-4 py-2 rounded-pill shadow-sm"
                                                     data-bs-dismiss="modal">
                                                     Batal
@@ -521,7 +541,7 @@
                                                         Hapus
                                                     </button>
                                                 </form>
-                                                <button type="button" 
+                                                <button type="button"
                                                         class="btn btn-primary px-4 py-2 rounded-pill shadow-sm"
                                                         data-bs-dismiss="modal">
                                                         Batal

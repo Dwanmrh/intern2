@@ -1,7 +1,7 @@
 <x-app-layout>
     @section('title', 'INFORMASI | SETUKPA LEMDIKLAT POLRI')
 
-    <div class="py-8">
+    <div class="pt-4 pb-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
         {{-- Notifikasi --}}
@@ -134,82 +134,81 @@
                         hover:bg-yellow-500 hover:scale-[1.02]
                         transition transform duration-300">
                     <i class="bi bi-info-circle mr-2"></i>
-                    Lihat Informasi Lebih Lanjut
+                    Learn More
                 </a>
             </div>
 
             {{-- SECTION PANGKAT --}}
-            <div class="mt-12 mb-10">
-                <div class="text-center mb-6">
+            <div class="mt-10 mb-10">
+                <div class="text-center mb-8">
                     <h2 class="text-lg md:text-xl lg:text-lg font-bold text-white inline-flex items-center gap-2
                         bg-gradient-to-r from-slate-700 via-slate-600 to-slate-800
                         px-6 py-1 rounded-xl shadow-md">
                         <i class="bi bi-award text-white text-xl md:text-lg"></i>
-                        JENJANG PANGKAT SETUKPA
+                        SETUKPA RANK STRUCTURE
                     </h2>
                 </div>
 
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-10">
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
 
                     {{-- Foto 1 --}}
-                    <div class="relative bg-gradient-to-r from-slate-200 to-slate-100 rounded-xl p-[1.5px] transition-all duration-300 hover:-translate-y-1 animate-fadeIn">
-                        <div class=" rounded-xl overflow-hidden">
-                            <div class="flex justify-center items-center h-36 bg-gray-50">
-                                <img src="{{ asset('assets/images/Bripka.png') }}" alt="Bripka"
-                                    class="max-h-32 object-contain">
-                            </div>
-                            <div class="p-3 text-center bg-gradient-to-r from-slate-700 to-slate-900">
-                                <p class="font-semibold text-yellow-400 text-sm tracking-wide">Brigadir Polisi Kepala</p>
-                                <p class="text-yellow-400 text-xs">(Bripka)</p>
-                            </div>
+                    <div class="bg-white shadow-sm rounded-lg overflow-hidden
+                                hover:shadow-lg transition-transform duration-300 ease-in-out
+                                transform hover:scale-105 h-full">
+                        <div class="flex justify-center items-center h-36 bg-gray-50">
+                            <img src="{{ asset('assets/images/Brigpol.png') }}" alt="Brigpol"
+                                class="max-h-32 object-contain">
+                        </div>
+                        <div class="p-3 text-center bg-gradient-to-r from-slate-700 to-slate-900">
+                            <p class="font-semibold text-yellow-400 text-sm tracking-wide">Brigadir Polisi</p>
+                            <p class="text-yellow-400 text-xs">(Brigadir)</p>
                         </div>
                     </div>
 
                     {{-- Foto 2 --}}
-                    <div class="relative bg-gradient-to-r from-slate-200 to-slate-100 rounded-xl p-[1.5px] transition-all duration-300 hover:-translate-y-1 animate-fadeIn delay-100">
-                        <div class=" rounded-xl overflow-hidden">
-                            <div class="flex justify-center items-center h-36 bg-gray-50">
-                                <img src="{{ asset('assets/images/Brigpol.png') }}" alt="Brigpol"
-                                    class="max-h-32 object-contain">
-                            </div>
-                            <div class="p-3 text-center bg-gradient-to-r from-slate-700 to-slate-900">
-                                <p class="font-semibold text-yellow-400 text-sm tracking-wide">Brigadir Polisi</p>
-                                <p class="text-yellow-400 text-xs">(Brigpol)</p>
-                            </div>
+                    <div class="bg-white shadow-sm rounded-lg overflow-hidden
+                                hover:shadow-lg transition-transform duration-300 ease-in-out
+                                transform hover:scale-105 h-full">
+                        <div class="flex justify-center items-center h-36 bg-gray-50">
+                            <img src="{{ asset('assets/images/Bripka.png') }}" alt="Bripka"
+                                class="max-h-32 object-contain">
+                        </div>
+                        <div class="p-3 text-center bg-gradient-to-r from-slate-700 to-slate-900">
+                            <p class="font-semibold text-yellow-400 text-sm tracking-wide">Brigadir Kepala Polisi</p>
+                            <p class="text-yellow-400 text-xs">(Bripka)</p>
                         </div>
                     </div>
 
                     {{-- Foto 3 --}}
-                    <div class="relative bg-gradient-to-r from-slate-200 to-slate-100 rounded-xl p-[1.5px] transition-all duration-300 hover:-translate-y-1 animate-fadeIn delay-200">
-                        <div class=" rounded-xl overflow-hidden">
-                            <div class="flex justify-center items-center h-36 bg-gray-50">
-                                <img src="{{ asset('assets/images/Briptu.png') }}" alt="Briptu"
-                                    class="max-h-32 object-contain">
-                            </div>
-                            <div class="p-3 text-center bg-gradient-to-r from-slate-700 to-slate-900">
-                                <p class="font-semibold text-yellow-400 text-sm tracking-wide">Brigadir Polisi Satu</p>
-                                <p class="text-yellow-400 text-xs">(Briptu)</p>
-                            </div>
+                    <div class="bg-white shadow-sm rounded-lg overflow-hidden
+                                hover:shadow-lg transition-transform duration-300 ease-in-out
+                                transform hover:scale-105 h-full">
+                        <div class="flex justify-center items-center h-36 bg-gray-50">
+                            <img src="{{ asset('assets/images/Aipda.png') }}" alt="Aipda"
+                                class="max-h-32 object-contain">
+                        </div>
+                        <div class="p-3 text-center bg-gradient-to-r from-slate-700 to-slate-900">
+                            <p class="font-semibold text-yellow-400 text-sm tracking-wide">Ajun Inspektur Polisi Dua</p>
+                            <p class="text-yellow-400 text-xs">(Aipda)</p>
                         </div>
                     </div>
 
                     {{-- Foto 4 --}}
-                    <div class="relative bg-gradient-to-r from-slate-200 to-slate-100 rounded-xl p-[1.5px] transition-all duration-300 hover:-translate-y-1 animate-fadeIn delay-300">
-                        <div class=" rounded-xl overflow-hidden">
-                            <div class="flex justify-center items-center h-36 bg-gray-50">
-                                <img src="{{ asset('assets/images/Bripda.png') }}" alt="Bripda"
-                                    class="max-h-32 object-contain">
-                            </div>
-                            <div class="p-3 text-center bg-gradient-to-r from-slate-700 to-slate-900">
-                                <p class="font-semibold text-yellow-400 text-sm tracking-wide">Brigadir Polisi Dua</p>
-                                <p class="text-yellow-400 text-xs">(Bripda)</p>
-                            </div>
+                    <div class="bg-white shadow-sm rounded-lg overflow-hidden
+                                hover:shadow-lg transition-transform duration-300 ease-in-out
+                                transform hover:scale-105 h-full">
+                        <div class="flex justify-center items-center h-36 bg-gray-50">
+                            <img src="{{ asset('assets/images/Aiptu.png') }}" alt="Aiptu"
+                                class="max-h-32 object-contain">
+                        </div>
+                        <div class="p-3 text-center bg-gradient-to-r from-slate-700 to-slate-900">
+                            <p class="font-semibold text-yellow-400 text-sm tracking-wide">Ajun Inspektur Polisi Satu</p>
+                            <p class="text-yellow-400 text-xs">(Aiptu)</p>
                         </div>
                     </div>
 
                 </div>
             </div>
-
 
             {{-- CARD UTAMA HEADER INFORMASI --}}
             <div class="shadow rounded-lg p-6 mt-12 mb-10 relative"
@@ -238,7 +237,6 @@
                     @endauth
                 </div>
 
-
                 {{-- Flex/Grid Informasi --}}
                 <div id="cardGrid"
                 class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8 items-start invisible">
@@ -246,10 +244,8 @@
                     <div x-data="{ expanded: false }"
                     class="w-full bg-white shadow-lg rounded-2xl overflow-hidden flex flex-col
                     cursor-pointer hover:scale-[1.03] transition duration-300 ease-in-out
-                    border border-gray-200 group relative 
+                    border border-gray-200 group relative
                     {{ $data->foto ? 'min-h-[520px]' : 'min-h-[340px]' }}">
-
-
 
                             {{-- Gambar --}}
                             @if ($data->foto)
@@ -265,8 +261,8 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-blue-500" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 
-                                            002-2V7a2 2 0 00-2-2H5a2 2 0 
+                                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0
+                                            002-2V7a2 2 0 00-2-2H5a2 2 0
                                             00-2 2v12a2 2 0 002 2z"/>
                                     </svg>
                                     <span>
@@ -294,7 +290,7 @@
                                 <button @click.stop="expanded = !expanded"
                                         class="bg-blue-600 hover:bg-blue-800 text-white px-4 py-2 rounded-lg
                                             text-sm font-medium shadow transition duration-300">
-                                    <span x-text="expanded ? 'Tutup' : 'Read More'"></span>
+                                    <span x-text="expanded ? 'Close' : 'Read More'"></span>
                                 </button>
 
                                 @auth
@@ -307,9 +303,9 @@
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
                                                     viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M11 5H6a2 2 0 00-2 2v12a2 2 0 
-                                                        002 2h12a2 2 0 002-2v-5M18.5 
-                                                        2.5a2.121 2.121 0 113 3L12 15l-4 
+                                                        d="M11 5H6a2 2 0 00-2 2v12a2 2 0
+                                                        002 2h12a2 2 0 002-2v-5M18.5
+                                                        2.5a2.121 2.121 0 113 3L12 15l-4
                                                         1 1-4 9.5-9.5z"/>
                                                 </svg>
                                             </a>
@@ -324,9 +320,9 @@
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
                                                     viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M19 7l-.867 12.142A2 2 0 
-                                                        0116.138 21H7.862a2 2 0 
-                                                        01-1.995-1.858L5 7m5 4v6m4-6v6M9 
+                                                        d="M19 7l-.867 12.142A2 2 0
+                                                        0116.138 21H7.862a2 2 0
+                                                        01-1.995-1.858L5 7m5 4v6m4-6v6M9
                                                         7h6m-3-4v4"/>
                                                 </svg>
                                             </button>
@@ -375,7 +371,7 @@
                                     Hapus
                                 </button>
                             </form>
-                            <button type="button" 
+                            <button type="button"
                                     class="btn btn-primary px-4 py-2 rounded-pill shadow-sm"
                                     data-bs-dismiss="modal">
                                     Batal
@@ -393,7 +389,7 @@
                 {{-- Header --}}
                 <div class="flex justify-center items-center mb-6">
                     <h2 class="font-bold text-2xl text-[#2c3e50] flex items-center gap-2 mb-3">
-                        MEDIA SOSIAL & KONTAK
+                        SOCIAL MEDIA & CONTACT
                     </h2>
                 </div>
 
@@ -438,7 +434,7 @@
                                 class="bg-white shadow-md border border-gray-200 rounded-xl w-32 h-32 flex flex-col items-center justify-center
                                     hover:shadow-xl hover:-translate-y-1 hover:scale-105 transition-all duration-300">
                             <i class="bi bi-telephone text-3xl text-green-600 mb-2"></i>
-                            <span class="font-medium text-gray-700 text-center">Telpon</span>
+                            <span class="font-medium text-gray-700 text-center">Phone</span>
                         </button>
 
                         {{-- Modal --}}

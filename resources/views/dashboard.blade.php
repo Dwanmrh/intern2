@@ -8,7 +8,7 @@
             <div class="flex items-center justify-between mb-4 relative">
                 @auth
                     @if(Auth::user()->role === 'admin')
-                        <div class="absolute right-0">
+                        <div class="absolute right-0 -top-5">
                             <a href="{{ route('dashboard.create') }}"
                                class="bg-[#800000] hover:bg-[#660000]
                                       text-white px-4 py-2 rounded-md text-sm shadow-md
@@ -52,7 +52,7 @@
                 $validDashboards = $validDashboards->values();
             @endphp
 
-            <div id="dashboardCarousel" class="carousel slide mb-5 position-relative" data-bs-ride="carousel">
+            <div id="dashboardCarousel" class="carousel slide mb-5 position-relative -mt-2" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     @foreach($validDashboards as $index => $item)
                         <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
@@ -117,7 +117,7 @@
 
             {{-- Modal Konfirmasi Hapus per Item --}}
             @foreach($validDashboards as $item)
-                <div class="modal fade" id="hapusModal{{ $item->id }}" tabindex="-1" 
+                <div class="modal fade" id="hapusModal{{ $item->id }}" tabindex="-1"
                     aria-labelledby="hapusModalLabel{{ $item->id }}" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content rounded-2xl shadow-lg border-0">
@@ -128,7 +128,7 @@
                                     <i class="bi bi-exclamation-triangle-fill text-warning fs-4"></i>
                                     Konfirmasi Hapus
                                 </h5>
-                                <button type="button" class="btn-close btn-close-white" 
+                                <button type="button" class="btn-close btn-close-white"
                                         data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
 
@@ -150,7 +150,7 @@
                                         Hapus
                                     </button>
                                 </form>
-                                <button type="button" 
+                                <button type="button"
                                         class="btn btn-primary px-4 py-2 rounded-pill shadow-sm"
                                         data-bs-dismiss="modal">
                                         Batal
@@ -161,14 +161,12 @@
                 </div>
             @endforeach
 
-            {{-- PEMBATAS --}}
-            <div class="pt-10 mt-10 border-t border-gray-200"></div>
-
             {{-- Section Berita --}}
             <div class="mb-5 shadow rounded-lg p-6 bg-gradient-to-b from-white to-blue-50 border-t-4 border-blue-400">
+
                 {{-- Header --}}
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="font-bold text-[1.55rem] text-[#2c3e50]">NEWS & INFORMATION</h2>
+                    <h2 class="font-bold text-[1.35rem] text-[#2c3e50]">NEWS & INFORMATION</h2>
                     <a href="{{ route('berita.index') }}"
                        class="flex items-center gap-1 font-bold text-blue-600 text-[0.95rem] hover:underline">
                         Read More
@@ -294,7 +292,7 @@
                                         </div>
 
                                         {{-- Modal Konfirmasi Hapus Link --}}
-                                        <div class="modal fade" id="hapusLinkModal{{ $link->id }}" tabindex="-1" 
+                                        <div class="modal fade" id="hapusLinkModal{{ $link->id }}" tabindex="-1"
                                             aria-labelledby="hapusLinkLabel{{ $link->id }}" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content rounded-2xl shadow-lg border-0">
@@ -305,7 +303,7 @@
                                                             <i class="bi bi-exclamation-triangle-fill text-warning fs-4"></i>
                                                             Konfirmasi Hapus
                                                         </h5>
-                                                        <button type="button" class="btn-close btn-close-white" 
+                                                        <button type="button" class="btn-close btn-close-white"
                                                                 data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
 
@@ -327,7 +325,7 @@
                                                                 Hapus
                                                             </button>
                                                         </form>
-                                                        <button type="button" 
+                                                        <button type="button"
                                                                 class="btn btn-primary px-4 py-2 rounded-pill shadow-sm"
                                                                 data-bs-dismiss="modal">
                                                                 Batal

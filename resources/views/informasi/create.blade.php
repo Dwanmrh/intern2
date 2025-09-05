@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    @section('title', 'TAMBAH INFORMASI | SETUKPA LEMDIKLAT POLRI')
+    @section('title', 'TAMBAH INFORMASI | SETUKPA LEMDIKLAT POLRI')
 
     <div class="py-10 px-4">
         <div class="max-w-md mx-auto bg-gradient-to-br from-[#2c3e50] to-[#3b4a5a] p-5 rounded-xl shadow-2xl border border-white/10 transition-all duration-300">
@@ -88,14 +88,15 @@
 
                 {{-- Tombol --}}
                 <div class="flex justify-end space-x-3">
-                    <a href="{{ route('informasi.index') }}"
-                        class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-md shadow-md hover:shadow-lg transition">
-                        Batal
-                    </a>
                     <button type="submit"
                         class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-md shadow-md hover:shadow-lg transition">
                         Simpan
                     </button>
+
+                    <a href="{{ route('informasi.index') }}"
+                        class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-md shadow-md hover:shadow-lg transition">
+                        Batal
+                    </a>
                 </div>
             </form>
 

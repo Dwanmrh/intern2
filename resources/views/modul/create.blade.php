@@ -37,104 +37,13 @@
                     <label class="block text-white font-semibold mb-1">Mapel</label>
                     <select id="mapel" name="mapel" class="w-full px-3 py-2 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none">
                         <option value="">-- Pilih Mapel --</option>
+                        @foreach (config('mapel.' . old('prodiklat', $prodiklat ?? 'SIP')) as $i => $m)
+                            <option value="{{ $m }}" {{ old('mapel') == $m ? 'selected' : '' }}>
+                                {{ str_pad($i+1, 2, '0', STR_PAD_LEFT) }}. {{ $m }}
+                            </option>
+                        @endforeach
                     </select>
                 </div>
-
-                <script>
-                    const mapelsSIP = [
-                        "Wawasan Kebangsaan",
-                        "Etika dan Kode Etik Profesi Polri",
-                        "Peraturan Pemerintah Nomor 1, 2, dan 3 Tahun 2003",
-                        "Nilai Sejarah Polri",
-                        "Integritas dan Budaya Anti Korupsi",
-                        "Hukum Pidana dan Hukum Acara Pidana",
-                        "Pengetahuan Tentang HAM",
-                        "Diskresi & Restorative Justice",
-                        "PPA dan ABH",
-                        "Manajemen Training Level I",
-                        "Kepemimpinan",
-                        "Sistem, Manajemen dan Standar Keberhasilan Operasional Kepolisian",
-                        "Sistem Pelayanan Kepolisian Terpadu",
-                        "Manajemen Fungsi Intelkam",
-                        "Manajemen Fungsi Binmas",
-                        "Manajemen Fungsi Sabhara",
-                        "Manajemen Fungsi Lantas",
-                        "Manajemen Fungsi Reserse",
-                        "Perencanaan dan Penganggaran Polri",
-                        "Manajemen SDM Polri",
-                        "Manajemen Logistik Polri",
-                        "Keuangan Polri",
-                        "Manajemen Tingkat Polsek",
-                        "Community Policing",
-                        "Democratic Policing",
-                        "Predictive Policing",
-                        "Pengetahuan Sosial",
-                        "Pelayanan Prima",
-                        "Manajemen Penanggulangan Bencana",
-                        "Search and Rescue (SAR)",
-                        "Identifikasi Kepolisian",
-                        "Laboratorium Forensik Kedokteran Kepolisian",
-                        "Tata Naskah Dinas di Lingkungan Polri",
-                        "Tata Upacara dan Pedang Perwira",
-                        "Penggunaan Senjata Api dan Menembak",
-                        "Teknik Keselamatan dan Bela Diri Polri",
-                        "Sistem Pelayanan Polri Berbasis Elektronik",
-                        "Psikologi Sosial dan Teknik Dasar Konseling",
-                        "Manajemen Kehumasan Polri",
-                        "Teknologi Informasi Kepolisian",
-                        "Pencegahan Kejahatan (Crime Prevention)",
-                        "Gladi Wirottama",
-                        "Porismas",
-                        "Latihan Teknis/Latihan Kerja",
-                        "Ujian Kompetensi Perwira Pertama",
-                    ];
-
-                    const mapelsPAG = [
-                        "Pancasila dan Wawasan Kebangsaan",
-                        "Etika dan Kode Etik Profesi Polri",
-                        "Integritas dan Budaya Anti Korupsi",
-                        "Peraturan Pemerintah Nomor 1, 2, dan 3 tahun 2003",
-                        "Hukum Pidana dan Hukum Acara Pidana",
-                        "Diskresi Kepolisian dan Restorative Justice",
-                        "Hak Asasi Manusia (HAM)",
-                        "PPA dan ABH",
-                        "Kepemimpinan",
-                        "Manajemen Pembinaan Polri",
-                        "Manajemen Tingkat Polsek",
-                        "Manajemen Training Level I",
-                        "Sistem, Manajemen dan Standar Keberhasilan Operasional Polri",
-                        "Tata Naskah Dinas di Lingkungan Polri",
-                        "Tata Upacara dan Pedang Perwira",
-                        "Pencegahan Kejahatan (Crime Prevention)",
-                        "Manajemen Kehumasan Polri",
-                        "Latihan Teknis",
-                    ];
-
-                    function loadMapels() {
-                        const prodiklat = document.getElementById('prodiklat').value;
-                        const mapelSelect = document.getElementById('mapel');
-                        mapelSelect.innerHTML = '<option value="">-- Pilih Mapel --</option>';
-
-                        const list = prodiklat === 'PAG' ? mapelsPAG : mapelsSIP;
-
-                        list.forEach((m, i) => {
-                            const opt = document.createElement('option');
-                            opt.value = m;
-                            opt.textContent = String(i + 1).padStart(2, '0') + ". " + m;
-                            // restore pilihan lama jika ada
-                            if ("{{ old('mapel') }}" === m) {
-                                opt.selected = true;
-                            }
-                            mapelSelect.appendChild(opt);
-                        });
-                    }
-
-                    // load saat halaman dibuka
-                    loadMapels();
-
-                    // ganti mapel setiap kali prodiklat diubah
-                    document.getElementById('prodiklat').addEventListener('change', loadMapels);
-                </script>
 
                 {{-- Tahun --}}
                 <div class="mb-4">
@@ -173,14 +82,15 @@
 
                 {{-- Buttons --}}
                 <div class="flex justify-end space-x-3">
-                    <a href="{{ url()->previous() ?? route('modul.index') }}"
-                        class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-md shadow-md hover:shadow-lg transition">
-                        Batal
-                    </a>
                     <button type="submit"
                         class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-md shadow-md hover:shadow-lg transition">
                         Simpan
                     </button>
+
+                    <a href="{{ url()->previous() ?? route('modul.index') }}"
+                        class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-md shadow-md hover:shadow-lg transition">
+                        Batal
+                    </a>
                 </div>
             </form>
         </div>

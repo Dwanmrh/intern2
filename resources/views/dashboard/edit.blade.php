@@ -113,14 +113,15 @@
 
                 {{-- Tombol --}}
                 <div class="flex justify-end gap-2 pt-4">
-                    <a href="{{ route('dashboard.index') }}"
-                        class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-md shadow hover:shadow-md transition text-sm">
-                        Batal
-                    </a>
                     <button type="submit"
                         class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-md shadow hover:shadow-md transition text-sm">
                         Perbarui
                     </button>
+                    
+                    <a href="{{ route('dashboard.index') }}"
+                        class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-md shadow hover:shadow-md transition text-sm">
+                        Batal
+                    </a>
                 </div>
             </form>
 

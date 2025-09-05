@@ -71,14 +71,15 @@
 
                 {{-- Buttons --}}
                 <div class="flex justify-end space-x-3">
-                    <a href="{{ url()->previous() ?? route('fasilitas.index') }}"
-                        class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-md shadow-md hover:shadow-lg transition">
-                        Batal
-                    </a>
                     <button type="submit"
                         class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-md shadow-md hover:shadow-lg transition">
                         Simpan
                     </button>
+
+                    <a href="{{ url()->previous() ?? route('fasilitas.index') }}"
+                        class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-md shadow-md hover:shadow-lg transition">
+                        Batal
+                    </a>
                 </div>
             </form>
 
