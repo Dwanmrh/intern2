@@ -77,6 +77,9 @@ class BeritaController extends Controller
             $data['isi_berita'] = '-';
         }
 
+        // Default views
+        $data['views'] = 0;
+
         Berita::create($data);
         return redirect()->route('berita.index')->with('success', 'Berita berhasil ditambahkan.');
     }
@@ -84,7 +87,20 @@ class BeritaController extends Controller
     public function show($id)
     {
         $berita = Berita::findOrFail($id);
-        return view('berita.show', compact('berita'));
+
+        // recent = berita terbaru
+        $recent = Berita::orderBy('tanggal', 'desc')
+            ->take(5)
+            ->get();
+
+        // popular = berita dengan views terbanyak
+        $popular = Berita::orderBy('views', 'desc')
+            ->take(5)
+            ->get();
+
+        $berita->increment('views');
+
+        return view('berita.show', compact('berita', 'recent', 'popular'));
     }
 
     public function edit($id)

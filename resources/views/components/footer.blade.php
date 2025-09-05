@@ -3,7 +3,7 @@
 
         <!-- Grid utama: Logo | Navigasi | Kontak -->
         <div class="grid grid-cols-1 md:grid-cols-[200px,1fr,1fr] gap-12">
-            
+
             {{-- Logo --}}
             <div class="flex justify-center items-center">
                 <img src="{{ asset('assets/images/logo_setukpa.png') }}" alt="Logo" class="w-28 h-auto">
@@ -41,7 +41,7 @@
                         setukpaweb@gmail.com
                     </a>
                 </p>
-            </div>
+            </div>
         </div>
 
         <!-- Garis + Copyright -->
