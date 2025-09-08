@@ -29,8 +29,8 @@
         <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     </head>
 
-    <body class="pt-20 font-sans antialiased" style="background-color: #E5E5E5;">
-        <div class="min-h-screen flex flex-col justify-between" style="background-color: #E5E5E5;">
+    <body class="pt-20 font-sans antialiased @yield('body-class')">
+    <div class="min-h-screen flex flex-col justify-between">
             {{-- Navbar --}}
             @include('layouts.navigation')
 

@@ -32,23 +32,6 @@
                     @endif
                 @endauth
 
-                {{-- Notifikasi --}}
-                @if (session('success'))
-                    <div id="success-alert"
-                         class="mt-6 mb-6 p-4 bg-green-100 text-green-800 rounded transition-opacity duration-500 text-center">
-                        {{ session('success') }}
-                    </div>
-                    <script>
-                        setTimeout(function () {
-                            let alertBox = document.getElementById('success-alert');
-                            if (alertBox) {
-                                alertBox.style.opacity = '0';
-                                setTimeout(() => alertBox.remove(), 500);
-                            }
-                        }, 5000);
-                    </script>
-                @endif
-
                 {{-- LIST FASILITAS --}}
                 <div class="space-y-12 mt-8">
                     @forelse($fasilitas as $item)
@@ -125,13 +108,13 @@
     @foreach ($fasilitas as $item)
         <div class="modal fade" id="hapusFasilitasModal{{ $item->id }}" tabindex="-1"
             aria-labelledby="hapusLabel{{ $item->id }}" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-dialog modal-dialog-centered custom-modal">
                 <div class="modal-content rounded-2xl shadow-lg border-0">
 
                     {{-- Header --}}
-                    <div class="modal-header bg-red-600 text-white rounded-t-2xl">
-                        <h5 class="modal-title d-flex align-items-center gap-2" id="hapusLabel{{ $item->id }}">
-                            <i class="bi bi-exclamation-triangle-fill text-warning fs-4"></i>
+                    <div class="modal-header bg-red-600 text-white rounded-t-2xl py-2 px-3">
+                        <h5 class="modal-title d-flex align-items-center gap-2 fs-6" id="hapusLabel{{ $item->id }}">
+                            <i class="bi bi-exclamation-triangle-fill text-warning fs-5"></i>
                             Konfirmasi Hapus
                         </h5>
                         <button type="button" class="btn-close btn-close-white"
@@ -139,27 +122,27 @@
                     </div>
 
                     {{-- Body --}}
-                    <div class="modal-body text-center py-4">
-                        <i class="bi bi-trash3-fill text-danger fs-1 mb-3"></i>
-                        <p class="fw-semibold text-gray-700">
+                    <div class="modal-body text-center py-3 px-3">
+                        <i class="bi bi-trash3-fill text-danger fs-3 mb-2"></i>
+                        <p class="fw-semibold text-gray-700 mt-4 mb-2" style="font-size: 0.9rem;">
                             Apakah anda yakin ingin menghapus fasilitas <br>
                             <span class="text-danger">"{{ $item->judul }}"</span>?
                         </p>
                     </div>
 
                     {{-- Footer --}}
-                    <div class="modal-footer d-flex justify-content-center gap-3 border-0 pb-4">
+                    <div class="modal-footer d-flex justify-content-center gap-2 border-0 pb-3">
                         <form action="{{ route('fasilitas.destroy', $item->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger px-4 py-2 rounded-pill shadow-sm">
+                            <button type="submit" class="btn btn-danger btn-sm px-3 py-1 rounded-pill shadow-sm">
                                 Hapus
                             </button>
                         </form>
                         <button type="button"
-                                class="btn btn-primary px-4 py-2 rounded-pill shadow-sm"
+                                class="btn btn-primary btn-sm px-3 py-1 rounded-pill shadow-sm"
                                 data-bs-dismiss="modal">
-                                Batal
+                            Batal
                         </button>
                     </div>
                 </div>
@@ -196,3 +179,28 @@
     @endforeach
 
 </x-app-layout>
+
+{{-- Notifikasi --}}
+@if (session('success'))
+                    <div class="modal fade" id="notifModal" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-sm modal-dialog-centered">
+                            <div class="modal-content text-center p-4" style="border-radius: 10px; background-color: #d1fae5; color: #065f46;">
+                                {{-- Icon Centang --}}
+                                <div class="mb-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mx-auto text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                {{-- Pesan --}}
+                                <p class="mb-2 text-sm font-medium">{{ session('success') }}</p>
+                                {{-- Tombol --}}
+                                <button type="button" class="btn btn-success btn-sm px-3 py-1" data-bs-dismiss="modal">OK</button>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function () {
+                            new bootstrap.Modal(document.getElementById('notifModal')).show();
+                        });
+                    </script>
+                @endif

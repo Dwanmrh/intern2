@@ -54,23 +54,6 @@
                     </button>
                 </form>
 
-                {{-- Notifikasi --}}
-                @if (session('success'))
-                    <div id="success-alert"
-                        class="mt-4 p-4 bg-green-100 text-green-800 rounded-lg shadow transition-opacity duration-500">
-                        {{ session('success') }}
-                    </div>
-                    <script>
-                        setTimeout(function () {
-                            let alertBox = document.getElementById('success-alert');
-                            if (alertBox) {
-                                alertBox.style.opacity = '0';
-                                setTimeout(() => alertBox.remove(), 500);
-                            }
-                        }, 4000);
-                    </script>
-                @endif
-
                 {{-- GARIS PEMBATAS --}}
                 <div class="border-b border-gray-300 mb-6"></div>
 
@@ -123,19 +106,18 @@
                                         </div>
 
                                         {{-- Aksi Edit & Hapus --}}
-                                        @auth
-                                            @if(in_array(Auth::user()->role, ['admin', 'personel']))
+                                            @auth
+                                            @if(Auth::user()->role === 'admin')
                                                 <div class="flex justify-end gap-2 mt-2">
                                                     {{-- Tombol Edit --}}
                                                     <a href="{{ route('modul.edit', $mod->id) }}" @click.stop
-                                                    class="p-2 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 shadow-md transition" title="Edit">
+                                                        class="p-2 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 shadow-md transition" title="Edit">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
                                                             viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                                d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-5M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                                                    d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-5M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z"/>
                                                         </svg>
                                                     </a>
-
                                                     {{-- Tombol Hapus --}}
                                                     <button type="button" @click.stop
                                                             class="p-2 rounded-full bg-red-50 text-red-600 hover:bg-red-100 shadow-md transition"
@@ -145,7 +127,7 @@
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
                                                             viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7h6m-3-4v4"/>
+                                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7h6m-3-4v4"/>
                                                         </svg>
                                                     </button>
                                                 </div>
@@ -167,13 +149,13 @@
     @foreach ($moduls as $mod)
         <div class="modal fade" id="hapusModulModal{{ $mod->id }}" tabindex="-1"
             aria-labelledby="hapusLabel{{ $mod->id }}" aria-hidden="true" style="z-index:1050;">
-            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-dialog modal-dialog-centered custom-modal">
                 <div class="modal-content rounded-2xl shadow-lg border-0">
 
                     {{-- Header --}}
-                    <div class="modal-header bg-red-600 text-white rounded-t-2xl">
-                        <h5 class="modal-title d-flex align-items-center gap-2" id="hapusLabel{{ $mod->id }}">
-                            <i class="bi bi-exclamation-triangle-fill text-warning fs-4"></i>
+                    <div class="modal-header bg-red-600 text-white rounded-t-2xl py-2 px-3">
+                        <h5 class="modal-title d-flex align-items-center gap-2 fs-6" id="hapusLabel{{ $mod->id }}">
+                            <i class="bi bi-exclamation-triangle-fill text-warning fs-5"></i>
                             Konfirmasi Hapus
                         </h5>
                         <button type="button" class="btn-close btn-close-white"
@@ -181,27 +163,27 @@
                     </div>
 
                     {{-- Body --}}
-                    <div class="modal-body text-center py-4">
-                        <i class="bi bi-trash3-fill text-danger fs-1 mb-3"></i>
-                        <p class="fw-semibold text-gray-700">
+                    <div class="modal-body text-center py-3 px-3">
+                        <i class="bi bi-trash3-fill text-danger fs-3 mb-2"></i>
+                        <p class="fw-semibold text-gray-700 mt-4 mb-2" style="font-size: 0.9rem;">
                             Apakah anda yakin ingin menghapus modul <br>
                             <span class="text-danger">"{{ $mod->judul }}"</span>?
                         </p>
                     </div>
 
                     {{-- Footer --}}
-                    <div class="modal-footer d-flex justify-content-center gap-3 border-0 pb-4">
+                    <div class="modal-footer d-flex justify-content-center gap-2 border-0 pb-3">
                         <form action="{{ route('modul.destroy', $mod->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger px-4 py-2 rounded-pill shadow-sm">
+                            <button type="submit" class="btn btn-danger btn-sm px-3 py-1 rounded-pill shadow-sm">
                                 Hapus
                             </button>
                         </form>
                         <button type="button"
-                                class="btn btn-primary px-4 py-2 rounded-pill shadow-sm"
+                                class="btn btn-primary btn-sm px-3 py-1 rounded-pill shadow-sm"
                                 data-bs-dismiss="modal">
-                                Batal
+                            Batal
                         </button>
                     </div>
                 </div>
@@ -224,3 +206,28 @@
     @endauth
 
 </x-app-layout>
+
+                {{-- Notifikasi --}}
+                @if (session('success'))
+                    <div class="modal fade" id="notifModal" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-sm modal-dialog-centered">
+                            <div class="modal-content text-center p-4" style="border-radius: 10px; background-color: #d1fae5; color: #065f46;">
+                                {{-- Icon Centang --}}
+                                <div class="mb-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mx-auto text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                {{-- Pesan --}}
+                                <p class="mb-2 text-sm font-medium">{{ session('success') }}</p>
+                                {{-- Tombol --}}
+                                <button type="button" class="btn btn-success btn-sm px-3 py-1" data-bs-dismiss="modal">OK</button>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function () {
+                            new bootstrap.Modal(document.getElementById('notifModal')).show();
+                        });
+                    </script>
+                @endif

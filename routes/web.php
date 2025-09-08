@@ -103,15 +103,14 @@ Route::get('/fasilitas/{id}', [FasilitasController::class, 'show'])->name('fasil
 Route::get('/modul', [ModulController::class, 'index'])->name('modul.index');
 Route::get('/modul/sip', [ModulController::class, 'sip'])->name('modul.sip');
 Route::get('/modul/pag', [ModulController::class, 'pag'])->name('modul.pag');
-Route::get('/modul/{id}', [ModulController::class, 'show'])->name('modul.show');
 
 // MODUL CUD (Admin only)
-Route::middleware(['auth', 'verified', 'role:admin'])->prefix('modul')->group(function () {
+Route::middleware(['auth', 'verified'])->prefix('modul')->group(function () {
     Route::get('/create', [ModulController::class, 'create'])->name('modul.create');
     Route::post('/', [ModulController::class, 'store'])->name('modul.store');
-    Route::get('/{id}/edit', [ModulController::class, 'edit'])->name('modul.edit');
-    Route::put('/{id}', [ModulController::class, 'update'])->name('modul.update');
-    Route::delete('/{id}', [ModulController::class, 'destroy'])->name('modul.destroy');
+    Route::get('/{modul}/edit', [ModulController::class, 'edit'])->name('modul.edit');   // ✅ pakai {modul}
+    Route::put('/{modul}', [ModulController::class, 'update'])->name('modul.update');    // ✅ pakai {modul}
+    Route::delete('/{modul}', [ModulController::class, 'destroy'])->name('modul.destroy'); // ✅ pakai {modul}
 });
 
 // SEARCH

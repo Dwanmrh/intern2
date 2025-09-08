@@ -10,7 +10,6 @@ class Modul extends Model
         'judul',
         'deskripsi',
         'prodiklat',
-        'periode',
         'mapel',
         'tahun',
         'file',

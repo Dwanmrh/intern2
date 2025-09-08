@@ -1,6 +1,9 @@
 <x-app-layout>
 
     @section('title', $berita->judul . ' | SETUKPA LEMDIKLAT POLRI')
+    @section('body-style', 'background-color: #f9fafb;')
+    @section('div-style', 'background-color: #f9fafb;')
+    @section('body-class', 'show-berita')
 
     <div class="py-10 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -92,7 +95,7 @@
                         @endphp
 
                         <a href="{{ str_contains($previous, 'berita') ? $beritaIndex : $home }}"
-                           class="inline-flex items-center px-5 py-2 bg-gray-800 hover:bg-black text-white text-sm font-medium rounded-md shadow transition">
+                           class="inline-flex items-center px-3 py-2 bg-gray-800 hover:bg-black text-white text-sm font-medium rounded-md shadow transition">
                             <i class="bi-chevron-left mr-2"></i> Kembali
                         </a>
                     </div>

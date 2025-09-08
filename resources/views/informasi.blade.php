@@ -6,20 +6,28 @@
 
         {{-- Notifikasi --}}
         @if (session('success'))
-                    <div id="success-alert"
-                        class="mt-4 mb-4 p-4 bg-green-100 text-green-800 rounded transition-opacity duration-500">
-                        {{ session('success') }}
+                <div class="modal fade" id="notifModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-sm modal-dialog-centered">
+                        <div class="modal-content text-center p-4" style="border-radius: 10px; background-color: #d1fae5; color: #065f46;">
+                            {{-- Icon Centang --}}
+                            <div class="mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mx-auto text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                </svg>
+                            </div>
+                            {{-- Pesan --}}
+                            <p class="mb-2 text-sm font-medium">{{ session('success') }}</p>
+                            {{-- Tombol --}}
+                            <button type="button" class="btn btn-success btn-sm px-3 py-1" data-bs-dismiss="modal">OK</button>
+                        </div>
                     </div>
-                    <script>
-                        setTimeout(function () {
-                            let alertBox = document.getElementById('success-alert');
-                            if (alertBox) {
-                                alertBox.style.opacity = '0';
-                                setTimeout(() => alertBox.remove(), 500);
-                            }
-                        }, 5000);
-                    </script>
-                @endif
+                </div>
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        new bootstrap.Modal(document.getElementById('notifModal')).show();
+                    });
+                </script>
+            @endif
 
             {{-- CARD PERSYARATAN --}}
                 <div class="text-center">
@@ -337,45 +345,45 @@
                     @endforelse
                 </div>
 
-            {{-- Modal Konfirmasi Hapus --}}
+            {{-- Modal Konfirmasi Hapus Informasi --}}
             @foreach($informasi as $data)
             <div class="modal fade" id="hapusInformasiModal{{ $data->id }}" tabindex="-1"
                 aria-labelledby="hapusInformasiLabel{{ $data->id }}" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-dialog modal-dialog-centered custom-modal">
                     <div class="modal-content rounded-2xl shadow-lg border-0">
 
                         {{-- Header --}}
-                        <div class="modal-header bg-red-600 text-white rounded-t-2xl">
-                            <h5 class="modal-title d-flex align-items-center gap-2" id="hapusInformasiLabel{{ $data->id }}">
-                                <i class="bi bi-exclamation-triangle-fill text-warning fs-4"></i>
+                        <div class="modal-header bg-red-600 text-white rounded-t-2xl py-2 px-3">
+                            <h5 class="modal-title d-flex align-items-center gap-2 fs-6" id="hapusInformasiLabel{{ $data->id }}">
+                                <i class="bi bi-exclamation-triangle-fill text-warning fs-5"></i>
                                 Konfirmasi Hapus
                             </h5>
-                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                            <button type="button" class="btn-close btn-close-white"
+                                    data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
 
                         {{-- Body --}}
-                        <div class="modal-body text-center py-4">
-                            <i class="bi bi-trash3-fill text-danger fs-1 mb-3"></i>
-                            <p class="fw-semibold text-gray-700">
+                        <div class="modal-body text-center py-3 px-3">
+                            <i class="bi bi-trash3-fill text-danger fs-3 mb-2"></i>
+                            <p class="fw-semibold text-gray-700 mt-4 mb-2" style="font-size: 0.9rem;">
                                 Apakah anda yakin ingin menghapus data <br>
                                 <span class="text-danger">"{{ $data->judul }}"</span>?
                             </p>
                         </div>
 
                         {{-- Footer --}}
-                        <div class="modal-footer d-flex justify-content-center gap-3 border-0 pb-4">
+                        <div class="modal-footer d-flex justify-content-center gap-2 border-0 pb-3">
                             <form action="{{ route('informasi.destroy', $data->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger px-4 py-2 rounded-pill shadow-sm">
+                                <button type="submit" class="btn btn-danger btn-sm px-3 py-1 rounded-pill shadow-sm">
                                     Hapus
                                 </button>
                             </form>
                             <button type="button"
-                                    class="btn btn-primary px-4 py-2 rounded-pill shadow-sm"
+                                    class="btn btn-primary btn-sm px-3 py-1 rounded-pill shadow-sm"
                                     data-bs-dismiss="modal">
-                                    Batal
+                                Batal
                             </button>
                         </div>
 
@@ -462,7 +470,7 @@
             </div>
 
             {{-- Peta --}}
-            <div class="mt-6 mb-10 w-full">
+            <div class="mt-10 mb-10 w-full">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15843.305004477184!2d106.90528948715817!3d-6.911367899999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6848356fffffff%3A0xf319c6be506068e7!2sEducational%20Establishment%20Officer!5e0!3m2!1sen!2sid!4v1753245232528!5m2!1sen!2sid"
                         width="100%" height="320" style="border:0;" allowfullscreen="" loading="lazy"
                         referrerpolicy="no-referrer-when-downgrade" class="rounded-lg shadow-md">

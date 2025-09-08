@@ -6,17 +6,26 @@
 
             {{-- Notifikasi --}}
             @if (session('success'))
-                <div id="success-alert" class="mt-4 p-4 bg-green-100 text-green-800 rounded transition-opacity duration-500">
-                    {{ session('success') }}
+                <div class="modal fade" id="notifModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-sm modal-dialog-centered">
+                        <div class="modal-content text-center p-4" style="border-radius: 10px; background-color: #d1fae5; color: #065f46;">
+                            {{-- Icon Centang --}}
+                            <div class="mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mx-auto text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                </svg>
+                            </div>
+                            {{-- Pesan --}}
+                            <p class="mb-2 text-sm font-medium">{{ session('success') }}</p>
+                            {{-- Tombol --}}
+                            <button type="button" class="btn btn-success btn-sm px-3 py-1" data-bs-dismiss="modal">OK</button>
+                        </div>
+                    </div>
                 </div>
                 <script>
-                    setTimeout(function () {
-                        let alertBox = document.getElementById('success-alert');
-                        if (alertBox) {
-                            alertBox.style.opacity = '0';
-                            setTimeout(() => alertBox.remove(), 500);
-                        }
-                    }, 5000);
+                    document.addEventListener("DOMContentLoaded", function () {
+                        new bootstrap.Modal(document.getElementById('notifModal')).show();
+                    });
                 </script>
             @endif
 
@@ -215,8 +224,8 @@
                         @if(Auth::user()->role === 'admin')
                             <div class="absolute right-0 top-1/2 -translate-y-1/2">
                                 <a href="{{ route('profil.create') }}"
-                                   class="bg-yellow-500 hover:bg-yellow-600 text-black
-                                          px-3 py-2 rounded-md text-sm shadow-md font-medium transition">
+                                    class="bg-yellow-500 hover:bg-yellow-600 text-black
+                                            px-3 py-2 rounded-md text-sm shadow-md font-medium transition">
                                     <i class="bi bi-plus-circle me-1"></i> Tambah Personel
                                 </a>
                             </div>
@@ -235,8 +244,8 @@
                             <div class="aspect-[3/4] overflow-hidden bg-gray-100 relative">
                                 @if ($kasetukpa->foto)
                                     <img src="{{ asset('storage/' . $kasetukpa->foto) }}"
-                                         alt="Foto Kasetukpa"
-                                         class="w-full h-full object-cover object-top rounded-t-2xl border-b border-gray-200">
+                                        alt="Foto Kasetukpa"
+                                        class="w-full h-full object-cover object-top rounded-t-2xl border-b border-gray-200">
                                 @else
                                     <x-placeholder-foto />
                                 @endif
@@ -253,15 +262,15 @@
                                 @if(Auth::user()->role === 'admin')
                                     <div class="flex justify-center items-center gap-3 mt-auto py-3">
                                         <a href="{{ route('profil.edit', $kasetukpa->id) }}"
-                                           class="p-2 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 shadow-md transition"
-                                           title="Edit">
+                                            class="p-2 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 shadow-md transition"
+                                            title="Edit">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                                 viewBox="0 0 24 24" stroke="currentColor">
+                                                viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                      d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002
-                                                          2h12a2 2 0 002-2v-5M18.5 2.5a2.121
-                                                          2.121 0 113 3L12 15l-4 1 1-4
-                                                          9.5-9.5z"/>
+                                                        d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002
+                                                            2h12a2 2 0 002-2v-5M18.5 2.5a2.121
+                                                            2.121 0 113 3L12 15l-4 1 1-4
+                                                            9.5-9.5z"/>
                                             </svg>
                                         </a>
                                         <button type="button"
@@ -270,12 +279,12 @@
                                                 data-bs-target="#hapusProfilModal{{ $kasetukpa->id }}"
                                                 title="Hapus">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                                 viewBox="0 0 24 24" stroke="currentColor">
+                                                viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                      d="M19 7l-.867 12.142A2 2 0
-                                                          0116.138 21H7.862a2 2 0
-                                                          01-1.995-1.858L5 7m5
-                                                          4v6m4-6v6M9 7h6m-3-4v4"/>
+                                                        d="M19 7l-.867 12.142A2 2 0
+                                                            0116.138 21H7.862a2 2 0
+                                                            01-1.995-1.858L5 7m5
+                                                            4v6m4-6v6M9 7h6m-3-4v4"/>
                                             </svg>
                                         </button>
                                     </div>
@@ -289,13 +298,12 @@
                         @if(Auth::user()->role === 'admin')
                             <div class="modal fade" id="hapusProfilModal{{ $kasetukpa->id }}" tabindex="-1"
                                 aria-labelledby="hapusProfilLabel{{ $kasetukpa->id }}" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-dialog modal-dialog-centered custom-modal">
                                     <div class="modal-content rounded-2xl shadow-lg border-0">
-
                                         {{-- Header --}}
-                                        <div class="modal-header bg-red-600 text-white rounded-t-2xl">
-                                            <h5 class="modal-title d-flex align-items-center gap-2" id="hapusProfilLabel{{ $kasetukpa->id }}">
-                                                <i class="bi bi-exclamation-triangle-fill text-warning fs-4"></i>
+                                        <div class="modal-header bg-red-600 text-white rounded-t-2xl py-2 px-3">
+                                            <h5 class="modal-title d-flex align-items-center gap-2 fs-6" id="hapusProfilLabel{{ $kasetukpa->id }}">
+                                                <i class="bi bi-exclamation-triangle-fill text-warning fs-5"></i>
                                                 Hapus Profil
                                             </h5>
                                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
@@ -303,27 +311,27 @@
                                         </div>
 
                                         {{-- Body --}}
-                                        <div class="modal-body text-center py-4">
-                                            <i class="bi bi-trash3-fill text-danger fs-1 mb-3"></i>
-                                            <p class="fw-semibold text-gray-700">
+                                        <div class="modal-body text-center py-3 px-3">
+                                            <i class="bi bi-trash3-fill text-danger fs-3 mb-2"></i>
+                                            <p class="fw-semibold text-gray-700 mt-4 mb-2" style="font-size: 0.9rem;">
                                                 Apakah Anda yakin ingin menghapus <br>
                                                 <span class="text-danger">"{{ $kasetukpa->nama }}"</span>?
                                             </p>
                                         </div>
 
                                         {{-- Footer --}}
-                                        <div class="modal-footer d-flex justify-content-center gap-3 border-0 pb-4">
+                                        <div class="modal-footer d-flex justify-content-center gap-2 border-0 pb-3">
                                             <form action="{{ route('profil.destroy', $kasetukpa->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger px-4 py-2 rounded-pill shadow-sm">
+                                                <button type="submit" class="btn btn-danger btn-sm px-3 py-1 rounded-pill shadow-sm">
                                                     Hapus
                                                 </button>
                                             </form>
                                             <button type="button"
-                                                    class="btn btn-primary px-4 py-2 rounded-pill shadow-sm"
+                                                    class="btn btn-primary btn-sm px-3 py-1 rounded-pill shadow-sm"
                                                     data-bs-dismiss="modal">
-                                                    Batal
+                                                Batal
                                             </button>
                                         </div>
                                     </div>
@@ -360,15 +368,15 @@
                                 @if(Auth::user()->role === 'admin')
                                     <div class="flex justify-center items-center gap-3 mt-auto py-3">
                                         <a href="{{ route('profil.edit', $wakasetukpa->id) }}"
-                                           class="p-2 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 shadow-md transition"
-                                           title="Edit">
+                                            class="p-2 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 shadow-md transition"
+                                            title="Edit">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                                 viewBox="0 0 24 24" stroke="currentColor">
+                                                viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                      d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002
-                                                          2h12a2 2 0 002-2v-5M18.5 2.5a2.121
-                                                          2.121 0 113 3L12 15l-4 1 1-4
-                                                          9.5-9.5z"/>
+                                                        d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002
+                                                            2h12a2 2 0 002-2v-5M18.5 2.5a2.121
+                                                            2.121 0 113 3L12 15l-4 1 1-4
+                                                            9.5-9.5z"/>
                                             </svg>
                                         </a>
                                         <button type="button"
@@ -377,12 +385,12 @@
                                                 data-bs-target="#hapusProfilModal{{ $wakasetukpa->id }}"
                                                 title="Hapus">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                                 viewBox="0 0 24 24" stroke="currentColor">
+                                                viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                      d="M19 7l-.867 12.142A2 2 0
-                                                          0116.138 21H7.862a2 2 0
-                                                          01-1.995-1.858L5 7m5
-                                                          4v6m4-6v6M9 7h6m-3-4v4"/>
+                                                        d="M19 7l-.867 12.142A2 2 0
+                                                            0116.138 21H7.862a2 2 0
+                                                            01-1.995-1.858L5 7m5
+                                                            4v6m4-6v6M9 7h6m-3-4v4"/>
                                             </svg>
                                         </button>
                                     </div>
@@ -396,13 +404,13 @@
                         @if(Auth::user()->role === 'admin')
                             <div class="modal fade" id="hapusProfilModal{{ $wakasetukpa->id }}" tabindex="-1"
                                 aria-labelledby="hapusProfilLabel{{ $wakasetukpa->id }}" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-dialog modal-dialog-centered custom-modal">
                                     <div class="modal-content rounded-2xl shadow-lg border-0">
 
                                         {{-- Header --}}
-                                        <div class="modal-header bg-red-600 text-white rounded-t-2xl">
-                                            <h5 class="modal-title d-flex align-items-center gap-2" id="hapusProfilLabel{{ $wakasetukpa->id }}">
-                                                <i class="bi bi-exclamation-triangle-fill text-warning fs-4"></i>
+                                        <div class="modal-header bg-red-600 text-white rounded-t-2xl py-2 px-3">
+                                            <h5 class="modal-title d-flex align-items-center gap-2 fs-6" id="hapusProfilLabel{{ $wakasetukpa->id }}">
+                                                <i class="bi bi-exclamation-triangle-fill text-warning fs-5"></i>
                                                 Hapus Profil
                                             </h5>
                                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
@@ -410,27 +418,27 @@
                                         </div>
 
                                         {{-- Body --}}
-                                        <div class="modal-body text-center py-4">
-                                            <i class="bi bi-trash3-fill text-danger fs-1 mb-3"></i>
-                                            <p class="fw-semibold text-gray-700">
+                                        <div class="modal-body text-center py-3 px-3">
+                                            <i class="bi bi-trash3-fill text-danger fs-3 mb-2"></i>
+                                            <p class="fw-semibold text-gray-700 mt-4 mb-2" style="font-size: 0.9rem;">
                                                 Apakah Anda yakin ingin menghapus <br>
                                                 <span class="text-danger">"{{ $wakasetukpa->nama }}"</span>?
                                             </p>
                                         </div>
 
                                         {{-- Footer --}}
-                                        <div class="modal-footer d-flex justify-content-center gap-3 border-0 pb-4">
+                                        <div class="modal-footer d-flex justify-content-center gap-2 border-0 pb-3">
                                             <form action="{{ route('profil.destroy', $wakasetukpa->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger px-4 py-2 rounded-pill shadow-sm">
+                                                <button type="submit" class="btn btn-danger btn-sm px-3 py-1 rounded-pill shadow-sm">
                                                     Hapus
                                                 </button>
                                             </form>
                                             <button type="button"
-                                                    class="btn btn-primary px-4 py-2 rounded-pill shadow-sm"
+                                                    class="btn btn-primary btn-sm px-3 py-1 rounded-pill shadow-sm"
                                                     data-bs-dismiss="modal">
-                                                    Batal
+                                                Batal
                                             </button>
                                         </div>
                                     </div>
@@ -439,7 +447,6 @@
                         @endif
                     @endauth
                 @endif
-
                 {{-- Grid Pimpinan Lain --}}
                 @if ($pimpinanLain->count())
                     <div class="flex overflow-x-auto gap-4 pb-4 py-4">
@@ -452,8 +459,8 @@
                                 <div class="aspect-[3/4] overflow-hidden bg-gray-100 relative">
                                     @if ($profil->foto)
                                         <img src="{{ asset('storage/' . $profil->foto) }}"
-                                             alt="Foto Pimpinan"
-                                             class="w-full h-full object-cover object-top rounded-t-2xl border-b border-gray-200">
+                                            alt="Foto Pimpinan"
+                                            class="w-full h-full object-cover object-top rounded-t-2xl border-b border-gray-200">
                                     @else
                                         <x-placeholder-foto />
                                     @endif
@@ -470,16 +477,16 @@
                                     @if(Auth::user()->role === 'admin')
                                         <div class="flex justify-center items-center gap-3 mt-auto py-3">
                                             <a href="{{ route('profil.edit', $profil->id) }}"
-                                               class="p-2 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 shadow-md transition"
-                                               title="Edit">
+                                                class="p-2 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 shadow-md transition"
+                                                title="Edit">
                                                 <!-- Icon Edit -->
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                                     viewBox="0 0 24 24" stroke="currentColor">
+                                                    viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                          d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002
-                                                              2h12a2 2 0 002-2v-5M18.5 2.5a2.121
-                                                              2.121 0 113 3L12 15l-4 1 1-4
-                                                              9.5-9.5z"/>
+                                                            d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002
+                                                                2h12a2 2 0 002-2v-5M18.5 2.5a2.121
+                                                                2.121 0 113 3L12 15l-4 1 1-4
+                                                                9.5-9.5z"/>
                                                 </svg>
                                             </a>
                                             <button type="button"
@@ -489,12 +496,12 @@
                                                     title="Hapus">
                                                 <!-- Icon Delete -->
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                                     viewBox="0 0 24 24" stroke="currentColor">
+                                                    viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                          d="M19 7l-.867 12.142A2 2 0
-                                                              0116.138 21H7.862a2 2 0
-                                                              01-1.995-1.858L5 7m5
-                                                              4v6m4-6v6M9 7h6m-3-4v4"/>
+                                                            d="M19 7l-.867 12.142A2 2 0
+                                                                0116.138 21H7.862a2 2 0
+                                                                01-1.995-1.858L5 7m5
+                                                                4v6m4-6v6M9 7h6m-3-4v4"/>
                                                 </svg>
                                             </button>
                                         </div>
@@ -510,13 +517,13 @@
                             @if(Auth::user()->role === 'admin')
                                 <div class="modal fade" id="hapusProfilModal{{ $profil->id }}" tabindex="-1"
                                     aria-labelledby="hapusProfilLabel{{ $profil->id }}" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-dialog modal-dialog-centered custom-modal">
                                         <div class="modal-content rounded-2xl shadow-lg border-0">
 
                                             {{-- Header --}}
-                                            <div class="modal-header bg-red-600 text-white rounded-t-2xl">
-                                                <h5 class="modal-title d-flex align-items-center gap-2" id="hapusProfilLabel{{ $profil->id }}">
-                                                    <i class="bi bi-exclamation-triangle-fill text-warning fs-4"></i>
+                                            <div class="modal-header bg-red-600 text-white rounded-t-2xl py-2 px-3">
+                                                <h5 class="modal-title d-flex align-items-center gap-2 fs-6" id="hapusProfilLabel{{ $profil->id }}">
+                                                    <i class="bi bi-exclamation-triangle-fill text-warning fs-5"></i>
                                                     Hapus Profil
                                                 </h5>
                                                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
@@ -524,27 +531,27 @@
                                             </div>
 
                                             {{-- Body --}}
-                                            <div class="modal-body text-center py-4">
-                                                <i class="bi bi-trash3-fill text-danger fs-1 mb-3"></i>
-                                                <p class="fw-semibold text-gray-700">
+                                            <div class="modal-body text-center py-3 px-3">
+                                                <i class="bi bi-trash3-fill text-danger fs-3 mb-2"></i>
+                                                <p class="fw-semibold text-gray-700 mt-4 mb-2" style="font-size: 0.9rem;">
                                                     Apakah Anda yakin ingin menghapus <br>
                                                     <span class="text-danger">"{{ $profil->nama }}"</span>?
                                                 </p>
                                             </div>
 
                                             {{-- Footer --}}
-                                            <div class="modal-footer d-flex justify-content-center gap-3 border-0 pb-4">
+                                            <div class="modal-footer d-flex justify-content-center gap-2 border-0 pb-3">
                                                 <form action="{{ route('profil.destroy', $profil->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger px-4 py-2 rounded-pill shadow-sm">
+                                                    <button type="submit" class="btn btn-danger btn-sm px-3 py-1 rounded-pill shadow-sm">
                                                         Hapus
                                                     </button>
                                                 </form>
                                                 <button type="button"
-                                                        class="btn btn-primary px-4 py-2 rounded-pill shadow-sm"
+                                                        class="btn btn-primary btn-sm px-3 py-1 rounded-pill shadow-sm"
                                                         data-bs-dismiss="modal">
-                                                        Batal
+                                                    Batal
                                                 </button>
                                             </div>
                                         </div>
