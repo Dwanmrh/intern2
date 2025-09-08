@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OtpController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProfilController;
@@ -12,6 +13,10 @@ use App\Http\Controllers\ModulController;
 
 // Default Redirect
 Route::get('/', fn() => redirect()->route('dashboard.index'));
+
+// OTP
+Route::get('/otp', [OtpController::class, 'showForm'])->name('auth.otp.form');
+Route::post('/otp', [OtpController::class, 'verify'])->name('auth.otp.verify');
 
 // DASHBOARD READ (Publik)
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
