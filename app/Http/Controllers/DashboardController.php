@@ -134,7 +134,7 @@ class DashboardController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'url' => 'required|url',
-            'logo' => 'nullable|image|mimes:jpg,jpeg,png|max:15000',
+            'logo' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:15000',
         ]);
 
         $data = $request->only('nama', 'url');
@@ -161,7 +161,7 @@ class DashboardController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'url'  => 'required|url',
-            'logo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:15000',
+            'logo' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:15000',
         ]);
 
         $data = $request->only('nama', 'url');

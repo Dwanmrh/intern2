@@ -46,4 +46,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function likedBerita()
+    {
+        return $this->belongsToMany(Berita::class, 'berita_user_likes')->withTimestamps();
+    }
+
 }

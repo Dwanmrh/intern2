@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\ModulController;
@@ -57,6 +58,9 @@ Route::middleware(['auth', 'verified'])->prefix('berita')->group(function () {
     Route::delete('/{id}', [BeritaController::class, 'destroy'])->name('berita.destroy');
 });
 
+// BERITA LIKE
+Route::post('/like/{id}', [LikeController::class, 'toggle'])->name('berita.like');
+
 // BERITA DETAIL
 Route::get('/berita/{id}', [BeritaController::class, 'show'])->name('berita.show');
 
@@ -94,10 +98,15 @@ Route::get('/fasilitas/{id}', [FasilitasController::class, 'show'])->name('fasil
 Route::get('/modul', [ModulController::class, 'index'])->name('modul.index');
 Route::get('/modul/sip', [ModulController::class, 'sip'])->name('modul.sip');
 Route::get('/modul/pag', [ModulController::class, 'pag'])->name('modul.pag');
+Route::get('/modul/{id}', [ModulController::class, 'show'])->name('modul.show');
 
-// MODUL CU (Admin + Personel)
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::resource('modul', ModulController::class)->except(['show']);
+// MODUL CUD (Admin only)
+Route::middleware(['auth', 'verified', 'role:admin'])->prefix('modul')->group(function () {
+    Route::get('/create', [ModulController::class, 'create'])->name('modul.create');
+    Route::post('/', [ModulController::class, 'store'])->name('modul.store');
+    Route::get('/{id}/edit', [ModulController::class, 'edit'])->name('modul.edit');
+    Route::put('/{id}', [ModulController::class, 'update'])->name('modul.update');
+    Route::delete('/{id}', [ModulController::class, 'destroy'])->name('modul.destroy');
 });
 
 // SEARCH

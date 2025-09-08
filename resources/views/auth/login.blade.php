@@ -101,7 +101,6 @@
                 <!-- Submit & Register Link -->
                 <div class="flex items-center justify-between text-sm">
                     <a href="{{ route('register') }}" class="text-gray-700 hover:underline">
-                        Belum Punya Akun?
                     </a>
                     <button type="submit" class="px-6 py-2 bg-[#1E2D3D] text-white rounded hover:bg-blue-900 transition">
                         Login

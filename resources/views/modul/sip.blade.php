@@ -211,7 +211,7 @@
 
     {{-- FLOATING BUTTON --}}
     @auth
-        @if(in_array(Auth::user()->role, ['admin', 'personel']))
+        @if(Auth::user()->role === 'admin')
             <a href="{{ route('modul.create', ['prodiklat' => 'SIP']) }}"
             class="fixed bottom-6 right-6 z-[9999] w-14 h-14 flex items-center justify-center
                     rounded-full shadow-xl text-white text-2xl

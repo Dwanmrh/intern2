@@ -1,5 +1,5 @@
 <x-app-layout>
-    @section('title', 'MODUL | SETUKPA LEMDIKLAT POLRI')
+    @section('title', 'MODUL | SETUKPA LEMDIKLAT POLRI')
 
     <div class="pt-4 py-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

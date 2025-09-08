@@ -132,7 +132,7 @@
                                                 </div>
 
                                                 {{-- Modal Hapus Modul PAG --}}
-                                                <div class="modal fade" id="hapusModulModal{{ $modul->id }}" tabindex="-1" 
+                                                <div class="modal fade" id="hapusModulModal{{ $modul->id }}" tabindex="-1"
                                                     aria-labelledby="hapusLabel{{ $modul->id }}" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered">
                                                         <div class="modal-content rounded-2xl shadow-lg border-0">
@@ -143,7 +143,7 @@
                                                                     <i class="bi bi-exclamation-triangle-fill text-warning fs-4"></i>
                                                                     Konfirmasi Hapus
                                                                 </h5>
-                                                                <button type="button" class="btn-close btn-close-white" 
+                                                                <button type="button" class="btn-close btn-close-white"
                                                                         data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
 
@@ -159,13 +159,13 @@
                                                             {{-- Footer --}}
                                                             <div class="modal-footer d-flex justify-content-center gap-3 border-0 pb-4">
                                                                 <form action="{{ route('modul.destroy', $modul->id) }}" method="POST">
-                                                                    @csrf 
+                                                                    @csrf
                                                                     @method('DELETE')
                                                                     <button type="submit" class="btn btn-danger px-4 py-2 rounded-pill shadow-sm">
                                                                         Hapus
                                                                     </button>
                                                                 </form>
-                                                                <button type="button" 
+                                                                <button type="button"
                                                                         class="btn btn-primary px-4 py-2 rounded-pill shadow-sm"
                                                                         data-bs-dismiss="modal">
                                                                         Batal
@@ -190,7 +190,7 @@
 
     {{-- FLOATING BUTTON --}}
     @auth
-        @if(in_array(Auth::user()->role, ['admin', 'personel']))
+        @if(Auth::user()->role === 'admin')
             <a href="{{ route('modul.create', ['prodiklat' => 'PAG']) }}"
             class="fixed bottom-6 right-6 z-[9999] w-14 h-14 flex items-center justify-center
                     rounded-full shadow-xl text-white text-2xl

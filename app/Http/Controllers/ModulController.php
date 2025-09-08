@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Modul;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ModulController extends Controller
@@ -45,10 +46,10 @@ class ModulController extends Controller
 
         $moduls = $query->get();
         $allTahun = Modul::where('prodiklat', 'SIP')
-        ->select('tahun')
-        ->distinct()
-        ->orderBy('tahun', 'desc')
-        ->pluck('tahun');
+            ->select('tahun')
+            ->distinct()
+            ->orderBy('tahun', 'desc')
+            ->pluck('tahun');
 
         return view('modul.sip', compact('moduls', 'allTahun'));
     }
@@ -62,19 +63,31 @@ class ModulController extends Controller
         }
 
         $moduls = $query->get();
-        $allTahun = Modul::where('prodiklat', 'PAG')->select('tahun')->distinct()->pluck('tahun');
+        $allTahun = Modul::where('prodiklat', 'PAG')
+            ->select('tahun')
+            ->distinct()
+            ->pluck('tahun');
 
         return view('modul.pag', compact('moduls', 'allTahun'));
     }
 
     public function create(Request $request)
     {
+        // 🚫 Batasi hanya admin
+        if (Auth::user()->role !== 'admin') {
+            abort(403, 'Unauthorized');
+        }
+
         $prodiklat = $request->get('prodiklat'); // bisa null kalau tidak ada
         return view('modul.create', compact('prodiklat'));
     }
 
     public function store(Request $request)
     {
+        if (Auth::user()->role !== 'admin') {
+            abort(403, 'Unauthorized');
+        }
+
         $request->validate([
             'judul'     => 'required|string',
             'file'      => 'required|mimes:pdf|max:20000',
@@ -86,7 +99,7 @@ class ModulController extends Controller
 
         $path = $request->file('file')->store('moduls', 'public');
 
-        $modul = Modul::create([
+        Modul::create([
             'judul'     => $request->judul,
             'file'      => $path,
             'deskripsi' => $request->deskripsi,
@@ -112,11 +125,19 @@ class ModulController extends Controller
 
     public function edit(Modul $modul)
     {
+        if (Auth::user()->role !== 'admin') {
+            abort(403, 'Unauthorized');
+        }
+
         return view('modul.edit', compact('modul'));
     }
 
     public function update(Request $request, Modul $modul)
     {
+        if (Auth::user()->role !== 'admin') {
+            abort(403, 'Unauthorized');
+        }
+
         $request->validate([
             'judul'     => 'required|string',
             'file'      => 'nullable|mimes:pdf|max:20000',
@@ -156,22 +177,22 @@ class ModulController extends Controller
         }
 
         return redirect()->route('modul.index')->with('success','Modul berhasil diperbarui.');
-}
+    }
 
     public function destroy(Modul $modul)
     {
+        if (Auth::user()->role !== 'admin') {
+            abort(403, 'Unauthorized');
+        }
+
         // ✅ Hapus file kalau ada
         if ($modul->file) {
             Storage::disk('public')->delete($modul->file);
         }
 
-        // Simpan dulu prodiklat sebelum delete
         $prodiklat = $modul->prodiklat;
-
-        // Hapus data modul
         $modul->delete();
 
-        // 🔙 Redirect sesuai prodiklat
         if ($prodiklat === "SIP") {
             return redirect()->route('modul.sip')->with('success','Modul berhasil dihapus.');
         } elseif ($prodiklat === "PAG") {
@@ -181,4 +202,3 @@ class ModulController extends Controller
         return redirect()->route('modul.index')->with('success','Modul berhasil dihapus.');
     }
 }
-

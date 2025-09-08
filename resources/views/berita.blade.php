@@ -96,41 +96,63 @@
                                     <span>{{ $berita->views }} views</span>
                                 </div>
 
-                                {{-- Aksi Admin --}}
-                                @auth
-                                    @if(in_array(Auth::user()->role, ['admin', 'personel']))
-                                        <div class="flex gap-2">
-                                            {{-- Edit --}}
-                                            <a href="{{ route('berita.edit', $berita->id) }}" @click.stop
-                                            class="p-2 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 shadow-md transition"
-                                            title="Edit">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                                    viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-5M18.5 2.5a2.121
-                                                            2.121 0 013 3L12 15l-4 1 1-4
-                                                            9.5-9.5z"/>
-                                                </svg>
-                                            </a>
+                                <div class="flex items-center gap-2">
 
-                                            {{-- Hapus --}}
-                                            <button type="button" onclick="event.stopPropagation()"
-                                                    class="p-2 rounded-full bg-red-50 text-red-600 hover:bg-red-100 shadow-md transition"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#hapusBeritaModal{{ $berita->id }}"
-                                                    title="Hapus">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                                    viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M19 7l-.867 12.142A2 2 0
-                                                            0116.138 21H7.862a2 2 0
-                                                            01-1.995-1.858L5 7m5
-                                                            4v6m4-6v6M9 7h6m-3-4v4"/>
-                                                </svg>
-                                            </button>
+                                    {{-- Tombol Like --}}
+                                    @auth
+                                        <button class="btn-like flex items-center gap-1 text-pink-600 hover:text-pink-700 transition"
+                                                data-id="{{ $berita->id }}"
+                                                onclick="event.stopPropagation()">
+                                            <i class="bi {{ $berita->isLikedBy(Auth::user()) ? 'bi-heart-fill' : 'bi-heart' }} text-lg"></i>
+                                            <span class="like-count text-sm">{{ $berita->likes()->count() }}</span>
+                                        </button>
+                                    @else
+                                        {{-- Guest hanya lihat total like --}}
+                                        <div class="flex items-center gap-1 text-gray-400 cursor-not-allowed"
+                                            title="Login untuk memberi Like">
+                                            <i class="bi bi-heart text-lg"></i>
+                                            <span class="like-count text-sm">{{ $berita->likes()->count() }}</span>
                                         </div>
-                                    @endif
-                                @endauth
+                                    @endauth
+
+                                    {{-- Button Edit Delete --}}
+                                    @auth
+                                        @if(Auth::user()->role === 'admin')
+                                            <div class="flex gap-2">
+                                                {{-- Edit --}}
+                                                <a href="{{ route('berita.edit', $berita->id) }}" @click.stop
+                                                class="p-2 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100
+                                                        shadow transition" title="Edit">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                                                        viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                            d="M11 5H6a2 2 0 00-2 2v12a2 2 0
+                                                            002 2h12a2 2 0 002-2v-5M18.5
+                                                            2.5a2.121 2.121 0 113 3L12 15l-4
+                                                            1 1-4 9.5-9.5z"/>
+                                                    </svg>
+                                                </a>
+
+                                                {{-- Hapus --}}
+                                                <button type="button" @click.stop
+                                                        class="p-2 rounded-full bg-red-50 text-red-600 hover:bg-red-100
+                                                            shadow transition"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#hapusBeritaModal{{ $berita->id }}"
+                                                        title="Hapus">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                                                        viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                            d="M19 7l-.867 12.142A2 2 0
+                                                            0116.138 21H7.862a2 2 0
+                                                            01-1.995-1.858L5 7m5 4v6m4-6v6M9
+                                                            7h6m-3-4v4"/>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        @endif
+                                    @endauth
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -187,14 +209,42 @@
         </div>
     @endforeach
 
-    {{-- Script Klik Card --}}
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            document.querySelectorAll(".card-berita").forEach(function(card) {
-                card.addEventListener("click", function() {
-                    window.location.href = this.dataset.href;
+    document.addEventListener("DOMContentLoaded", function () {
+        // Klik card → ke detail
+        document.querySelectorAll(".card-berita").forEach(function(card) {
+            card.addEventListener("click", function() {
+                window.location.href = this.dataset.href;
+            });
+        });
+
+        // Tombol Like AJAX
+        document.querySelectorAll(".btn-like").forEach(function(btn) {
+            btn.addEventListener("click", function(e) {
+                e.stopPropagation(); // biar ga klik card
+                let beritaId = this.dataset.id;
+
+                fetch(`/like/${beritaId}`, {
+                    method: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                        "Accept": "application/json"
+                    }
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === "liked") {
+                        this.querySelector("i").classList.remove("bi-heart");
+                        this.querySelector("i").classList.add("bi-heart-fill");
+                    } else {
+                        this.querySelector("i").classList.remove("bi-heart-fill");
+                        this.querySelector("i").classList.add("bi-heart");
+                    }
+                    this.querySelector(".like-count").textContent = data.total_likes;
                 });
             });
         });
+    });
     </script>
+
 </x-app-layout>

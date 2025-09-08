@@ -145,7 +145,7 @@
                         bg-gradient-to-r from-slate-700 via-slate-600 to-slate-800
                         px-6 py-1 rounded-xl shadow-md">
                         <i class="bi bi-award text-white text-xl md:text-lg"></i>
-                        SETUKPA RANK STRUCTURE
+                        SETUKPA STUDENT RANK STRUCTURE
                     </h2>
                 </div>
 
@@ -285,7 +285,7 @@
                                 </div>
                             </div>
 
-                            {{-- Tombol aksi --}}
+                            {{-- Tombol Read More --}}
                             <div class="px-5 pb-4 flex items-center justify-between mt-auto">
                                 <button @click.stop="expanded = !expanded"
                                         class="bg-blue-600 hover:bg-blue-800 text-white px-4 py-2 rounded-lg
@@ -293,6 +293,7 @@
                                     <span x-text="expanded ? 'Close' : 'Read More'"></span>
                                 </button>
 
+                                {{-- Button Edit Delete --}}
                                 @auth
                                     @if(Auth::user()->role === 'admin')
                                         <div class="flex gap-2">
