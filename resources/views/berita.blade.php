@@ -15,7 +15,7 @@
 
                 <div class="relative text-center">
                     <h2 class="text-2xl md:text-3xl font-extrabold tracking-wide drop-shadow mb-2">
-                        <i class="bi bi-newspaper mr-2"></i> NEWS & INFORMATION
+                        <i class="bi bi-newspaper mr-2"></i> NEWS & HIGHLIGHTS
                     </h2>
                     <p class="text-sm md:text-base text-gray-200">
                         Official Updates from Setukpa Lemdiklat Polri
@@ -39,28 +39,30 @@
 
             {{-- Notifikasi --}}
             @if (session('success'))
-                <div class="modal fade" id="notifModal" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-sm modal-dialog-centered">
-                        <div class="modal-content text-center p-4" style="border-radius: 10px; background-color: #d1fae5; color: #065f46;">
-                            {{-- Icon Centang --}}
-                            <div class="mb-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mx-auto text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                                </svg>
+                    <div class="modal fade" id="notifModal" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-sm modal-dialog-centered">
+                            <div class="modal-content text-center p-4" style="border-radius: 10px; background-color: #ffffff; color: #065f46;">
+                                {{-- Icon Centang --}}
+                                <div class="mb-2">
+                                    <div class="bg-green-600 rounded-full w-10 h-10 flex items-center justify-center mx-auto shadow">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                {{-- Pesan --}}
+                                <p class="mb-2 text-sm font-medium">{{ session('success') }}</p>
+                                {{-- Tombol --}}
+                                <button type="button" class="btn btn-success btn-sm px-3 py-1" data-bs-dismiss="modal">OK</button>
                             </div>
-                            {{-- Pesan --}}
-                            <p class="mb-2 text-sm font-medium">{{ session('success') }}</p>
-                            {{-- Tombol --}}
-                            <button type="button" class="btn btn-success btn-sm px-3 py-1" data-bs-dismiss="modal">OK</button>
                         </div>
                     </div>
-                </div>
-                <script>
-                    document.addEventListener("DOMContentLoaded", function () {
-                        new bootstrap.Modal(document.getElementById('notifModal')).show();
-                    });
-                </script>
-            @endif
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function () {
+                            new bootstrap.Modal(document.getElementById('notifModal')).show();
+                        });
+                    </script>
+                @endif
 
             {{-- GRID BERITA --}}
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">

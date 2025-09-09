@@ -192,12 +192,14 @@
                 @if (session('success'))
                     <div class="modal fade" id="notifModal" tabindex="-1" aria-hidden="true">
                         <div class="modal-dialog modal-sm modal-dialog-centered">
-                            <div class="modal-content text-center p-4" style="border-radius: 10px; background-color: #d1fae5; color: #065f46;">
+                            <div class="modal-content text-center p-4" style="border-radius: 10px; background-color: #ffffff; color: #065f46;">
                                 {{-- Icon Centang --}}
                                 <div class="mb-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mx-auto text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                                    </svg>
+                                    <div class="bg-green-600 rounded-full w-10 h-10 flex items-center justify-center mx-auto shadow">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </div>
                                 </div>
                                 {{-- Pesan --}}
                                 <p class="mb-2 text-sm font-medium">{{ session('success') }}</p>
