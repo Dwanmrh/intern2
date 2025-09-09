@@ -53,12 +53,12 @@
                             </div>
 
                             {{-- Konten --}}
-                            <div class="w-full md:w-2/3 mt-1">
+                            <div class="w-full md:w-2/3 mt-1 max-w 2xl">
                                 <h3 class="text-2xl font-bold text-gray-800 mb-2 inline-block relative pb-1
                                            after:content-[''] after:block after:h-[3px] after:bg-[#2c3e50] after:mt-1 after:w-full">
                                     {{ $item->judul }}
                                 </h3>
-                                <p class="text-gray-600 text-base leading-relaxed mb-3">{{ $item->deskripsi }}</p>
+                                <p class="text-gray-600 text-base leading-relaxed mb-3 text-justify">{{ $item->deskripsi }}</p>
                                 <p class="text-sm text-gray-500 mb-4">
                                     Tanggal: {{ \Carbon\Carbon::parse($item->tanggal)->format('d/m/Y') }}
                                 </p>

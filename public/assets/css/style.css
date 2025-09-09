@@ -181,7 +181,7 @@ div.bg-white.rounded-md.ring-1 a:hover,
     width: 16px;
     height: 16px;
     }
-    
+
     .search-container input {
         width: 100%;
         padding: 0.6rem 1rem 0.6rem 2.5rem;
@@ -394,3 +394,4 @@ footer a, footer p {
     max-width: 420px; /* lebih lebar dari modal-sm (300px), tapi masih ramping */
     width: 95%;
 }
+

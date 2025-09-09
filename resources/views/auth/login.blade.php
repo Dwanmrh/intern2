@@ -1,9 +1,10 @@
 <x-guest-layout>
+    @section('title', 'LOGIN | SETUKPA LEMDIKLAT POLRI')
     <div class="min-h-screen flex items-center justify-center bg-[#1E2D3D]">
-        <div class="bg-gray-300 rounded-lg shadow-md px-8 py-10 w-full max-w-sm text-gray-900">
+        <div class="bg-gray-300 rounded-lg shadow-md px-6 py-6 w-full max-w-sm text-gray-900">
 
             <!-- Logo -->
-            <div class="flex justify-center mb-4">
+            <div class="flex justify-center mb-3">
                 <img src="{{ asset('assets/images/logo_setukpa.png') }}" alt="Logo" class="h-20">
             </div>
 
@@ -11,14 +12,14 @@
             <h2 class="text-center text-xl font-bold mb-6">Login</h2>
 
             <!-- Session Status -->
-            <x-auth-session-status class="mb-4" :status="session('status')" />
+            <x-auth-session-status class="mb-3" :status="session('status')" />
 
             <!-- Form -->
             <form method="POST" action="{{ route('login') }}">
                 @csrf
 
                 <!-- Email -->
-                <div class="mb-4">
+                <div class="mb-3">
                     <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
                     <div class="relative">
                         <span class="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -29,14 +30,14 @@
                             </svg>
                         </span>
                         <input id="email" name="email" type="email" required autofocus
-                            class="pl-10 pr-4 py-2 border border-gray-300 rounded w-full focus:ring focus:ring-blue-200"
+                            class="pl-10 pr-4 py-1.5 border border-gray-300 rounded w-full focus:ring focus:ring-blue-200"
                             placeholder="Masukkan Email Anda" value="{{ old('email') }}">
                     </div>
                     <x-input-error :messages="$errors->get('email')" class="mt-2" />
                 </div>
 
                 <!-- Password -->
-                <div class="mb-4">
+                <div class="mb-3">
                     <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Kata Sandi</label>
                     <div class="relative">
                         <span class="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -47,7 +48,7 @@
                             </svg>
                         </span>
                         <input id="password" name="password" type="password" required
-                            class="pl-10 pr-10 py-2 border border-gray-300 rounded w-full focus:ring focus:ring-blue-200"
+                            class="pl-10 pr-10 py-1.5 border border-gray-300 rounded w-full focus:ring focus:ring-blue-200"
                             placeholder="Masukan Kata Sandi Anda">
 
                         <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 cursor-pointer"
@@ -74,10 +75,10 @@
                 </div>
 
                 <!-- Role -->
-                <div class="mb-4">
+                <div class="mb-3">
                     <label for="role" class="block text-sm font-medium text-gray-700 mb-1">Login Sebagai</label>
                     <select id="role" name="role" required
-                        class="px-3 py-2 border border-gray-300 rounded w-full focus:ring focus:ring-blue-200">
+                        class="px-3 py-1.5 border border-gray-300 rounded w-full focus:ring focus:ring-blue-200">
                         <option value="siswa" {{ old('role') == 'siswa' ? 'selected' : '' }}>Siswa</option>
                         <option value="personel" {{ old('role') == 'personel' ? 'selected' : '' }}>Personel</option>
                         <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
@@ -85,8 +86,19 @@
                     <x-input-error :messages="$errors->get('role')" class="mt-2" />
                 </div>
 
+                <!-- reCAPTCHA -->
+                <div class="mb-2 flex justify-start">
+                    <div class="block">
+                        <div class="g-recaptcha scale-90 origin-top-left" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
+                        <x-input-error :messages="$errors->get('g-recaptcha-response')" class="mt-1 text-xs text-red-600" />
+                    </div>
+                </div>
+
+                <!-- Load Script -->
+                <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
                 <!-- Remember Me & Forgot Password -->
-                <div class="flex items-center justify-between mb-4 text-sm">
+                <div class="flex items-center justify-between mb-3 text-sm">
                     <label class="inline-flex items-center">
                         <input type="checkbox" name="remember" class="form-checkbox text-blue-600">
                         <span class="ml-2 text-gray-700">Ingatkan saya</span>
@@ -101,8 +113,8 @@
                 <!-- Submit & Register Link -->
                 <div class="flex items-center justify-between text-sm">
                     <a href="{{ route('register') }}" class="text-gray-700 hover:underline">
-                    Daftar</a>
-                    <button type="submit" class="px-6 py-2 bg-[#1E2D3D] text-white rounded hover:bg-blue-900 transition">
+                    </a>
+                    <button type="submit" class="px-6 py-1.5 bg-[#1E2D3D] text-white rounded hover:bg-blue-900 transition">
                         Login
                     </button>
                 </div>

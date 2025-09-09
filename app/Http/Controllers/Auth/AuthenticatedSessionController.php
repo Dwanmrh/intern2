@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 use App\Models\User;
@@ -31,7 +31,21 @@ class AuthenticatedSessionController extends Controller
             'email' => ['required','email'],
             'password' => ['required'],
             'role' => ['required','in:siswa,personel,admin'],
+            'g-recaptcha-response' => ['required'],
         ]);
+
+        // Verifikasi ke Google
+        $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret' => env('RECAPTCHA_SECRET_KEY'),
+            'response' => $request->input('g-recaptcha-response'),
+            'remoteip' => $request->ip(),
+        ]);
+
+        $result = $response->json();
+
+        if (!($result['success'] ?? false)) {
+            return back()->withErrors(['g-recaptcha-response' => 'Captcha tidak valid, coba lagi.']);
+        }
 
         $credentials = $request->only('email', 'password');
         $credentials['role'] = $request->role;
@@ -52,8 +66,9 @@ class AuthenticatedSessionController extends Controller
                 // Kirim OTP via email
                 Mail::to($user->email)->send(new OtpMail($otp));
 
-                // Simpan user id di session sementara
+                // Simpan user id & remember me di session sementara
                 $request->session()->put('otp_user_id', $user->id);
+                $request->session()->put('remember_me', $request->filled('remember'));
 
                 return redirect()->route('auth.otp.form')
                     ->with('status', 'Kode OTP telah dikirim ke email Anda.');
@@ -73,7 +88,6 @@ class AuthenticatedSessionController extends Controller
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
         return redirect('/');
