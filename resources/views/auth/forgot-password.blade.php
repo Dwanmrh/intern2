@@ -3,7 +3,7 @@
         <div class="bg-gray-300 rounded-lg shadow-md px-8 py-10 w-full max-w-md text-gray-900">
             <!-- Logo -->
             <div class="flex justify-center mb-4">
-                <img src="{{ asset('assets/images/logo.png') }}" alt="Logo" class="h-20">
+                <img src="{{ asset('assets/images/logo_setukpa.png') }}" alt="Logo" class="h-20">
             </div>
 
             <!-- Title -->

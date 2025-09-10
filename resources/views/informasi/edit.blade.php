@@ -3,7 +3,8 @@
     @section('title', 'EDIT INFORMASI | SETUKPA LEMDIKLAT POLRI')
 
     <div class="py-10 px-4">
-        <div class="max-w-md mx-auto bg-gradient-to-br from-[#2c3e50] to-[#3b4a5a] p-5 rounded-xl shadow-2xl border border-white/10 transition-all duration-300">
+        <div
+            class="max-w-md mx-auto bg-gradient-to-br from-[#2c3e50] to-[#3b4a5a] p-5 rounded-xl shadow-2xl border border-white/10 transition-all duration-300">
 
             {{-- Header --}}
             <h2 class="text-xl text-white font-bold text-center mb-8">Edit Informasi</h2>
@@ -22,9 +23,10 @@
                 {{-- Judul --}}
                 <div class="mb-3">
                     <label class="block text-white font-semibold mb-1">Judul</label>
-                    <input type="text" name="judul" value="{{ $informasi->judul }}"
+                    <input type="text" name="judul" id="judulInput" value="{{ old('judul', $informasi->judul) }}"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        placeholder="Masukkan judul informasi" required>
+                        placeholder="Kosongkan jika ingin otomatis dari nama file">
+                    <small class="font-bold text-yellow-400 italic">Kosongkan jika ingin otomatis dari nama file</small>
                 </div>
 
                 {{-- Deskripsi --}}
@@ -32,7 +34,7 @@
                     <label class="block text-white font-semibold mb-1">Deskripsi</label>
                     <textarea name="deskripsi" rows="5"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
-                        placeholder="Masukkan deskripsi">{{ $informasi->deskripsi }}</textarea>
+                        placeholder="Masukkan deskripsi">{{ old('deskripsi', $informasi->deskripsi) }}</textarea>
                     <small class="font-bold text-yellow-400 italic">Kosongkan jika menggunakan file</small>
                 </div>
 
@@ -57,16 +59,18 @@
                 {{-- Upload File Baru --}}
                 <div class="mb-3">
                     <label class="block text-white font-semibold mb-1">Upload File (PDF)</label>
-                    <input type="file" name="file_informasi" accept=".pdf"
+                    <input type="file" name="file_informasi" id="fileInput" accept=".pdf"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition">
-                    <small class="font-bold text-yellow-400 italic">Kosongkan jika memasukkan deskripsi | Max Size 15 MB</small>
+                    <small class="font-bold text-yellow-400 italic">
+                        Kosongkan jika memasukkan deskripsi | Max Size 15 MB
+                    </small>
                 </div>
 
                 {{-- Tanggal --}}
                 <div class="mb-3">
                     <label class="block text-white font-semibold mb-1">Tanggal</label>
                     <input type="text" name="tanggal" id="tanggal"
-                        value="{{ $informasi->tanggal }}"
+                        value="{{ old('tanggal', $informasi->tanggal) }}"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
                         required placeholder="Format: DD/MM/YYYY">
                 </div>
@@ -100,26 +104,6 @@
                     </div>
                 </div>
 
-                <script>
-                    document.getElementById('fotoInput').addEventListener('change', function (event) {
-                        const file = event.target.files[0];
-                        const previewContainer = document.getElementById('previewContainer');
-                        const fotoPreview = document.getElementById('fotoPreview');
-
-                        if (file) {
-                            const reader = new FileReader();
-                            reader.onload = function (e) {
-                                fotoPreview.src = e.target.result;
-                                previewContainer.classList.remove('hidden');
-                            };
-                            reader.readAsDataURL(file);
-                        } else {
-                            fotoPreview.src = "";
-                            previewContainer.classList.add('hidden');
-                        }
-                    });
-                </script>
-
                 {{-- Tombol --}}
                 <div class="flex justify-end space-x-3">
                     <button type="submit"
@@ -133,6 +117,60 @@
                     </a>
                 </div>
             </form>
+
+            {{-- Script: auto-fill judul dari nama file + preview foto --}}
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const fileInput = document.getElementById('fileInput');
+                    const judulInput = document.getElementById('judulInput');
+                    const autoMsg = document.getElementById('autoMsg');
+
+                    const fotoInput = document.getElementById('fotoInput');
+                    const previewContainer = document.getElementById('previewContainer');
+                    const fotoPreview = document.getElementById('fotoPreview');
+
+                    // Auto-fill judul saat pilih file PDF (setiap kali user memilih file)
+                    if (fileInput) {
+                        fileInput.addEventListener('change', function (event) {
+                            const file = event.target.files && event.target.files[0];
+                            if (!file) return;
+
+                            // Ambil nama file tanpa ekstensi
+                            let name = file.name.replace(/\.[^/.]+$/, "");
+
+                            // Bersihkan nama: ubah underscore/dash jadi spasi, trim
+                            name = name.replace(/[_-]+/g, ' ').trim();
+
+                            // Decode jika perlu
+                            try { name = decodeURIComponent(name); } catch (e) { /* ignore */ }
+
+                            // Set ke input judul (menimpa apa pun yang ada) — user masih bisa edit
+                            if (judulInput) {
+                                judulInput.value = name;
+                                if (autoMsg) autoMsg.classList.remove('hidden');
+                            }
+                        });
+                    }
+
+                    // Preview foto baru (jika ada)
+                    if (fotoInput) {
+                        fotoInput.addEventListener('change', function (event) {
+                            const file = event.target.files && event.target.files[0];
+                            if (file) {
+                                const reader = new FileReader();
+                                reader.onload = function (e) {
+                                    fotoPreview.src = e.target.result;
+                                    previewContainer.classList.remove('hidden');
+                                };
+                                reader.readAsDataURL(file);
+                            } else {
+                                fotoPreview.src = '';
+                                previewContainer.classList.add('hidden');
+                            }
+                        });
+                    }
+                });
+            </script>
 
             {{-- Flatpickr --}}
             <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>

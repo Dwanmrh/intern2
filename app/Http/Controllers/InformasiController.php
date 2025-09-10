@@ -24,7 +24,7 @@ class InformasiController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'judul' => 'required|string|max:255',
+            'judul' => 'nullable|string|max:255',
             'deskripsi' => 'nullable|string',
             'tanggal' => 'required|string',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:23000',
@@ -70,6 +70,11 @@ class InformasiController extends Controller
             $pdf = $parser->parseFile($file->getPathname());
             $data['deskripsi'] = $pdf->getText();
             $data['file_informasi'] = $file->store('file_informasi', 'public');
+
+            // Auto isi judul kalau kosong
+            if (empty($data['judul'])) {
+                $data['judul'] = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            }
         }
 
         // Default deskripsi kalau kosong
@@ -79,12 +84,6 @@ class InformasiController extends Controller
 
         Informasi::create($data);
         return redirect()->route('informasi.index')->with('success', 'Informasi berhasil ditambahkan.');
-    }
-
-    public function show($id)
-    {
-        $informasi = Informasi::findOrFail($id);
-        return view('informasi.show', compact('informasi'));
     }
 
     public function edit($id)
@@ -99,7 +98,7 @@ class InformasiController extends Controller
         $informasi = Informasi::findOrFail($id);
 
         $request->validate([
-            'judul' => 'required|string|max:255',
+            'judul' => 'nullable|string|max:255',
             'deskripsi' => 'nullable|string',
             'tanggal' => 'required|string',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:23000',
@@ -138,7 +137,15 @@ class InformasiController extends Controller
             return back()->withErrors(['tanggal' => 'Format tanggal tidak valid'])->withInput();
         }
 
-        // Foto
+        // 🔥 Hapus foto lama jika centang hapus foto
+        if ($request->filled('hapus_foto') && $request->hapus_foto == 1) {
+            if ($informasi->foto && Storage::disk('public')->exists($informasi->foto)) {
+                Storage::disk('public')->delete($informasi->foto);
+            }
+            $data['foto'] = null;
+        }
+
+        // Upload foto baru
         if ($request->hasFile('foto')) {
             if ($informasi->foto && Storage::disk('public')->exists($informasi->foto)) {
                 Storage::disk('public')->delete($informasi->foto);
@@ -164,6 +171,10 @@ class InformasiController extends Controller
             $pdf = $parser->parseFile($file->getPathname());
             $data['deskripsi'] = $pdf->getText();
             $data['file_informasi'] = $file->store('file_informasi', 'public');
+
+            if (empty($data['judul'])) {
+                $data['judul'] = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            }
         }
 
         $informasi->update($data);

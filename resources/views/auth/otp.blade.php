@@ -19,6 +19,15 @@
                 </div>
             @endif
 
+            <!-- Success Message -->
+            @if (session('status'))
+                <div id="status-message" class="mb-4 text-green-600 font-semibold text-center">
+                    {{ session('status') }}
+                </div>
+            @else
+                <div id="status-message" class="mb-4 text-green-600 font-semibold text-center hidden"></div>
+            @endif
+
             <!-- Form -->
             <form method="POST" action="{{ route('auth.otp.verify') }}">
                 @csrf
@@ -38,10 +47,87 @@
                 </button>
             </form>
 
+            <!-- Resend OTP -->
+            <div class="mt-4 text-center">
+                <button type="button" id="resend-btn"
+                    class="w-full bg-gray-500 text-white py-2 rounded-lg font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed"
+                    @if($cooldown > 0) disabled @endif>
+                    Kirim Ulang OTP <span id="countdown">
+                        @if($cooldown > 0) ({{ str_pad($cooldown, 2, '0', STR_PAD_LEFT) }}) @endif
+                    </span>
+                </button>
+            </div>
+
             <!-- Footer -->
             <p class="mt-6 text-xs text-gray-600 text-center">
                 &copy; {{ date('Y') }} Setukpa Lemdiklat Polri
             </p>
         </div>
     </div>
+
+    <script>
+    let cooldown = {{ $cooldown }};
+    let countdownEl = document.getElementById('countdown');
+    let resendBtn = document.getElementById('resend-btn');
+
+    // fungsi mulai ulang countdown
+    function startCooldown(seconds) {
+        cooldown = seconds;
+        resendBtn.disabled = true;
+        resendBtn.classList.remove("bg-[#1E2D3D]", "hover:bg-blue-900");
+        resendBtn.classList.add("bg-gray-500");
+
+        let interval = setInterval(() => {
+            cooldown--;
+            if (cooldown > 0) {
+                countdownEl.textContent = "(" + String(cooldown).padStart(2, '0') + ")";
+            } else {
+                countdownEl.textContent = "";
+                resendBtn.disabled = false;
+                resendBtn.classList.remove("bg-gray-500");
+                resendBtn.classList.add("bg-[#1E2D3D]", "hover:bg-blue-900");
+                clearInterval(interval);
+            }
+        }, 1000);
+    }
+
+    // kalau ada cooldown dari server
+    if (cooldown > 0) {
+        startCooldown(cooldown);
+    }
+
+    // event click tombol resend
+    resendBtn.addEventListener("click", function () {
+        fetch("{{ route('auth.otp.resend') }}", {
+            method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                "Accept": "application/json",
+            },
+        })
+        .then(res => res.json())
+        .then(data => {
+            let statusMessage = document.getElementById("status-message");
+
+            if (data.success) {
+                statusMessage.textContent = data.message;
+                statusMessage.classList.remove("hidden");
+                statusMessage.classList.add("text-green-600");
+                startCooldown(60);
+            } else {
+                statusMessage.textContent = data.message || "Gagal mengirim OTP.";
+                statusMessage.classList.remove("hidden");
+                statusMessage.classList.remove("text-green-600");
+                statusMessage.classList.add("text-red-600");
+            }
+        })
+        .catch(() => {
+            let statusMessage = document.getElementById("status-message");
+            statusMessage.textContent = "Terjadi kesalahan. Coba lagi.";
+            statusMessage.classList.remove("hidden");
+            statusMessage.classList.remove("text-green-600");
+            statusMessage.classList.add("text-red-600");
+        });
+    });
+</script>
 </x-guest-layout>

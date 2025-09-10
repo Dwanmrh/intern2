@@ -49,7 +49,7 @@ class SearchController extends Controller
             ->get()
             ->map(fn($item) => [
                 'title' => $item->title,
-                'url' => route('informasi.show', $item->id),
+                'url' => route('informasi.index', $item->id),
                 'category' => 'Informasi'
             ]);
 
@@ -59,28 +59,36 @@ class SearchController extends Controller
             ->get()
             ->map(fn($item) => [
                 'title' => $item->title,
-                'url' => route('fasilitas.show', $item->id),
+                'url' => route('fasilitas.index', $item->id),
                 'category' => 'FASDIK'
             ]);
 
         $modul = Modul::where('judul', 'like', "%{$query}%")
-            ->orWhere('deskripsi', 'like', "%{$query}%")
-            ->select('id', 'judul as title', 'prodiklat')
-            ->get()
-            ->map(function ($item) {
-                // Tentukan route berdasarkan prodiklat
-                $baseUrl = match (strtoupper($item->prodiklat)) {
-                    'SIP' => route('modul.sip'),
-                    'PAG' => route('modul.pag'),
-                    default => route('modul.index'),
-                };
-
+        ->orWhere('deskripsi', 'like', "%{$query}%")
+        ->select('id', 'judul as title', 'prodiklat')
+        ->get()
+        ->map(function ($item) {
+            if (!auth()->check()) {
                 return [
                     'title' => $item->title,
-                    'url' => $baseUrl . "#modul{$item->id}",
-                    'category' => strtoupper($item->prodiklat ?? 'Modul')
+                    'url' => route('login'), // arahkan ke login
+                    'category' => 'Modul (Harus Login)'
                 ];
-            });
+            }
+
+            // Tentukan route berdasarkan prodiklat
+            $baseUrl = match (strtoupper($item->prodiklat)) {
+                'SIP' => route('modul.sip'),
+                'PAG' => route('modul.pag'),
+                default => route('modul.index'),
+            };
+
+            return [
+                'title' => $item->title,
+                'url' => $baseUrl . "#modul{$item->id}",
+                'category' => strtoupper($item->prodiklat ?? 'Modul')
+            ];
+        });
 
         $results = collect()
             ->merge($dashboard)

@@ -52,12 +52,6 @@ class FasilitasController extends Controller
         return redirect()->route('fasilitas.index')->with('success', 'Fasilitas berhasil ditambahkan');
     }
 
-    public function show($id)
-    {
-        $fasilitas = Fasilitas::findOrFail($id);
-        return view('fasilitas.show', compact('fasilitas'));
-    }
-
     public function edit($id)
     {
         $fasilitas = Fasilitas::findOrFail($id);

@@ -17,7 +17,5 @@ class Link extends Model
         'nama',
         'url',
         'logo',
-        'kategori',
-        'subkategori',
     ];
 }

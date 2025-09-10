@@ -13,20 +13,15 @@ class PersonelSeeder extends Seeder
      */
     public function run(): void
     {
-        // Buat akun personel default
-        User::create([
-            'name' => 'Personel SIP',
-            'email' => 'personelsip@personel.com',
-            'password' => Hash::make('Personel890'),
-            'role' => 'personel',
-        ]);
-
-        // Kalau perlu beberapa akun personel
-        User::create([
-            'name' => 'Personel PAG',
-            'email' => 'personelpag@personel.com',
-            'password' => Hash::make('Personel890'),
-            'role' => 'personel',
-        ]);
+        for ($i = 1; $i <= 5; $i++) {
+            User::updateOrCreate(
+                ['email' => "personel{$i}@gmail.com"],
+                [
+                    'name' => "Personel {$i}",
+                    'password' => Hash::make('Personel890'),
+                    'role' => 'personel',
+                ]
+            );
+        }
     }
 }

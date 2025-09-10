@@ -17,11 +17,12 @@ Route::get('/', fn() => redirect()->route('dashboard.index'));
 // OTP
 Route::get('/otp', [OtpController::class, 'showForm'])->name('auth.otp.form');
 Route::post('/otp', [OtpController::class, 'verify'])->name('auth.otp.verify');
+Route::post('/otp/resend', [OtpController::class, 'resend'])->name('auth.otp.resend');
 
 // DASHBOARD READ (Publik)
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
-// DASHBOARD PREVIEW CU (Admin only)
+// DASHBOARD PREVIEW CUD (Admin only)
 Route::middleware(['auth', 'verified'])->prefix('dashboard')->group(function () {
     Route::get('/create', [DashboardController::class, 'create'])->name('dashboard.create');
     Route::post('/', [DashboardController::class, 'store'])->name('dashboard.store');
@@ -30,7 +31,7 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard')->group(function () 
     Route::delete('/{dashboard}', [DashboardController::class, 'destroy'])->name('dashboard.destroy');
 });
 
-// DASHBOARD LINKS CU (Admin only)
+// DASHBOARD LINKS CUD (Admin only)
 Route::middleware(['auth', 'verified'])->prefix('dashboard/link')->name('dashboard.link.')->group(function () {
     Route::get('/create', [DashboardController::class, 'linkCreate'])->name('create');
     Route::post('/', [DashboardController::class, 'linkStore'])->name('store');
@@ -42,7 +43,7 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard/link')->name('dashboa
 // PROFIL READ (Publik)
 Route::get('/profil', [ProfilController::class, 'index'])->name('profil.index');
 
-// PROFIL CU (Admin only)
+// PROFIL CUD (Admin only)
 Route::middleware(['auth', 'verified'])->prefix('profil')->group(function () {
     Route::get('/create', [ProfilController::class, 'create'])->name('profil.create');
     Route::post('/', [ProfilController::class, 'store'])->name('profil.store');
@@ -54,7 +55,7 @@ Route::middleware(['auth', 'verified'])->prefix('profil')->group(function () {
 // BERITA READ (Publik)
 Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
 
-// BERITA CU (Admin Only)
+// BERITA CUD (Admin Only)
 Route::middleware(['auth', 'verified'])->prefix('berita')->group(function () {
     Route::get('/create', [BeritaController::class, 'create'])->name('berita.create');
     Route::post('/', [BeritaController::class, 'store'])->name('berita.store');
@@ -63,8 +64,8 @@ Route::middleware(['auth', 'verified'])->prefix('berita')->group(function () {
     Route::delete('/{id}', [BeritaController::class, 'destroy'])->name('berita.destroy');
 });
 
-// BERITA LIKE
-Route::post('/like/{id}', [LikeController::class, 'toggle'])->name('berita.like');
+// BERITA LIKE (hanya user login yang boleh)
+Route::post('/like/{id}', [LikeController::class, 'toggle'])->middleware('auth')->name('berita.like');
 
 // BERITA DETAIL
 Route::get('/berita/{id}', [BeritaController::class, 'show'])->name('berita.show');
@@ -72,7 +73,7 @@ Route::get('/berita/{id}', [BeritaController::class, 'show'])->name('berita.show
 // INFORMASI READ (Publik)
 Route::get('/informasi', [InformasiController::class, 'index'])->name('informasi.index');
 
-// INFORMASI CU
+// INFORMASI CUD (Admin Only)
 Route::middleware(['auth', 'verified'])->prefix('informasi')->group(function () {
     Route::get('/create', [InformasiController::class, 'create'])->name('informasi.create');
     Route::post('/', [InformasiController::class, 'store'])->name('informasi.store');
@@ -81,13 +82,10 @@ Route::middleware(['auth', 'verified'])->prefix('informasi')->group(function () 
     Route::delete('/{id}', [InformasiController::class, 'destroy'])->name('informasi.destroy');
 });
 
-// INFORMASI DETAIL
-Route::get('/informasi/{id}', [InformasiController::class, 'show'])->name('informasi.show');
-
 // FASDIK  READ (Publik)
 Route::get('/fasilitas', [FasilitasController::class, 'index'])->name('fasilitas.index');
 
-// FASDIK CU (Admin Only)
+// FASDIK CUD (Admin Only)
 Route::middleware(['auth', 'verified'])->prefix('fasilitas')->group(function () {
     Route::get('/create', [FasilitasController::class, 'create'])->name('fasilitas.create');
     Route::post('/', [FasilitasController::class, 'store'])->name('fasilitas.store');
@@ -96,10 +94,7 @@ Route::middleware(['auth', 'verified'])->prefix('fasilitas')->group(function () 
     Route::delete('/{id}', [FasilitasController::class, 'destroy'])->name('fasilitas.destroy');
 });
 
-// FASDIK DETAIL
-Route::get('/fasilitas/{id}', [FasilitasController::class, 'show'])->name('fasilitas.show');
-
-// MODUL READ (Publik)
+// MODUL READ (Login Only, role: Siswa, Personel, Admin)
 Route::get('/modul', [ModulController::class, 'index'])->name('modul.index');
 Route::get('/modul/sip', [ModulController::class, 'sip'])->name('modul.sip');
 Route::get('/modul/pag', [ModulController::class, 'pag'])->name('modul.pag');

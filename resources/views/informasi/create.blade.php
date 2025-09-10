@@ -20,9 +20,10 @@
                 {{-- Judul --}}
                 <div class="mb-3">
                     <label class="block text-white font-semibold mb-1">Judul</label>
-                    <input type="text" name="judul"
+                    <input type="text" id="judulInput" name="judul"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
-                        required placeholder="Masukkan judul informasi">
+                        placeholder="Kosongkan jika ingin pakai nama file PDF">
+                    <small class="font-bold text-yellow-400 italic">Kosongkan jika ingin otomatis pakai nama file</small>
                 </div>
 
                 {{-- Deskripsi --}}
@@ -31,16 +32,15 @@
                     <textarea name="deskripsi" rows="5"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
                         placeholder="Masukkan deskripsi informasi"></textarea>
-                    <small class="font-bold text-yellow-400 italic">Kosongkan jika menggunakan file</small>
+                    <small class="font-bold text-yellow-400 italic">Kosongkan jika menggunakan file PDF</small>
                 </div>
 
                 {{-- Upload File PDF --}}
                 <div class="mb-3">
                     <label class="block text-white font-semibold mb-1">Upload File (PDF)</label>
-                    <input type="file" name="file_informasi" accept=".pdf"
+                    <input type="file" id="fileInput" name="file_informasi" accept=".pdf"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition">
-                    <small class="font-bold text-yellow-400 italic">Kosongkan jika memasukkan deskripsi</small>
-                    <small class="font-bold text-yellow-400 italic">Max Size 15 MB</small>
+                    <small class="font-bold text-yellow-400 italic">Kosongkan jika memasukkan deskripsi | Max Size 15 MB</small><br>
                 </div>
 
                 {{-- Tanggal --}}
@@ -66,26 +66,6 @@
                     </div>
                 </div>
 
-                <script>
-                    document.getElementById('fotoInput').addEventListener('change', function (event) {
-                        const file = event.target.files[0];
-                        const previewContainer = document.getElementById('previewContainer');
-                        const fotoPreview = document.getElementById('fotoPreview');
-
-                        if (file) {
-                            const reader = new FileReader();
-                            reader.onload = function (e) {
-                                fotoPreview.src = e.target.result;
-                                previewContainer.classList.remove('hidden');
-                            };
-                            reader.readAsDataURL(file);
-                        } else {
-                            fotoPreview.src = "";
-                            previewContainer.classList.add('hidden');
-                        }
-                    });
-                </script>
-
                 {{-- Tombol --}}
                 <div class="flex justify-end space-x-3">
                     <button type="submit"
@@ -99,6 +79,39 @@
                     </a>
                 </div>
             </form>
+
+            {{-- Script Preview Foto + Auto Judul --}}
+            <script>
+                // Preview Foto
+                document.getElementById('fotoInput').addEventListener('change', function (event) {
+                    const file = event.target.files[0];
+                    const previewContainer = document.getElementById('previewContainer');
+                    const fotoPreview = document.getElementById('fotoPreview');
+
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            fotoPreview.src = e.target.result;
+                            previewContainer.classList.remove('hidden');
+                        };
+                        reader.readAsDataURL(file);
+                    } else {
+                        fotoPreview.src = "";
+                        previewContainer.classList.add('hidden');
+                    }
+                });
+
+                // Auto isi judul dari nama file PDF
+                document.getElementById('fileInput').addEventListener('change', function (event) {
+                    const file = event.target.files[0];
+                    const judulInput = document.getElementById('judulInput');
+
+                    if (file && file.name.endsWith('.pdf') && judulInput.value.trim() === '') {
+                        let namaFile = file.name.replace(/\.pdf$/i, '');
+                        judulInput.value = namaFile;
+                    }
+                });
+            </script>
 
             {{-- Flatpickr --}}
             <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>

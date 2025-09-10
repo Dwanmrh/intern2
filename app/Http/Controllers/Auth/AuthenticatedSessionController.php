@@ -70,6 +70,9 @@ class AuthenticatedSessionController extends Controller
                 $request->session()->put('otp_user_id', $user->id);
                 $request->session()->put('remember_me', $request->filled('remember'));
 
+                // 🔥 Tambahin ini supaya cooldown mulai dari 60 detik
+                $request->session()->put('last_otp_sent', now()->timestamp);
+
                 return redirect()->route('auth.otp.form')
                     ->with('status', 'Kode OTP telah dikirim ke email Anda.');
             }

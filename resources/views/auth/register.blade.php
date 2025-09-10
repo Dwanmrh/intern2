@@ -1,9 +1,9 @@
 <x-guest-layout>
     <div class="min-h-screen flex items-center justify-center bg-[#1E2D3D]">
-        <div class="bg-gray-300 rounded-lg shadow-md px-8 py-10 w-full max-w-sm text-gray-900">
+        <div class="bg-gray-300 rounded-lg shadow-md px-6 py-6 w-full max-w-sm text-gray-900">
 
             <!-- Logo -->
-            <div class="flex justify-center mb-4">
+            <div class="flex justify-center mb-3">
                 <img src="{{ asset('assets/images/logo_setukpa.png') }}" alt="Logo" class="h-20">
             </div>
 
@@ -15,7 +15,7 @@
                 @csrf
 
                 <!-- Name -->
-                <div class="mb-4">
+                <div class="mb-3">
                     <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nama</label>
                     <div class="relative">
                         <span class="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -27,14 +27,14 @@
                         </span>
                         <input id="name" name="name" type="text" required
                             placeholder="Masukan Nama Anda"
-                            class="pl-10 pr-4 py-2 border border-gray-300 rounded w-full focus:ring focus:ring-blue-200"
+                            class="pl-10 pr-4 py-1.5 border border-gray-300 rounded w-full focus:ring focus:ring-blue-200"
                             value="{{ old('name') }}">
                     </div>
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                 </div>
 
                 <!-- Email -->
-                <div class="mb-4">
+                <div class="mb-3">
                     <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
                     <div class="relative">
                         <span class="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -46,14 +46,14 @@
                         </span>
                         <input id="email" name="email" type="email" required
                             placeholder="Masukan Email Anda"
-                            class="pl-10 pr-4 py-2 border border-gray-300 rounded w-full focus:ring focus:ring-blue-200"
+                            class="pl-10 pr-4 py-1.5 border border-gray-300 rounded w-full focus:ring focus:ring-blue-200"
                             value="{{ old('email') }}">
                     </div>
                     <x-input-error :messages="$errors->get('email')" class="mt-2" />
                 </div>
 
                 <!-- Password -->
-                <div class="mb-4">
+                <div class="mb-3">
                     <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Kata Sandi</label>
                     <div class="relative">
                         <span class="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -64,7 +64,7 @@
                             </svg>
                         </span>
                         <input id="password" name="password" type="password" required
-                            class="pl-10 pr-10 py-2 border border-gray-300 rounded w-full focus:ring focus:ring-blue-200"
+                            class="pl-10 pr-10 py-1.5 border border-gray-300 rounded w-full focus:ring focus:ring-blue-200"
                             placeholder="Masukan Kata Sandi" autocomplete="new-password">
                         <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 cursor-pointer"
                             onclick="togglePasswordVisibility('password', 'eyeOpen1', 'eyeOff1')">
@@ -88,7 +88,7 @@
                 </div>
 
                 <!-- Confirm Password -->
-                <div class="mb-6">
+                <div class="mb-3">
                     <label for="password_confirmation" class="block text-sm font-medium text-gray-700 mb-1">Konfirmasi Kata Sandi</label>
                     <div class="relative">
                         <span class="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -99,7 +99,7 @@
                             </svg>
                         </span>
                         <input id="password_confirmation" name="password_confirmation" type="password" required
-                            class="pl-10 pr-10 py-2 border border-gray-300 rounded w-full focus:ring focus:ring-blue-200"
+                            class="pl-10 pr-10 py-1.5 border border-gray-300 rounded w-full focus:ring focus:ring-blue-200"
                             placeholder="Konfirmasi Kata Sandi" autocomplete="new-password">
                         <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 cursor-pointer"
                             onclick="togglePasswordVisibility('password_confirmation', 'eyeOpen2', 'eyeOff2')">
@@ -130,7 +130,7 @@
                     <a href="{{ route('login') }}" class="text-gray-700 hover:underline">
                         Sudah Punya Akun?
                     </a>
-                    <button type="submit" class="px-6 py-2 bg-[#1E2D3D] text-white rounded hover:bg-blue-900 transition">
+                    <button type="submit" class="px-6 py-1.5 bg-[#1E2D3D] text-white rounded hover:bg-blue-900 transition">
                         Register
                     </button>
                 </div>
