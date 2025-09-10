@@ -44,7 +44,7 @@
                     </h2>
 
                     @auth
-                        @if(in_array(Auth::user()->role, ['admin', 'super_admin']))
+                        @if(Auth::user()->role === 'admin')
                             <div class="absolute right-8 top-8">
                                 <a href="{{ route('informasi.create') }}"
                                     class="bg-[#800000] hover:bg-[#660000]
@@ -63,7 +63,7 @@
                     @forelse ($informasi as $data)
                     <div x-data="{ expanded: false }"
                     class="w-full bg-white shadow rounded-xl overflow-hidden flex flex-col
-                    cursor-pointer hover:scale-[1.03] transition duration-300 ease-in-out
+                    hover:scale-[1.03] transition duration-300 ease-in-out
                     border border-gray-200 group relative
                     {{ $data->foto ? 'min-h-[520px]' : 'min-h-[340px]' }}">
 
@@ -115,7 +115,7 @@
 
                                 {{-- Button Edit Delete Informasi--}}
                                 @auth
-                                    @if(in_array(Auth::user()->role, ['admin', 'super_admin']))
+                                    @if(Auth::user()->role === 'admin')
                                         <div class="flex gap-2">
 
                                             {{-- Edit --}}
@@ -206,143 +206,160 @@
         </div>
 
         {{-- Jadwal Section --}}
-        <div class="mt-12">
-            <div class="text-center mb-6 relative">
+        <div class="mt-12 mb-12">
+            <div class="flex items-center justify-center mb-6 relative">
                 <h2 class="text-lg md:text-xl lg:text-lg font-bold text-white inline-flex items-center gap-2
                         bg-gradient-to-r from-slate-700 via-slate-600 to-slate-800
-                        px-6 py-1 rounded-xl shadow-md">
+                        px-6 py-1 rounded-xl shadow-md mx-auto">
                     <i class="bi bi-calendar-week text-white text-xl md:text-xl"></i>
                     CLASS SCHEDULE
                 </h2>
-
-                @auth
-                    <div class="absolute right-8 top-0">
-                        <a href="{{ route('jadwal.create') }}"
-                            class="bg-[#800000] hover:bg-[#660000]
-                                text-white px-3 py-2.5 rounded-md text-sm shadow-md transition duration-300 ease-in-out">
-                            <i class="bi bi-plus-circle text-base"></i>
-                            Tambah Jadwal
-                        </a>
-                    </div>
-                @endauth
             </div>
-
-            {{-- Card Jadwal Terbaru --}}
-            <div class="max-w-3xl mx-auto">
-                @if($jadwals->isNotEmpty())
-                    @php
-                        $jadwal = $jadwals->first(); // ambil jadwal terbaru
-                    @endphp
-
-                    <div class="bg-white shadow rounded-xl overflow-hidden border border-gray-200 p-6
-                                flex flex-col gap-4 text-center">
-
-                        <p class="text-sm text-gray-500 flex items-center justify-center gap-2">
-                            <i class="bi bi-calendar-event text-blue-600"></i>
-                            {{ $jadwal->tanggal ? \Carbon\Carbon::parse($jadwal->tanggal)->translatedFormat('d F Y') : '-' }}
-                        </p>
-
-                        <h3 class="text-xl font-semibold text-gray-800">
-                            {{ $jadwal->judul }}
-                        </h3>
-
+            
+            {{-- Card Jadwal --}}
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white shadow-lg rounded-2xl overflow-hidden border border-gray-200">
+                    
+                    {{-- Header --}}
+                    <div class=" bg-gradient-to-r from-[#1E293B] to-[#2C3E50]
+                                p-4 flex items-center justify-between">
+                        {{-- Kiri: Judul + Tanggal --}}
                         <div>
-                            <a href="{{ asset('storage/'.$jadwal->file) }}" target="_blank"
-                                class="bg-blue-600 hover:bg-blue-800 text-white px-5 py-2.5 rounded-lg
-                                        text-sm font-medium shadow transition duration-300">
-                                <i class="bi bi-file-earmark-pdf"></i> Lihat Jadwal (PDF)
-                            </a>
+                            <h3 class="text-lg font-semibold text-yellow-400">
+                                @if($jadwals->isNotEmpty())
+                                    {{ $jadwals->first()->judul }}
+                                @else
+                                    Jadwal Kosong
+                                @endif
+                            </h3>
+                            <p class="text-sm text-gray-300 flex items-center gap-2 mt-1">
+                                <i class="bi bi-calendar-event"></i>
+                                @if($jadwals->isNotEmpty() && $jadwals->first()->tanggal)
+                                    {{ \Carbon\Carbon::parse($jadwals->first()->tanggal)->translatedFormat('d F Y') }}
+                                @else
+                                    -
+                                @endif
+                            </p>
                         </div>
 
-                        {{-- Button Edit Delete Jadwal --}}
+                        {{-- Kanan: Tombol Tambah --}}
                         @auth
-                            @if(in_array(Auth::user()->role, ['admin', 'super_admin']))
-                                <div class="flex justify-center gap-3 mt-3">
-
-                                    {{-- Edit --}}
-                                            <a href="{{ route('jadwal.edit', $jadwal->id) }}" @click.stop
-                                            class="p-2 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100
-                                                    shadow transition" title="Edit">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                                    viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M11 5H6a2 2 0 00-2 2v12a2 2 0
-                                                        002 2h12a2 2 0 002-2v-5M18.5
-                                                        2.5a2.121 2.121 0 113 3L12 15l-4
-                                                        1 1-4 9.5-9.5z"/>
-                                                </svg>
-                                            </a>
-
-                                            {{-- Hapus --}}
-                                            <button type="button" @click.stop
-                                                    class="p-2 rounded-full bg-red-50 text-red-600 hover:bg-red-100
-                                                        shadow transition"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#hapusJadwalModal{{ $jadwal->id }}"
-                                                    title="Hapus">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                                    viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M19 7l-.867 12.142A2 2 0
-                                                        0116.138 21H7.862a2 2 0
-                                                        01-1.995-1.858L5 7m5 4v6m4-6v6M9
-                                                        7h6m-3-4v4"/>
-                                                </svg>
-                                            </button>
-
-                                    {{-- Modal Konfirmasi Hapus Jadwal --}}
-                                    <div class="modal fade" id="hapusJadwalModal{{ $jadwal->id }}" tabindex="-1"
-                                        aria-labelledby="hapusJadwalLabel{{ $jadwal->id }}" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered custom-modal">
-                                            <div class="modal-content rounded-2xl shadow-lg border-0">
-
-                                                {{-- Header --}}
-                                                <div class="modal-header bg-red-600 text-white rounded-t-2xl py-2 px-3">
-                                                    <h5 class="modal-title d-flex align-items-center gap-2 fs-6" id="hapusJadwalLabel{{ $jadwal->id }}">
-                                                        <i class="bi bi-exclamation-triangle-fill text-warning fs-5"></i>
-                                                        Konfirmasi Hapus
-                                                    </h5>
-                                                    <button type="button" class="btn-close btn-close-white"
-                                                            data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-
-                                                {{-- Body --}}
-                                                <div class="modal-body text-center py-3 px-3">
-                                                    <i class="bi bi-trash3-fill text-danger fs-3 mb-2"></i>
-                                                    <p class="fw-semibold text-gray-700 mt-4 mb-2" style="font-size: 0.9rem;">
-                                                        Apakah anda yakin ingin menghapus jadwal <br>
-                                                        <span class="text-danger">"{{ $jadwal->judul }}"</span>?
-                                                    </p>
-                                                </div>
-
-                                                {{-- Footer --}}
-                                                <div class="modal-footer d-flex justify-content-center gap-2 border-0 pb-3">
-                                                    <form action="{{ route('jadwal.destroy', $jadwal->id) }}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm px-3 py-1 rounded-pill shadow-sm">
-                                                            Hapus
-                                                        </button>
-                                                    </form>
-                                                    <button type="button"
-                                                            class="btn btn-primary btn-sm px-3 py-1 rounded-pill shadow-sm"
-                                                            data-bs-dismiss="modal">
-                                                        Batal
-                                                    </button>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
+                            <a 
+                                @if($jadwals->count() == 0)
+                                    href="{{ route('jadwal.create') }}"
+                                @else
+                                    href="javascript:void(0);" 
+                                    onclick="showJadwalAlert()"
+                                @endif
+                                class="bg-[#800000] hover:bg-[#660000] text-white px-3 py-2 rounded-md text-sm shadow-md transition">
+                                <i class="bi bi-plus-circle text-base"></i>
+                                Tambah Jadwal
+                            </a>
                         @endauth
                     </div>
-                @else
-                    <p class="text-gray-600 text-center">Belum ada jadwal yang ditambahkan.</p>
-                @endif
+
+                    {{-- Body --}}
+                    <div class="p-6 bg-gray-50 text-center text-gray-600">
+                        @if($jadwals->isNotEmpty())
+                            {{-- Preview PDF --}}
+                            <iframe src="{{ asset('storage/'.$jadwals->first()->file) }}"
+                                    class="w-full h-[500px] rounded-md border border-gray-300 shadow-sm"
+                                    frameborder="0"></iframe>
+                        @else
+                            <p class="italic">Belum ada jadwal yang ditambahkan.</p>
+                        @endif
+                    </div>
+
+                    {{-- Footer --}}
+                    @if($jadwals->isNotEmpty())
+                        <div class="flex justify-between items-center p-4 bg-white">
+                            {{-- Download Button --}}
+                            <a href="{{ asset('storage/'.$jadwals->first()->file) }}" target="_blank"
+                            class="bg-blue-600 hover:bg-blue-800 text-white px-3 py-2 rounded-lg shadow transition">
+                                <i class="bi bi-file-earmark-pdf"></i> Lihat / Download PDF
+                            </a>
+
+                            {{-- Aksi Edit & Hapus --}}
+                            @auth
+                                @if(in_array(Auth::user()->role, ['admin','personel']))
+                                    <div class="flex justify-end gap-2">
+                                        {{-- Tombol Edit --}}
+                                        <a href="{{ route('jadwal.edit', $jadwals->first()->id) }}" @click.stop
+                                        class="p-2 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 shadow-md transition"
+                                        title="Edit">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-5M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                            </svg>
+                                        </a>
+
+                                        {{-- Tombol Hapus --}}
+                                        <button type="button" @click.stop
+                                                class="p-2 rounded-full bg-red-50 text-red-600 hover:bg-red-100 shadow-md transition"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#hapusJadwalModal{{ $jadwals->first()->id }}"
+                                                title="Hapus">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7h6m-3-4v4"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                @endif
+                            @endauth
+                        </div>
+                    @endif
+                </div>
             </div>
         </div>
+
+        {{-- Modal Konfirmasi Hapus Jadwal --}}
+        @if($jadwals->isNotEmpty())
+            <div class="modal fade" id="hapusJadwalModal{{ $jadwals->first()->id }}" tabindex="-1"
+                aria-labelledby="hapusJadwalLabel{{ $jadwals->first()->id }}" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered custom-modal">
+                    <div class="modal-content rounded-2xl shadow-lg border-0">
+
+                        {{-- Header --}}
+                        <div class="modal-header bg-red-600 text-white rounded-t-2xl py-2 px-3">
+                            <h5 class="modal-title d-flex align-items-center gap-2 fs-6" id="hapusJadwalLabel{{ $jadwals->first()->id }}">
+                                <i class="bi bi-exclamation-triangle-fill text-warning fs-5"></i>
+                                Konfirmasi Hapus
+                            </h5>
+                            <button type="button" class="btn-close btn-close-white"
+                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        {{-- Body --}}
+                        <div class="modal-body text-center py-3 px-3">
+                            <i class="bi bi-trash3-fill text-danger fs-3 mb-2"></i>
+                            <p class="fw-semibold text-gray-700 mt-4 mb-2" style="font-size: 0.9rem;">
+                                Apakah anda yakin ingin menghapus jadwal <br>
+                                <span class="text-danger">"{{ $jadwals->first()->judul }}"</span>?
+                            </p>
+                        </div>
+
+                        {{-- Footer --}}
+                        <div class="modal-footer d-flex justify-content-center gap-2 border-0 pb-3">
+                            <form action="{{ route('jadwal.destroy', $jadwals->first()->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm px-3 py-1 rounded-pill shadow-sm">
+                                    Hapus
+                                </button>
+                            </form>
+                            <button type="button"
+                                    class="btn btn-primary btn-sm px-3 py-1 rounded-pill shadow-sm"
+                                    data-bs-dismiss="modal">
+                                Batal
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
 
         <script>
             // Biar ga flash pas load grid
@@ -353,7 +370,39 @@
                     jadwalGrid.classList.add("visible");
                 }
             });
+
+            // alert button tambah
+            function showJadwalAlert() {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Hanya dapat menampilkan satu jadwal.',
+                    text: 'Edit atau hapus data lama terlebih dahulu.',
+                    confirmButtonText: 'Mengerti',
+                    background: '#fefefe',
+                    color: '#333',
+                    customClass: {
+                        confirmButton: 'swal-confirm-btn'
+                    },
+                    buttonsStyling: false
+                });
+            }
         </script>
+        <style>
+            .swal-confirm-btn {
+                background-color: #D02929;
+                color: #fff;
+                font-weight: 600;
+                border: none;
+                border-radius: 8px;
+                padding: 8px 18px;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+                transition: all 0.2s ease-in-out;
+            }
+            .swal-confirm-btn:hover {
+                background-color: #b51f1f; /* warna lebih gelap saat hover */
+                transform: scale(1.05);
+            }
+        </style>
 
         {{-- CARD PERSYARATAN --}}
                 <div class="text-center">
@@ -578,14 +627,6 @@
                             hover:shadow-xl hover:-translate-y-1 hover:scale-105 transition-all duration-300">
                         <i class="bi bi-tiktok text-3xl text-black mb-2"></i>
                         <span class="font-medium text-gray-700 text-center">TikTok</span>
-                    </a>
-
-                    {{-- WhatsApp --}}
-                    <a href="https://wa.me/6281212121212" target="_blank"
-                        class="bg-white shadow-md border border-gray-200 rounded-xl w-32 h-32 flex flex-col items-center justify-center
-                            hover:shadow-xl hover:-translate-y-1 hover:scale-105 transition-all duration-300">
-                        <i class="bi bi-whatsapp text-3xl text-green-500 mb-2"></i>
-                        <span class="font-medium text-gray-700 text-center">WhatsApp</span>
                     </a>
 
                     {{-- Telpon --}}

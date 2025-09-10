@@ -44,7 +44,7 @@
                     <!-- Footer -->
                     <tr>
                         <td style="padding:15px 25px; text-align:center; font-size:12px; color:#64748b; background:#f8fafc;">
-                            &copy; {{ date('Y') }} SETUKPA Lemdiklat Polri
+                            &copy; {{ date('Y') }} Setukpa Lemdiklat Polri
                         </td>
                     </tr>
                     

@@ -60,7 +60,7 @@
                         </thead>
                         <tbody class="text-sm divide-y">
                             @forelse($users as $index => $user)
-                                <tr class="hover:bg-gray-50">
+                                <tr class="hover:bg-gray-100 transition-colors duration-300 ease-in-out">
                                     <td class="px-4 py-2">{{ $index + 1 }}</td>
                                     <td class="px-4 py-2 font-semibold text-gray-800">{{ $user->name }}</td>
                                     <td class="px-4 py-2 text-gray-600">{{ $user->email }}</td>

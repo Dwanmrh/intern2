@@ -48,10 +48,12 @@
                             class="text-blue-300 underline hover:text-blue-400 transition">Lihat File</a>
 
                         {{-- Checkbox hapus file --}}
-                        <div class="mt-2">
+                        <div class="mt-2 flex items-center bg-red-600/20 px-3 py-2 rounded-lg">
                             <input type="checkbox" name="hapus_file" id="hapus_file" value="1"
-                                class="mr-1 rounded border-gray-500">
-                            <label for="hapus_file" class="text-red-300 font-medium">Hapus file ini</label>
+                                class="mr-2 h-4 w-4 rounded text-red-600 border-red-300 focus:ring-red-500 cursor-pointer">
+                            <label for="hapus_file" class="text-red-500 font-semibold hover:text-red-400 transition cursor-pointer">
+                                Hapus file ini
+                            </label>
                         </div>
                     </div>
                 @endif

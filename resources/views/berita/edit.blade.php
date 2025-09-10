@@ -45,12 +45,13 @@
                         <a href="{{ asset('storage/' . $berita->file_berita) }}" target="_blank"
                            class="text-blue-300 underline hover:text-blue-400 transition">Lihat File</a>
 
-                        {{-- Checkbox hapus file --}}
-                        <div class="mt-2">
+                        {{-- Checkbox hapus file Berita --}}
+                        <div class="mt-2 flex items-center bg-red-600/20 px-3 py-2 rounded-lg">
                             <input type="checkbox" name="hapus_file" id="hapus_file" value="1"
-                                   class="mr-1 rounded border-gray-500">
-                            <label for="hapus_file" class="text-red-300 font-medium">Hapus file ini</label>
-                        </div>
+                            class="mr-2 rounded border-red-500 text-red-600 focus:ring-red-500">
+                            <label for="hapus\_file" class="text-red-500 font-semibold hover:text-red-400 transition">
+                            Hapus file ini
+                        </label>
                     </div>
                 @endif
 
@@ -80,11 +81,13 @@
                         <label class="block text-white font-semibold mb-1">Foto Saat Ini</label>
                         <img src="{{ asset('storage/' . $berita->foto) }}" class="w-40 rounded-md shadow-md mb-2">
 
-                        {{-- Checkbox Hapus Foto Lama --}}
-                        <div class="flex items-center space-x-2">
+                        {{-- Checkbox Hapus Foto Lama Berita --}}
+                        <div class="flex items-center space-x-2 bg-red-600/20 px-3 py-2 rounded-lg">
                             <input type="checkbox" id="hapusFoto" name="hapus_foto" value="1"
-                                   class="w-4 h-4 text-red-600 border-gray-300 rounded focus:ring-red-500">
-                            <label for="hapusFoto" class="text-white text-sm">Hapus foto lama</label>
+                                class="w-4 h-4 text-red-600 border-red-500 rounded focus:ring-red-500">
+                            <label for="hapusFoto" class="text-red-500 font-semibold hover:text-red-400 text-sm transition">
+                                Hapus foto lama
+                            </label>
                         </div>
                     </div>
                 @endif

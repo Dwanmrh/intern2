@@ -54,10 +54,12 @@
                         @endif
 
                         {{-- Checkbox Hapus File Lama --}}
-                        <div class="flex items-center space-x-2 mt-2">
+                        <div class="flex items-center space-x-2 mt-2 bg-red-600/20 px-3 py-2 rounded-lg">
                             <input type="checkbox" id="hapusFile" name="hapus_file" value="1"
-                                class="w-4 h-4 text-red-600 border-gray-300 rounded focus:ring-red-500">
-                            <label for="hapusFile" class="text-white text-sm">Hapus file lama</label>
+                                class="w-4 h-4 text-red-600 border-red-500 rounded focus:ring-red-500">
+                            <label for="hapusFile" class="text-red-500 font-semibold hover:text-red-400 text-sm transition">
+                                Hapus file lama
+                            </label>
                         </div>
                     @else
                         {{-- Kalau file kosong/null --}}

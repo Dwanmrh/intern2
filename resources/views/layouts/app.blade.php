@@ -7,9 +7,6 @@
 
         <title>@yield('title', 'SETUKPA LEMDIKLAT POLRI')</title>
 
-        <!-- Favicon -->
-        <link rel="icon" type="image/png" href="{{ asset('assets/images/logo_setukpa.png') }}">
-
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -24,6 +21,9 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+         <!-- Scripts Alert -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <!-- Custom CSS -->
         <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">

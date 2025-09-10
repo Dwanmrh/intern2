@@ -14,7 +14,7 @@
 
             <!-- Error Message -->
             @if (session('error'))
-                <div class="mb-4 text-red-600 font-semibold text-center">
+                <div id="status-message" class="mb-4 text-red-600 font-semibold text-center">
                     {{ session('error') }}
                 </div>
             @endif
@@ -25,15 +25,15 @@
                     {{ session('status') }}
                 </div>
             @else
-                <div id="status-message" class="mb-4 text-green-600 font-semibold text-center hidden"></div>
+                <div id="status-message" class="mb-4 font-semibold text-center hidden"></div>
             @endif
 
             <!-- Form -->
-            <form method="POST" action="{{ route('auth.otp.verify') }}">
+            <form method="POST" action="{{ route('auth.otp.verify') }}" class="space-y-4">
                 @csrf
 
                 <!-- OTP Input -->
-                <div class="mb-6 text-center">
+                <div class="text-center">
                     <label for="otp" class="block text-sm font-medium text-gray-700 mb-2">Masukkan Kode OTP</label>
                     <input id="otp" type="text" name="otp" required maxlength="6"
                         class="tracking-widest text-center text-2xl font-bold w-full px-4 py-3 border border-gray-400 rounded-lg shadow-sm focus:ring focus:ring-blue-400 focus:outline-none"
@@ -48,12 +48,25 @@
             </form>
 
             <!-- Resend OTP -->
-            <div class="mt-4 text-center">
+            <div class="mt-12 text-center">
                 <button type="button" id="resend-btn"
-                    class="w-full bg-gray-500 text-white py-2 rounded-lg font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed"
+                    class="inline-flex items-center gap-2 px-4 py-1.5 text-sm bg-blue-600 text-white rounded-md font-medium transition hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
                     @if($cooldown > 0) disabled @endif>
-                    Kirim Ulang OTP <span id="countdown">
-                        @if($cooldown > 0) ({{ str_pad($cooldown, 2, '0', STR_PAD_LEFT) }}) @endif
+                    
+                    <!-- Spinner -->
+                    <svg id="spinner" class="hidden w-4 h-4 animate-spin text-white"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10"
+                            stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z">
+                        </path>
+                    </svg>
+
+                    <span id="resend-text">Kirim Ulang OTP 
+                        <span id="countdown">
+                            @if($cooldown > 0) ({{ str_pad($cooldown, 2, '0', STR_PAD_LEFT) }}) @endif
+                        </span>
                     </span>
                 </button>
             </div>
@@ -66,68 +79,88 @@
     </div>
 
     <script>
-    let cooldown = {{ $cooldown }};
-    let countdownEl = document.getElementById('countdown');
-    let resendBtn = document.getElementById('resend-btn');
+        let cooldown = {{ $cooldown }};
+        let countdownEl = document.getElementById('countdown');
+        let resendBtn = document.getElementById('resend-btn');
+        let statusMessage = document.getElementById("status-message");
+        let spinner = document.getElementById("spinner");
+        let resendText = document.getElementById("resend-text");
 
-    // fungsi mulai ulang countdown
-    function startCooldown(seconds) {
-        cooldown = seconds;
-        resendBtn.disabled = true;
-        resendBtn.classList.remove("bg-[#1E2D3D]", "hover:bg-blue-900");
-        resendBtn.classList.add("bg-gray-500");
+        function startCooldown(seconds) {
+            cooldown = seconds;
+            resendBtn.disabled = true;
+            spinner.classList.add("hidden");
+            resendText.textContent = "Kirim Ulang OTP (" + String(cooldown).padStart(2, '0') + ")";
+            resendBtn.classList.remove("bg-blue-600", "hover:bg-blue-700");
+            resendBtn.classList.add("bg-gray-500");
 
-        let interval = setInterval(() => {
-            cooldown--;
-            if (cooldown > 0) {
-                countdownEl.textContent = "(" + String(cooldown).padStart(2, '0') + ")";
-            } else {
-                countdownEl.textContent = "";
-                resendBtn.disabled = false;
-                resendBtn.classList.remove("bg-gray-500");
-                resendBtn.classList.add("bg-[#1E2D3D]", "hover:bg-blue-900");
-                clearInterval(interval);
+            let interval = setInterval(() => {
+                cooldown--;
+                if (cooldown > 0) {
+                    resendText.textContent = "Kirim Ulang OTP (" + String(cooldown).padStart(2, '0') + ")";
+                } else {
+                    resendText.textContent = "Kirim Ulang OTP";
+                    resendBtn.disabled = false;
+                    resendBtn.classList.remove("bg-gray-500");
+                    resendBtn.classList.add("bg-blue-600", "hover:bg-blue-700");
+                    clearInterval(interval);
+                }
+            }, 1000);
+        }
+
+        function hideStatusAfterDelay() {
+            if (!statusMessage.classList.contains("hidden")) {
+                setTimeout(() => {
+                    statusMessage.classList.add("hidden");
+                }, 8000); // auto hide setelah 3 detik
             }
-        }, 1000);
-    }
+        }
+        hideStatusAfterDelay();
 
-    // kalau ada cooldown dari server
-    if (cooldown > 0) {
-        startCooldown(cooldown);
-    }
+        if (cooldown > 0) {
+            startCooldown(cooldown);
+        }
 
-    // event click tombol resend
-    resendBtn.addEventListener("click", function () {
-        fetch("{{ route('auth.otp.resend') }}", {
-            method: "POST",
-            headers: {
-                "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                "Accept": "application/json",
-            },
-        })
-        .then(res => res.json())
-        .then(data => {
-            let statusMessage = document.getElementById("status-message");
+        resendBtn.addEventListener("click", function () {
+            resendBtn.disabled = true;
+            spinner.classList.remove("hidden"); // tampilkan spinner
+            resendText.textContent = "Mengirim...";
 
-            if (data.success) {
-                statusMessage.textContent = data.message;
-                statusMessage.classList.remove("hidden");
-                statusMessage.classList.add("text-green-600");
-                startCooldown(60);
-            } else {
+            fetch("{{ route('auth.otp.resend') }}", {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                    "Accept": "application/json",
+                },
+            })
+            .then(res => res.json())
+            .then(data => {
                 statusMessage.textContent = data.message || "Gagal mengirim OTP.";
+                statusMessage.classList.remove("hidden");
+                statusMessage.classList.toggle("text-green-600", data.success);
+                statusMessage.classList.toggle("text-red-600", !data.success);
+                hideStatusAfterDelay();
+
+                spinner.classList.add("hidden"); // sembunyikan spinner
+
+                if (data.success) {
+                    startCooldown(60);
+                } else {
+                    resendBtn.disabled = false;
+                    resendText.textContent = "Kirim Ulang OTP";
+                }
+            })
+            .catch(() => {
+                statusMessage.textContent = "Terjadi kesalahan. Coba lagi.";
                 statusMessage.classList.remove("hidden");
                 statusMessage.classList.remove("text-green-600");
                 statusMessage.classList.add("text-red-600");
-            }
-        })
-        .catch(() => {
-            let statusMessage = document.getElementById("status-message");
-            statusMessage.textContent = "Terjadi kesalahan. Coba lagi.";
-            statusMessage.classList.remove("hidden");
-            statusMessage.classList.remove("text-green-600");
-            statusMessage.classList.add("text-red-600");
+                hideStatusAfterDelay();
+
+                spinner.classList.add("hidden"); // sembunyikan spinner
+                resendBtn.disabled = false;
+                resendText.textContent = "Kirim Ulang OTP";
+            });
         });
-    });
-</script>
+    </script>
 </x-guest-layout>

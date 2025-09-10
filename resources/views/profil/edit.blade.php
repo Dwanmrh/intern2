@@ -37,10 +37,12 @@
                         <img src="{{ asset('storage/' . $profil->foto) }}" class="w-40 rounded-md shadow-md mb-2">
 
                         {{-- Checkbox Hapus Foto Lama --}}
-                        <div class="flex items-center space-x-2">
+                        <div class="flex items-center space-x-2 bg-red-600/20 px-3 py-2 rounded-lg">
                             <input type="checkbox" id="hapusFoto" name="hapus_foto" value="1"
-                                class="w-4 h-4 text-red-600 border-gray-300 rounded focus:ring-red-500">
-                            <label for="hapusFoto" class="text-white text-sm">Hapus foto lama</label>
+                                class="w-4 h-4 text-red-600 border-red-500 rounded focus:ring-red-500">
+                            <label for="hapusFoto" class="text-red-500 font-semibold hover:text-red-400 text-sm transition">
+                                Hapus foto lama
+                            </label>
                         </div>
                     </div>
                 @endif

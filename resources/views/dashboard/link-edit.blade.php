@@ -41,10 +41,12 @@
                              class="h-20 object-contain rounded-md shadow-md mb-2">
 
                         {{-- Checkbox Hapus Logo Lama --}}
-                        <div class="flex items-center space-x-2">
+                        <div class="flex items-center space-x-2 bg-red-600/20 px-3 py-2 rounded-lg">
                             <input type="checkbox" id="hapusLogo" name="hapus_logo" value="1"
-                                class="w-4 h-4 text-red-600 border-gray-300 rounded focus:ring-red-500">
-                            <label for="hapusLogo" class="text-white text-sm">Hapus logo lama</label>
+                                class="w-4 h-4 text-red-600 border-red-500 rounded focus:ring-red-500">
+                            <label for="hapusLogo" class="text-red-500 font-semibold hover:text-red-400 text-sm transition">
+                                Hapus logo lama
+                            </label>
                         </div>
                     </div>
                 @endif

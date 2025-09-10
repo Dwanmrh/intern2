@@ -26,10 +26,19 @@
                 {{-- Prodiklat --}}
                 <div class="mb-4">
                     <label for="prodiklat" class="block text-white font-semibold mb-1">Prodiklat</label>
-                    <select name="prodiklat" id="prodiklat" class="w-full rounded p-2">
-                        <option value="SIP" {{ (old('prodiklat', $prodiklat ?? '') == 'SIP') ? 'selected' : '' }}>SIP</option>
-                        <option value="PAG" {{ (old('prodiklat', $prodiklat ?? '') == 'PAG') ? 'selected' : '' }}>PAG</option>
-                    </select>
+
+                    @if(!empty($prodiklat))
+                        {{-- Jika dipanggil dari SIP atau PAG, kunci pilihan --}}
+                        <input type="hidden" name="prodiklat" value="{{ $prodiklat }}">
+                        <input type="text" value="{{ $prodiklat }}"
+                            class="w-full rounded p-2 bg-gray-300 text-gray-700 font-bold" readonly>
+                    @else
+                        {{-- Jika tidak ada (misal dari index modul), tampilkan dropdown normal --}}
+                        <select name="prodiklat" id="prodiklat" class="w-full rounded p-2">
+                            <option value="SIP" {{ old('prodiklat') == 'SIP' ? 'selected' : '' }}>SIP</option>
+                            <option value="PAG" {{ old('prodiklat') == 'PAG' ? 'selected' : '' }}>PAG</option>
+                        </select>
+                    @endif
                 </div>
 
                 {{-- Mapel --}}
