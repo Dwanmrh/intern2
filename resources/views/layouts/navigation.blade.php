@@ -28,8 +28,13 @@
                         ];
 
                         // Tambah modul hanya jika login dan role siswa/personel/admin
-                        if(auth()->check() && in_array(auth()->user()->role, ['siswa','personel','admin'])){
+                        if(auth()->check() && in_array(auth()->user()->role, ['siswa','personel','admin','super_admin'])){
                             $navItems[] = ['name' => 'MODUL', 'routes' => ['modul.index','modul.sip','modul.pag','modul.create','modul.edit']];
+                        }
+
+                        // Tambah users hanya jika super_admin
+                        if(auth()->check() && auth()->user()->role === 'super_admin'){
+                            $navItems[] = ['name' => 'USERS', 'routes' => ['users.index','users.create','users.edit','users.show']];
                         }
                     @endphp
 
@@ -255,10 +260,17 @@
             </x-responsive-nav-link>
 
             @auth
-                @if(in_array(Auth::user()->role, ['siswa','personel','admin']))
+                @if(in_array(Auth::user()->role, ['siswa','personel','admin','super_admin']))
                     <x-responsive-nav-link :href="route('modul.index')" :active="request()->routeIs('modul')"
                         class="text-sm lg:text-base font-medium">
                         MODUL
+                    </x-responsive-nav-link>
+                @endif
+
+                @if(Auth::user()->role === 'super_admin')
+                    <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users')"
+                        class="text-sm lg:text-base font-medium">
+                        USERS
                     </x-responsive-nav-link>
                 @endif
             @endauth

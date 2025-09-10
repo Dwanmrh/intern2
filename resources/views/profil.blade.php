@@ -223,7 +223,7 @@
 
                     {{-- Tombol Tambah Data --}}
                     @auth
-                        @if(Auth::user()->role === 'admin')
+                        @if(in_array(Auth::user()->role, ['admin', 'super_admin']))
                             <div class="absolute right-0 top-1/2 -translate-y-1/2">
                                 <a href="{{ route('profil.create') }}"
                                     class="bg-yellow-500 hover:bg-yellow-600 text-black
@@ -261,7 +261,7 @@
 
                             {{-- Tombol Edit & Hapus --}}
                             @auth
-                                @if(Auth::user()->role === 'admin')
+                                @if(in_array(Auth::user()->role, ['admin', 'super_admin']))
                                     <div class="flex justify-center items-center gap-3 mt-auto py-3">
                                         <a href="{{ route('profil.edit', $kasetukpa->id) }}"
                                             class="p-2 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 shadow-md transition"
@@ -297,7 +297,7 @@
 
                     {{-- Modal Hapus Kasetukpa --}}
                     @auth
-                        @if(Auth::user()->role === 'admin')
+                        @if(in_array(Auth::user()->role, ['admin', 'super_admin']))
                             <div class="modal fade" id="hapusProfilModal{{ $kasetukpa->id }}" tabindex="-1"
                                 aria-labelledby="hapusProfilLabel{{ $kasetukpa->id }}" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered custom-modal">
@@ -367,7 +367,7 @@
 
                             {{-- Tombol Edit & Hapus --}}
                             @auth
-                                @if(Auth::user()->role === 'admin')
+                                @if(in_array(Auth::user()->role, ['admin', 'super_admin']))
                                     <div class="flex justify-center items-center gap-3 mt-auto py-3">
                                         <a href="{{ route('profil.edit', $wakasetukpa->id) }}"
                                             class="p-2 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 shadow-md transition"
@@ -403,7 +403,7 @@
 
                     {{-- Modal Hapus Wakasetukpa --}}
                     @auth
-                        @if(Auth::user()->role === 'admin')
+                        @if(in_array(Auth::user()->role, ['admin', 'super_admin']))
                             <div class="modal fade" id="hapusProfilModal{{ $wakasetukpa->id }}" tabindex="-1"
                                 aria-labelledby="hapusProfilLabel{{ $wakasetukpa->id }}" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered custom-modal">
@@ -476,7 +476,7 @@
 
                                 {{-- Tombol Edit & Hapus --}}
                                 @auth
-                                    @if(Auth::user()->role === 'admin')
+                                    @if(in_array(Auth::user()->role, ['admin', 'super_admin']))
                                         <div class="flex justify-center items-center gap-3 mt-auto py-3">
                                             <a href="{{ route('profil.edit', $profil->id) }}"
                                                 class="p-2 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 shadow-md transition"
@@ -516,7 +516,7 @@
                     {{-- Modal Hapus Pimpinan Lain --}}
                     @foreach ($pimpinanLain as $profil)
                         @auth
-                            @if(Auth::user()->role === 'admin')
+                            @if(in_array(Auth::user()->role, ['admin', 'super_admin']))
                                 <div class="modal fade" id="hapusProfilModal{{ $profil->id }}" tabindex="-1"
                                     aria-labelledby="hapusProfilLabel{{ $profil->id }}" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered custom-modal">

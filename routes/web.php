@@ -11,6 +11,8 @@ use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\ModulController;
+use App\Http\Controllers\UserController;
+
 
 // Default Redirect
 Route::get('/', fn() => redirect()->route('dashboard.index'));
@@ -111,6 +113,14 @@ Route::middleware(['auth', 'verified'])->prefix('modul')->group(function () {
     Route::get('/{modul}/edit', [ModulController::class, 'edit'])->name('modul.edit');   // ✅ pakai {modul}
     Route::put('/{modul}', [ModulController::class, 'update'])->name('modul.update');    // ✅ pakai {modul}
     Route::delete('/{modul}', [ModulController::class, 'destroy'])->name('modul.destroy'); // ✅ pakai {modul}
+});
+
+// USERS ALL DELETE
+Route::delete('/users/destroy-all', [UserController::class, 'destroyAll'])->name('users.destroyAll');
+
+// USERS CRUD (Super Admin Only)
+Route::middleware(['auth'])->group(function () {
+    Route::resource('users', UserController::class);
 });
 
 // SEARCH

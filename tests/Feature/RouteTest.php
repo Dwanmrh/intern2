@@ -40,7 +40,7 @@ class RouteTest extends TestCase
     /** @test */
     public function admin_can_access_admin_routes()
     {
-        $admin = User::factory()->create(['role' => 'admin']);
+        $admin = User::factory()->create(['role' => 'admin, super_admin']);
         $this->actingAs($admin);
 
         $this->get('/dashboard/create')->assertStatus(200);

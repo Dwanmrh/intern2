@@ -74,7 +74,7 @@ class ModulController extends Controller
     public function create(Request $request)
     {
         // 🚫 Batasi hanya admin
-        if (Auth::user()->role !== 'admin') {
+        if (!in_array(Auth::user()->role, ['admin', 'super_admin'])) {
             abort(403, 'Unauthorized');
         }
 
@@ -84,7 +84,7 @@ class ModulController extends Controller
 
     public function store(Request $request)
     {
-        if (Auth::user()->role !== 'admin') {
+        if (!in_array(Auth::user()->role, ['admin', 'super_admin'])) {
             abort(403, 'Unauthorized');
         }
 
@@ -125,7 +125,7 @@ class ModulController extends Controller
 
     public function edit(Modul $modul)
     {
-        if (Auth::user()->role !== 'admin') {
+        if (!in_array(Auth::user()->role, ['admin', 'super_admin'])) {
             abort(403, 'Unauthorized');
         }
 
@@ -134,7 +134,7 @@ class ModulController extends Controller
 
     public function update(Request $request, Modul $modul)
     {
-        if (Auth::user()->role !== 'admin') {
+        if (!in_array(Auth::user()->role, ['admin', 'super_admin'])) {
             abort(403, 'Unauthorized');
         }
 
@@ -181,7 +181,7 @@ class ModulController extends Controller
 
     public function destroy(Modul $modul)
     {
-        if (Auth::user()->role !== 'admin') {
+        if (!in_array(Auth::user()->role, ['admin', 'super_admin'])) {
             abort(403, 'Unauthorized');
         }
 

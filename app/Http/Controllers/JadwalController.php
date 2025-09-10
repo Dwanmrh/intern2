@@ -9,6 +9,13 @@ use Carbon\Carbon;
 
 class JadwalController extends Controller
 {
+    // ✅ Tambahan dari NEW
+    public function index()
+    {
+        $jadwals = Jadwal::orderBy('tanggal', 'desc')->get();
+        return view('jadwal.index', compact('jadwals'));
+    }
+
     public function create()
     {
         return view('jadwal.create');
@@ -57,7 +64,15 @@ class JadwalController extends Controller
             'tanggal' => $tanggal,
         ];
 
-        // Jika ada file baru, hapus yang lama dan simpan yang baru
+        // ✅ Fitur tambahan: user bisa centang hapus file lama
+        if ($request->has('hapus_file')) {
+            if ($jadwal->file && Storage::disk('public')->exists($jadwal->file)) {
+                Storage::disk('public')->delete($jadwal->file);
+            }
+            $data['file'] = ''; // kosongkan file di DB
+        }
+
+        // Jika ada file baru
         if ($request->hasFile('file')) {
             if ($jadwal->file && Storage::disk('public')->exists($jadwal->file)) {
                 Storage::disk('public')->delete($jadwal->file);

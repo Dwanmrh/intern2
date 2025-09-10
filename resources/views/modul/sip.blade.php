@@ -107,7 +107,7 @@
 
                                         {{-- Aksi Edit & Hapus --}}
                                             @auth
-                                            @if(Auth::user()->role === 'admin')
+                                            @if(in_array(Auth::user()->role, ['admin', 'super_admin']))
                                                 <div class="flex justify-end gap-2 mt-2">
                                                     {{-- Tombol Edit --}}
                                                     <a href="{{ route('modul.edit', $mod->id) }}" @click.stop
@@ -193,7 +193,7 @@
 
     {{-- FLOATING BUTTON --}}
     @auth
-        @if(Auth::user()->role === 'admin')
+        @if(in_array(Auth::user()->role, ['admin', 'super_admin']))
             <a href="{{ route('modul.create', ['prodiklat' => 'SIP']) }}"
             class="fixed bottom-6 right-6 z-[9999] w-14 h-14 flex items-center justify-center
                     rounded-full shadow-xl text-white text-2xl

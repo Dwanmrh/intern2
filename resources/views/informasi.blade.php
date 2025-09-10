@@ -44,7 +44,7 @@
                     </h2>
 
                     @auth
-                        @if(Auth::user()->role === 'admin')
+                        @if(in_array(Auth::user()->role, ['admin', 'super_admin']))
                             <div class="absolute right-8 top-8">
                                 <a href="{{ route('informasi.create') }}"
                                     class="bg-[#800000] hover:bg-[#660000]
@@ -115,7 +115,7 @@
 
                                 {{-- Button Edit Delete Informasi--}}
                                 @auth
-                                    @if(Auth::user()->role === 'admin')
+                                    @if(in_array(Auth::user()->role, ['admin', 'super_admin']))
                                         <div class="flex gap-2">
 
                                             {{-- Edit --}}
@@ -256,7 +256,7 @@
 
                         {{-- Button Edit Delete Jadwal --}}
                         @auth
-                            @if(Auth::user()->role === 'admin')
+                            @if(in_array(Auth::user()->role, ['admin', 'super_admin']))
                                 <div class="flex justify-center gap-3 mt-3">
 
                                     {{-- Edit --}}

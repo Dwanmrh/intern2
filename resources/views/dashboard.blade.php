@@ -7,7 +7,7 @@
             {{-- Header & Tombol Tambah --}}
             <div class="flex items-center justify-between mb-4 relative">
                 @auth
-                    @if(Auth::user()->role === 'admin')
+                    @if(in_array(Auth::user()->role, ['admin', 'super_admin']))
                         <div class="absolute right-0 -top-5">
                             <a href="{{ route('dashboard.create') }}"
                                class="bg-[#800000] hover:bg-[#660000]
@@ -86,7 +86,7 @@
 
                             {{-- Tombol Edit & Hapus --}}
                             @auth
-                                @if(Auth::user()->role === 'admin')
+                                @if(in_array(Auth::user()->role, ['admin', 'super_admin']))
                                     <div class="absolute top-3 right-3 flex gap-2 z-30">
 
                                         {{-- Edit Button --}}
@@ -213,7 +213,7 @@
             </div>
 
             {{-- Section Logo Link Terkait --}}
-            @if($links->count() || (Auth::check() && Auth::user()->role === 'admin'))
+            @if($links->count() || (Auth::check() && Auth::user()->role === 'admin, super_admin'))
                 <div class="mb-10 mt-8 shadow rounded-lg p-8 bg-white border-t-4 border-blue-400 text-center">
 
                     {{-- Header --}}
@@ -233,7 +233,7 @@
                         {{-- Tombol di kanan --}}
                         <div class="flex justify-end">
                             @auth
-                                @if(Auth::user()->role === 'admin')
+                                @if(in_array(Auth::user()->role, ['admin', 'super_admin']))
                                     <a href="{{ route('dashboard.link.create') }}"
                                        class="bg-[#800000] hover:bg-[#660000]
                                               text-white px-3 py-1.5 rounded-md text-sm shadow-md
@@ -269,7 +269,7 @@
 
                                 {{-- Tombol Edit / Hapus --}}
                                 @auth
-                                    @if(Auth::user()->role === 'admin')
+                                    @if(in_array(Auth::user()->role, ['admin', 'super_admin']))
                                         <div class="flex justify-center items-center gap-3 mt-2">
                                             {{-- Tombol Edit --}}
                                             <a href="{{ route('dashboard.link.edit', $link->id) }}"

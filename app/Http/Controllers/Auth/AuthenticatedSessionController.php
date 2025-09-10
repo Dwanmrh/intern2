@@ -30,7 +30,7 @@ class AuthenticatedSessionController extends Controller
         $request->validate([
             'email' => ['required','email'],
             'password' => ['required'],
-            'role' => ['required','in:siswa,personel,admin'],
+            'role' => ['required','in:siswa,personel,admin,super_admin'],
             'g-recaptcha-response' => ['required'],
         ]);
 

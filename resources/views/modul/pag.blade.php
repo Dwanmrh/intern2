@@ -91,7 +91,7 @@
 
                                         {{-- Aksi Edit & Hapus --}}
                                         @auth
-                                            @if(in_array(Auth::user()->role, ['admin', 'personel']))
+                                            @if(in_array(Auth::user()->role, ['admin', 'super_admin']))
                                                 <div class="flex justify-end gap-2 mt-2">
                                                     <a href="{{ route('modul.edit', $modul->id) }}" @click.stop
                                                     class="p-2 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 shadow-md transition" title="Edit">
@@ -174,7 +174,7 @@
 
     {{-- FLOATING BUTTON --}}
     @auth
-        @if(Auth::user()->role === 'admin')
+        @if(in_array(Auth::user()->role, ['admin', 'super_admin']))
             <a href="{{ route('modul.create', ['prodiklat' => 'PAG']) }}"
             class="fixed bottom-6 right-6 z-[9999] w-14 h-14 flex items-center justify-center
                     rounded-full shadow-xl text-white text-2xl

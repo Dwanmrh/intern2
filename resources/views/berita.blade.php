@@ -24,7 +24,7 @@
 
                 {{-- Tombol Tambah Data  --}}
                 @auth
-                    @if(Auth::user()->role === 'admin')
+                    @if(in_array(Auth::user()->role, ['admin', 'super_admin']))
                         <a href="{{ route('berita.create') }}"
                            class="absolute right-6 top-6
                                   bg-slate-500 hover:bg-slate-600
@@ -128,7 +128,7 @@
 
                                     {{-- Button Edit Delete --}}
                                     @auth
-                                        @if(Auth::user()->role === 'admin')
+                                        @if(in_array(Auth::user()->role, ['admin', 'super_admin']))
                                             <div class="flex gap-2">
                                                 {{-- Edit --}}
                                                 <a href="{{ route('berita.edit', $berita->id) }}"

@@ -20,7 +20,7 @@
 
                 {{-- Tombol Tambah Data (posisi kanan atas) --}}
                 @auth
-                    @if(Auth::user()->role === 'admin')
+                    @if(in_array(Auth::user()->role, ['admin', 'super_admin']))
                         <a href="{{ route('fasilitas.create') }}"
                         class="absolute right-6 top-6
                         bg-[#800000] hover:bg-[#660000]
@@ -65,7 +65,7 @@
 
                                 {{-- Aksi Edit & Hapus --}}
                                 @auth
-                                    @if(in_array(Auth::user()->role, ['admin', 'personel']))
+                                    @if(in_array(Auth::user()->role, ['admin', 'super_admin']))
                                         <div class="flex gap-2 mt-2">
                                             {{-- Tombol Edit --}}
                                             <a href="{{ route('fasilitas.edit', $item->id) }}" onclick="event.stopPropagation()"

@@ -82,6 +82,7 @@
                         <option value="siswa" {{ old('role') == 'siswa' ? 'selected' : '' }}>Siswa</option>
                         <option value="personel" {{ old('role') == 'personel' ? 'selected' : '' }}>Personel</option>
                         <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
+                        <option value="super_admin" {{ old('role') == 'super_admin' ? 'selected' : '' }}>Super Admin</option>
                     </select>
                     <x-input-error :messages="$errors->get('role')" class="mt-2" />
                 </div>
