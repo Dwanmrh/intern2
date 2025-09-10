@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Informasi;
+use App\Models\Jadwal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Smalot\PdfParser\Parser as PdfParser;
@@ -13,7 +14,9 @@ class InformasiController extends Controller
     public function index()
     {
         $informasi = Informasi::orderBy('tanggal', 'desc')->get();
-        return view('informasi', compact('informasi'));
+        $jadwals   = Jadwal::orderBy('tanggal', 'desc')->get();
+
+        return view('informasi', compact('informasi', 'jadwals'));
     }
 
     public function create()

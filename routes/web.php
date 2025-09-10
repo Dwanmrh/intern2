@@ -8,6 +8,7 @@ use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\InformasiController;
+use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\ModulController;
 
@@ -72,6 +73,7 @@ Route::get('/berita/{id}', [BeritaController::class, 'show'])->name('berita.show
 
 // INFORMASI READ (Publik)
 Route::get('/informasi', [InformasiController::class, 'index'])->name('informasi.index');
+Route::get('/jadwal', [JadwalController::class, 'index'])->name('jadwal.index');
 
 // INFORMASI CUD (Admin Only)
 Route::middleware(['auth', 'verified'])->prefix('informasi')->group(function () {
@@ -81,6 +83,9 @@ Route::middleware(['auth', 'verified'])->prefix('informasi')->group(function () 
     Route::put('/{id}', [InformasiController::class, 'update'])->name('informasi.update');
     Route::delete('/{id}', [InformasiController::class, 'destroy'])->name('informasi.destroy');
 });
+
+// INFORMASI JADWAL CUD (Admin Only)
+Route::resource('jadwal', JadwalController::class)->except(['index']);
 
 // FASDIK  READ (Publik)
 Route::get('/fasilitas', [FasilitasController::class, 'index'])->name('fasilitas.index');

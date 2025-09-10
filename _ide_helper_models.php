@@ -117,6 +117,27 @@ namespace App\Models{
 namespace App\Models{
 /**
  * @property int $id
+ * @property string $judul
+ * @property string $file
+ * @property string|null $tanggal
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Jadwal newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Jadwal newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Jadwal query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Jadwal whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Jadwal whereFile($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Jadwal whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Jadwal whereJudul($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Jadwal whereTanggal($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Jadwal whereUpdatedAt($value)
+ */
+	class Jadwal extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
  * @property string $nama
  * @property string $url
  * @property string|null $logo
