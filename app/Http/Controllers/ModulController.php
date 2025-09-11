@@ -142,25 +142,25 @@ class ModulController extends Controller
             'judul'     => 'required|string',
             'file'      => 'nullable|mimes:pdf|max:20000',
             'deskripsi' => 'nullable|string',
-            'prodiklat' => 'nullable|string',
+            'prodiklat' => 'required|string',
             'mapel'     => 'nullable|string',
             'tahun'     => 'nullable|digits:4',
         ]);
+
+        // ✅ simpan prodiklat lama sebelum update
+        $oldProdiklat = $modul->prodiklat;
 
         $data = $request->only([
             'judul','deskripsi','prodiklat','mapel','tahun'
         ]);
 
-        // ✅ Jika user upload file baru
         if ($request->hasFile('file')) {
             if ($modul->file) {
                 Storage::disk('public')->delete($modul->file);
             }
             $path = $request->file('file')->store('moduls', 'public');
             $data['file'] = $path;
-        }
-        // ✅ Jika user centang "hapus file ini"
-        elseif ($request->filled('hapus_file')) {
+        } elseif ($request->filled('hapus_file')) {
             if ($modul->file) {
                 Storage::disk('public')->delete($modul->file);
             }
@@ -169,7 +169,7 @@ class ModulController extends Controller
 
         $modul->update($data);
 
-        // 🔙 Redirect sesuai prodiklat
+        // ✅ redirect berdasarkan prodiklat BARU
         if ($modul->prodiklat === "SIP") {
             return redirect()->route('modul.sip')->with('success', 'Modul berhasil diperbarui.');
         } elseif ($modul->prodiklat === "PAG") {

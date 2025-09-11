@@ -19,26 +19,27 @@
                 {{-- Judul --}}
                 <div class="mb-3">
                     <label class="block text-white font-semibold mb-1">Judul</label>
-                    <input type="text" name="judul"
+                    <input type="text" id="judulInput" name="judul"
                            class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5
                                   focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
-                           required placeholder="Masukkan judul berita">
+                           placeholder="Masukkan judul berita">
+                    <small class="font-bold text-yellow-400 italic">Kosongkan jika ingin otomatis pakai nama file</small>
                 </div>
 
                 {{-- Berita --}}
                 <div class="mb-3">
                     <label class="block text-white font-semibold mb-1">Berita</label>
-                    <textarea name="isi_berita" rows="5"
+                    <textarea name="isi_berita" rows="5" id="deskripsiInput"
                               class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5
                                      focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
                               placeholder="Masukkan isi berita"></textarea>
-                    <small class="font-bold text-yellow-400 italic">Kosongkan jika menggunakan file</small>
+                    <small class="font-bold text-yellow-400 italic">Kosongkan jika menggunakan file PDF</small>
                 </div>
 
-                {{-- Upload File Word/PDF --}}
+                {{-- Upload File PDF --}}
                 <div class="mb-3">
                     <label class="block text-white font-semibold mb-1">Upload File (PDF)</label>
-                    <input type="file" name="file_berita" accept=".pdf"
+                    <input type="file" id="fileInput" name="file_berita" accept=".pdf"
                            class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5
                                   focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition">
                     <small class="font-bold text-yellow-400 italic">Kosongkan jika memasukkan isi berita | Max Size 23 MB</small>
@@ -93,13 +94,39 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/id.js"></script>
 
     <script>
-        // Flatpickr initialization
-        flatpickr("#tanggal", {
-            dateFormat: "d/m/Y",
-            locale: "id",
-        });
+        const fileInput = document.getElementById('fileInput');
+        const judulInput = document.getElementById('judulInput');
+        const deskripsiInput = document.getElementById('deskripsiInput');
 
-        // Foto preview functionality
+        function syncFormState() {
+            if (fileInput.files.length > 0) {
+                // Kunci deskripsi jika ada file PDF
+                deskripsiInput.value = "";
+                deskripsiInput.disabled = true;
+
+                // Auto isi judul dari nama file
+                if (judulInput.value.trim() === '') {
+                    let namaFile = fileInput.files[0].name.replace(/\.pdf$/i, '');
+                    judulInput.value = namaFile;
+                }
+            } else {
+                deskripsiInput.disabled = false;
+            }
+
+            if (deskripsiInput.value.trim() !== "") {
+                // Kunci upload file jika deskripsi diisi
+                fileInput.value = "";
+                fileInput.disabled = true;
+            } else {
+                fileInput.disabled = false;
+            }
+        }
+
+        // Event listener
+        fileInput.addEventListener('change', syncFormState);
+        deskripsiInput.addEventListener('input', syncFormState);
+
+        // Preview Foto
         document.getElementById('fotoInput').addEventListener('change', function (event) {
             const file = event.target.files[0];
             const previewContainer = document.getElementById('previewContainer');
@@ -116,6 +143,15 @@
                 fotoPreview.src = "";
                 previewContainer.classList.add('hidden');
             }
+        });
+
+        // Init awal
+        syncFormState();
+
+        // Flatpickr initialization
+        flatpickr("#tanggal", {
+            dateFormat: "d/m/Y",
+            locale: "id",
         });
     </script>
 </x-app-layout>

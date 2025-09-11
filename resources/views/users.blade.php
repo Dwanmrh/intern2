@@ -8,7 +8,7 @@
             <div class="relative bg-gray-50 backdrop-blur-md rounded-xl shadow-lg px-6 py-4 mb-8 overflow-hidden">
 
                 {{-- Judul Header --}}
-                <div class="text-center">
+                <div class="text-center mb-6">
                     <h2 class="text-lg md:text-xl lg:text-lg font-bold text-white inline-flex items-center gap-2
                                 bg-gradient-to-r from-slate-700 via-slate-600 to-slate-800
                                 px-4 py-1 rounded-xl shadow-md">
@@ -17,29 +17,62 @@
                     </h2>
                 </div>
 
-                {{-- Tombol Tambah & Hapus Semua --}}
+                {{-- FILTER & SEARCH + ACTION BUTTONS (super_admin only) --}}
                 @auth
                     @if(Auth::user()->role === 'super_admin')
-                        <div class="absolute right-6 top-6 flex gap-2">
-                            {{-- Tambah User --}}
-                            <a href="{{ route('users.create') }}"
-                                class="bg-[#800000] hover:bg-[#660000]
-                                    text-white px-3 py-1.5 rounded-md text-sm shadow-md
-                                    transition duration-300 ease-in-out inline-flex items-center">
-                                <i class="bi bi-plus-circle text-sm mr-1"></i>
-                                Tambah User
-                            </a>
+                        <div class="flex flex-wrap items-center justify-between gap-3">
 
-                            {{-- Hapus Semua User --}}
-                            <button type="button"
-                                class="bg-red-600 hover:bg-red-700
-                                    text-white px-3 py-1.5 rounded-md text-sm shadow-md
-                                    transition duration-300 ease-in-out inline-flex items-center"
-                                data-bs-toggle="modal"
-                                data-bs-target="#hapusSemuaUserModal">
-                                <i class="bi bi-trash3 mr-1"></i>
-                                Hapus Semua
-                            </button>
+                            {{-- Filter & Search --}}
+                            <form method="GET" action="{{ route('users.index') }}" class="flex flex-wrap items-center gap-3">
+
+                                {{-- Filter Role --}}
+                                <select name="role"
+                                        class="form-select text-sm rounded-lg w-auto min-w-[120px] max-w-[160px]
+                                            bg-gray-100 text-gray-800 border border-gray-100
+                                            focus:border-blue-500 focus:ring-blue-400">
+                                    <option value="">Semua Role</option>
+                                    <option value="super_admin" {{ request('role')=='super_admin' ? 'selected' : '' }}>Super Admin</option>
+                                    <option value="admin" {{ request('role')=='admin' ? 'selected' : '' }}>Admin</option>
+                                    <option value="personel" {{ request('role')=='personel' ? 'selected' : '' }}>Personel</option>
+                                    <option value="siswa" {{ request('role')=='siswa' ? 'selected' : '' }}>Siswa</option>
+                                </select>
+
+                                {{-- Input Search --}}
+                                <input type="text" name="search"
+                                    value="{{ request('search') }}"
+                                    placeholder="Cari nama atau email..."
+                                    class="form-input text-sm rounded-lg w-56
+                                            bg-gray-100 text-gray-800 border border-gray-100
+                                            focus:border-blue-500 focus:ring-blue-400"/>
+
+                                {{-- Tombol Search --}}
+                                <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg shadow transition">
+                                    <i class="bi bi-search mr-1"></i> Search
+                                </button>
+                            </form>
+
+                            {{-- Action Buttons --}}
+                            <div class="flex gap-2">
+                                {{-- Tambah User --}}
+                                <a href="{{ route('users.create') }}"
+                                    class="bg-[#800000] hover:bg-[#660000]
+                                        text-white px-3 py-1.5 rounded-md text-sm shadow-md
+                                        transition duration-300 ease-in-out inline-flex items-center">
+                                    <i class="bi bi-plus-circle text-sm mr-1"></i>
+                                    Tambah User
+                                </a>
+
+                                {{-- Hapus Semua User --}}
+                                <button type="button"
+                                    class="bg-red-600 hover:bg-red-700
+                                        text-white px-3 py-1.5 rounded-md text-sm shadow-md
+                                        transition duration-300 ease-in-out inline-flex items-center"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#hapusSemuaUserModal">
+                                    <i class="bi bi-trash3 mr-1"></i>
+                                    Hapus Semua
+                                </button>
+                            </div>
                         </div>
                     @endif
                 @endauth

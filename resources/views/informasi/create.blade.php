@@ -22,14 +22,14 @@
                     <label class="block text-white font-semibold mb-1">Judul</label>
                     <input type="text" id="judulInput" name="judul"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
-                        placeholder="Kosongkan jika ingin pakai nama file PDF">
+                        placeholder="Masukkan judul informasi">
                     <small class="font-bold text-yellow-400 italic">Kosongkan jika ingin otomatis pakai nama file</small>
                 </div>
 
                 {{-- Deskripsi --}}
                 <div class="mb-3">
                     <label class="block text-white font-semibold mb-1">Deskripsi</label>
-                    <textarea name="deskripsi" rows="5"
+                    <textarea name="deskripsi" rows="5" id="deskripsiInput"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
                         placeholder="Masukkan deskripsi informasi"></textarea>
                     <small class="font-bold text-yellow-400 italic">Kosongkan jika menggunakan file PDF</small>
@@ -80,8 +80,40 @@
                 </div>
             </form>
 
-            {{-- Script Preview Foto + Auto Judul --}}
+            {{-- Script Preview Foto + Auto Judul + Locking --}}
             <script>
+                const fileInput = document.getElementById('fileInput');
+                const judulInput = document.getElementById('judulInput');
+                const deskripsiInput = document.getElementById('deskripsiInput');
+
+                function syncFormState() {
+                    if (fileInput.files.length > 0) {
+                        // Kunci deskripsi jika ada file PDF
+                        deskripsiInput.value = "";
+                        deskripsiInput.disabled = true;
+
+                        // Auto isi judul dari nama file
+                        if (judulInput.value.trim() === '') {
+                            let namaFile = fileInput.files[0].name.replace(/\.pdf$/i, '');
+                            judulInput.value = namaFile;
+                        }
+                    } else {
+                        deskripsiInput.disabled = false;
+                    }
+
+                    if (deskripsiInput.value.trim() !== "") {
+                        // Kunci upload file jika deskripsi diisi
+                        fileInput.value = "";
+                        fileInput.disabled = true;
+                    } else {
+                        fileInput.disabled = false;
+                    }
+                }
+
+                // Event listener
+                fileInput.addEventListener('change', syncFormState);
+                deskripsiInput.addEventListener('input', syncFormState);
+
                 // Preview Foto
                 document.getElementById('fotoInput').addEventListener('change', function (event) {
                     const file = event.target.files[0];
@@ -101,16 +133,8 @@
                     }
                 });
 
-                // Auto isi judul dari nama file PDF
-                document.getElementById('fileInput').addEventListener('change', function (event) {
-                    const file = event.target.files[0];
-                    const judulInput = document.getElementById('judulInput');
-
-                    if (file && file.name.endsWith('.pdf') && judulInput.value.trim() === '') {
-                        let namaFile = file.name.replace(/\.pdf$/i, '');
-                        judulInput.value = namaFile;
-                    }
-                });
+                // Init awal
+                syncFormState();
             </script>
 
             {{-- Flatpickr --}}

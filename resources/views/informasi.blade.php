@@ -44,7 +44,7 @@
                     </h2>
 
                     @auth
-                        @if(Auth::user()->role === 'admin')
+                        @if(in_array(Auth::user()->role, ['admin','super_admin']))
                             <div class="absolute right-8 top-8">
                                 <a href="{{ route('informasi.create') }}"
                                     class="bg-[#800000] hover:bg-[#660000]
@@ -115,7 +115,7 @@
 
                                 {{-- Button Edit Delete Informasi--}}
                                 @auth
-                                    @if(Auth::user()->role === 'admin')
+                                    @if(in_array(Auth::user()->role, ['admin','super_admin']))
                                         <div class="flex gap-2">
 
                                             {{-- Edit --}}
@@ -215,11 +215,11 @@
                     CLASS SCHEDULE
                 </h2>
             </div>
-            
+
             {{-- Card Jadwal --}}
             <div class="max-w-4xl mx-auto">
                 <div class="bg-white shadow-lg rounded-2xl overflow-hidden border border-gray-200">
-                    
+
                     {{-- Header --}}
                     <div class=" bg-gradient-to-r from-[#1E293B] to-[#2C3E50]
                                 p-4 flex items-center justify-between">
@@ -243,30 +243,30 @@
                         </div>
 
                         {{-- Kanan: Tombol Tambah --}}
-                        @auth
-                            <a 
+                        @if(in_array(Auth::user()->role, ['admin','super_admin']))
+                            <a
                                 @if($jadwals->count() == 0)
                                     href="{{ route('jadwal.create') }}"
                                 @else
-                                    href="javascript:void(0);" 
+                                    href="javascript:void(0);"
                                     onclick="showJadwalAlert()"
                                 @endif
                                 class="bg-[#800000] hover:bg-[#660000] text-white px-3 py-2 rounded-md text-sm shadow-md transition">
                                 <i class="bi bi-plus-circle text-base"></i>
                                 Tambah Jadwal
                             </a>
-                        @endauth
+                        @endif
                     </div>
 
                     {{-- Body --}}
                     <div class="p-6 bg-gray-50 text-center text-gray-600">
-                        @if($jadwals->isNotEmpty())
+                        @if($jadwals->isNotEmpty() && $jadwals->first()->file && file_exists(public_path('storage/'.$jadwals->first()->file)))
                             {{-- Preview PDF --}}
                             <iframe src="{{ asset('storage/'.$jadwals->first()->file) }}"
                                     class="w-full h-[500px] rounded-md border border-gray-300 shadow-sm"
                                     frameborder="0"></iframe>
                         @else
-                            <p class="italic">Belum ada jadwal yang ditambahkan.</p>
+                            <p class="text-base italic text-red-600">File jadwal tidak tersedia atau belum diupload.</p>
                         @endif
                     </div>
 
@@ -281,7 +281,7 @@
 
                             {{-- Aksi Edit & Hapus --}}
                             @auth
-                                @if(in_array(Auth::user()->role, ['admin','personel']))
+                                @if(in_array(Auth::user()->role, ['admin','super_admin']))
                                     <div class="flex justify-end gap-2">
                                         {{-- Tombol Edit --}}
                                         <a href="{{ route('jadwal.edit', $jadwals->first()->id) }}" @click.stop

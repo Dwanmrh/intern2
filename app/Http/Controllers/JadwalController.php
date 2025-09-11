@@ -26,7 +26,7 @@ class JadwalController extends Controller
         $request->validate([
             'judul'   => 'required|string|max:255',
             'tanggal' => 'required|date_format:d/m/Y',
-            'file'    => 'required|mimes:pdf,doc,docx,xlsx|max:20480',
+            'file'    => 'required|mimes:pdf|max:10000',
         ]);
 
         // Format tanggal ke Y-m-d
@@ -54,7 +54,7 @@ class JadwalController extends Controller
         $request->validate([
             'judul'   => 'required|string|max:255',
             'tanggal' => 'required|date_format:d/m/Y',
-            'file'    => 'nullable|mimes:pdf,doc,docx,xlsx|max:20480',
+            'file'    => 'nullable|mimes:pdf|max:10000',
         ]);
 
         $tanggal = Carbon::createFromFormat('d/m/Y', trim($request->tanggal))->format('Y-m-d');

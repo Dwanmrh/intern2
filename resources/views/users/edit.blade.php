@@ -72,7 +72,7 @@
                     <button type="submit"
                             class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-md
                                    shadow-md hover:shadow-lg transition">
-                        Update
+                        Perbarui
                     </button>
 
                     <a href="{{ route('users.index') }}"

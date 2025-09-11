@@ -97,7 +97,7 @@
 
                                         {{-- Aksi Edit & Hapus --}}
                                         @auth
-                                            @if(in_array(Auth::user()->role, ['admin', 'personel']))
+                                            @if(in_array(Auth::user()->role, ['admin', 'super_admin']))
                                                 <div class="flex justify-end gap-2 mt-2">
                                                     {{-- Tombol Edit --}}
                                                     <a href="{{ route('modul.edit', $modul->id) }}" @click.stop
@@ -135,9 +135,55 @@
         </div>
     </div>
 
+    {{-- Modal Hapus Modul PAG --}}
+    @foreach ($moduls as $modul)
+        <div class="modal fade" id="hapusModulModal{{ $modul->id }}" tabindex="-1"
+            aria-labelledby="hapusLabel{{ $modul->id }}" aria-hidden="true" style="z-index:1050;">
+            <div class="modal-dialog modal-dialog-centered custom-modal">
+                <div class="modal-content rounded-2xl shadow-lg border-0">
+
+                    {{-- Header --}}
+                    <div class="modal-header bg-red-600 text-white rounded-t-2xl py-2 px-3">
+                        <h5 class="modal-title d-flex align-items-center gap-2 fs-6" id="hapusLabel{{ $modul->id }}">
+                            <i class="bi bi-exclamation-triangle-fill text-warning fs-5"></i>
+                            Konfirmasi Hapus
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white"
+                                data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    {{-- Body --}}
+                    <div class="modal-body text-center py-3 px-3">
+                        <i class="bi bi-trash3-fill text-danger fs-3 mb-2"></i>
+                        <p class="fw-semibold text-gray-700 mt-4 mb-2" style="font-size: 0.9rem;">
+                            Apakah anda yakin ingin menghapus modul <br>
+                            <span class="text-danger">"{{ $modul->judul }}"</span>?
+                        </p>
+                    </div>
+
+                    {{-- Footer --}}
+                    <div class="modal-footer d-flex justify-content-center gap-2 border-0 pb-3">
+                        <form action="{{ route('modul.destroy', $modul->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm px-3 py-1 rounded-pill shadow-sm">
+                                Hapus
+                            </button>
+                        </form>
+                        <button type="button"
+                                class="btn btn-primary btn-sm px-3 py-1 rounded-pill shadow-sm"
+                                data-bs-dismiss="modal">
+                            Batal
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+
     {{-- FLOATING BUTTON --}}
     @auth
-        @if(Auth::user()->role === 'admin')
+        @if(in_array(Auth::user()->role, ['admin', 'super_admin']))
             <a href="{{ route('modul.create', ['prodiklat' => 'PAG']) }}"
             class="fixed bottom-6 right-6 z-[9999] w-14 h-14 flex items-center justify-center
                     rounded-full shadow-xl text-white text-2xl

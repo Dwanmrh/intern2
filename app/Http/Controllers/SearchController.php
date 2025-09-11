@@ -8,7 +8,6 @@ use App\Models\Profil;
 use App\Models\Berita;
 use App\Models\Informasi;
 use App\Models\Fasilitas;
-use App\Models\Modul;
 
 class SearchController extends Controller
 {
@@ -63,40 +62,12 @@ class SearchController extends Controller
                 'category' => 'FASDIK'
             ]);
 
-        $modul = Modul::where('judul', 'like', "%{$query}%")
-        ->orWhere('deskripsi', 'like', "%{$query}%")
-        ->select('id', 'judul as title', 'prodiklat')
-        ->get()
-        ->map(function ($item) {
-            if (!auth()->check()) {
-                return [
-                    'title' => $item->title,
-                    'url' => route('login'), // arahkan ke login
-                    'category' => 'Modul (Harus Login)'
-                ];
-            }
-
-            // Tentukan route berdasarkan prodiklat
-            $baseUrl = match (strtoupper($item->prodiklat)) {
-                'SIP' => route('modul.sip'),
-                'PAG' => route('modul.pag'),
-                default => route('modul.index'),
-            };
-
-            return [
-                'title' => $item->title,
-                'url' => $baseUrl . "#modul{$item->id}",
-                'category' => strtoupper($item->prodiklat ?? 'Modul')
-            ];
-        });
-
         $results = collect()
             ->merge($dashboard)
             ->merge($profil)
             ->merge($berita)
             ->merge($informasi)
             ->merge($fasilitas)
-            ->merge($modul)
             ->unique('url')
             ->values();
 

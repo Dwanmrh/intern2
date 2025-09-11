@@ -49,7 +49,7 @@ class FasilitasController extends Controller
 
         Fasilitas::create($data);
 
-        return redirect()->route('fasilitas.index')->with('success', 'Fasilitas berhasil ditambahkan');
+        return redirect()->route('fasilitas.index')->with('success', 'Fasdik berhasil ditambahkan');
     }
 
     public function edit($id)
@@ -102,7 +102,7 @@ class FasilitasController extends Controller
 
         $fasilitas->update($data);
 
-        return redirect()->route('fasilitas.index')->with('success', 'Fasilitas berhasil diperbarui');
+        return redirect()->route('fasilitas.index')->with('success', 'Fasdik berhasil diperbarui');
     }
 
     public function destroy($id)
@@ -114,6 +114,6 @@ class FasilitasController extends Controller
         }
 
         $fasilitas->delete();
-        return redirect()->route('fasilitas.index')->with('success', 'Fasilitas berhasil dihapus');
+        return redirect()->route('fasilitas.index')->with('success', 'Fasdik berhasil dihapus');
     }
 }

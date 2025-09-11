@@ -22,7 +22,7 @@
                     <label class="block text-white font-semibold mb-1">Judul</label>
                     <input type="text" id="judulInput" name="judul"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
-                        placeholder="Kosongkan jika ingin pakai nama file PDF">
+                        placeholder="Masukkan judul jadwal">
                     <small class="font-bold text-yellow-400 italic">Kosongkan jika ingin otomatis pakai nama file</small>
                 </div>
 
@@ -40,7 +40,7 @@
                     <label class="block text-white font-semibold mb-1">Upload File (PDF)</label>
                     <input type="file" id="fileInput" name="file" accept=".pdf"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition" required>
-                    <small class="font-bold text-yellow-400 italic">Wajib diisi | Max Size 15 MB</small>
+                    <small class="font-bold text-yellow-400 italic">Wajib diisi | Max Size 10 MB</small>
                 </div>
 
                 {{-- Tombol --}}

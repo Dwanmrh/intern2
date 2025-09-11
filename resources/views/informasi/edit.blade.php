@@ -23,27 +23,26 @@
                 {{-- Judul --}}
                 <div class="mb-3">
                     <label class="block text-white font-semibold mb-1">Judul</label>
-                    <input type="text" name="judul" id="judulInput" value="{{ old('judul', $informasi->judul) }}"
-                        class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        placeholder="Kosongkan jika ingin otomatis dari nama file">
-                    <small class="font-bold text-yellow-400 italic">Kosongkan jika ingin otomatis dari nama file</small>
+                    <input type="text" id="judulInput" name="judul"
+                        value="{{ old('judul', $informasi->judul) }}"
+                        class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
+                        placeholder="Masukkan judul informasi">
+                    <small class="font-bold text-yellow-400 italic">Kosongkan jika ingin otomatis pakai nama file</small>
                 </div>
 
                 {{-- Deskripsi --}}
                 <div class="mb-3">
                     <label class="block text-white font-semibold mb-1">Deskripsi</label>
-                    <textarea name="deskripsi" rows="5"
+                    <textarea name="deskripsi" rows="5" id="deskripsiInput"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
-                        placeholder="Masukkan deskripsi">{{ old('deskripsi', $informasi->deskripsi) }}</textarea>
-                    <small class="font-bold text-yellow-400 italic">Kosongkan jika menggunakan file</small>
+                        placeholder="Masukkan deskripsi informasi">{{ old('deskripsi', $informasi->deskripsi) }}</textarea>
+                    <small class="font-bold text-yellow-400 italic">Kosongkan jika menggunakan file PDF</small>
                 </div>
 
                 {{-- File Sebelumnya --}}
                 @if ($informasi->file_informasi)
-                    <div class="mb-4">
+                    <div class="mb-3">
                         <label class="block text-white font-semibold mb-1">File Informasi Saat Ini</label>
-
-                        {{-- Link lihat file --}}
                         <a href="{{ asset('storage/' . $informasi->file_informasi) }}" target="_blank"
                             class="text-blue-300 underline hover:text-blue-400 transition">Lihat File</a>
 
@@ -51,21 +50,19 @@
                         <div class="mt-2 flex items-center bg-red-600/20 px-3 py-2 rounded-lg">
                             <input type="checkbox" name="hapus_file" id="hapus_file" value="1"
                                 class="mr-2 rounded border-red-500 text-red-600 focus:ring-red-500">
-                            <label for="hapus\_file" class="text-red-500 font-semibold hover:text-red-400 transition">
+                            <label for="hapus_file" class="text-red-500 font-semibold hover:text-red-400 transition">
                                 Hapus file ini
                             </label>
                         </div>
                     </div>
                 @endif
 
-                {{-- Upload File Baru --}}
+                {{-- Upload File PDF Baru --}}
                 <div class="mb-3">
                     <label class="block text-white font-semibold mb-1">Upload File (PDF)</label>
-                    <input type="file" name="file_informasi" id="fileInput" accept=".pdf"
+                    <input type="file" id="fileInput" name="file_informasi" accept=".pdf"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition">
-                    <small class="font-bold text-yellow-400 italic">
-                        Kosongkan jika memasukkan deskripsi | Max Size 15 MB
-                    </small>
+                    <small class="font-bold text-yellow-400 italic">Kosongkan jika memasukkan deskripsi | Max Size 15 MB</small>
                 </div>
 
                 {{-- Tanggal --}}
@@ -75,6 +72,7 @@
                         value="{{ old('tanggal', $informasi->tanggal) }}"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
                         required placeholder="Format: DD/MM/YYYY">
+                    <small class="font-bold text-yellow-400 italic">Tanggal Wajib Diisi</small>
                 </div>
 
                 {{-- Foto Lama --}}
@@ -83,7 +81,6 @@
                         <label class="block text-white font-semibold mb-1">Foto Saat Ini</label>
                         <img src="{{ asset('storage/' . $informasi->foto) }}" class="w-40 rounded-md shadow-md mb-2">
 
-                        {{-- Checkbox Hapus Foto Lama --}}
                         <div class="flex items-center space-x-2 bg-red-600/20 px-3 py-2 rounded-lg">
                             <input type="checkbox" id="hapusFoto" name="hapus_foto" value="1"
                                 class="w-4 h-4 text-red-600 border-red-500 rounded focus:ring-red-500">
@@ -95,15 +92,15 @@
                 @endif
 
                 {{-- Ganti Foto --}}
-                <div class="mb-4">
+                <div class="mb-3">
                     <label class="block text-white font-semibold mb-1">Ganti Foto (Opsional)</label>
                     <input type="file" name="foto" id="fotoInput"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-2 shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-400">
                         <small class="font-bold text-yellow-400 italic">Max Size 23 MB</small>
 
-                    {{-- Preview Foto Baru --}}
+                    {{-- Preview --}}
                     <div id="previewContainer" class="mt-3 hidden">
-                        <p class="text-white text-sm mb-1">Preview Foto Baru:</p>
+                        <p class="text-white text-sm mb-1">Preview:</p>
                         <img id="fotoPreview" src="" alt="Preview Foto" class="w-40 rounded-md shadow-md">
                     </div>
                 </div>
@@ -122,67 +119,83 @@
                 </div>
             </form>
 
-            {{-- Script: auto-fill judul dari nama file + preview foto --}}
+            {{-- Script File --}}
             <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    const fileInput = document.getElementById('fileInput');
-                    const judulInput = document.getElementById('judulInput');
-                    const autoMsg = document.getElementById('autoMsg');
+                const fileInput = document.getElementById('fileInput');
+                const judulInput = document.getElementById('judulInput');
+                const deskripsiInput = document.getElementById('deskripsiInput');
+                const hapusFileCheckbox = document.getElementById('hapus_file');
 
-                    const fotoInput = document.getElementById('fotoInput');
-                    const previewContainer = document.getElementById('previewContainer');
-                    const fotoPreview = document.getElementById('fotoPreview');
-
-                    // Auto-fill judul saat pilih file PDF (setiap kali user memilih file)
-                    if (fileInput) {
-                        fileInput.addEventListener('change', function (event) {
-                            const file = event.target.files && event.target.files[0];
-                            if (!file) return;
-
-                            // Ambil nama file tanpa ekstensi
-                            let name = file.name.replace(/\.[^/.]+$/, "");
-
-                            // Bersihkan nama: ubah underscore/dash jadi spasi, trim
-                            name = name.replace(/[_-]+/g, ' ').trim();
-
-                            // Decode jika perlu
-                            try { name = decodeURIComponent(name); } catch (e) { /* ignore */ }
-
-                            // Set ke input judul (menimpa apa pun yang ada) — user masih bisa edit
-                            if (judulInput) {
-                                judulInput.value = name;
-                                if (autoMsg) autoMsg.classList.remove('hidden');
-                            }
-                        });
+                function syncFormState() {
+                    // Jika centang hapus file lama → deskripsi harus enable lagi
+                    if (hapusFileCheckbox && hapusFileCheckbox.checked) {
+                        fileInput.value = "";      // kosongkan file input
+                        fileInput.disabled = false; // tetap boleh upload file baru kalau mau
+                        deskripsiInput.disabled = false; // aktifkan deskripsi
+                        return; // langsung keluar supaya prioritas hapus file jalan dulu
                     }
 
-                    // Preview foto baru (jika ada)
-                    if (fotoInput) {
-                        fotoInput.addEventListener('change', function (event) {
-                            const file = event.target.files && event.target.files[0];
-                            if (file) {
-                                const reader = new FileReader();
-                                reader.onload = function (e) {
-                                    fotoPreview.src = e.target.result;
-                                    previewContainer.classList.remove('hidden');
-                                };
-                                reader.readAsDataURL(file);
-                            } else {
-                                fotoPreview.src = '';
-                                previewContainer.classList.add('hidden');
-                            }
-                        });
+                    // Jika upload file baru → disable deskripsi
+                    if (fileInput.files.length > 0) {
+                        deskripsiInput.value = "";
+                        deskripsiInput.disabled = true;
+
+                        if (judulInput.value.trim() === '') {
+                            let namaFile = fileInput.files[0].name.replace(/\.pdf$/i, '');
+                            judulInput.value = namaFile;
+                        }
+                    } else {
+                        deskripsiInput.disabled = false;
                     }
-                });
+
+                    // Jika deskripsi diisi → kunci upload file
+                    if (deskripsiInput.value.trim() !== "") {
+                        fileInput.value = "";
+                        fileInput.disabled = true;
+                    } else {
+                        fileInput.disabled = false;
+                    }
+                }
+
+                fileInput.addEventListener('change', syncFormState);
+                deskripsiInput.addEventListener('input', syncFormState);
+
+                if (hapusFileCheckbox) {
+                    hapusFileCheckbox.addEventListener('change', syncFormState);
+                }
+
+                // Init awal
+                syncFormState();
             </script>
 
-            {{-- Flatpickr --}}
+            {{-- Script Flatpickr --}}
             <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
             <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/id.js"></script>
             <script>
                 flatpickr("#tanggal", {
                     dateFormat: "d/m/Y",
                     locale: "id",
+                });
+            </script>
+
+            {{-- Script Preview --}}
+            <script>
+                document.getElementById('fotoInput').addEventListener('change', function (event) {
+                    const file = event.target.files[0];
+                    const previewContainer = document.getElementById('previewContainer');
+                    const fotoPreview = document.getElementById('fotoPreview');
+
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            fotoPreview.src = e.target.result;
+                            previewContainer.classList.remove('hidden');
+                        };
+                        reader.readAsDataURL(file);
+                    } else {
+                        fotoPreview.src = "";
+                        previewContainer.classList.add('hidden');
+                    }
                 });
             </script>
         </div>

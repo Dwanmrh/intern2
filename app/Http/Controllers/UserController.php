@@ -8,10 +8,32 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    // Tampilkan semua user
-    public function index()
+    // Tampilkan semua user + filter + search
+    public function index(Request $request)
     {
-        $users = User::orderByRaw("
+        // hanya super_admin yang bisa akses manage users
+        if (auth()->user()->role !== 'super_admin') {
+            abort(403, 'Unauthorized');
+        }
+
+        $query = User::query();
+
+        // Filter berdasarkan role
+        if ($request->filled('role')) {
+            $query->where('role', $request->role);
+        }
+
+        // Search berdasarkan nama atau email
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%");
+            });
+        }
+
+        // Urutkan role lalu nama
+        $users = $query->orderByRaw("
             FIELD(role, 'super_admin', 'admin', 'personel', 'siswa')
         ")->orderBy('name', 'asc')->get();
 
@@ -77,6 +99,7 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', 'User berhasil dihapus.');
     }
 
+    // Hapus semua user kecuali yang login
     public function destroyAll()
     {
         $currentUserId = auth()->id();
@@ -85,5 +108,4 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('success', 'Semua user berhasil dihapus kecuali akun Anda sendiri.');
     }
-
 }

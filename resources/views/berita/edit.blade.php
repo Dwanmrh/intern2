@@ -20,45 +20,45 @@
                 {{-- Judul --}}
                 <div class="mb-3">
                     <label class="block text-white font-semibold mb-1">Judul</label>
-                    <input type="text" name="judul" value="{{ $berita->judul }}"
+                    <input type="text" id="judulInput" name="judul" value="{{ old('judul', $berita->judul) }}"
                            class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5
                                   focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
-                           required placeholder="Masukkan judul berita">
+                           placeholder="Masukkan judul berita">
+                    <small class="font-bold text-yellow-400 italic">Kosongkan jika ingin otomatis pakai nama file</small>
                 </div>
 
                 {{-- Berita --}}
                 <div class="mb-3">
                     <label class="block text-white font-semibold mb-1">Berita</label>
-                    <textarea name="isi_berita"
+                    <textarea name="isi_berita" id="isiBeritaInput" rows="5"
                               class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5
                                      focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
-                              placeholder="Masukkan isi berita">{{ $berita->isi_berita }}</textarea>
-                    <small class="font-bold text-yellow-400 italic">Kosongkan isi berita jika menggunakan file</small>
+                              placeholder="Masukkan isi berita">{{ old('isi_berita', $berita->isi_berita) }}</textarea>
+                    <small class="font-bold text-yellow-400 italic">Kosongkan isi berita jika menggunakan file PDF</small>
                 </div>
 
                 {{-- File Sebelumnya --}}
                 @if ($berita->file_berita)
                     <div class="mb-4">
                         <label class="block text-white font-semibold mb-1">File Berita Saat Ini</label>
-
-                        {{-- Link lihat file --}}
                         <a href="{{ asset('storage/' . $berita->file_berita) }}" target="_blank"
                            class="text-blue-300 underline hover:text-blue-400 transition">Lihat File</a>
 
-                        {{-- Checkbox hapus file Berita --}}
+                        {{-- Checkbox hapus file --}}
                         <div class="mt-2 flex items-center bg-red-600/20 px-3 py-2 rounded-lg">
                             <input type="checkbox" name="hapus_file" id="hapus_file" value="1"
-                            class="mr-2 rounded border-red-500 text-red-600 focus:ring-red-500">
-                            <label for="hapus\_file" class="text-red-500 font-semibold hover:text-red-400 transition">
-                            Hapus file ini
-                        </label>
+                                class="mr-2 rounded border-red-500 text-red-600 focus:ring-red-500">
+                            <label for="hapus_file" class="text-red-500 font-semibold hover:text-red-400 transition">
+                                Hapus file ini
+                            </label>
+                        </div>
                     </div>
                 @endif
 
                 {{-- Upload File Baru --}}
                 <div class="mb-3">
                     <label class="block text-white font-semibold mb-1">Upload File (PDF)</label>
-                    <input type="file" name="file_berita" accept=".pdf"
+                    <input type="file" id="fileInput" name="file_berita" accept=".pdf"
                            class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5
                                   focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition">
                     <small class="font-bold text-yellow-400 italic">Kosongkan upload file jika memasukkan isi berita | Max File 15 MB</small>
@@ -67,8 +67,7 @@
                 {{-- Tanggal --}}
                 <div class="mb-3">
                     <label class="block text-white font-semibold mb-1">Tanggal</label>
-                    <input type="text" name="tanggal" id="tanggal"
-                           value="{{ $berita->tanggal }}"
+                    <input type="text" name="tanggal" id="tanggal" value="{{ old('tanggal', $berita->tanggal) }}"
                            class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5
                                   focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition"
                            required placeholder="Format: DD/MM/YYYY">
@@ -81,7 +80,6 @@
                         <label class="block text-white font-semibold mb-1">Foto Saat Ini</label>
                         <img src="{{ asset('storage/' . $berita->foto) }}" class="w-40 rounded-md shadow-md mb-2">
 
-                        {{-- Checkbox Hapus Foto Lama Berita --}}
                         <div class="flex items-center space-x-2 bg-red-600/20 px-3 py-2 rounded-lg">
                             <input type="checkbox" id="hapusFoto" name="hapus_foto" value="1"
                                 class="w-4 h-4 text-red-600 border-red-500 rounded focus:ring-red-500">
@@ -129,15 +127,55 @@
     {{-- Scripts --}}
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/id.js"></script>
-
     <script>
-        // Flatpickr initialization
+        // Flatpickr
         flatpickr("#tanggal", {
             dateFormat: "d/m/Y",
             locale: "id",
         });
 
-        // Foto preview functionality
+        // Sinkronisasi form: file <-> isi_berita
+        const fileInput = document.getElementById('fileInput');
+        const isiBeritaInput = document.getElementById('isiBeritaInput');
+        const judulInput = document.getElementById('judulInput');
+        const hapusFileCheckbox = document.getElementById('hapus_file');
+
+        function syncFormState() {
+            if (hapusFileCheckbox && hapusFileCheckbox.checked) {
+                fileInput.value = "";
+                fileInput.disabled = false;
+                isiBeritaInput.disabled = false;
+                return;
+            }
+
+            if (fileInput.files.length > 0) {
+                isiBeritaInput.value = "";
+                isiBeritaInput.disabled = true;
+
+                if (judulInput.value.trim() === '') {
+                    let namaFile = fileInput.files[0].name.replace(/\.pdf$/i, '');
+                    judulInput.value = namaFile;
+                }
+            } else {
+                isiBeritaInput.disabled = false;
+            }
+
+            if (isiBeritaInput.value.trim() !== "") {
+                fileInput.value = "";
+                fileInput.disabled = true;
+            } else {
+                fileInput.disabled = false;
+            }
+        }
+
+        fileInput.addEventListener('change', syncFormState);
+        isiBeritaInput.addEventListener('input', syncFormState);
+        if (hapusFileCheckbox) {
+            hapusFileCheckbox.addEventListener('change', syncFormState);
+        }
+        syncFormState();
+
+        // Preview foto
         document.getElementById('fotoInput').addEventListener('change', function (event) {
             const file = event.target.files[0];
             const previewContainer = document.getElementById('previewContainer');
