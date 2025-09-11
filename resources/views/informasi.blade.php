@@ -243,19 +243,21 @@
                         </div>
 
                         {{-- Kanan: Tombol Tambah --}}
-                        @if(in_array(Auth::user()->role, ['admin','super_admin']))
-                            <a
-                                @if($jadwals->count() == 0)
-                                    href="{{ route('jadwal.create') }}"
-                                @else
-                                    href="javascript:void(0);"
-                                    onclick="showJadwalAlert()"
-                                @endif
-                                class="bg-[#800000] hover:bg-[#660000] text-white px-3 py-2 rounded-md text-sm shadow-md transition">
-                                <i class="bi bi-plus-circle text-base"></i>
-                                Tambah Jadwal
-                            </a>
-                        @endif
+                        @auth
+                            @if(in_array(Auth::user()->role, ['admin','super_admin']))
+                                <a
+                                    @if($jadwals->count() == 0)
+                                        href="{{ route('jadwal.create') }}"
+                                    @else
+                                        href="javascript:void(0);"
+                                        onclick="showJadwalAlert()"
+                                    @endif
+                                    class="bg-[#800000] hover:bg-[#660000] text-white px-3 py-2 rounded-md text-sm shadow-md transition">
+                                    <i class="bi bi-plus-circle text-base"></i>
+                                    Tambah Jadwal
+                                </a>
+                            @endif
+                        @endauth
                     </div>
 
                     {{-- Body --}}
@@ -274,10 +276,27 @@
                     @if($jadwals->isNotEmpty())
                         <div class="flex justify-between items-center p-4 bg-white">
                             {{-- Download Button --}}
-                            <a href="{{ asset('storage/'.$jadwals->first()->file) }}" target="_blank"
-                            class="bg-blue-600 hover:bg-blue-800 text-white px-3 py-2 rounded-lg shadow transition">
-                                <i class="bi bi-file-earmark-pdf"></i> Lihat / Download PDF
-                            </a>
+                            @if($jadwals->isNotEmpty() && $jadwals->first()->file && file_exists(public_path('storage/'.$jadwals->first()->file)))
+                                <a href="{{ asset('storage/'.$jadwals->first()->file) }}" target="_blank"
+                                class="bg-blue-600 hover:bg-blue-800 text-white px-3 py-2 rounded-lg shadow transition">
+                                    <i class="bi bi-file-earmark-pdf"></i> Lihat / Download PDF
+                                </a>
+                            @else
+                                <button type="button"
+                                    onclick="Swal.fire({
+                                        icon: 'error',
+                                        title: 'File Tidak Ditemukan',
+                                        text: 'File jadwal tidak tersedia atau sudah dihapus.',
+                                        confirmButtonText: 'Mengerti',
+                                        background: '#fefefe',
+                                        color: '#333',
+                                        customClass: { confirmButton: 'swal-confirm-btn' },
+                                        buttonsStyling: false
+                                    })"
+                                    class="bg-blue-600 hover:bg-blue-800 text-white px-3 py-2 rounded-lg shadow transition">
+                                    <i class="bi bi-file-earmark-pdf"></i> Lihat / Download PDF
+                                </button>
+                            @endif
 
                             {{-- Aksi Edit & Hapus --}}
                             @auth
@@ -375,8 +394,8 @@
             function showJadwalAlert() {
                 Swal.fire({
                     icon: 'warning',
-                    title: 'Hanya dapat menampilkan satu jadwal.',
-                    text: 'Edit atau hapus data lama terlebih dahulu.',
+                    title: 'Hanya Dapat Menampilkan Satu Jadwal',
+                    text: 'Edit atau Hapus Data Lama Terlebih Dahulu.',
                     confirmButtonText: 'Mengerti',
                     background: '#fefefe',
                     color: '#333',
@@ -387,22 +406,7 @@
                 });
             }
         </script>
-        <style>
-            .swal-confirm-btn {
-                background-color: #D02929;
-                color: #fff;
-                font-weight: 600;
-                border: none;
-                border-radius: 8px;
-                padding: 8px 18px;
-                box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-                transition: all 0.2s ease-in-out;
-            }
-            .swal-confirm-btn:hover {
-                background-color: #b51f1f; /* warna lebih gelap saat hover */
-                transform: scale(1.05);
-            }
-        </style>
+
 
         {{-- CARD PERSYARATAN --}}
                 <div class="text-center">

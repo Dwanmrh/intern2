@@ -61,7 +61,16 @@
                     <input type="file" id="fileInput" name="file_berita" accept=".pdf"
                            class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5
                                   focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition">
-                    <small class="font-bold text-yellow-400 italic">Kosongkan upload file jika memasukkan isi berita | Max File 15 MB</small>
+                    <small class="font-bold text-yellow-400 italic">Kosongkan upload file jika memasukkan isi berita | Max File 15 MB</small><br>
+
+                    {{-- Preview PDF Baru --}}
+                    <div id="pdfPreviewContainer" class="mt-3 hidden">
+                        <p class="text-white text-sm mb-1">Preview PDF Baru:</p>
+                        <iframe id="pdfPreview"
+                                class="w-full max-w-sm rounded-md shadow-md border border-gray-400 bg-white"
+                                style="height: 150px;" frameborder="0">
+                        </iframe>
+                    </div>
                 </div>
 
                 {{-- Tanggal --}}
@@ -175,7 +184,7 @@
         }
         syncFormState();
 
-        // Preview foto
+        // Preview Foto Baru
         document.getElementById('fotoInput').addEventListener('change', function (event) {
             const file = event.target.files[0];
             const previewContainer = document.getElementById('previewContainer');
@@ -191,6 +200,22 @@
             } else {
                 fotoPreview.src = "";
                 previewContainer.classList.add('hidden');
+            }
+        });
+
+        // Preview PDF Baru
+        document.getElementById('fileInput').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            const pdfContainer = document.getElementById('pdfPreviewContainer');
+            const pdfPreview = document.getElementById('pdfPreview');
+
+            if (file && file.type === "application/pdf") {
+                const fileURL = URL.createObjectURL(file);
+                pdfPreview.src = fileURL;
+                pdfContainer.classList.remove('hidden');
+            } else {
+                pdfPreview.src = "";
+                pdfContainer.classList.add('hidden');
             }
         });
     </script>

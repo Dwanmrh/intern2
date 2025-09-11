@@ -76,15 +76,38 @@
                     <input type="file" id="file" name="file" accept=".pdf"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition">
                     <small class="font-bold text-yellow-400 italic">Max Size 15 MB</small>
+
+                    {{-- Preview PDF --}}
+                    <div id="pdfPreviewContainer" class="mt-3 hidden">
+                        <p class="text-white text-sm mb-1">Preview PDF:</p>
+                        <iframe id="pdfPreview"
+                            class="w-full max-w-sm rounded-md shadow-md border border-gray-400 bg-white"
+                            style="height: 150px;" frameborder="0">
+                        </iframe>
+                    </div>
                 </div>
 
                 <script>
-                    document.getElementById('file').addEventListener('change', function(e) {
+                    document.getElementById('file').addEventListener('change', function (e) {
                         let file = e.target.files[0];
+
+                        // auto set judul dari nama file
                         if (file) {
-                            // ambil nama file tanpa extension
                             let filename = file.name.replace(/\.[^/.]+$/, "");
                             document.getElementById('judul').value = filename;
+                        }
+
+                        // preview pdf
+                        const pdfContainer = document.getElementById('pdfPreviewContainer');
+                        const pdfPreview = document.getElementById('pdfPreview');
+
+                        if (file && file.type === "application/pdf") {
+                            const fileURL = URL.createObjectURL(file);
+                            pdfPreview.src = fileURL;
+                            pdfContainer.classList.remove('hidden');
+                        } else {
+                            pdfPreview.src = "";
+                            pdfContainer.classList.add('hidden');
                         }
                     });
                 </script>

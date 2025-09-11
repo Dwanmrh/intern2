@@ -91,15 +91,53 @@
                                     <div class="flex items-center justify-between bg-gray-200 shadow hover:shadow-lg
                                                 transition rounded-xl p-4">
                                         <div class="flex items-start gap-3">
+                                        @if($mod->file && file_exists(public_path('storage/' . $mod->file)))
+                                            {{-- Tombol PDF Normal --}}
                                             <a href="{{ asset('storage/' . $mod->file) }}" target="_blank"
                                                 class="bg-red-600 text-white px-3 py-1 text-sm rounded-md shadow flex items-center gap-1 hover:bg-red-700 transition">
                                                 <i class="bi bi-file-earmark-pdf"></i> PDF
                                             </a>
+                                                @else
+                                                    {{-- Tombol PDF Error (file hilang) --}}
+                                                    <button type="button"
+                                                        onclick="Swal.fire({
+                                                            icon: 'error',
+                                                            title: 'File Tidak Ditemukan',
+                                                            text: 'File modul tidak tersedia atau sudah dihapus.',
+                                                            confirmButtonText: 'Mengerti',
+                                                            background: '#fefefe',
+                                                            color: '#333',
+                                                            customClass: { confirmButton: 'swal-confirm-btn' },
+                                                            buttonsStyling: false
+                                                        })"
+                                                        class="bg-red-600 text-white px-3 py-1 text-sm rounded-md shadow flex items-center gap-1 hover:bg-red-700 transition">
+                                                        <i class="bi bi-file-earmark-pdf"></i> PDF
+                                                    </button>
+                                                @endif
                                             <div>
-                                                <a href="{{ asset('storage/' . $mod->file) }}" target="_blank"
-                                                    class="font-semibold text-gray-800 hover:text-blue-600 transition">
-                                                    {{ $mod->judul }}
-                                                </a>
+                                            @if($mod->file && file_exists(public_path('storage/' . $mod->file)))
+                                                    {{-- Judul Normal --}}
+                                                    <a href="{{ asset('storage/' . $mod->file) }}" target="_blank"
+                                                        class="font-semibold text-gray-800 hover:text-blue-600 transition">
+                                                        {{ $mod->judul }}
+                                                    </a>
+                                                    @else
+                                                        {{-- Judul Error (file hilang) --}}
+                                                        <button type="button"
+                                                            onclick="Swal.fire({
+                                                                icon: 'error',
+                                                                title: 'File Tidak Ditemukan',
+                                                                text: 'File model tidak tersedia atau sudah dihapus.',
+                                                                confirmButtonText: 'Mengerti',
+                                                                background: '#fefefe',
+                                                                color: '#333',
+                                                                customClass: { confirmButton: 'swal-confirm-btn' },
+                                                                buttonsStyling: false
+                                                            })"
+                                                            class="font-semibold text-gray-800 hover:text-blue-600 transition text-left">
+                                                            {{ $mod->judul }}
+                                                        </button>
+                                                    @endif
                                                 <p class="text-sm text-gray-600 mt-1">{{ $mod->deskripsi ?? '-' }}</p>
                                                 <p class="text-xs text-gray-500 mt-1">Tahun: {{ $mod->tahun ?? '-' }}</p>
                                             </div>

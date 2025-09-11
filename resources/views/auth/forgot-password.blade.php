@@ -1,4 +1,5 @@
 <x-guest-layout>
+@section('title', 'FORGOT PASSWORD | SETUKPA LEMDIKLAT POLRI')
     <div class="min-h-screen flex items-center justify-center">
         <div class="bg-gray-300 rounded-lg shadow-md px-8 py-10 w-full max-w-md text-gray-900">
             <!-- Logo -->

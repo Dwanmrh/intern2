@@ -81,15 +81,53 @@
                                     <div class="flex items-center justify-between bg-gray-200 shadow hover:shadow-lg
                                                 transition rounded-xl p-4">
                                         <div class="flex items-start gap-3">
+                                            @if($modul->file && file_exists(public_path('storage/' . $modul->file)))
+                                            {{-- Tombol PDF Normal --}}
                                             <a href="{{ asset('storage/' . $modul->file) }}" target="_blank"
                                                 class="bg-red-600 text-white px-3 py-1 text-sm rounded-md shadow flex items-center gap-1 hover:bg-red-700 transition">
                                                 <i class="bi bi-file-earmark-pdf"></i> PDF
                                             </a>
+                                                @else
+                                                    {{-- Tombol PDF Error (file hilang) --}}
+                                                    <button type="button"
+                                                        onclick="Swal.fire({
+                                                            icon: 'error',
+                                                            title: 'File Tidak Ditemukan',
+                                                            text: 'File modul tidak tersedia atau sudah dihapus.',
+                                                            confirmButtonText: 'Mengerti',
+                                                            background: '#fefefe',
+                                                            color: '#333',
+                                                            customClass: { confirmButton: 'swal-confirm-btn' },
+                                                            buttonsStyling: false
+                                                        })"
+                                                        class="bg-red-600 text-white px-3 py-1 text-sm rounded-md shadow flex items-center gap-1 hover:bg-red-700 transition">
+                                                        <i class="bi bi-file-earmark-pdf"></i> PDF
+                                                    </button>
+                                                @endif
                                             <div>
-                                                <a href="{{ asset('storage/' . $modul->file) }}" target="_blank"
-                                                    class="font-semibold text-gray-800 hover:text-blue-600 transition">
-                                                    {{ $modul->judul }}
-                                                </a>
+                                                @if($modul->file && file_exists(public_path('storage/' . $modul->file)))
+                                                    {{-- Judul Normal --}}
+                                                    <a href="{{ asset('storage/' . $modul->file) }}" target="_blank"
+                                                        class="font-semibold text-gray-800 hover:text-blue-600 transition">
+                                                        {{ $modul->judul }}
+                                                    </a>
+                                                    @else
+                                                        {{-- Judul Error (file hilang) --}}
+                                                        <button type="button"
+                                                            onclick="Swal.fire({
+                                                                icon: 'error',
+                                                                title: 'File Tidak Ditemukan',
+                                                                text: 'File modul tidak tersedia atau sudah dihapus.',
+                                                                confirmButtonText: 'Mengerti',
+                                                                background: '#fefefe',
+                                                                color: '#333',
+                                                                customClass: { confirmButton: 'swal-confirm-btn' },
+                                                                buttonsStyling: false
+                                                            })"
+                                                            class="font-semibold text-gray-800 hover:text-blue-600 transition text-left">
+                                                            {{ $modul->judul }}
+                                                        </button>
+                                                    @endif
                                                 <p class="text-sm text-gray-600 mt-1">{{ $modul->deskripsi ?? '-' }}</p>
                                                 <p class="text-xs text-gray-500 mt-1">Tahun: {{ $modul->tahun ?? '-' }}</p>
                                             </div>
@@ -223,47 +261,3 @@
         });
     </script>
 @endif
-
-{{-- Modal Hapus Modul PAG --}}
-<div class="modal fade" id="hapusModulModal{{ $modul->id }}" tabindex="-1"
-                                        aria-labelledby="hapusLabel{{ $modul->id }}" aria-hidden="true" style="z-index:1050;">
-                                        <div class="modal-dialog modal-dialog-centered custom-modal">
-                                            <div class="modal-content rounded-2xl shadow-lg border-0">
-
-                                                {{-- Header --}}
-                                                <div class="modal-header bg-red-600 text-white rounded-t-2xl py-2 px-3">
-                                                    <h5 class="modal-title d-flex align-items-center gap-2 fs-6" id="hapusLabel{{ $modul->id }}">
-                                                        <i class="bi bi-exclamation-triangle-fill text-warning fs-5"></i>
-                                                        Konfirmasi Hapus
-                                                    </h5>
-                                                    <button type="button" class="btn-close btn-close-white"
-                                                            data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-
-                                                {{-- Body --}}
-                                                <div class="modal-body text-center py-3 px-3">
-                                                    <i class="bi bi-trash3-fill text-danger fs-3 mb-2"></i>
-                                                    <p class="fw-semibold text-gray-700 mt-4 mb-2" style="font-size: 0.9rem;">
-                                                        Apakah anda yakin ingin menghapus modul <br>
-                                                        <span class="text-danger">"{{ $modul->judul }}"</span>?
-                                                    </p>
-                                                </div>
-
-                                                {{-- Footer --}}
-                                                <div class="modal-footer d-flex justify-content-center gap-2 border-0 pb-3">
-                                                    <form action="{{ route('modul.destroy', $modul->id) }}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm px-3 py-1 rounded-pill shadow-sm">
-                                                            Hapus
-                                                        </button>
-                                                    </form>
-                                                    <button type="button"
-                                                            class="btn btn-primary btn-sm px-3 py-1 rounded-pill shadow-sm"
-                                                            data-bs-dismiss="modal">
-                                                        Batal
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>

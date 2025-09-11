@@ -395,3 +395,18 @@ footer a, footer p {
     width: 95%;
 }
 
+/* CONFIRM BUTTON */
+.swal-confirm-btn {
+    background-color: #D02929;
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 18px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    transition: all 0.2s ease-in-out;
+}
+.swal-confirm-btn:hover {
+    background-color: #b51f1f; /* warna lebih gelap saat hover */
+    transform: scale(1.05);
+}

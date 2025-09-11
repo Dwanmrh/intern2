@@ -63,6 +63,14 @@
                     <input type="file" id="fileInput" name="file_informasi" accept=".pdf"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-inner transition">
                     <small class="font-bold text-yellow-400 italic">Kosongkan jika memasukkan deskripsi | Max Size 15 MB</small>
+
+                    {{-- Preview PDF Baru --}}
+                    <div id="pdfPreviewContainer" class="mt-3 hidden">
+                        <p class="text-white text-sm mb-1">Preview PDF:</p>
+                        <iframe id="pdfPreview"
+                            class="w-full max-w-sm rounded-md shadow-md border border-gray-400 bg-white"
+                            style="height: 150px;" frameborder="0"></iframe>
+                    </div>
                 </div>
 
                 {{-- Tanggal --}}
@@ -96,9 +104,9 @@
                     <label class="block text-white font-semibold mb-1">Ganti Foto (Opsional)</label>
                     <input type="file" name="foto" id="fotoInput"
                         class="w-full bg-white text-black border border-gray-500 rounded-md px-3 py-2 shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-400">
-                        <small class="font-bold text-yellow-400 italic">Max Size 23 MB</small>
+                    <small class="font-bold text-yellow-400 italic">Max Size 23 MB</small>
 
-                    {{-- Preview --}}
+                    {{-- Preview Foto Baru --}}
                     <div id="previewContainer" class="mt-3 hidden">
                         <p class="text-white text-sm mb-1">Preview:</p>
                         <img id="fotoPreview" src="" alt="Preview Foto" class="w-40 rounded-md shadow-md">
@@ -119,7 +127,7 @@
                 </div>
             </form>
 
-            {{-- Script File --}}
+            {{-- Script Sinkronisasi File & Deskripsi --}}
             <script>
                 const fileInput = document.getElementById('fileInput');
                 const judulInput = document.getElementById('judulInput');
@@ -127,15 +135,13 @@
                 const hapusFileCheckbox = document.getElementById('hapus_file');
 
                 function syncFormState() {
-                    // Jika centang hapus file lama → deskripsi harus enable lagi
                     if (hapusFileCheckbox && hapusFileCheckbox.checked) {
-                        fileInput.value = "";      // kosongkan file input
-                        fileInput.disabled = false; // tetap boleh upload file baru kalau mau
-                        deskripsiInput.disabled = false; // aktifkan deskripsi
-                        return; // langsung keluar supaya prioritas hapus file jalan dulu
+                        fileInput.value = "";
+                        fileInput.disabled = false;
+                        deskripsiInput.disabled = false;
+                        return;
                     }
 
-                    // Jika upload file baru → disable deskripsi
                     if (fileInput.files.length > 0) {
                         deskripsiInput.value = "";
                         deskripsiInput.disabled = true;
@@ -148,7 +154,6 @@
                         deskripsiInput.disabled = false;
                     }
 
-                    // Jika deskripsi diisi → kunci upload file
                     if (deskripsiInput.value.trim() !== "") {
                         fileInput.value = "";
                         fileInput.disabled = true;
@@ -159,12 +164,9 @@
 
                 fileInput.addEventListener('change', syncFormState);
                 deskripsiInput.addEventListener('input', syncFormState);
-
                 if (hapusFileCheckbox) {
                     hapusFileCheckbox.addEventListener('change', syncFormState);
                 }
-
-                // Init awal
                 syncFormState();
             </script>
 
@@ -178,8 +180,9 @@
                 });
             </script>
 
-            {{-- Script Preview --}}
+            {{-- Script Preview Foto & PDF --}}
             <script>
+                // Preview Foto Baru
                 document.getElementById('fotoInput').addEventListener('change', function (event) {
                     const file = event.target.files[0];
                     const previewContainer = document.getElementById('previewContainer');
@@ -195,6 +198,22 @@
                     } else {
                         fotoPreview.src = "";
                         previewContainer.classList.add('hidden');
+                    }
+                });
+
+                // Preview PDF Baru
+                document.getElementById('fileInput').addEventListener('change', function (event) {
+                    const file = event.target.files[0];
+                    const pdfContainer = document.getElementById('pdfPreviewContainer');
+                    const pdfPreview = document.getElementById('pdfPreview');
+
+                    if (file && file.type === "application/pdf") {
+                        const fileURL = URL.createObjectURL(file);
+                        pdfPreview.src = fileURL;
+                        pdfContainer.classList.remove('hidden');
+                    } else {
+                        pdfPreview.src = "";
+                        pdfContainer.classList.add('hidden');
                     }
                 });
             </script>
